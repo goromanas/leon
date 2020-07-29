@@ -3,6 +3,7 @@ class NavigationService {
     public static readonly HOME_PATH: string = '/';
     public static readonly LOGIN_PATH: string = '/login';
     public static readonly LOGOUT_PATH: string = '/logout';
+    public static readonly VIDEO_CHAT_PATH: string = '/video-chat';
     public static readonly PAGE_NOT_FOUND_PATH: string = '/not-found';
 
     public readonly redirectToDefaultPage = (): void => {
