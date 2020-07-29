@@ -1,0 +1,51 @@
+image: node:10
+
+stages:
+  - install
+  - build
+  - deploy
+
+install:
+  stage: install
+  allow_failure: false
+  script:
+    - cd ${CI_PROJECT_DIR}/frontend
+    - yarn install
+  artifacts:
+    expire_in: 1 hour
+    paths:
+      - frontend/node_modules/
+
+build:
+  stage: build
+  allow_failure: false
+  dependencies:
+    - install
+  script:
+    - cd ${CI_PROJECT_DIR}/frontend
+    - yarn build
+  artifacts:
+    expire_in: 1 hour
+    paths:
+      - frontend/build/**
+
+deploy:
+  stage: deploy
+  allow_failure: false
+  dependencies:
+    - build
+  only:
+    refs:
+      - master
+  script:
+    - cd ${CI_PROJECT_DIR}/frontend
+    - mkdir -p ~/.ssh
+    - echo "$SERVER_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - eval "$(ssh-agent -s)"
+    - ssh-add ~/.ssh/id_rsa
+    - ssh-keyscan -H java-menuo-su-it.northeurope.cloudapp.azure.com >> ~/.ssh/known_hosts
+    - cd build
+    - ssh tieto@java-menuo-su-it.northeurope.cloudapp.azure.com "mkdir -p ~/moon-frontend/deployments/$CI_COMMIT_SHA"
+    - scp -r * tieto@java-menuo-su-it.northeurope.cloudapp.azure.com:~/moon-frontend/deployments/$CI_COMMIT_SHA
+    - ssh tieto@java-menuo-su-it.northeurope.cloudapp.azure.com "cd ~/moon-frontend && rm -f current_deployment && ln -s deployments/$CI_COMMIT_SHA current_deployment"
