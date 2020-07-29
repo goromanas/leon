@@ -44,17 +44,18 @@
     "typescript": "^3.9.7"
   },
   "scripts": {
-    "start": "yarn run generate-api-typings && yarn run clean:scss-types && concurrently \"yarn run scss:watch\" \"yarn run craco start\"",
-    "build": "yarn run generate-api-typings && yarn run clean:scss-types && yarn run scss:generate && yarn run clean:dist && craco build",
-    "test": "yarn run generate-api-typings && yarn run clean:scss-types && yarn run scss:generate && craco test --transformIgnorePatterns \"node_modules/(?!(antd))/\"",
+    "start": "yarn run api-typings:generate && yarn run clean:scss-types && concurrently \"yarn run scss:watch\" \"yarn run api-typings:watch\" \"yarn run craco start\"",
+    "build": "yarn run api-typings:generate && yarn run clean:scss-types && yarn run scss:generate && yarn run clean:dist && craco build",
+    "test": "yarn run api-typings:generate && yarn run clean:scss-types && yarn run scss:generate && craco test --transformIgnorePatterns \"node_modules/(?!(antd))/\"",
     "test:ci": "yarn run test -- --watchAll=false",
     "tslint": "mkdirp reports && tslint --config tslint.json --project tsconfig.json --format prose --out reports/tslint-report.txt",
     "stylelint": "mkdirp reports && stylelint 'src/**/*.scss' --syntax scss > reports/stylelint-report.txt",
-    "generate-api-typings": "yarn run clean-api-typings && yarn run dts-generate:api",
-    "clean-api-typings": "rimraf src/app/api/**/@generated",
+    "api-typings:watch": "nodemon --watch src/app/api/schema --ext json --verbose --exec \"yarn run api-typings:generate\"",
+    "api-typings:generate": "yarn run clean:api-typings && yarn run dts-generate:api",
     "dts-generate:api": "dtsgen --out src/app/api/@generated/model/api-model.d.ts --namespace Api src/app/api/schema/api-schema.json",
     "scss:watch": "yarn run scss:generate -- --watch",
     "scss:generate": "tsm \"src/app/**/*.module.scss\" --nameFormat camel --includePaths src/app --exportType default --aliasPrefixes.~app src/app --aliasPrefixes.~ node_modules/",
+    "clean:api-typings": "rimraf src/app/api/@generated",
     "clean:dist": "rimraf dist",
     "clean:scss-types": "rimraf src/app/**/*.module.scss.d.ts",
     "eject": "react-scripts eject"
