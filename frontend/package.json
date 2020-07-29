@@ -1,0 +1,77 @@
+{
+  "name": "front-end",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@ant-design/icons": "^4.2.1",
+    "antd": "^4.5.1",
+    "axios": "^0.19.2",
+    "classnames": "^2.2.6",
+    "craco-antd": "^1.18.1",
+    "formik": "^2.1.5",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.1"
+  },
+  "devDependencies": {
+    "@craco/craco": "^5.6.4",
+    "@testing-library/jest-dom": "^5.11.2",
+    "@testing-library/react": "^10.4.7",
+    "@testing-library/user-event": "^12.0.17",
+    "@types/classnames": "^2.2.10",
+    "@types/jest": "^26.0.7",
+    "@types/node": "^14.0.27",
+    "@types/react": "^16.9.43",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-router": "^5.1.8",
+    "@types/react-router-dom": "^5.1.5",
+    "concurrently": "^5.2.0",
+    "dtsgenerator": "^2.7.0",
+    "mkdirp": "^1.0.4",
+    "node-sass": "^4.14.1",
+    "nodemon": "^2.0.4",
+    "rimraf": "^3.0.2",
+    "stylelint": "^13.6.1",
+    "tslint": "^6.1.2",
+    "tslint-eslint-rules": "^5.4.0",
+    "tslint-import-group-ordering": "^2.1.2",
+    "tslint-no-circular-imports": "^0.7.0",
+    "tslint-react": "^5.0.0",
+    "tslint-react-hooks": "^2.2.2",
+    "typed-scss-modules": "^2.0.1",
+    "typescript": "^3.9.7"
+  },
+  "scripts": {
+    "start": "yarn run generate-api-typings && yarn run clean:scss-types && concurrently \"yarn run scss:watch\" \"yarn run craco start\"",
+    "build": "yarn run generate-api-typings && yarn run clean:scss-types && yarn run scss:generate && yarn run clean:dist && craco build",
+    "test": "yarn run generate-api-typings && yarn run clean:scss-types && yarn run scss:generate && craco test --transformIgnorePatterns \"node_modules/(?!(antd))/\"",
+    "test:ci": "yarn run test -- --watchAll=false",
+    "tslint": "mkdirp reports && tslint --config tslint.json --project tsconfig.json --format prose --out reports/tslint-report.txt",
+    "stylelint": "mkdirp reports && stylelint 'src/**/*.scss' --syntax scss > reports/stylelint-report.txt",
+    "generate-api-typings": "yarn run clean-api-typings && yarn run dts-generate:api",
+    "clean-api-typings": "rimraf src/app/api/**/@generated",
+    "dts-generate:api": "dtsgen --out src/app/api/@generated/model/api-model.d.ts --namespace Api src/app/api/schema/api-schema.json",
+    "scss:watch": "yarn run scss:generate -- --watch",
+    "scss:generate": "tsm \"src/app/**/*.module.scss\" --nameFormat camel --includePaths src/app --exportType default --aliasPrefixes.~app src/app --aliasPrefixes.~ node_modules/",
+    "clean:dist": "rimraf dist",
+    "clean:scss-types": "rimraf src/app/**/*.module.scss.d.ts",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

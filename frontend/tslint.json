@@ -1,0 +1,152 @@
+{
+  "defaultSeverity": "warning",
+  "extends": [
+    "tslint:latest",
+    "tslint-react",
+    "tslint-eslint-rules",
+    "tslint-import-group-ordering",
+    "tslint-no-circular-imports",
+    "tslint-react-hooks"
+  ],
+  "linterOptions": {
+    "exclude": [
+      "src/**/@generated/**/*",
+      "src/app/**/*.module.scss.d.ts"
+    ]
+  },
+  "jsRules": {},
+  "rules": {
+    "eofline": true,
+    "object-curly-spacing": [true, "always"],
+    "quotemark": [true, "single", "jsx-double"],
+    "ter-indent": [true, 4, { "SwitchCase": 1 }],
+    "ter-newline-after-var": [true, "always"],
+    "no-implicit-dependencies": false,
+    "interface-name": [true, "never-prefix"],
+    "ordered-imports": false,
+    "object-literal-sort-keys": false,
+    "jsx-no-multiline-js": false,
+    "arrow-parens": false,
+    "array-type": [true, "array"],
+    "no-default-export": true,
+    "no-empty-interface": false,
+    "no-string-literal": true,
+    "no-submodule-imports": [true, "app"],
+    "typedef": [true, "call-signature", "parameter", "property-declaration", "member-variable-declaration"],
+    "jsx-no-lambda": false,
+    "import-group-ordering": {
+      "options": {
+        "imports-groups": [
+          {
+            "name": "dependencies"
+          },
+          {
+            "name": "app"
+          },
+          {
+            "name": "other"
+          },
+          {
+            "name": "styling"
+          }
+        ],
+        "matching-rules": [
+          {
+            "type": "dependencies",
+            "imports-group": "dependencies",
+            "disable-native-nodejs-modules": true,
+            "from-package.json": true
+          },
+          {
+            "type": "project",
+            "matches": "^app(/.*$)?",
+            "imports-group": "app"
+          },
+          {
+            "type": "project",
+            "matches": "^[.]/.*(?<![.]scss)$",
+            "imports-group": "other"
+          },
+          {
+            "type": "project",
+            "matches": "^[.]/.*[.]scss$",
+            "imports-group": "styling"
+          }
+        ]
+      }
+    },
+    "semicolon": [true, "always", "strict-bound-class-methods"],
+    "no-multi-spaces": true,
+    "object-literal-key-quotes": [true, "as-needed"],
+    "no-unused-variable": true,
+    "max-line-length": [true, {
+      "limit": 120,
+      "ignore-pattern": " from '[\\w-/\\.]*?';$|import(.+)"
+    }],
+    "deprecation": true,
+    "react-hooks-nesting": true,
+    "no-consecutive-blank-lines": true,
+    "trailing-comma": [
+      true,
+      {
+        "multiline": "always",
+        "singleline": "never",
+        "esSpecCompliant": true
+      }
+    ],
+    "member-access": true,
+    "align": [true, "parameters", "statements", "members", "elements"],
+    "arrow-return-shorthand": [true, "multiline"],
+    "curly": true,
+    "import-spacing": true,
+    "indent": [true, "spaces", 4],
+    "interface-over-type-literal": true,
+    "one-line": [true, "check-catch", "check-finally", "check-else", "check-open-brace", "check-whitespace"],
+    "space-before-function-paren": [
+      true,
+      {
+        "anonymous": "never",
+        "asyncArrow": "always",
+        "constructor": "never",
+        "method": "never",
+        "named": "never"
+      }
+    ],
+    "typedef-whitespace": [
+      true,
+      {
+        "call-signature": "nospace",
+        "index-signature": "nospace",
+        "parameter": "nospace",
+        "property-declaration": "nospace",
+        "variable-declaration": "nospace"
+      },
+      {
+        "call-signature": "onespace",
+        "index-signature": "onespace",
+        "parameter": "onespace",
+        "property-declaration": "onespace",
+        "variable-declaration": "onespace"
+      }
+    ],
+    "whitespace": [
+      true,
+      "check-branch",
+      "check-decl",
+      "check-operator",
+      "check-module",
+      "check-separator",
+      "check-rest-spread",
+      "check-type",
+      "check-typecast",
+      "check-type-operator"
+    ],
+    "no-trailing-whitespace": true,
+    "jsx-alignment": true,
+    "jsx-curly-spacing": [true, "never"],
+    "jsx-equals-spacing": [true, "never"],
+    "jsx-wrap-multiline": true,
+    "jsx-space-before-trailing-slash": true
+  },
+  "rulesDirectory": []
+}
