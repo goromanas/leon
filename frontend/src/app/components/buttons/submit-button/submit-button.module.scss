@@ -1,0 +1,7 @@
+@import '~app/style/style';
+
+.submit-button {
+  @media(max-width: $grid-sm) {
+    width: 100%;
+  }
+}
