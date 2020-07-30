@@ -25,7 +25,6 @@ deploy-be:
     - eval "$(ssh-agent -s)"
     - ssh-add ~/.ssh/id_rsa
     - ssh-keyscan -H java-menuo-su-it.northeurope.cloudapp.azure.com >> ~/.ssh/known_hosts
-    - cd backend/build/libs
     - ssh tieto@java-menuo-su-it.northeurope.cloudapp.azure.com "mkdir -p ~/moon-backend/deployments/$CI_COMMIT_SHA"
-    - scp *.jar tieto@java-menuo-su-it.northeurope.cloudapp.azure.com:~/moon-backend/deployments/$CI_COMMIT_SHA
+    - scp build/libs/*.jar tieto@java-menuo-su-it.northeurope.cloudapp.azure.com:~/moon-backend/deployments/$CI_COMMIT_SHA
     - ssh tieto@java-menuo-su-it.northeurope.cloudapp.azure.com "cd ~/moon-backend && rm current_deployment && ln -s ~/moon-backend/deployments/$CI_COMMIT_SHA current_deployment && sudo systemctl restart moon-backend"
