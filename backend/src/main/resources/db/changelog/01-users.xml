@@ -7,13 +7,13 @@
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
     <changeSet id="01" author="matas">
         <sql >
-          create table ROLE
+          create table role
           (
           ID BIGINT not null primary key,
           NAME VARCHAR(255)
           );
 
-          create table USER
+          create table user
           (
           ID BIGINT not null primary key,
           FIRST_NAME VARCHAR(255),
@@ -22,14 +22,14 @@
           USERNAME VARCHAR(255)
           );
 
-          create table USER_ROLE
+          create table user_role
           (
           USER_ID BIGINT not null,
           ROLE_ID BIGINT not null,
           constraint USER_FOREIGN_KEY
-          foreign key (USER_ID) references USER (ID),
+          foreign key (USER_ID) references user (ID),
           constraint ROLE_FOREIGN_KEY
-          foreign key (ROLE_ID) references ROLE (ID)
+          foreign key (ROLE_ID) references role (ID)
           );
 
           /* Users with passwords 'password' */
