@@ -1,11 +1,10 @@
-image: node:10
-
 stages:
   - install
   - build
   - deploy
 
-install:
+install-fe:
+  image: node:10
   stage: install
   allow_failure: false
   script:
@@ -16,11 +15,12 @@ install:
     paths:
       - frontend/node_modules/
 
-build:
+build-fe:
+  image: node:10
   stage: build
   allow_failure: false
   dependencies:
-    - install
+    - install-fe
   script:
     - cd ${CI_PROJECT_DIR}/frontend
     - yarn build
@@ -29,11 +29,12 @@ build:
     paths:
       - frontend/build/**
 
-deploy:
+deploy-fe:
+  image: node:10
   stage: deploy
   allow_failure: false
   dependencies:
-    - build
+    - build-fe
   only:
     refs:
       - master

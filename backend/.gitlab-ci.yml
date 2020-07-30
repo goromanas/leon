@@ -1,0 +1,31 @@
+build-be:
+  image: gradle:6.3-jdk11
+  stage: build
+  script:
+    - cd ${CI_PROJECT_DIR}/backend
+    - gradle build
+  artifacts:
+    expire_in: 1 hour
+    paths:
+      - backend/build/libs/*.jar
+
+deploy-be:
+  image: gradle:6.3-jdk11
+  stage: deploy
+  dependencies:
+    - build-be
+  only:
+    refs:
+      - master
+  script:
+    - cd ${CI_PROJECT_DIR}/backend
+    - mkdir -p ~/.ssh
+    - echo "$SERVER_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - eval "$(ssh-agent -s)"
+    - ssh-add ~/.ssh/id_rsa
+    - ssh-keyscan -H java-menuo-su-it.northeurope.cloudapp.azure.com >> ~/.ssh/known_hosts
+    - cd backend/build/libs
+    - ssh tieto@java-menuo-su-it.northeurope.cloudapp.azure.com "mkdir -p ~/moon-backend/deployments/$CI_COMMIT_SHA"
+    - scp *.jar tieto@java-menuo-su-it.northeurope.cloudapp.azure.com:~/moon-backend/deployments/$CI_COMMIT_SHA
+    - ssh tieto@java-menuo-su-it.northeurope.cloudapp.azure.com "cd ~/moon-backend && rm current_deployment && ln -s ~/moon-backend/deployments/$CI_COMMIT_SHA current_deployment && sudo systemctl restart moon-backend"
