@@ -5,6 +5,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { NavigationService } from 'app/service/navigation-service';
 import { NotFoundPage } from 'app/page/not-found/not-found-page';
 import { HomePage } from 'app/page/home/home-page';
+import { VideoChatPage } from 'app/page/video-chat/video-chat-page';
 
 class PrivatePage extends React.Component<{}, {}> {
 
@@ -15,6 +16,11 @@ class PrivatePage extends React.Component<{}, {}> {
                     <Route
                         path={NavigationService.HOME_PATH}
                         component={HomePage}
+                        exact={true}
+                    />
+                    <Route
+                        path={NavigationService.VIDEO_CHAT_PATH}
+                        component={VideoChatPage}
                         exact={true}
                     />
                     <Route
