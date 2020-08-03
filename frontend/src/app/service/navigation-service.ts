@@ -1,9 +1,13 @@
+import { generatePath } from 'react-router';
+
 class NavigationService {
 
     public static readonly HOME_PATH: string = '/';
     public static readonly LOGIN_PATH: string = '/login';
     public static readonly LOGOUT_PATH: string = '/logout';
     public static readonly VIDEO_CHAT_PATH: string = '/video-chat';
+    public static readonly USER_LIST_PATH: string = '/user-list';
+    public static readonly USER_DETAILS_PATH: string = '/user-details/:id?';
     public static readonly PAGE_NOT_FOUND_PATH: string = '/not-found';
 
     public readonly redirectToDefaultPage = (): void => {
@@ -16,6 +20,14 @@ class NavigationService {
 
     public readonly redirectToLogoutPage = (): void => {
         window.location.href = NavigationService.LOGOUT_PATH;
+    };
+
+    public readonly redirectToUserListPage = (): void => {
+        window.location.href = NavigationService.USER_LIST_PATH;
+    };
+
+    public readonly redirectToUserDetailsPage = (id?: number): void => {
+        window.location.href = generatePath(NavigationService.USER_DETAILS_PATH, { id });
     };
 
 }

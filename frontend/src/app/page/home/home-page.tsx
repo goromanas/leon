@@ -12,12 +12,9 @@ interface ContextProps {
     username: string | null;
 }
 
-interface OwnProps {
-}
+type Props = ContextProps;
 
-type Props = OwnProps & ContextProps;
-
-class HomePageComponent extends React.Component<Props, {}> {
+class HomePageComponent extends React.Component<Props> {
 
     public render(): React.ReactNode {
         const {
@@ -31,9 +28,17 @@ class HomePageComponent extends React.Component<Props, {}> {
                         <div>
                             Hello, {username}!
                         </div>
+                        <div>
+                            <Button
+                                type="link"
+                                onClick={this.handleClickToUserList}
+                            >
+                                To user list
+                            </Button>
+                        </div>
                         <Button
                             type="primary"
-                            onClick={this.handleClick}
+                            onClick={this.handleClickLogout}
                         >
                             Logout
                         </Button>
@@ -43,7 +48,13 @@ class HomePageComponent extends React.Component<Props, {}> {
         );
     }
 
-    private readonly handleClick = (): void => { navigationService.redirectToLogoutPage(); };
+    private readonly handleClickLogout = (): void => {
+        navigationService.redirectToLogoutPage();
+    };
+
+    private readonly handleClickToUserList = (): void => {
+        navigationService.redirectToUserListPage();
+    };
 
 }
 
