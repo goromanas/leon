@@ -1,0 +1,19 @@
+version: '3.3'
+services:
+  db:
+    image: mysql:8.0.21
+    restart: 'no' 
+    environment:
+      MYSQL_DATABASE: 'moon'
+      MYSQL_USER: 'moon'
+      MYSQL_PASSWORD: 'moon'
+      MYSQL_ROOT_PASSWORD: 'moon'
+    ports:
+      - '33060:3306'
+    expose:
+      - '33060'
+    volumes:
+      - my-db:/var/lib/mysql
+# Names our volume
+volumes:
+  my-db:
