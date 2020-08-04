@@ -52,4 +52,8 @@ public class UserService {
             .save(UserMapper.mapUserEntity(user, rolesByName));
         return UserMapper.mapUserDto(savedUser);
     }
+
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
+    }
 }
