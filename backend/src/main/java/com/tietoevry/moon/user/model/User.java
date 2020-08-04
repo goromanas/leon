@@ -17,11 +17,14 @@ import java.util.List;
 @AllArgsConstructor
 public class User {
     @Id
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String username;
+    @Column(insertable = false, updatable = false)
     private String password;
     private String firstName;
     private String lastName;
+    private String email;
     @ManyToMany
     private List<Role> role;
 
