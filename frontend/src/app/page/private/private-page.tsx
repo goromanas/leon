@@ -6,6 +6,8 @@ import { NavigationService } from 'app/service/navigation-service';
 import { NotFoundPage } from 'app/page/not-found/not-found-page';
 import { HomePage } from 'app/page/home/home-page';
 import { VideoChatPage } from 'app/page/video-chat/video-chat-page';
+import { UserDetails } from 'app/page/user-details/user-details';
+import { UserList } from 'app/page/user-list/user-list';
 
 class PrivatePage extends React.Component<{}, {}> {
 
@@ -27,6 +29,15 @@ class PrivatePage extends React.Component<{}, {}> {
                         path={NavigationService.PAGE_NOT_FOUND_PATH}
                         component={NotFoundPage}
                         exact={true}
+                    />
+                    <Route
+                        path={NavigationService.USER_LIST_PATH}
+                        component={UserList}
+                        exact={true}
+                    />
+                    <Route
+                        path={NavigationService.USER_DETAILS_PATH}
+                        component={UserDetails}
                     />
                     <Redirect to={NavigationService.PAGE_NOT_FOUND_PATH} />
                 </Switch>
