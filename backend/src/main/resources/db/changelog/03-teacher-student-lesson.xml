@@ -10,10 +10,10 @@
       create table classroom
       (
       ID BIGINT not null primary key,
-      CLASSNAME VARCHAR(255)
+      CLASS_NAME VARCHAR(255)
       );
 
-      create table classroom_student
+      create table classroom_user
       (
       CLASSROOM_ID BIGINT not null,
       USER_ID BIGINT not null,
@@ -38,7 +38,7 @@
       TEACHER_ID BIGINT not null,
       VIDEO VARCHAR(255),
       DAY VARCHAR(255),
-      LESSON BIGINT,
+      time BIGINT,
       constraint SUBJECT_FOREIGN_KEY
       foreign key (SUBJECT_ID) references subject(id),
       constraint CLASSROOM_FOREIGN_KEY
@@ -51,8 +51,8 @@
       INSERT INTO `subject` VALUES (1,'Lietuviu','Lietuviu kalbos pamoka');
 
       INSERT INTO `classroom` VALUES (1, '10B');
-      INSERT INTO `classroom_student` VALUES (1, 2);
-      INSERT INTO `classroom_student` VALUES (1, 3);
+      INSERT INTO `classroom_user` VALUES (1, 2);
+      INSERT INTO `classroom_user` VALUES (1, 3);
 
       INSERT INTO LESSON VALUES(3,1,1,1,'Feed','friday',3);
 

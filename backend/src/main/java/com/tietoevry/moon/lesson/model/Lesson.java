@@ -1,5 +1,6 @@
 package com.tietoevry.moon.lesson.model;
 
+import com.tietoevry.moon.classroom.model.Classroom;
 import com.tietoevry.moon.subject.model.Subject;
 import com.tietoevry.moon.user.model.User;
 import lombok.*;
@@ -21,7 +22,9 @@ public class Lesson {
     private Subject subject;
     @OneToOne
     private User teacher;
-    private String feed;
+    @OneToOne
+    private Classroom classroom;
+    private String video;
     private String day;
     private int time;
 }
