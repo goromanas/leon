@@ -54,7 +54,7 @@ class AppWithSessionComponent extends React.Component<Props, State> {
 
         updateSession(this.createSession(user));
 
-        this.setState({ content : <IndexPage /> });
+        this.setState({ content: <IndexPage /> });
     };
 
     private readonly createSession = (user: Api.SessionUser): ContextSession => ({ user, authenticated: !!user });
