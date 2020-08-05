@@ -17,7 +17,9 @@ public class Lesson {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @OneToOne
     private Subject subject;
+    @OneToOne
     private User teacher;
     private String feed;
     private String day;
