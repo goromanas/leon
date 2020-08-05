@@ -32,11 +32,6 @@ public class UserController {
         return userService.getUsers();
     }
 
-    @RequestMapping(path = "/userRole", method = RequestMethod.GET)
-    public List<String> getRole() {
-        return securityContextService.getCurrentUser().getRoles();
-    }
-
     @RequestMapping(path = "/user/{id}", method = RequestMethod.GET)
     public UserDto getUser(@PathVariable Long id) {
         return userService.getUser(id)

@@ -23,7 +23,7 @@ public class SessionService {
         }
 
         return new Session(
-            new SessionUser(userDetails.getUsername())
+            new SessionUser(userDetails.getUsername(),userDetails.getRoles())
         );
     }
 
@@ -31,7 +31,7 @@ public class SessionService {
         MoonUserDetails userDetails = securityContextService.createSession(httpServletRequest, username, password);
 
         return new Session(
-            new SessionUser(userDetails.getUsername())
+            new SessionUser(userDetails.getUsername(),userDetails.getRoles())
         );
     }
 
