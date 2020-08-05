@@ -1,7 +1,6 @@
 import { generatePath } from 'react-router';
 
 class NavigationService {
-
     public static readonly HOME_PATH: string = '/';
     public static readonly LOGIN_PATH: string = '/login';
     public static readonly LOGOUT_PATH: string = '/logout';
@@ -28,6 +27,10 @@ class NavigationService {
 
     public readonly redirectToUserDetailsPage = (id?: number): void => {
         window.location.href = generatePath(NavigationService.USER_DETAILS_PATH, { id });
+    };
+
+    public readonly redirectToVideoChat = (): void => {
+        window.location.href = NavigationService.VIDEO_CHAT_PATH;
     };
 
 }
