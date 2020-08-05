@@ -2,6 +2,9 @@ package com.tietoevry.moon.user;
 
 import java.util.List;
 
+import com.tietoevry.moon.authorization.SecurityContextService;
+import com.tietoevry.moon.authorization.model.MoonUserDetails;
+import com.tietoevry.moon.session.model.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,9 +24,17 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    public SecurityContextService securityContextService;
+
     @RequestMapping(path = "/user", method = RequestMethod.GET)
     public List<UserDto> getUsers() {
         return userService.getUsers();
+    }
+
+    @RequestMapping(path = "/userRole", method = RequestMethod.GET)
+    public List<String> getRole() {
+        return securityContextService.getCurrentUser().getRoles();
     }
 
     @RequestMapping(path = "/user/{id}", method = RequestMethod.GET)
