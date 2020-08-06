@@ -40,7 +40,7 @@
 
       INSERT INTO `user` VALUES (1, 'Gandalf', 'the White','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'admin');
       INSERT INTO `user` VALUES (2, 'Frodo', 'Baggins','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'student');
-      INSERT INTO `user` VALUES (3, 'Saruman', 'the White','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'teacher');
+      INSERT INTO `user` VALUES (3, '<Sa></Sa>ruman', 'the White','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'teacher');
       INSERT INTO `user` VALUES (4, 'Drogo', 'Baggins','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'parent');
 
       INSERT INTO `user_role` VALUES (1, 3);
