@@ -17,7 +17,7 @@ interface OwnProps {
 
 interface ContextProps {
     updateSession: (session: ContextSession) => void;
-    updateLessons: (lessons: Api.LessonDto[]) => void;
+    updateLessons: (lessons: Api.Lesson[]) => void;
 }
 
 type Props = OwnProps & ContextProps;
@@ -63,10 +63,10 @@ class AppWithSessionComponent extends React.Component<Props, State> {
         this.setState({ content: <IndexPage /> });
     };
 
-    private readonly handleLessonsResponse = (lessons: Api.LessonDto[]): void => {
+    private readonly handleLessonsResponse = (lessons: Api.Lesson[]): void => {
         const {
             updateLessons,
-        } = this.props;
+          } = this.props;
 
         updateLessons(lessons);
     };
@@ -76,7 +76,7 @@ class AppWithSessionComponent extends React.Component<Props, State> {
 }
 
 const mapContextToProps = ({
-     actions: { updateSession }, lessonActions: { updateLessons } }: SettingsProps): ContextProps => ({
+     actions: { updateSession, updateLessons } }: SettingsProps): ContextProps => ({
          updateSession,
          updateLessons,
      });

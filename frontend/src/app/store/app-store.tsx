@@ -4,12 +4,14 @@ import { Actions, INITIAL_SESSION, Session, settingsContext } from 'app/context'
 
 interface State {
     session: Session;
+    lessons: Api.Lesson[];
 }
 
 class AppStore extends React.Component<{}, State> {
 
     public readonly state: State = {
         session: INITIAL_SESSION,
+        lessons: null,
     };
 
     public render(): React.ReactNode {
@@ -19,12 +21,13 @@ class AppStore extends React.Component<{}, State> {
 
         const {
             session,
+            lessons,
         } = this.state;
 
-        const actions: Actions = { updateSession: this.updateSession };
+        const actions: Actions = { updateSession: this.updateSession, updateLessons: this.updateLessons };
 
         return (
-            <settingsContext.Provider value={{ session, actions }}>
+            <settingsContext.Provider value={{ session, actions, lessons }}>
                 {children}
             </settingsContext.Provider>
         );
@@ -32,6 +35,10 @@ class AppStore extends React.Component<{}, State> {
 
     private readonly updateSession = (session: Session): void => {
         this.setState({ session });
+    };
+
+    private readonly updateLessons = (lessons: Api.Lesson[]): void => {
+        this.setState({ lessons });
     };
 
 }

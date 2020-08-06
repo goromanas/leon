@@ -17,7 +17,7 @@ interface OwnProps {
 type Props = OwnProps;
 
 interface State {
-    lessons: Api.LessonDto[];
+    lessons: Api.Lesson[];
 }
 
 class TeacherLessons extends React.Component<Props, State> {
@@ -58,7 +58,6 @@ class TeacherLessons extends React.Component<Props, State> {
             </Layout>
         );
     }
-
 
 }
 
