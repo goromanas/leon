@@ -5,12 +5,14 @@ import { Button, Layout } from 'antd';
 import { connectContext, SettingsProps } from 'app/context';
 import { navigationService } from 'app/service/navigation-service';
 import { PageContent } from 'app/components/layout';
+import { TopNavBar } from 'app/components/topnavbar/topnavbar';
 
 const { Content } = Layout;
 
 interface ContextProps {
     username: string | null;
     userRoles: string[] | null;
+
 }
 
 type Props = ContextProps;
@@ -25,17 +27,17 @@ class HomePageComponent extends React.Component<Props> {
         } = this.props;
 
         return (
-            <Layout>
+            <Layout >
                 <Content>
+
+                    <TopNavBar  userRoles={userRoles} username={username} />
                     <PageContent>
                         <div>
                             Hello, {username}! your role is {userRoles.toString()}
-                        </div>
-                        {userRoles.includes('ADMIN') ?
 
-                            (
-                                <Button
-                                    type="link"
+
+                        </div>
+                        {userRoles.includes('ADMIN') ? (<Button type="link"
                                     onClick={this.handleClickToUserList}
                                 >
                                     To user list
@@ -53,21 +55,12 @@ class HomePageComponent extends React.Component<Props> {
 
                         }
 
-                        <Button
-                            type="primary"
-                            onClick={this.handleClickLogout}
-                        >
-                            Logout
-                        </Button>
+
                     </PageContent>
                 </Content>
-            </Layout >
+            </Layout>
         );
     }
-
-    private readonly handleClickLogout = (): void => {
-        navigationService.redirectToLogoutPage();
-    };
 
     private readonly handleClickToUserList = (): void => {
         navigationService.redirectToUserListPage();
@@ -78,9 +71,10 @@ class HomePageComponent extends React.Component<Props> {
     };
 }
 
-const mapContextToProps = ({ session: { user } }: SettingsProps): ContextProps => ({
+const mapContextToProps = ({session: {user}}: SettingsProps): ContextProps => ({
     username: user != null ? user.username : null,
     userRoles: user.roles,
+
 });
 
 const HomePage = connectContext(mapContextToProps)(HomePageComponent);
