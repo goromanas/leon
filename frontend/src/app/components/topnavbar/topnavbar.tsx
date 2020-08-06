@@ -9,7 +9,6 @@ import {
     CodeSandboxOutlined
 } from '@ant-design/icons';
 import { navigationService } from 'app/service/navigation-service';
-import styles from './topnavbar.module.scss';
 
 const {SubMenu} = Menu;
 const {Header} = Layout;
@@ -85,7 +84,7 @@ class TopNavBar extends React.Component<Props> {
         navigationService.redirectToLogoutPage();
     };
     private readonly navStudentHandler = (): any => {
-        return this.props.userRoles[0] == 'STUDENT' ? {display: 'none'} : null;
+        return this.props.userRoles[0] === 'STUDENT' ? {display: 'none'} : null;
     };
     private readonly handleClickToDefaultPage = (): void => {
         navigationService.redirectToDefaultPage();
