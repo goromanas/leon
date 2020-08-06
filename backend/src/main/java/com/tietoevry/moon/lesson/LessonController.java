@@ -7,9 +7,7 @@ import com.tietoevry.moon.subject.SubjectService;
 import com.tietoevry.moon.subject.model.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,10 +27,19 @@ public class LessonController {
     public List<LessonDto> getTeacherLessons() {
         return lessonService.getTeacherLessons();
     }
+
+    @PreAuthorize("hasRole('ROLE_TEACHER')")
+    @RequestMapping(path = "/teacherLessons/", method = RequestMethod.POST)
+    public void startLesson(@RequestBody LessonDto lessonDto) {
+        lessonService.changeLessonState(lessonDto);
+    }
+
     @PreAuthorize("hasRole('ROLE_STUDENT')")
     @RequestMapping(path = "/studentLessons", method = RequestMethod.GET)
     public List<LessonDto> getStudentLessons() {
         return lessonService.getStudentLessons();
     }
+
+
 
 }

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,4 +38,8 @@ public class LessonService {
     public List<LessonDto> getStudentLessons() {
         return lessonRepository.findAllByClassroom(classroomService.getClassroomFromUser(userService.getUserFromSession())).stream().map(LessonMapper::mapLessonTo).collect(Collectors.toList());
     }
+
+  //  public void changeLessonState(LessonDto lessonDto) {
+  //      Lesson lesson = lessonRepository.findById(lessonDto.getId()).ifPresent(ls->ls.setStatus(lessonDto.getStatus()));
+   // }
 }
