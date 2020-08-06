@@ -11,8 +11,7 @@ interface State {
     content: React.ReactNode;
 }
 
-interface OwnProps {
-}
+interface OwnProps {}
 
 interface ContextProps {
     updateSession: (session: ContextSession) => void;
@@ -21,36 +20,31 @@ interface ContextProps {
 type Props = OwnProps & ContextProps;
 
 class AppWithSessionComponent extends React.Component<Props, State> {
-
     public readonly state: State = {
         content: null,
     };
 
     public componentDidMount(): void {
-        sessionService.getSession()
+        sessionService
+            .getSession()
             .then(this.handleResponse)
-            .catch(error => { loggerService.error('Error occurred when getting session information', error); });
+            .catch((error) => {
+                loggerService.error('Error occurred when getting session information', error);
+            });
     }
 
     public render(): React.ReactNode {
-        const {
-            content,
-        } = this.state;
+        const { content } = this.state;
 
         return (
-            <AsyncContent
-                loading={!content}
-                loader={<PageLoadingSpinner />}
-            >
+            <AsyncContent loading={!content} loader={<PageLoadingSpinner />}>
                 {content}
             </AsyncContent>
         );
     }
 
     private readonly handleResponse = ({ user }: Api.Session): void => {
-        const {
-            updateSession,
-        } = this.props;
+        const { updateSession } = this.props;
 
         updateSession(this.createSession(user));
 
@@ -58,7 +52,6 @@ class AppWithSessionComponent extends React.Component<Props, State> {
     };
 
     private readonly createSession = (user: Api.SessionUser): ContextSession => ({ user, authenticated: !!user });
-
 }
 
 const mapContextToProps = ({ actions: { updateSession } }: SettingsProps): ContextProps => ({

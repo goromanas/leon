@@ -7,6 +7,7 @@ class NavigationService {
     public static readonly VIDEO_CHAT_PATH: string = '/video-chat';
     public static readonly USER_LIST_PATH: string = '/user-list';
     public static readonly USER_DETAILS_PATH: string = '/user-details/:id?';
+    public static readonly CHAT_ROOM_PATH: string = '/chat-room';
     public static readonly PAGE_NOT_FOUND_PATH: string = '/not-found';
 
     public readonly redirectToDefaultPage = (): void => {
@@ -29,10 +30,9 @@ class NavigationService {
         window.location.href = generatePath(NavigationService.USER_DETAILS_PATH, { id });
     };
 
-    public readonly redirectToVideoChat = (): void => {
-        window.location.href = NavigationService.VIDEO_CHAT_PATH;
+    public readonly redirectToChatRoom = (): void => {
+        window.location.href = NavigationService.CHAT_ROOM_PATH;
     };
-
 }
 
 const navigationService = new NavigationService();

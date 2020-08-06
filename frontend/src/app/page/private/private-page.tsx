@@ -7,44 +7,25 @@ import { NotFoundPage } from 'app/page/not-found/not-found-page';
 import { HomePage } from 'app/page/home/home-page';
 import { VideoChatPage } from 'app/page/video-chat/video-chat-page';
 import { UserDetails } from 'app/page/user-details/user-details';
+import { ChatPage } from 'app/page/chat/chat-page';
 import { UserList } from 'app/page/user-list/user-list';
 
 class PrivatePage extends React.Component<{}, {}> {
-
     public render(): React.ReactNode {
         return (
             <Router>
                 <Switch>
-                    <Route
-                        path={NavigationService.HOME_PATH}
-                        component={HomePage}
-                        exact={true}
-                    />
-                    <Route
-                        path={NavigationService.VIDEO_CHAT_PATH}
-                        component={VideoChatPage}
-                        exact={true}
-                    />
-                    <Route
-                        path={NavigationService.PAGE_NOT_FOUND_PATH}
-                        component={NotFoundPage}
-                        exact={true}
-                    />
-                    <Route
-                        path={NavigationService.USER_LIST_PATH}
-                        component={UserList}
-                        exact={true}
-                    />
-                    <Route
-                        path={NavigationService.USER_DETAILS_PATH}
-                        component={UserDetails}
-                    />
+                    <Route path={NavigationService.HOME_PATH} component={HomePage} exact={true} />
+                    <Route path={NavigationService.VIDEO_CHAT_PATH} component={VideoChatPage} exact={true} />
+                    <Route path={NavigationService.PAGE_NOT_FOUND_PATH} component={NotFoundPage} exact={true} />
+                    <Route path={NavigationService.USER_LIST_PATH} component={UserList} exact={true} />
+                    <Route path={NavigationService.USER_DETAILS_PATH} component={UserDetails} />
+                    <Route path={NavigationService.CHAT_ROOM_PATH} component={ChatPage} />
                     <Redirect to={NavigationService.PAGE_NOT_FOUND_PATH} />
                 </Switch>
             </Router>
         );
     }
-
 }
 
 export { PrivatePage };
