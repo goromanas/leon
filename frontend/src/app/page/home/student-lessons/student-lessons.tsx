@@ -1,31 +1,19 @@
 import React from 'react';
-import { List, Card } from 'antd';
+import { Button } from 'antd';
 
-import { LessonAction } from './lesson-action';
+import styles from './student-lessons.module.scss';
 
 const data = [
     {
-        subject: 'Title 1',
+        subject: 'Matematika',
         status: 0,
     },
     {
-        subject: 'Title 2',
+        subject: 'Lietuvių kalba',
         status: 1,
     },
     {
-        subject: 'Title 3',
-        status: 0,
-    },
-    {
-        subject: 'Title 4',
-        status: 0,
-    },
-    {
-        subject: 'Title 5',
-        status: 0,
-    },
-    {
-        subject: 'Title 6',
+        subject: 'Biologija',
         status: 0,
     },
 ];
@@ -33,29 +21,33 @@ const data = [
 class StudentLessons extends React.Component {
 
     public render(): React.ReactNode {
+        const activeLesson = { backgroundColor: '#636363' };
+        const allLessons = data.map((item) =>
+            (
+                <li className={styles.listItem} key={item.subject} >
+                    <div className={styles.classNumber} style={item.status === 1 ? activeLesson : null}>1.</div>
+                    <div className={styles.listContent} style={item.status === 1 ? activeLesson : null}>{item.subject}
+                        {
+                            item.status === 1 ?
+                                <Button type="primary" className={styles.toVideoButton}>Prisijungti į pamoką</Button>
+                                : null
+                        }
+                    </div>
+                </li >
+            ),
+        );
 
         return (
-            <List
-                grid={{
-                    gutter: 16,
-                    xs: 1,
-                    sm: 2,
-                    md: 4,
-                    lg: 4,
-                    xl: 6,
-                    xxl: 3,
-                }}
-                dataSource={data}
-                renderItem={item => (
-                    <List.Item>
-                        <Card title={item.subject}>
-                            <LessonAction status={item.status} subject={item.subjec} />
-                        </Card>
-                    </List.Item>
-                )}
-            />
+            <div>
+                <h1>Šiandienos pamokos({data.length})</h1>
+                <ul className={styles.list}>
+                    {allLessons}
+                </ul>
+            </div>
+
         );
     }
+
 }
 
 export { StudentLessons };

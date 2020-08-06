@@ -32,28 +32,8 @@ class HomePageComponent extends React.Component<Props> {
                         <div>
                             Hello, {username}! your role is {userRoles.toString()}
                         </div>
-                        {userRoles.includes('ADMIN') ?
 
-                            (
-                                <Button
-                                    type="link"
-                                    onClick={this.handleClickToUserList}
-                                >
-                                    To user list
-                                </Button>
-                            )
-                            :
-                            (
-                                // <Button
-                                //     type="link"
-                                //     onClick={this.handleClickToVideoChat}
-                                // >
-                                //     To video chat
-                                // </Button>
-                                <StudentLessons />
-                            )
-
-                        }
+                        <StudentLessons />
 
                         <Button
                             type="primary"
@@ -75,9 +55,6 @@ class HomePageComponent extends React.Component<Props> {
         navigationService.redirectToUserListPage();
     };
 
-    private readonly handleClickToVideoChat = (): void => {
-        navigationService.redirectToVideoChat();
-    };
 }
 
 const mapContextToProps = ({ session: { user } }: SettingsProps): ContextProps => ({
