@@ -28,18 +28,17 @@ public class LessonController {
         return lessonService.getTeacherLessons();
     }
 
-    @PreAuthorize("hasRole('ROLE_TEACHER')")
-    @RequestMapping(path = "/teacherLessons/", method = RequestMethod.POST)
-    public void startLesson(@RequestBody LessonDto lessonDto) {
-        lessonService.changeLessonState(lessonDto);
-    }
+//    @PreAuthorize("hasRole('ROLE_TEACHER')")
+//    @RequestMapping(path = "/lessonState/", method = RequestMethod.POST)
+//    public void startLesson(@RequestBody LessonDto lessonDto) {
+//        lessonService.changeLessonState(lessonDto);
+//    }
 
     @PreAuthorize("hasRole('ROLE_STUDENT')")
     @RequestMapping(path = "/studentLessons", method = RequestMethod.GET)
     public List<LessonDto> getStudentLessons() {
         return lessonService.getStudentLessons();
     }
-
 
 
 }
