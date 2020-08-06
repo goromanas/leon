@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from 'antd';
 
-import styles from './student-lessons.module.scss';
+import styles from './lessons.module.scss';
 
 const data = [
     {
@@ -18,14 +18,22 @@ const data = [
     },
 ];
 
-class StudentLessons extends React.Component {
+interface Props {
+    lessonsList: Api.Lesson[];
+}
+
+class Lessons extends React.Component<Props> {
 
     public render(): React.ReactNode {
+
+        const { lessonsList } = this.props;
         const activeLesson = { backgroundColor: '#636363' };
-        const allLessons = data.map((item) =>
+        const allLessons = lessonsList.map((item) =>
             (
-                <li className={styles.listItem} key={item.subject} >
-                    <div className={styles.classNumber} style={item.status === 1 ? activeLesson : null}>1.</div>
+                <li className={styles.listItem} key={item.id} >
+                    <div className={styles.classNumber} style={item.status === 1 ? activeLesson : null}>{
+                        lessonsList.indexOf(item) + 1}.
+                    </div>
                     <div className={styles.listContent} style={item.status === 1 ? activeLesson : null}>{item.subject}
                         {
                             item.status === 1 ?
@@ -39,7 +47,7 @@ class StudentLessons extends React.Component {
 
         return (
             <div>
-                <h1>Šiandienos pamokos({data.length})</h1>
+                <h1>Šiandienos pamokos({lessonsList.length})</h1>
                 <ul className={styles.list}>
                     {allLessons}
                 </ul>
@@ -50,4 +58,4 @@ class StudentLessons extends React.Component {
 
 }
 
-export { StudentLessons };
+export { Lessons };

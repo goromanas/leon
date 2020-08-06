@@ -5,7 +5,7 @@ import { connectContext, SettingsProps } from 'app/context';
 import { navigationService } from 'app/service/navigation-service';
 import { PageContent } from 'app/components/layout';
 
-import { StudentLessons } from './student-lessons/student-lessons';
+import { Lessons } from './lessons/lessons';
 
 const { Content } = Layout;
 
@@ -13,6 +13,7 @@ interface ContextProps {
     username: string | null;
     userRoles: string[] | null;
     teacherLessons: Api.Lesson[];
+    // studentLessons: Api.Lesson[];
 }
 
 type Props = ContextProps;
@@ -25,6 +26,7 @@ class HomePageComponent extends React.Component<Props> {
             username,
             userRoles,
             teacherLessons,
+            // studentLessons,
         } = this.props;
 
         return (
@@ -34,8 +36,8 @@ class HomePageComponent extends React.Component<Props> {
                         <div>
                             Hello, {username}! your role is {userRoles.toString()}
                         </div>
+                        <Lessons lessonsList={teacherLessons || []} />
 
-                        <StudentLessons />
 
                         <Button
                             type="primary"
@@ -44,10 +46,10 @@ class HomePageComponent extends React.Component<Props> {
                             Logout
                         </Button>
 
-                    <p>Your lessons are:
+                        <p>Your lessons are:
                         {teacherLessons &&
-                        teacherLessons.map(lesson => lesson.subject)}
-                    </p>
+                                teacherLessons.map(lesson => lesson.subject)}
+                        </p>
                     </PageContent>
                 </Content>
             </Layout >
@@ -68,6 +70,7 @@ const mapContextToProps = ({ session: { user }, lessons }: SettingsProps): Conte
     username: user != null ? user.username : null,
     userRoles: user.roles,
     teacherLessons: lessons,
+    // studentLessons: lessons,
 });
 
 const HomePage = connectContext(mapContextToProps)(HomePageComponent);

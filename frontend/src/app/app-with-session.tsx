@@ -36,6 +36,10 @@ class AppWithSessionComponent extends React.Component<Props, State> {
         lessonsService.getTeacherLessons()
             .then(this.handleLessonsResponse)
             .catch(error => { loggerService.error('Error occurred when getting session information', error); });
+
+        lessonsService.getStudentLessons()
+            .then(this.handleLessonsResponse)
+            .catch(error => { loggerService.error('Error occurred when getting session information', error); });
     }
 
     public render(): React.ReactNode {
@@ -66,7 +70,7 @@ class AppWithSessionComponent extends React.Component<Props, State> {
     private readonly handleLessonsResponse = (lessons: Api.Lesson[]): void => {
         const {
             updateLessons,
-          } = this.props;
+        } = this.props;
 
         updateLessons(lessons);
     };
@@ -76,10 +80,10 @@ class AppWithSessionComponent extends React.Component<Props, State> {
 }
 
 const mapContextToProps = ({
-     actions: { updateSession, updateLessons } }: SettingsProps): ContextProps => ({
-         updateSession,
-         updateLessons,
-     });
+    actions: { updateSession, updateLessons } }: SettingsProps): ContextProps => ({
+        updateSession,
+        updateLessons,
+    });
 
 const AppWithSession = connectContext(mapContextToProps)(AppWithSessionComponent);
 
