@@ -39,7 +39,9 @@ public class LessonService {
         return lessonRepository.findAllByClassroom(classroomService.getClassroomFromUser(userService.getUserFromSession())).stream().map(LessonMapper::mapLessonTo).collect(Collectors.toList());
     }
 
-  //  public void changeLessonState(LessonDto lessonDto) {
-  //      Lesson lesson = lessonRepository.findById(lessonDto.getId()).ifPresent(ls->ls.setStatus(lessonDto.getStatus()));
-   // }
+    //public void changeLessonState(LessonDto lessonDto) {
+   //     Lesson lesson = lessonRepository.getOne(lessonDto.getId());
+   //     lesson.setStatus(lesson.getStatus());
+   //     lessonRepository.save(lesson);
+ //   }
 }

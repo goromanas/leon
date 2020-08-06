@@ -15,4 +15,10 @@ public class LessonMapper {
         lessonDto.setVideo(lesson.getVideo());
         return lessonDto;
     }
+
+    public static Lesson MapLessonStatus(Lesson lesson, LessonDto lessonDto)
+    {
+     lesson.setStatus(lessonDto.getStatus());
+     return lesson;
+    }
 }
