@@ -7,13 +7,23 @@ export interface Session {
     authenticated: boolean;
 }
 
+// export interface Lessons {
+//     [index: number]: {id: number, status: number, subject: string, teacher: string, key: number, video: string};
+// }
+
 export interface Actions {
     updateSession: (session: Session) => void;
 }
 
+export interface LessonsActions {
+    updateLessons: (lessons: Api.LessonDto[]) => void;
+}
+
 export interface SettingsProps {
     actions: Actions;
+    lessonActions: LessonsActions;
     session: Session;
+    lessons: Api.LessonDto[];
 }
 
 const INITIAL_SESSION: Session = {
@@ -25,6 +35,10 @@ const DEFAULT_SETTINGS: SettingsProps = {
     session: INITIAL_SESSION,
     actions: {
         updateSession: () => undefined,
+    },
+    lessons: null,
+    lessonActions: {
+        updateLessons: () => undefined,
     },
 };
 
