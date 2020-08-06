@@ -33,6 +33,10 @@ class NavigationService {
     public readonly redirectToChatRoom = (): void => {
         window.location.href = NavigationService.CHAT_ROOM_PATH;
     };
+
+    public readonly redirectToVideoChat = (): void => {
+        window.location.href = NavigationService.VIDEO_CHAT_PATH;
+    };
 }
 
 const navigationService = new NavigationService();
