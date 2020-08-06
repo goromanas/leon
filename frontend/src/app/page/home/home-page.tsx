@@ -4,6 +4,7 @@ import { Button, Layout } from 'antd';
 import { connectContext, SettingsProps } from 'app/context';
 import { navigationService } from 'app/service/navigation-service';
 import { PageContent } from 'app/components/layout';
+import { TopNavBar } from 'app/components/topnavbar/topnavbar';
 
 import { Lessons } from './lessons/lessons';
 
@@ -30,8 +31,10 @@ class HomePageComponent extends React.Component<Props> {
         } = this.props;
 
         return (
-            <Layout>
+            <Layout >
                 <Content>
+
+                    <TopNavBar  userRoles={userRoles} username={username} />
                     <PageContent>
                         <div>
                             Hello, {username}! your role is {userRoles.toString()}
@@ -52,13 +55,9 @@ class HomePageComponent extends React.Component<Props> {
                         </p>
                     </PageContent>
                 </Content>
-            </Layout >
+            </Layout>
         );
     }
-
-    private readonly handleClickLogout = (): void => {
-        navigationService.redirectToLogoutPage();
-    };
 
     private readonly handleClickToUserList = (): void => {
         navigationService.redirectToUserListPage();

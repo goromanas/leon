@@ -24,31 +24,16 @@ interface State {
 }
 
 class UserDetailsForm extends React.Component<Props, State> {
-
     public render(): React.ReactNode {
-        const {
-            initialValues,
-            onSubmit,
-            validate,
-            onCancel,
-        } = this.props;
+        const { initialValues, onSubmit, validate, onCancel } = this.props;
 
         return (
-            <Formik
-                initialValues={initialValues}
-                onSubmit={onSubmit}
-                validate={validate}
-            >
+            <Formik initialValues={initialValues} onSubmit={onSubmit} validate={validate}>
                 {({ setFieldValue }) => (
                     <Form>
                         <div className={styles.formContainer}>
                             {!_.isNil(initialValues.id) && (
-                                <Field
-                                    component={InputField}
-                                    label="ID"
-                                    name="id"
-                                    disabled={true}
-                                />
+                                <Field component={InputField} label="ID" name="id" disabled={true} />
                             )}
                             <Field
                                 component={InputField}
@@ -88,22 +73,13 @@ class UserDetailsForm extends React.Component<Props, State> {
                                 <Option value="PARENT">Parent</Option>
                             </Field>
                         </div>
-                        <FormButton
-                            component={SubmitButton}
-                        >
-                            Save
-                        </FormButton>
-                        <Button
-                            onClick={onCancel}
-                        >
-                            Cancel
-                        </Button>
+                        <FormButton component={SubmitButton}>Save</FormButton>
+                        <Button onClick={onCancel}>Cancel</Button>
                     </Form>
                 )}
             </Formik>
         );
     }
-
 }
 
 export { UserDetailsForm };

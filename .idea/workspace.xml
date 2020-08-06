@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:origin/master" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f6b62059-8a16-4f72-95b9-b3dafdebadf0" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/page/home/home-page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/page/home/home-page.tsx" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$/backend">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Roles_BE" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="$APPLICATION_HOME_DIR$/plugins/maven/lib/maven3" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1ffxKGMo4vFM482Mc1dzqfUVP1d" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="node.js.detected.package.stylelint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.stylelint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.stylelint" value="$PROJECT_DIR$/frontend/node_modules/stylelint" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.tietoevry.moon.classroom" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="backend.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.tietoevry.moon.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.tietoevry.moon.BackendApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.BackendApplication" />
+        <item itemvalue="Spring Boot.BackendApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f6b62059-8a16-4f72-95b9-b3dafdebadf0" name="Default Changelist" comment="" />
+      <created>1596622883418</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1596622883418</updated>
+      <workItem from="1596622884722" duration="11944000" />
+      <workItem from="1596639001367" duration="351000" />
+      <workItem from="1596639365594" duration="1297000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="643" y="410" width="683" height="256" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1596629501459">
+      <screen x="0" y="23" width="1792" height="1024" />
+    </state>
+    <state x="643" y="410" width="683" height="256" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.23.1792.1024@0.23.1792.1024" timestamp="1596629501459" />
+    <state width="1750" height="278" key="GridCell.Tab.0.bottom" timestamp="1596638997380">
+      <screen x="0" y="23" width="1792" height="1024" />
+    </state>
+    <state width="1750" height="278" key="GridCell.Tab.0.bottom/0.23.1792.1024@0.23.1792.1024" timestamp="1596638997380" />
+    <state width="1750" height="278" key="GridCell.Tab.0.center" timestamp="1596638997379">
+      <screen x="0" y="23" width="1792" height="1024" />
+    </state>
+    <state width="1750" height="278" key="GridCell.Tab.0.center/0.23.1792.1024@0.23.1792.1024" timestamp="1596638997379" />
+    <state width="1750" height="278" key="GridCell.Tab.0.left" timestamp="1596638997378">
+      <screen x="0" y="23" width="1792" height="1024" />
+    </state>
+    <state width="1750" height="278" key="GridCell.Tab.0.left/0.23.1792.1024@0.23.1792.1024" timestamp="1596638997378" />
+    <state width="1750" height="278" key="GridCell.Tab.0.right" timestamp="1596638997379">
+      <screen x="0" y="23" width="1792" height="1024" />
+    </state>
+    <state width="1750" height="278" key="GridCell.Tab.0.right/0.23.1792.1024@0.23.1792.1024" timestamp="1596638997379" />
+    <state width="1750" height="278" key="GridCell.Tab.1.bottom" timestamp="1596638997389">
+      <screen x="0" y="23" width="1792" height="1024" />
+    </state>
+    <state width="1750" height="278" key="GridCell.Tab.1.bottom/0.23.1792.1024@0.23.1792.1024" timestamp="1596638997389" />
+    <state width="1750" height="278" key="GridCell.Tab.1.center" timestamp="1596638997388">
+      <screen x="0" y="23" width="1792" height="1024" />
+    </state>
+    <state width="1750" height="278" key="GridCell.Tab.1.center/0.23.1792.1024@0.23.1792.1024" timestamp="1596638997388" />
+    <state width="1750" height="278" key="GridCell.Tab.1.left" timestamp="1596638997380">
+      <screen x="0" y="23" width="1792" height="1024" />
+    </state>
+    <state width="1750" height="278" key="GridCell.Tab.1.left/0.23.1792.1024@0.23.1792.1024" timestamp="1596638997380" />
+    <state width="1750" height="278" key="GridCell.Tab.1.right" timestamp="1596638997388">
+      <screen x="0" y="23" width="1792" height="1024" />
+    </state>
+    <state width="1750" height="278" key="GridCell.Tab.1.right/0.23.1792.1024@0.23.1792.1024" timestamp="1596638997388" />
+    <state x="590" y="276" key="IDE.errors.dialog" timestamp="1596639049127">
+      <screen x="0" y="23" width="1792" height="1024" />
+    </state>
+    <state x="590" y="276" key="IDE.errors.dialog/0.23.1792.1024@0.23.1792.1024" timestamp="1596639049127" />
+    <state x="704" y="123" width="604" height="822" key="find.popup" timestamp="1596632278413">
+      <screen x="0" y="23" width="1792" height="1024" />
+    </state>
+    <state x="704" y="123" width="604" height="822" key="find.popup/0.23.1792.1024@0.23.1792.1024" timestamp="1596632278413" />
+    <state x="561" y="185" width="670" height="676" key="search.everywhere.popup" timestamp="1596629387289">
+      <screen x="0" y="23" width="1792" height="1024" />
+    </state>
+    <state x="561" y="185" width="670" height="676" key="search.everywhere.popup/0.23.1792.1024@0.23.1792.1024" timestamp="1596629387289" />
+  </component>
+</project>
