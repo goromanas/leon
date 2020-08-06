@@ -2,7 +2,7 @@ package com.tietoevry.moon.classroom;
 
 import com.tietoevry.moon.classroom.model.Classroom;
 import com.tietoevry.moon.classroom.model.dto.ClassroomDto;
-import com.tietoevry.moon.classroom.ClassroomMapper;
+import com.tietoevry.moon.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +22,10 @@ public class ClassroomService {
 
     public Optional<ClassroomDto> getClassroom(Long id) {
         return classroomRepository.findById(id).map(ClassroomMapper::mapClassroomDto);
+    }
+
+    public Optional<Classroom> getClassroomFromUser(Optional<User> user){
+        return classroomRepository.findClassroomByUser(user);
     }
 
 //    public ClassroomDto createClassroom(ClassroomDto classroom) {

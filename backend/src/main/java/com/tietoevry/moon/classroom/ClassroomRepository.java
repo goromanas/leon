@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 @Repository
 public interface ClassroomRepository extends JpaRepository<Classroom,Long> {
+    Optional<Classroom> findClassroomByUser(Optional<User> user);
+
 }
 
 

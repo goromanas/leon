@@ -29,5 +29,10 @@ public class LessonController {
     public List<LessonDto> getTeacherLessons() {
         return lessonService.getTeacherLessons();
     }
+    @PreAuthorize("hasRole('ROLE_STUDENT')")
+    @RequestMapping(path = "/studentLessons", method = RequestMethod.GET)
+    public List<LessonDto> getStudentLessons() {
+        return lessonService.getStudentLessons();
+    }
 
 }
