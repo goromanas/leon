@@ -58,12 +58,12 @@ class TopNavBar extends React.Component<Props> {
                              style={{color: 'grey', float: 'right'}}>
                         <Menu.ItemGroup>
                             <Menu.Item key="logout" style={{margin: 'auto'}}>
-                                <a
+                                <Button
                                     type="primary"
                                     onClick={this.handleClickLogout}
                                 >
                                     Atsijungti
-                                </a>
+                                </Button>
                             </Menu.Item>
                         </Menu.ItemGroup>
 
