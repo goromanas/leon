@@ -27,4 +27,5 @@ public class Lesson {
     private String video;
     private String day;
     private int time;
+    private int status;
 }
