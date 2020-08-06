@@ -2,11 +2,8 @@ import React from 'react';
 import { Field, Form, Formik, FormikConfig } from 'formik';
 import { Button } from 'antd';
 
-// import { FormButton, SubmitButton } from "app/components/buttons";
 import { InputField } from 'app/components/inputs';
 import { FormErrors } from 'app/model/form-errors';
-
-import { Field as Input } from './input';
 
 export interface MessageValue {
     message: string;
