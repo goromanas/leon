@@ -31,28 +31,25 @@ class HomePageComponent extends React.Component<Props> {
         } = this.props;
 
         return (
-            <Layout >
+            <Layout>
                 <Content>
-
-                    <TopNavBar  userRoles={userRoles} username={username} />
+                    <TopNavBar userRoles={userRoles} username={username} />
                     <PageContent>
                         <div>
                             Hello, {username}! your role is {userRoles.toString()}
                         </div>
                         <Lessons lessonsList={teacherLessons || []} />
+                        {userRoles.includes('ADMIN') ? (
+                            <Button type="link" onClick={this.handleClickToUserList}>
+                                To user list
+                            </Button>
+                        ) : (
+                            ''
+                        )}
 
-
-                        <Button
-                            type="primary"
-                            onClick={this.handleClickLogout}
-                        >
+                        <Button type="primary" onClick={this.handleClickLogout}>
                             Logout
                         </Button>
-
-                        <p>Your lessons are:
-                        {teacherLessons &&
-                                teacherLessons.map(lesson => lesson.subject)}
-                        </p>
                     </PageContent>
                 </Content>
             </Layout>
@@ -63,6 +60,9 @@ class HomePageComponent extends React.Component<Props> {
         navigationService.redirectToUserListPage();
     };
 
+    private readonly handleClickLogout = (): void => {
+        navigationService.redirectToLogoutPage();
+    };
 }
 
 const mapContextToProps = ({ session: { user }, lessons }: SettingsProps): ContextProps => ({

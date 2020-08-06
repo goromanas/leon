@@ -6,12 +6,12 @@ import {
     TrophyOutlined,
     VideoCameraOutlined,
     FormOutlined,
-    CodeSandboxOutlined
+    CodeSandboxOutlined,
 } from '@ant-design/icons';
 import { navigationService } from 'app/service/navigation-service';
 
-const {SubMenu} = Menu;
-const {Header} = Layout;
+const { SubMenu } = Menu;
+const { Header } = Layout;
 
 interface Props {
     username: string | null;
@@ -22,58 +22,56 @@ class TopNavBar extends React.Component<Props> {
     state = {
         current: 'mail',
         color: 'red',
-        user: 'Rytis'
+        user: 'Rytis',
     };
     handleClick = (e: any) => {
         console.log('click ', e);
-        this.setState({current: e.key});
+        this.setState({ current: e.key });
     };
 
     render(): React.ReactNode {
-        const {current} = this.state;
+        const { current } = this.state;
         return (
-            <Header >
-
+            <Header>
                 <Menu theme="dark" onClick={this.handleClick} selectedKeys={[current]} mode="horizontal">
-                    <Menu.Item key="home" onClick={()=>this.handleClickToDefaultPage()}>
-
-                            <CodeSandboxOutlined style={{fontSize: '30px', color: 'blue '}}/>
-
+                    <Menu.Item key="home" onClick={() => this.handleClickToDefaultPage()}>
+                        <CodeSandboxOutlined style={{ fontSize: '30px', color: 'blue ' }} />
                     </Menu.Item>
-                    <Menu.Item key="timetable" style={this.navStudentHandler()} icon={<CalendarOutlined/>}>
+                    <Menu.Item key="timetable" style={this.navStudentHandler()} icon={<CalendarOutlined />}>
                         Tvarkaraštis
                     </Menu.Item>
-                    <Menu.Item key="material" icon={<BookOutlined/>}>
+                    <Menu.Item key="material" icon={<BookOutlined />}>
                         Pamokų medžiaga
                     </Menu.Item>
-                    <Menu.Item key="achievements" icon={<TrophyOutlined/>}>
+                    <Menu.Item key="achievements" icon={<TrophyOutlined />}>
                         Pasiekimai
                     </Menu.Item>
-                    <Menu.Item key="forum" icon={<FormOutlined/>}>
+                    <Menu.Item key="forum" icon={<FormOutlined />}>
                         Forumas
                     </Menu.Item>
 
-
-                    <SubMenu title="Vartotojo parinktys" icon={<Avatar size="large">{this.props.username}</Avatar>}
-                             style={{color: 'grey', float: 'right'}}>
+                    <SubMenu
+                        title="Vartotojo parinktys"
+                        icon={<Avatar size="large">{this.props.username}</Avatar>}
+                        style={{ color: 'grey', float: 'right' }}
+                    >
                         <Menu.ItemGroup>
-                            <Menu.Item key="logout" style={{margin: 'auto'}}>
-                                <Button
-                                    type="primary"
-                                    onClick={this.handleClickLogout}
-                                >
+                            <Menu.Item key="logout" style={{ margin: 'auto' }}>
+                                <Button type="primary" onClick={this.handleClickLogout}>
                                     Atsijungti
                                 </Button>
                             </Menu.Item>
                         </Menu.ItemGroup>
-
                     </SubMenu>
 
-
-                        <Button type="primary" style={{display: 'block', float: 'right',marginTop: '15px'}}icon={<VideoCameraOutlined/>} onClick={this.handleClickToVideoPage}>
-                            Į pamoką
-                        </Button>
-
+                    <Button
+                        type="primary"
+                        style={{ display: 'block', float: 'right', marginTop: '15px' }}
+                        icon={<VideoCameraOutlined />}
+                        onClick={this.handleClickToVideoPage}
+                    >
+                        Į pamoką
+                    </Button>
                 </Menu>
             </Header>
         );
@@ -83,14 +81,14 @@ class TopNavBar extends React.Component<Props> {
         navigationService.redirectToLogoutPage();
     };
     private readonly navStudentHandler = (): any => {
-        return this.props.userRoles[0] === 'STUDENT' ? {display: 'none'} : null;
+        return this.props.userRoles[0] === 'STUDENT' ? { display: 'none' } : null;
     };
     private readonly handleClickToDefaultPage = (): void => {
         navigationService.redirectToDefaultPage();
     };
     private readonly handleClickToVideoPage = (): void => {
-        navigationService.redirectToVideoChat()
-    }
+        navigationService.redirectToVideoChat();
+    };
 }
 
 export { TopNavBar };

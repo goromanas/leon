@@ -21,7 +21,6 @@ interface State {
 }
 
 class UserDetails extends React.Component<Props, State> {
-
     private static readonly EMPTY_USER: Api.UserDto = {
         email: '',
         firstName: '',
@@ -56,15 +55,14 @@ class UserDetails extends React.Component<Props, State> {
     public componentDidMount(): void {
         const {
             match: {
-                params: {
-                    id,
-                },
+                params: { id },
             },
         } = this.props;
 
         if (!_.isNil(id)) {
-            userService.getUser(parseInt(id, 10))
-                .then(user => this.setState({ user }))
+            userService
+                .getUser(parseInt(id, 10))
+                .then((user) => this.setState({ user }))
                 .catch(() => message.error('Failure getting user details'));
         } else {
             this.setState({ user: UserDetails.EMPTY_USER });
@@ -72,9 +70,7 @@ class UserDetails extends React.Component<Props, State> {
     }
 
     public render(): React.ReactNode {
-        const {
-            user,
-        } = this.state;
+        const { user } = this.state;
 
         return (
             <Layout>
@@ -95,23 +91,21 @@ class UserDetails extends React.Component<Props, State> {
     }
 
     private readonly handleSubmit = (_user: Api.UserDto): void => {
-        const {
-            user,
-        } = this.state;
+        const { user } = this.state;
 
-        _.isNil(user.id)
-            ? this.createUser(_user)
-            : this.saveUser(_user);
+        _.isNil(user.id) ? this.createUser(_user) : this.saveUser(_user);
     };
 
     private readonly saveUser = (user: Api.UserDto): void => {
-        userService.updateUser(user)
+        userService
+            .updateUser(user)
             .then(() => navigationService.redirectToUserListPage())
             .catch(() => message.error('Failure saving user'));
     };
 
     private readonly createUser = (user: Api.UserDto): void => {
-        userService.createUser(user)
+        userService
+            .createUser(user)
             .then(() => navigationService.redirectToUserListPage())
             .catch(() => message.error('Failure creating user'));
     };
@@ -119,7 +113,6 @@ class UserDetails extends React.Component<Props, State> {
     private readonly handleCancel = (): void => {
         navigationService.redirectToUserListPage();
     };
-
 }
 
 export { UserDetails };
