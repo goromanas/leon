@@ -1,13 +1,13 @@
 import { generatePath } from 'react-router';
 
 class NavigationService {
-
     public static readonly HOME_PATH: string = '/';
     public static readonly LOGIN_PATH: string = '/login';
     public static readonly LOGOUT_PATH: string = '/logout';
     public static readonly VIDEO_CHAT_PATH: string = '/video-chat';
     public static readonly USER_LIST_PATH: string = '/user-list';
     public static readonly USER_DETAILS_PATH: string = '/user-details/:id?';
+    public static readonly CHAT_ROOM_PATH: string = '/chat-room';
     public static readonly PAGE_NOT_FOUND_PATH: string = '/not-found';
 
     public readonly redirectToDefaultPage = (): void => {
@@ -30,6 +30,9 @@ class NavigationService {
         window.location.href = generatePath(NavigationService.USER_DETAILS_PATH, { id });
     };
 
+    public readonly redirectToChatRoom = (): void => {
+        window.location.href = NavigationService.CHAT_ROOM_PATH;
+    };
 }
 
 const navigationService = new NavigationService();
