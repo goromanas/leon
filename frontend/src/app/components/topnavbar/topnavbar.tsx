@@ -69,11 +69,10 @@ class TopNavBar extends React.Component<Props> {
 
                     </SubMenu>
 
-                    <Menu.Item style={{float: 'right'}}>
-                        <Button type="primary" icon={<VideoCameraOutlined/>}>
+
+                        <Button type="primary" style={{display: 'block', float: 'right',marginTop: '15px'}}icon={<VideoCameraOutlined/>} onClick={this.handleClickToVideoPage}>
                             Į pamoką
                         </Button>
-                    </Menu.Item>
 
                 </Menu>
             </Header>
@@ -89,6 +88,9 @@ class TopNavBar extends React.Component<Props> {
     private readonly handleClickToDefaultPage = (): void => {
         navigationService.redirectToDefaultPage();
     };
+    private readonly handleClickToVideoPage = (): void => {
+        navigationService.redirectToVideoChat()
+    }
 }
 
 export { TopNavBar };
