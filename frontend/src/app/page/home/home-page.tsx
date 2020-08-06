@@ -10,15 +10,18 @@ const { Content } = Layout;
 
 interface ContextProps {
     username: string | null;
+    userRoles: string[] | null;
 }
 
 type Props = ContextProps;
 
 class HomePageComponent extends React.Component<Props> {
+    // public const ifAdmin: boolean = userRoles.includes('ADMIN');
 
     public render(): React.ReactNode {
         const {
             username,
+            userRoles,
         } = this.props;
 
         return (
@@ -26,16 +29,30 @@ class HomePageComponent extends React.Component<Props> {
                 <Content>
                     <PageContent>
                         <div>
-                            Hello, {username}!
+                            Hello, {username}! your role is {userRoles.toString()}
                         </div>
-                        <div>
-                            <Button
-                                type="link"
-                                onClick={this.handleClickToUserList}
-                            >
-                                To user list
-                            </Button>
-                        </div>
+                        {userRoles.includes('ADMIN') ?
+
+                            (
+                                <Button
+                                    type="link"
+                                    onClick={this.handleClickToUserList}
+                                >
+                                    To user list
+                                </Button>
+                            )
+                            :
+                            (
+                                <Button
+                                    type="link"
+                                    onClick={this.handleClickToVideoChat}
+                                >
+                                    To video chat
+                                </Button>
+                            )
+
+                        }
+
                         <Button
                             type="primary"
                             onClick={this.handleClickLogout}
@@ -44,7 +61,7 @@ class HomePageComponent extends React.Component<Props> {
                         </Button>
                     </PageContent>
                 </Content>
-            </Layout>
+            </Layout >
         );
     }
 
@@ -56,10 +73,14 @@ class HomePageComponent extends React.Component<Props> {
         navigationService.redirectToUserListPage();
     };
 
+    private readonly handleClickToVideoChat = (): void => {
+        navigationService.redirectToVideoChat();
+    };
 }
 
 const mapContextToProps = ({ session: { user } }: SettingsProps): ContextProps => ({
     username: user != null ? user.username : null,
+    userRoles: user.roles,
 });
 
 const HomePage = connectContext(mapContextToProps)(HomePageComponent);
