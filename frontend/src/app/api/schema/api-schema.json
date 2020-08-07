@@ -642,6 +642,9 @@
     "LessonDto": {
       "type": "object",
       "properties": {
+        "className": {
+          "type": "string"
+        },
         "id": {
           "type": "integer",
           "format": "int64"

@@ -45,7 +45,13 @@ class TopNavBarComponent extends React.Component<Props> {
         } = this.props;
 
         const currentLesson = teacherLessons && teacherLessons.filter((lesson) => lesson.status === 1);
-        const lessonId: number = currentLesson && parseInt(currentLesson[0].id.toString(), 10);
+
+        let lessonId: number;
+        if (currentLesson != null) {
+            if( currentLesson.length > 0){
+            lessonId = currentLesson && parseInt(currentLesson[0].id.toString(), 10);
+        }};
+
         return (
             <Header>
                 <Menu theme="dark" onClick={this.handleClick} selectedKeys={[current]} mode="horizontal">
@@ -80,15 +86,17 @@ class TopNavBarComponent extends React.Component<Props> {
                             </Menu.Item>
                         </Menu.ItemGroup>
                     </SubMenu>
-
+                    {lessonId ?
                     <Button
                         type="primary"
                         style={{ display: 'block', float: 'right', marginTop: '15px' }}
                         icon={<VideoCameraOutlined />}
-                        onClick={() => this.handleOpenClassroom(lessonId)}
+                        onClick={ () => this.handleOpenClassroom(lessonId)}
                     >
                         Į pamoką
                     </Button>
+                    :''
+                     }
 
 
                 </Menu>
@@ -110,7 +118,9 @@ class TopNavBarComponent extends React.Component<Props> {
     }
 
     private readonly handleOpenClassroom = (id: number): void => {
-        navigationService.redirectToVideoChat(id);
+        if (id) {
+            navigationService.redirectToVideoChat(id);
+        }
     };
 }
 
