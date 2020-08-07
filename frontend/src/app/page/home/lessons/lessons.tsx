@@ -12,7 +12,7 @@ class Lessons extends React.Component<Props> {
     public render(): React.ReactNode {
         const { lessonsList } = this.props;
         const activeLesson = { backgroundColor: '#636363', color: '#000000' };
-        const upcomingLesson = { backgroundColor: '#F3F3F3', color: '#000000' };
+        const upcomingLesson = { backgroundColor: '#929292', color: '#000000' };
         const allLessons = lessonsList.map((item) => (
             <li className={styles.listItem} key={item.id}>
                 <div className={styles.classNumber} style={item.status === 1 ? activeLesson : item.status === 2 ? upcomingLesson : null}>
