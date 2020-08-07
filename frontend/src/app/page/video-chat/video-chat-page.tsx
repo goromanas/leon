@@ -1,7 +1,7 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
 
-import { Button, Layout } from 'antd';
+import { Layout } from 'antd';
 import Jitsi from 'react-jitsi';
 
 import { connectContext, SettingsProps } from 'app/context';
