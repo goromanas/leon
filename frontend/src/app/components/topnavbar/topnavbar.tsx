@@ -33,7 +33,7 @@ class TopNavBarComponent extends React.Component<Props> {
         user: 'Rytis',
     };
     public handleClick = (e: any) => {
-        // console.log('click ', e);
+        console.log('click ', e);
         this.setState({ current: e.key });
     };
 
@@ -91,7 +91,7 @@ class TopNavBarComponent extends React.Component<Props> {
                         type="primary"
                         style={{ display: 'block', float: 'right', marginTop: '15px' }}
                         icon={<VideoCameraOutlined />}
-                        onClick={ () => this.handleOpenClassroom(lessonId)}
+                        onClick={this.handleClickToVideoPage}
                     >
                         Į pamoką
                     </Button>
@@ -112,7 +112,9 @@ class TopNavBarComponent extends React.Component<Props> {
     private readonly handleClickToDefaultPage = (): void => {
         navigationService.redirectToDefaultPage();
     };
-
+    private readonly handleClickToVideoPage = (): void => {
+        navigationService.redirectToVideoChat();
+    };
     private readonly handleClickToCalendarPage=(): void => {
         navigationService.redirectToCalendarPage()
     }

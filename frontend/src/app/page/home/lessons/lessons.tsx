@@ -1,9 +1,8 @@
 import React from 'react';
 import { Button } from 'antd';
 
-import { navigationService } from 'app/service/navigation-service';
-
 import styles from './lessons.module.scss';
+import { navigationService } from 'app/service/navigation-service';
 
 interface Props {
     lessonsList: Api.Lesson[];
@@ -12,15 +11,16 @@ interface Props {
 class Lessons extends React.Component<Props> {
     public render(): React.ReactNode {
         const { lessonsList } = this.props;
-        const activeLesson = { backgroundColor: '#636363' };
+        const activeLesson = { backgroundColor: '#636363', color: '#000000' };
+        const upcomingLesson = { backgroundColor: '#F3F3F3', color: '#000000' };
         const allLessons = lessonsList.map((item) => (
             <li className={styles.listItem} key={item.id}>
-                <div className={styles.classNumber} style={item.status === 1 ? activeLesson : null}>
+                <div className={styles.classNumber} style={item.status === 1 ? activeLesson : item.status === 2 ? upcomingLesson : null}>
                     {lessonsList.indexOf(item) + 1}.
                 </div>
-                <div className={styles.listContent} style={item.status === 1 ? activeLesson : null}>
+                <div className={styles.listContent} style={item.status === 1 ? activeLesson : item.status === 2 ? upcomingLesson : null}>
                     {item.subject}
-                    {item.status === 0 ? (
+                    {item.status === 1 ? (
                         <Button
                             type="primary"
                             className={styles.toVideoButton}
@@ -35,7 +35,7 @@ class Lessons extends React.Component<Props> {
 
         return (
             <div>
-                <h1>Šiandienos pamokos({lessonsList.length})</h1>
+                <h1 className ={styles.classListHeader}>Šiandienos pamokos({lessonsList.length})</h1>
                 <ul className={styles.list}>{allLessons}</ul>
             </div>
         );
