@@ -91,7 +91,7 @@ class TopNavBarComponent extends React.Component<Props> {
                         type="primary"
                         style={{ display: 'block', float: 'right', marginTop: '15px' }}
                         icon={<VideoCameraOutlined />}
-                        onClick={this.handleClickToVideoPage}
+                        onClick={()=>this.handleOpenClassroom(lessonId)}
                     >
                         Į pamoką
                     </Button>
