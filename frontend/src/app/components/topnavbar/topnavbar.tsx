@@ -10,16 +10,22 @@ import {
 } from '@ant-design/icons';
 
 import { navigationService } from 'app/service/navigation-service';
+import { connectContext, SettingsProps } from 'app/context';
 
 const { SubMenu } = Menu;
 const { Header } = Layout;
 
-interface Props {
+interface OwnProps {}
+
+interface ContextProps {
+    teacherLessons: Api.Lesson[];
     username: string | null;
     userRoles: string[] | null;
 }
 
-class TopNavBar extends React.Component<Props> {
+type Props = OwnProps & ContextProps;
+
+class TopNavBarComponent extends React.Component<Props> {
     public state = {
         current: 'mail',
         color: 'red',
@@ -32,6 +38,10 @@ class TopNavBar extends React.Component<Props> {
 
     public render(): React.ReactNode {
         const { current } = this.state;
+
+        const {
+            teacherLessons,
+        } = this.props;
 
         return (
             <Header>
@@ -74,6 +84,8 @@ class TopNavBar extends React.Component<Props> {
                     >
                         Į pamoką
                     </Button>
+
+
                 </Menu>
             </Header>
         );
@@ -91,5 +103,13 @@ class TopNavBar extends React.Component<Props> {
         navigationService.redirectToVideoChat();
     };
 }
+
+const mapContextToProps = ({ session: { user }, lessons }: SettingsProps): ContextProps => ({
+    teacherLessons: lessons,
+    username: user != null ? user.username : null,
+    userRoles: user.roles,
+});
+
+const TopNavBar = connectContext(mapContextToProps)(TopNavBarComponent);
 
 export { TopNavBar };

@@ -33,7 +33,7 @@ class HomePageComponent extends React.Component<Props> {
         return (
             <Layout>
                 <Content>
-                    <TopNavBar userRoles={userRoles} username={username} />
+                    <TopNavBar />
                     <PageContent>
                         <div>
                             Hello, {username}! your role is {userRoles.toString()}
