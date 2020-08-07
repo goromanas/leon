@@ -49,7 +49,9 @@ class TopNavBarComponent extends React.Component<Props> {
                     <Menu.Item key="home" onClick={() => this.handleClickToDefaultPage()}>
                         <CodeSandboxOutlined style={{ fontSize: '30px', color: 'blue' }} />
                     </Menu.Item>
-                    <Menu.Item key="timetable" style={this.navStudentHandler()} icon={<CalendarOutlined />}>
+                    <Menu.Item key="timetable"
+                               // style={this.navStudentHandler()}
+                               onClick={this.handleClickToCalendarPage} icon={<CalendarOutlined />}>
                         Tvarkaraštis
                     </Menu.Item>
                     <Menu.Item key="material" icon={<BookOutlined />}>
@@ -94,14 +96,17 @@ class TopNavBarComponent extends React.Component<Props> {
     private readonly handleClickLogout = (): void => {
         navigationService.redirectToLogoutPage();
     };
-    private readonly navStudentHandler = (): any =>
-        this.props.userRoles[0] === 'STUDENT' ? { display: 'none' } : null;
+    // private readonly navStudentHandler = (): any =>
+    //     this.props.userRoles[0] === 'STUDENT' ? { display: 'none' } : null;
     private readonly handleClickToDefaultPage = (): void => {
         navigationService.redirectToDefaultPage();
     };
     private readonly handleClickToVideoPage = (): void => {
         navigationService.redirectToVideoChat();
     };
+    private readonly handleClickToCalendarPage=(): void => {
+        navigationService.redirectToCalendarPage()
+    }
 }
 
 const mapContextToProps = ({ session: { user }, lessons }: SettingsProps): ContextProps => ({
