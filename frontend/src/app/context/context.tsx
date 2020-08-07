@@ -7,13 +7,19 @@ export interface Session {
     authenticated: boolean;
 }
 
+// export interface Lessons {
+//     [index: number]: {id: number, status: number, subject: string, teacher: string, key: number, video: string};
+// }
+
 export interface Actions {
     updateSession: (session: Session) => void;
+    updateLessons: (lessons: Api.Lesson[]) => void;
 }
 
 export interface SettingsProps {
     actions: Actions;
     session: Session;
+    lessons: Api.Lesson[];
 }
 
 const INITIAL_SESSION: Session = {
@@ -21,11 +27,15 @@ const INITIAL_SESSION: Session = {
     authenticated: false,
 };
 
+const INITIAL_LESSONS: Api.Lesson[] = [];
+
 const DEFAULT_SETTINGS: SettingsProps = {
     session: INITIAL_SESSION,
     actions: {
         updateSession: () => undefined,
+        updateLessons: () => undefined,
     },
+    lessons: INITIAL_LESSONS,
 };
 
 const settingsContext: React.Context<SettingsProps> = React.createContext<SettingsProps>(DEFAULT_SETTINGS);

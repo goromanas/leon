@@ -86,10 +86,10 @@ class LoginPageComponent extends React.Component<Props, {}> {
         resetForm({ values: LoginPageComponent.LOGIN_INITIAL_VALUES });
 
         const errorMessage: string = error.status === 403
-            ? 'Your login credentials are invalid. Please try again.'
+            ? 'Neteisingas prisijungimo vardas arba slaptažodis'
             : error.data.message;
 
-        message.error(errorMessage);
+        message.error(errorMessage, 20);
 
         loggerService.error(errorMessage, error);
     };

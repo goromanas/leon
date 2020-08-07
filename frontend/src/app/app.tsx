@@ -5,7 +5,7 @@ import { AppWithSession } from 'app/app-with-session';
 
 const App: React.FC = () => (
     <AppStore>
-        <AppWithSession/>
+        <AppWithSession />
     </AppStore>
 );
 

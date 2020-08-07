@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+  <changeSet id="teacher-student-lesson" author="Julius">
+    <sql >
+      create table classroom
+      (
+      ID BIGINT not null primary key,
+      CLASS_NAME VARCHAR(255)
+      );
+
+      create table classroom_user
+      (
+      CLASSROOM_ID BIGINT not null,
+      USER_ID BIGINT not null,
+      constraint CLASSROOMS_FOREIGN_KEY
+      foreign key (CLASSROOM_ID) references classroom (ID),
+      constraint STUDENT_FOREIGN_KEY
+      foreign key (USER_ID) references user (ID)
+      );
+
+      create table subject
+      (
+      ID BIGINT not null primary key,
+      NAME VARCHAR(255),
+      DESCRIPTION VARCHAR(255)
+      );
+
+      create table lesson
+      (
+      ID BIGINT not null primary key,
+      SUBJECT_ID BIGINT not null,
+      CLASSROOM_ID BIGINT not null,
+      TEACHER_ID BIGINT not null,
+      VIDEO VARCHAR(255),
+      DAY VARCHAR(255),
+      time BIGINT,
+      STATUS INT DEFAULT 0,
+      constraint SUBJECT_FOREIGN_KEY
+      foreign key (SUBJECT_ID) references subject(id),
+      constraint CLASSROOM_FOREIGN_KEY
+      foreign key (CLASSROOM_ID) references classroom(id),
+      constraint TEACHER_FOREIGN_KEY
+      foreign key (TEACHER_ID) references user(id)
+      );
+
+
+      INSERT INTO `subject` VALUES (1,'Lietuviu','Lietuviu kalbos pamoka');
+
+      INSERT INTO `classroom` VALUES (1, '10B');
+      INSERT INTO `classroom_user` VALUES (1, 2);
+      INSERT INTO `classroom_user` VALUES (1, 3);
+
+      INSERT INTO LESSON VALUES(3,1,1,2,'Feed','friday',3,0);
+      INSERT INTO LESSON VALUES(4,1,1,3,'Feed1','zzzz',3,0);
+      INSERT INTO LESSON VALUES(5,1,1,3,'Feed2','frxxxxiday',3,0);
+
+    </sql>
+  </changeSet>
+</databaseChangeLog>

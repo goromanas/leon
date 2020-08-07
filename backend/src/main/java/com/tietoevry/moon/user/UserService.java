@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import com.tietoevry.moon.session.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,12 +23,19 @@ public class UserService {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Autowired
+    private SessionService sessionService;
+
     public List<UserDto> getUsers() {
         return userRepository
             .findAll()
             .stream()
             .map(UserMapper::mapUserDto)
             .collect(Collectors.toList());
+    }
+    public Optional<User> getUserFromSession()
+    {
+        return userRepository.findByUsername(sessionService.getSession().getUser().getUsername());
     }
 
     public Optional<UserDto> getUser(long id) {

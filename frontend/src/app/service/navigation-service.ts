@@ -4,7 +4,7 @@ class NavigationService {
     public static readonly HOME_PATH: string = '/';
     public static readonly LOGIN_PATH: string = '/login';
     public static readonly LOGOUT_PATH: string = '/logout';
-    public static readonly VIDEO_CHAT_PATH: string = '/video-chat';
+    public static readonly VIDEO_CHAT_PATH: string = '/video-chat/:id?';
     public static readonly USER_LIST_PATH: string = '/user-list';
     public static readonly USER_DETAILS_PATH: string = '/user-details/:id?';
     public static readonly CHAT_ROOM_PATH: string = '/chat-room';
@@ -34,8 +34,8 @@ class NavigationService {
         window.location.href = NavigationService.CHAT_ROOM_PATH;
     };
 
-    public readonly redirectToVideoChat = (): void => {
-        window.location.href = NavigationService.VIDEO_CHAT_PATH;
+    public readonly redirectToVideoChat = (id?: number): void => {
+        window.location.href = generatePath(NavigationService.VIDEO_CHAT_PATH, { id });
     };
 }
 
