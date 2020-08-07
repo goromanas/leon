@@ -2,7 +2,7 @@
 .list {
   margin: 0;
   padding: 0;
-  width: 600px;
+  width: 430px;
 }
 
 .listItem {
@@ -10,7 +10,9 @@
   flex-direction: row;
   justify-content: space-between;
   list-style: none;
-  color: rgb(255, 255, 255);
+  //color: rgb(255, 255, 255);
+  //color: #000000;
+  color: #727272;
   width: 100%;
   margin-bottom: 10px;
   font-size: 1.1rem;
@@ -34,7 +36,10 @@
   margin-right: 10px;
   height: auto;
   align-items: center;
-  font-weight: 700;
+  //font-weight: 700;
+}
+.classListHeader {
+  font-size: 18px;
 }
 
 .toVideoButton {

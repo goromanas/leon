@@ -35,21 +35,6 @@ class HomePageComponent extends React.Component<Props, {}> {
             },
         } = this.props;
 
-        // try {
-        //     const currentLesson = teacherLessons && teacherLessons.filter((lesson) =>
-        //  lesson.id === parseInt(id, 10));
-        //     const videoChatName: string = currentLesson && currentLesson[0].video.toString();
-        // } catch {
-        //     return (
-        //         <>
-        //             <div>No or incorrectly assigned lesson. Unable to start video.</div>
-        //             <Button type="primary" onClick={this.handleClickToDefaultPage}>
-        //                 Return to home page
-        //             </Button>
-        //         </>
-        //     );
-        // }
-
         const currentLesson = teacherLessons && teacherLessons.filter((lesson) => lesson.id === parseInt(id, 10));
         const videoChatName: string = currentLesson && currentLesson[0].video.toString();
 
@@ -67,25 +52,15 @@ class HomePageComponent extends React.Component<Props, {}> {
                                 onAPILoad={handleCallEnd}
                             />
                         )}
-
-                        {/* <Jitsi
-                        jwt="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250ZXh0Ijp7InVzZ
-                        XIiOnsiYXZhdGFyIjoiaHR0cHM6Ly9hdmF0YXJzLmRpY2ViZWFyLmNvbS9hcGkvbWFs
-                        ZS9tZW51by1zdS1pdC5zdmciLCJuYW1lIjoiTcSXbnVvIHN1IElUIn19LCJhdWQiOiJ
-                        tZW51b19zdV9pdCIsImlzcyI6Im1lbnVvX3N1X2l0Iiwic3ViIjoibWVldC5qaXRzaSIs
-                        InJvb20iOiIqIn0.6CKZU_JWLhtj9eKJ-VdFGQZyRzvTZz29fn7--_dp-jw"
-                        roomName="java-team-room1"
-                        domain="video-menuo-su-it.northeurope.cloudapp.azure.com:443"
-                        userInfo={{email: username}}
-                    /> */}
                     </PageContent>
                 </Content>
             </Layout>
         );
     }
 
-    private readonly generateUniqueName = (subject: string, video: string): string =>
-        subject + ' ' + video;
+    private readonly generateUniqueName = (subject: string, video: string): string => {
+        return subject + ' ' + video;
+    };
 
     private readonly handleClickToDefaultPage = (): void => {
         navigationService.redirectToDefaultPage();
