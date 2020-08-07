@@ -4,7 +4,6 @@ import { Button, Layout } from 'antd';
 import { connectContext, SettingsProps } from 'app/context';
 import { navigationService } from 'app/service/navigation-service';
 import { PageContent } from 'app/components/layout';
-import { TopNavBar } from 'app/components/topnavbar/topnavbar';
 
 import { Lessons } from './lessons/lessons';
 

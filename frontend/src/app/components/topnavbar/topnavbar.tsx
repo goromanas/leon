@@ -26,18 +26,14 @@ interface ContextProps {
 type Props = OwnProps & ContextProps;
 
 class TopNavBarComponent extends React.Component<Props> {
-    public state = {
-        current: 'mail',
-        color: 'red',
-        user: 'Rytis',
-    };
+
     public handleClick = (e: any) => {
         console.log('click ', e);
         this.setState({ current: e.key });
     };
 
     public render(): React.ReactNode {
-        const { current } = this.state;
+
 
         const {
             teacherLessons,
@@ -45,7 +41,7 @@ class TopNavBarComponent extends React.Component<Props> {
 
         return (
             <Header>
-                <Menu theme="dark" onClick={this.handleClick} selectedKeys={[current]} mode="horizontal">
+                <Menu theme="dark" onClick={this.handleClick}  mode="horizontal">
                     <Menu.Item key="home" onClick={() => this.handleClickToDefaultPage()}>
                         <CodeSandboxOutlined style={{ fontSize: '30px', color: 'blue' }} />
                     </Menu.Item>
