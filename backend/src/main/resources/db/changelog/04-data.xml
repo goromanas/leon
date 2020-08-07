@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+  <changeSet id="04" author="Julius">
+    <sql >
+
+
+      INSERT INTO `user` VALUES (5, 'mokinys1_10b', 'the White','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'mokinys1','');
+      INSERT INTO `user` VALUES (6, 'mokinys2_10b', 'Baggins','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'mokinys2','');
+      INSERT INTO `user` VALUES (7, 'mokinys3_7c', 'Baggins','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'mokinys3','');
+      INSERT INTO `user` VALUES (8, 'mokytojas1', 'the White','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'mokytojas1','');
+      INSERT INTO `user` VALUES (9, 'mokytojas2', 'Baggins','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'mokytojas2','');
+
+      INSERT INTO `user_role` VALUES (5, 1);
+      INSERT INTO `user_role` VALUES (6, 1);
+      INSERT INTO `user_role` VALUES (7, 2);
+      INSERT INTO `user_role` VALUES (8, 2);
+
+      INSERT INTO `subject` VALUES (2,'Matematika','Matematikos pamoka');
+      INSERT INTO `subject` VALUES (3,'Geografija','Geografijos pamoka');
+      INSERT INTO `subject` VALUES (4,'Fizika','Fizikos pamoka');
+      INSERT INTO `subject` VALUES (5,'Informatika','Informatikos pamoka');
+
+      INSERT INTO `classroom` VALUES (2, '10B');
+      INSERT INTO `classroom` VALUES (3, '7C');
+      INSERT INTO `classroom` VALUES (4, '6A');
+
+
+      INSERT INTO `classroom_user` VALUES (2, 5);
+      INSERT INTO `classroom_user` VALUES (2, 6);
+      INSERT INTO `classroom_user` VALUES (3, 7);
+
+      INSERT INTO LESSON VALUES(6,2,2,7,'Feed3','friday...',3,1);
+      INSERT INTO LESSON VALUES(7,3,3,8,'Feed4','zzzz...',3,1);
+      INSERT INTO LESSON VALUES(8,4,3,8,'Feed5','zzzz...',3,1);
+      INSERT INTO LESSON VALUES(9,5,3,8,'Feed6','zzzz...',3,1);
+      INSERT INTO LESSON VALUES(10,1,2,8,'Feed7','zzzz...',3,1);
+      INSERT INTO LESSON VALUES(11,2,2,8,'Feed8','zzzz...',3,1);
+      INSERT INTO LESSON VALUES(12,3,2,8,'Feed8','zzzz...',3,1);
+      INSERT INTO LESSON VALUES(13,3,2,8,'Feed8','zzzz...',3,1);
+
+    </sql>
+  </changeSet>
+</databaseChangeLog>
