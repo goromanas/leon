@@ -23,7 +23,7 @@ build-fe:
     - install-fe
   script:
     - cd ${CI_PROJECT_DIR}/frontend
-    - yarn build
+    - CI=false yarn build
   artifacts:
     expire_in: 1 hour
     paths:

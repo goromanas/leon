@@ -44,24 +44,16 @@ class HomePageComponent extends React.Component<Props> {
                                 To user list
                             </Button>
                         ) : (
-                            ''
-                        )}
-
-                        <Button type="primary" onClick={this.handleClickLogout}>
-                            Logout
-                        </Button>
+                                ''
+                            )}
                     </PageContent>
                 </Content>
-            </Layout>
+            </Layout >
         );
     }
 
     private readonly handleClickToUserList = (): void => {
         navigationService.redirectToUserListPage();
-    };
-
-    private readonly handleClickLogout = (): void => {
-        navigationService.redirectToLogoutPage();
     };
 }
 

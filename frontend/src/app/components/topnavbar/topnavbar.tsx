@@ -8,6 +8,7 @@ import {
     FormOutlined,
     CodeSandboxOutlined,
 } from '@ant-design/icons';
+
 import { navigationService } from 'app/service/navigation-service';
 
 const { SubMenu } = Menu;
@@ -19,23 +20,24 @@ interface Props {
 }
 
 class TopNavBar extends React.Component<Props> {
-    state = {
+    public state = {
         current: 'mail',
         color: 'red',
         user: 'Rytis',
     };
-    handleClick = (e: any) => {
+    public handleClick = (e: any) => {
         console.log('click ', e);
         this.setState({ current: e.key });
     };
 
-    render(): React.ReactNode {
+    public render(): React.ReactNode {
         const { current } = this.state;
+
         return (
             <Header>
                 <Menu theme="dark" onClick={this.handleClick} selectedKeys={[current]} mode="horizontal">
                     <Menu.Item key="home" onClick={() => this.handleClickToDefaultPage()}>
-                        <CodeSandboxOutlined style={{ fontSize: '30px', color: 'blue ' }} />
+                        <CodeSandboxOutlined style={{ fontSize: '30px', color: 'blue' }} />
                     </Menu.Item>
                     <Menu.Item key="timetable" style={this.navStudentHandler()} icon={<CalendarOutlined />}>
                         Tvarkaraštis
@@ -80,9 +82,8 @@ class TopNavBar extends React.Component<Props> {
     private readonly handleClickLogout = (): void => {
         navigationService.redirectToLogoutPage();
     };
-    private readonly navStudentHandler = (): any => {
-        return this.props.userRoles[0] === 'STUDENT' ? { display: 'none' } : null;
-    };
+    private readonly navStudentHandler = (): any =>
+        this.props.userRoles[0] === 'STUDENT' ? { display: 'none' } : null;
     private readonly handleClickToDefaultPage = (): void => {
         navigationService.redirectToDefaultPage();
     };

@@ -1,8 +1,9 @@
 import React from 'react';
 import { Button } from 'antd';
 
-import styles from './lessons.module.scss';
 import { navigationService } from 'app/service/navigation-service';
+
+import styles from './lessons.module.scss';
 
 interface Props {
     lessonsList: Api.Lesson[];
