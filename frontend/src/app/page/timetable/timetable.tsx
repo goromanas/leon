@@ -25,7 +25,7 @@ class TimetablePageComponent extends React.Component<Props> {
 
                 {
                    teacherLessons ? teacherLessons.map(lesson =>(
-                        <li>{lesson.subject} {lesson.teacher} </li>
+                        <li key={lesson.id}> {lesson.subject} {lesson.teacher} </li>
                     )) : null
                 }
 
