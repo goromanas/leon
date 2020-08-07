@@ -5,29 +5,39 @@
   },
   "host": "localhost:8080",
   "basePath": "/",
-  "tags": [{
-    "name": "classroom-controller",
-    "description": "Classroom Controller"
-  }, {
-    "name": "lesson-controller",
-    "description": "Lesson Controller"
-  }, {
-    "name": "session-controller",
-    "description": "Session Controller"
-  }, {
-    "name": "subject-controller",
-    "description": "Subject Controller"
-  }, {
-    "name": "user-controller",
-    "description": "User Controller"
-  }],
+  "tags": [
+    {
+      "name": "classroom-controller",
+      "description": "Classroom Controller"
+    },
+    {
+      "name": "lesson-controller",
+      "description": "Lesson Controller"
+    },
+    {
+      "name": "session-controller",
+      "description": "Session Controller"
+    },
+    {
+      "name": "subject-controller",
+      "description": "Subject Controller"
+    },
+    {
+      "name": "user-controller",
+      "description": "User Controller"
+    }
+  ],
   "paths": {
     "/allLessons": {
       "get": {
-        "tags": ["lesson-controller"],
+        "tags": [
+          "lesson-controller"
+        ],
         "summary": "getAllLessons",
         "operationId": "getAllLessonsUsingGET",
-        "produces": ["*/*"],
+        "produces": [
+          "*/*"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -53,10 +63,14 @@
     },
     "/allSubjects": {
       "get": {
-        "tags": ["subject-controller"],
+        "tags": [
+          "subject-controller"
+        ],
         "summary": "getAllSubjects",
         "operationId": "getAllSubjectsUsingGET",
-        "produces": ["*/*"],
+        "produces": [
+          "*/*"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -82,10 +96,14 @@
     },
     "/classroom": {
       "get": {
-        "tags": ["classroom-controller"],
+        "tags": [
+          "classroom-controller"
+        ],
         "summary": "getClassrooms",
         "operationId": "getClassroomsUsingGET",
-        "produces": ["*/*"],
+        "produces": [
+          "*/*"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -111,18 +129,24 @@
     },
     "/classroom/{id}": {
       "get": {
-        "tags": ["classroom-controller"],
+        "tags": [
+          "classroom-controller"
+        ],
         "summary": "getClassroom",
         "operationId": "getClassroomUsingGET",
-        "produces": ["*/*"],
-        "parameters": [{
-          "name": "id",
-          "in": "path",
-          "description": "id",
-          "required": true,
-          "type": "integer",
-          "format": "int64"
-        }],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -143,18 +167,24 @@
         "deprecated": false
       },
       "delete": {
-        "tags": ["classroom-controller"],
+        "tags": [
+          "classroom-controller"
+        ],
         "summary": "deleteClassroom",
         "operationId": "deleteClassroomUsingDELETE",
-        "produces": ["*/*"],
-        "parameters": [{
-          "name": "id",
-          "in": "path",
-          "description": "id",
-          "required": true,
-          "type": "integer",
-          "format": "int64"
-        }],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -174,10 +204,14 @@
     },
     "/session": {
       "get": {
-        "tags": ["session-controller"],
+        "tags": [
+          "session-controller"
+        ],
         "summary": "getSession",
         "operationId": "getSessionUsingGET",
-        "produces": ["*/*"],
+        "produces": [
+          "*/*"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -198,20 +232,28 @@
         "deprecated": false
       },
       "post": {
-        "tags": ["session-controller"],
+        "tags": [
+          "session-controller"
+        ],
         "summary": "createSession",
         "operationId": "createSessionUsingPOST",
-        "consumes": ["application/json"],
-        "produces": ["*/*"],
-        "parameters": [{
-          "in": "body",
-          "name": "sessionRequest",
-          "description": "sessionRequest",
-          "required": true,
-          "schema": {
-            "$ref": "#/definitions/LoginData"
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "sessionRequest",
+            "description": "sessionRequest",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginData"
+            }
           }
-        }],
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -235,10 +277,14 @@
         "deprecated": false
       },
       "delete": {
-        "tags": ["session-controller"],
+        "tags": [
+          "session-controller"
+        ],
         "summary": "deleteSession",
         "operationId": "deleteSessionUsingDELETE",
-        "produces": ["*/*"],
+        "produces": [
+          "*/*"
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -258,10 +304,14 @@
     },
     "/studentLessons": {
       "get": {
-        "tags": ["lesson-controller"],
+        "tags": [
+          "lesson-controller"
+        ],
         "summary": "getStudentLessons",
         "operationId": "getStudentLessonsUsingGET",
-        "produces": ["*/*"],
+        "produces": [
+          "*/*"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -287,10 +337,14 @@
     },
     "/teacherLessons": {
       "get": {
-        "tags": ["lesson-controller"],
+        "tags": [
+          "lesson-controller"
+        ],
         "summary": "getTeacherLessons",
         "operationId": "getTeacherLessonsUsingGET",
-        "produces": ["*/*"],
+        "produces": [
+          "*/*"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -316,10 +370,14 @@
     },
     "/user": {
       "get": {
-        "tags": ["user-controller"],
+        "tags": [
+          "user-controller"
+        ],
         "summary": "getUsers",
         "operationId": "getUsersUsingGET",
-        "produces": ["*/*"],
+        "produces": [
+          "*/*"
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -343,20 +401,28 @@
         "deprecated": false
       },
       "post": {
-        "tags": ["user-controller"],
+        "tags": [
+          "user-controller"
+        ],
         "summary": "createUser",
         "operationId": "createUserUsingPOST",
-        "consumes": ["application/json"],
-        "produces": ["*/*"],
-        "parameters": [{
-          "in": "body",
-          "name": "user",
-          "description": "user",
-          "required": true,
-          "schema": {
-            "$ref": "#/definitions/UserDto"
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "user",
+            "description": "user",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserDto"
+            }
           }
-        }],
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -380,20 +446,28 @@
         "deprecated": false
       },
       "put": {
-        "tags": ["user-controller"],
+        "tags": [
+          "user-controller"
+        ],
         "summary": "updateUser",
         "operationId": "updateUserUsingPUT",
-        "consumes": ["application/json"],
-        "produces": ["*/*"],
-        "parameters": [{
-          "in": "body",
-          "name": "user",
-          "description": "user",
-          "required": true,
-          "schema": {
-            "$ref": "#/definitions/UserDto"
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "user",
+            "description": "user",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserDto"
+            }
           }
-        }],
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -419,18 +493,24 @@
     },
     "/user/{id}": {
       "get": {
-        "tags": ["user-controller"],
+        "tags": [
+          "user-controller"
+        ],
         "summary": "getUser",
         "operationId": "getUserUsingGET",
-        "produces": ["*/*"],
-        "parameters": [{
-          "name": "id",
-          "in": "path",
-          "description": "id",
-          "required": true,
-          "type": "integer",
-          "format": "int64"
-        }],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -451,18 +531,24 @@
         "deprecated": false
       },
       "delete": {
-        "tags": ["user-controller"],
+        "tags": [
+          "user-controller"
+        ],
         "summary": "deleteUser",
         "operationId": "deleteUserUsingDELETE",
-        "produces": ["*/*"],
-        "parameters": [{
-          "name": "id",
-          "in": "path",
-          "description": "id",
-          "required": true,
-          "type": "integer",
-          "format": "int64"
-        }],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"

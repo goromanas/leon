@@ -4,21 +4,6 @@ import { Button } from 'antd';
 import styles from './lessons.module.scss';
 import { navigationService } from 'app/service/navigation-service';
 
-// const data = [
-//     {
-//         subject: 'Matematika',
-//         status: 0,
-//     },
-//     {
-//         subject: 'Lietuvių kalba',
-//         status: 1,
-//     },
-//     {
-//         subject: 'Biologija',
-//         status: 0,
-//     },
-// ];
-
 interface Props {
     lessonsList: Api.Lesson[];
 }
