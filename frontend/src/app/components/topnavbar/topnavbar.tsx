@@ -11,6 +11,7 @@ import {
 
 import { navigationService } from 'app/service/navigation-service';
 import { connectContext, SettingsProps } from 'app/context';
+import { Lessons } from 'app/page/home/lessons/lessons';
 
 const { SubMenu } = Menu;
 const { Header } = Layout;
@@ -32,7 +33,7 @@ class TopNavBarComponent extends React.Component<Props> {
         user: 'Rytis',
     };
     public handleClick = (e: any) => {
-        console.log('click ', e);
+        // console.log('click ', e);
         this.setState({ current: e.key });
     };
 
@@ -43,6 +44,8 @@ class TopNavBarComponent extends React.Component<Props> {
             teacherLessons,
         } = this.props;
 
+        const currentLesson = teacherLessons && teacherLessons.filter((lesson) => lesson.status === 1);
+        const lessonId: number = currentLesson && parseInt(currentLesson[0].id.toString(), 10);
         return (
             <Header>
                 <Menu theme="dark" onClick={this.handleClick} selectedKeys={[current]} mode="horizontal">
@@ -82,7 +85,7 @@ class TopNavBarComponent extends React.Component<Props> {
                         type="primary"
                         style={{ display: 'block', float: 'right', marginTop: '15px' }}
                         icon={<VideoCameraOutlined />}
-                        onClick={this.handleClickToVideoPage}
+                        onClick={() => this.handleOpenClassroom(lessonId)}
                     >
                         Į pamoką
                     </Button>
@@ -101,12 +104,14 @@ class TopNavBarComponent extends React.Component<Props> {
     private readonly handleClickToDefaultPage = (): void => {
         navigationService.redirectToDefaultPage();
     };
-    private readonly handleClickToVideoPage = (): void => {
-        navigationService.redirectToVideoChat();
-    };
+
     private readonly handleClickToCalendarPage=(): void => {
         navigationService.redirectToCalendarPage()
     }
+
+    private readonly handleOpenClassroom = (id: number): void => {
+        navigationService.redirectToVideoChat(id);
+    };
 }
 
 const mapContextToProps = ({ session: { user }, lessons }: SettingsProps): ContextProps => ({
