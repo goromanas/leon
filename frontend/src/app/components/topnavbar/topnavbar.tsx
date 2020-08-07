@@ -8,49 +8,35 @@ import {
     FormOutlined,
     CodeSandboxOutlined,
 } from '@ant-design/icons';
-
 import { navigationService } from 'app/service/navigation-service';
 import { connectContext, SettingsProps } from 'app/context';
-
 const { SubMenu } = Menu;
 const { Header } = Layout;
 
 interface OwnProps {}
-
 interface ContextProps {
     teacherLessons: Api.Lesson[];
     username: string | null;
     userRoles: string[] | null;
 }
-
 type Props = OwnProps & ContextProps;
-
 class TopNavBarComponent extends React.Component<Props> {
-    public state = {
-        current: 'mail',
-        color: 'red',
-        user: 'Rytis',
-    };
     public handleClick = (e: any) => {
         console.log('click ', e);
         this.setState({ current: e.key });
     };
-
     public render(): React.ReactNode {
-        const { current } = this.state;
-
         const {
             teacherLessons,
         } = this.props;
-
         return (
             <Header>
-                <Menu theme="dark" onClick={this.handleClick} selectedKeys={[current]} mode="horizontal">
+                <Menu theme="dark" onClick={this.handleClick}  mode="horizontal">
                     <Menu.Item key="home" onClick={() => this.handleClickToDefaultPage()}>
                         <CodeSandboxOutlined style={{ fontSize: '30px', color: 'blue' }} />
                     </Menu.Item>
                     <Menu.Item key="timetable"
-                               // style={this.navStudentHandler()}
+                        // style={this.navStudentHandler()}
                                onClick={this.handleClickToCalendarPage} icon={<CalendarOutlined />}>
                         Tvarkaraštis
                     </Menu.Item>
@@ -63,7 +49,6 @@ class TopNavBarComponent extends React.Component<Props> {
                     <Menu.Item key="forum" icon={<FormOutlined />}>
                         Forumas
                     </Menu.Item>
-
                     <SubMenu
                         title="Vartotojo parinktys"
                         icon={<Avatar size="large">{this.props.username}</Avatar>}
@@ -77,7 +62,6 @@ class TopNavBarComponent extends React.Component<Props> {
                             </Menu.Item>
                         </Menu.ItemGroup>
                     </SubMenu>
-
                     <Button
                         type="primary"
                         style={{ display: 'block', float: 'right', marginTop: '15px' }}
@@ -86,13 +70,10 @@ class TopNavBarComponent extends React.Component<Props> {
                     >
                         Į pamoką
                     </Button>
-
-
                 </Menu>
             </Header>
         );
     }
-
     private readonly handleClickLogout = (): void => {
         navigationService.redirectToLogoutPage();
     };
@@ -108,13 +89,10 @@ class TopNavBarComponent extends React.Component<Props> {
         navigationService.redirectToCalendarPage()
     }
 }
-
 const mapContextToProps = ({ session: { user }, lessons }: SettingsProps): ContextProps => ({
     teacherLessons: lessons,
     username: user != null ? user.username : null,
     userRoles: user.roles,
 });
-
 const TopNavBar = connectContext(mapContextToProps)(TopNavBarComponent);
-
 export { TopNavBar };
