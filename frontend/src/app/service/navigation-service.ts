@@ -9,6 +9,11 @@ class NavigationService {
     public static readonly USER_DETAILS_PATH: string = '/user-details/:id?';
     public static readonly CHAT_ROOM_PATH: string = '/chat-room';
     public static readonly PAGE_NOT_FOUND_PATH: string = '/not-found';
+    public static readonly USER_TIMETABLE_PATH: string = '/timetable';
+
+    public readonly redirectToCalendarPage = (): void => {
+        window.location.href = NavigationService.USER_TIMETABLE_PATH;
+    };
 
     public readonly redirectToDefaultPage = (): void => {
         window.location.href = NavigationService.HOME_PATH;

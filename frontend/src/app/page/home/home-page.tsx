@@ -4,7 +4,6 @@ import { Button, Layout } from 'antd';
 import { connectContext, SettingsProps } from 'app/context';
 import { navigationService } from 'app/service/navigation-service';
 import { PageContent } from 'app/components/layout';
-import { TopNavBar } from 'app/components/topnavbar/topnavbar';
 import styles from './home.module.scss';
 
 import { Lessons } from './lessons/lessons';
@@ -15,7 +14,6 @@ interface ContextProps {
     username: string | null;
     userRoles: string[] | null;
     teacherLessons: Api.Lesson[];
-    // studentLessons: Api.Lesson[];
 }
 
 type Props = ContextProps;
@@ -24,21 +22,19 @@ class HomePageComponent extends React.Component<Props> {
 
     public render(): React.ReactNode {
         const {
-            username,
             userRoles,
             teacherLessons,
         } = this.props;
 
-        const userRoleToLT = userRoles.includes("STUDENT") ? "mokinį"
-            : userRoles.includes("TEACHER") ? "mokytojau"
-                : userRoles.includes("ADMIN") ? "administratoriau" : null
+        const userRoleToLT = userRoles.includes('STUDENT') ? 'mokinį'
+            : userRoles.includes('TEACHER') ? 'mokytojau'
+                : userRoles.includes('ADMIN') ? 'administratoriau' : null
 
         return (
             <Layout>
                 <Content>
-                    <TopNavBar userRoles={userRoles} username={username} />
                     <PageContent>
-                        <div className = {styles.welcomeHeader}>
+                        <div className={styles.welcomeHeader}>
                             Labas, {userRoleToLT},
                         </div>
                         {userRoles.includes('ADMIN') ? (

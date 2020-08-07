@@ -14,7 +14,7 @@ class SessionService {
         this.restService.get<Api.Session>(SessionService.SESSION_PATH);
 
     public readonly login = (username: string, password: string): Promise<Api.Session> =>
-        this.restService.post<Api.Session>(SessionService.SESSION_PATH, { username, password });
+        this.restService.post<Api.Session>(SessionService.SESSION_PATH, {username, password});
 
     public readonly logout = (): Promise<void> =>
         this.restService.delete<void>(SessionService.SESSION_PATH);
