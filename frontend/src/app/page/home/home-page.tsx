@@ -5,6 +5,7 @@ import { connectContext, SettingsProps } from 'app/context';
 import { navigationService } from 'app/service/navigation-service';
 import { PageContent } from 'app/components/layout';
 import { TopNavBar } from 'app/components/topnavbar/topnavbar';
+import styles from './home.module.scss';
 
 import { Lessons } from './lessons/lessons';
 
@@ -20,48 +21,50 @@ interface ContextProps {
 type Props = ContextProps;
 
 class HomePageComponent extends React.Component<Props> {
-    // public const ifAdmin: boolean = userRoles.includes('ADMIN');
 
     public render(): React.ReactNode {
         const {
             username,
             userRoles,
             teacherLessons,
-            // studentLessons,
         } = this.props;
+
+        const userRoleToLT = userRoles.includes("STUDENT") ? "mokinį"
+            : userRoles.includes("TEACHER") ? "mokytojau"
+                : userRoles.includes("ADMIN") ? "administratoriau" : null
 
         return (
             <Layout>
                 <Content>
                     <TopNavBar userRoles={userRoles} username={username} />
                     <PageContent>
-                        <div>
-                            Hello, {username}! your role is {userRoles.toString()}
+                        <div className = {styles.welcomeHeader}>
+                            Labas, {userRoleToLT},
                         </div>
-                        <Lessons lessonsList={teacherLessons || []} />
                         {userRoles.includes('ADMIN') ? (
-                            <Button type="link" onClick={this.handleClickToUserList}>
+                            <Button type="primary" onClick={this.handleClickToUserList}>
                                 To user list
                             </Button>
                         ) : (
-                                ''
-                            )}
+                            <Lessons lessonsList={teacherLessons || []} />
+                        )}
+
                     </PageContent>
                 </Content>
-            </Layout >
+            </Layout>
         );
     }
 
     private readonly handleClickToUserList = (): void => {
         navigationService.redirectToUserListPage();
     };
+
 }
 
 const mapContextToProps = ({ session: { user }, lessons }: SettingsProps): ContextProps => ({
     username: user != null ? user.username : null,
     userRoles: user.roles,
     teacherLessons: lessons,
-    // studentLessons: lessons,
 });
 
 const HomePage = connectContext(mapContextToProps)(HomePageComponent);
