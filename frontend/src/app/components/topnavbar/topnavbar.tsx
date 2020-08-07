@@ -10,16 +10,22 @@ import {
 } from '@ant-design/icons';
 
 import { navigationService } from 'app/service/navigation-service';
+import { connectContext, SettingsProps } from 'app/context';
 
 const { SubMenu } = Menu;
 const { Header } = Layout;
 
-interface Props {
+interface OwnProps {}
+
+interface ContextProps {
+    teacherLessons: Api.Lesson[];
     username: string | null;
     userRoles: string[] | null;
 }
 
-class TopNavBar extends React.Component<Props> {
+type Props = OwnProps & ContextProps;
+
+class TopNavBarComponent extends React.Component<Props> {
     public state = {
         current: 'mail',
         color: 'red',
@@ -33,13 +39,19 @@ class TopNavBar extends React.Component<Props> {
     public render(): React.ReactNode {
         const { current } = this.state;
 
+        const {
+            teacherLessons,
+        } = this.props;
+
         return (
             <Header>
                 <Menu theme="dark" onClick={this.handleClick} selectedKeys={[current]} mode="horizontal">
                     <Menu.Item key="home" onClick={() => this.handleClickToDefaultPage()}>
                         <CodeSandboxOutlined style={{ fontSize: '30px', color: 'blue' }} />
                     </Menu.Item>
-                    <Menu.Item key="timetable" style={this.navStudentHandler()} icon={<CalendarOutlined />}>
+                    <Menu.Item key="timetable"
+                               // style={this.navStudentHandler()}
+                               onClick={this.handleClickToCalendarPage} icon={<CalendarOutlined />}>
                         Tvarkaraštis
                     </Menu.Item>
                     <Menu.Item key="material" icon={<BookOutlined />}>
@@ -74,6 +86,8 @@ class TopNavBar extends React.Component<Props> {
                     >
                         Į pamoką
                     </Button>
+
+
                 </Menu>
             </Header>
         );
@@ -82,14 +96,25 @@ class TopNavBar extends React.Component<Props> {
     private readonly handleClickLogout = (): void => {
         navigationService.redirectToLogoutPage();
     };
-    private readonly navStudentHandler = (): any =>
-        this.props.userRoles[0] === 'STUDENT' ? { display: 'none' } : null;
+    // private readonly navStudentHandler = (): any =>
+    //     this.props.userRoles[0] === 'STUDENT' ? { display: 'none' } : null;
     private readonly handleClickToDefaultPage = (): void => {
         navigationService.redirectToDefaultPage();
     };
     private readonly handleClickToVideoPage = (): void => {
         navigationService.redirectToVideoChat();
     };
+    private readonly handleClickToCalendarPage=(): void => {
+        navigationService.redirectToCalendarPage()
+    }
 }
+
+const mapContextToProps = ({ session: { user }, lessons }: SettingsProps): ContextProps => ({
+    teacherLessons: lessons,
+    username: user != null ? user.username : null,
+    userRoles: user.roles,
+});
+
+const TopNavBar = connectContext(mapContextToProps)(TopNavBarComponent);
 
 export { TopNavBar };
