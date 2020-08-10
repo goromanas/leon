@@ -113,8 +113,8 @@
       INSERT INTO `schedule` VALUES(7, '13:50:00', '14:35:00');
       INSERT INTO `schedule` VALUES(8, '14:45:00', '15:30:00');
 
-      ALTER TABLE Lesson
-      ADD FOREIGN KEY (Time) REFERENCES SCHEDULE (ID)
+      ALTER TABLE LESSON
+      ADD FOREIGN KEY (TIME) REFERENCES SCHEDULE (ID)
 
     </sql>
   </changeSet>
