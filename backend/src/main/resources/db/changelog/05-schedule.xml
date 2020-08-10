@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+  <changeSet id="05" author="Romanas">
+    <sql >
+
+      INSERT INTO `user` VALUES (10, 'Rytis', 'Cicinas','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'mokinys6a','');
+
+      INSERT INTO `user` VALUES (11, 'Geografijos', 'Mokytojas','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'geomokytojas','');
+      INSERT INTO `user` VALUES (12, 'Fizikos', 'Mokytojas','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'fizmokytojas','');
+      INSERT INTO `user` VALUES (13, 'Informatikos', 'Mokytojas','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'infmokytojas','');
+      INSERT INTO `user` VALUES (14, 'Kūno kultūros', 'Mokytojas','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'kunmokytojas','');
+      INSERT INTO `user` VALUES (15, 'Istorijos', 'Mokytojas','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'istmokytojas','');
+      INSERT INTO `user` VALUES (16, 'Anglų kalbos', 'Mokytojas','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'angmokytojas','');
+      INSERT INTO `user` VALUES (17, 'Antros užsienio k.', 'Mokytojas','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'antmokytojas','');
+      INSERT INTO `user` VALUES (18, 'Technologijų', 'Mokytojas','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'tecmokytojas','');
+      INSERT INTO `user` VALUES (19, 'Biologijos', 'Mokytojas','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'biomokytojas','');
+      INSERT INTO `user` VALUES (20, 'Chemijos', 'Mokytojas','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'chemokytojas','');
+      INSERT INTO `user` VALUES (21, 'Pilietinio ugd.', 'Mokytojas','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'pilmokytojas','');
+      INSERT INTO `user` VALUES (22, 'Matematikos', 'Mokytojas','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'matmokytojas','');
+      INSERT INTO `user` VALUES (23, 'Lietuvių k.', 'Mokytojas','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'liemokytojas','');
+      INSERT INTO `user` VALUES (24, 'Etikos', 'Mokytojas','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'etimokytojas','');
+      INSERT INTO `user` VALUES (25, 'Menų', 'Mokytojas','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'menmokytojas','');
+
+      INSERT INTO `classroom_user` VALUES (4, 10);
+
+      INSERT INTO `user_role` VALUES (10, 1);
+
+      INSERT INTO `user_role` VALUES (11, 2);
+      INSERT INTO `user_role` VALUES (12, 2);
+      INSERT INTO `user_role` VALUES (13, 2);
+      INSERT INTO `user_role` VALUES (14, 2);
+      INSERT INTO `user_role` VALUES (15, 2);
+      INSERT INTO `user_role` VALUES (16, 2);
+      INSERT INTO `user_role` VALUES (17, 2);
+      INSERT INTO `user_role` VALUES (18, 2);
+      INSERT INTO `user_role` VALUES (19, 2);
+      INSERT INTO `user_role` VALUES (20, 2);
+      INSERT INTO `user_role` VALUES (21, 2);
+      INSERT INTO `user_role` VALUES (22, 2);
+      INSERT INTO `user_role` VALUES (23, 2);
+      INSERT INTO `user_role` VALUES (24, 2);
+      INSERT INTO `user_role` VALUES (25, 2);
+
+      INSERT INTO `subject` VALUES (7,'Kūno kultūra','Kūno kultūros pamoka');
+      INSERT INTO `subject` VALUES (8,'Istorija','Istorijos pamoka');
+      INSERT INTO `subject` VALUES (9,'Menai','Menų pamoka');
+      INSERT INTO `subject` VALUES (10,'Anglų kalba','Anglų kalbos pamoka');
+      INSERT INTO `subject` VALUES (11,'Antra užsienio kalba','Antros užsienio kalbos pamoka');
+      INSERT INTO `subject` VALUES (12,'Technologijos','Technologijų pamoka');
+      INSERT INTO `subject` VALUES (13,'Etika','Etikos pamoka');
+      INSERT INTO `subject` VALUES (14,'Biologija','Biologijos pamoka');
+      INSERT INTO `subject` VALUES (15,'Chemija','Chemijos pamoka');
+      INSERT INTO `subject` VALUES (16,'Pilietinis ugdymas','Pilietinio ugdymo pamoka');
+      INSERT INTO `subject` VALUES (17,'Klasės valandėlė','Klasės valandėlė');
+
+      INSERT INTO `lesson` VALUES(16,2,4,25,'Matematika 6A','1',1,0);
+      INSERT INTO `lesson` VALUES(17,1,4,23,'Lietuvių k. 6A','1',2,0);
+      INSERT INTO `lesson` VALUES(18,1,4,23,'Lietuvių k. 6A','1',3,0);
+      INSERT INTO `lesson` VALUES(19,7,4,14,'Kūno kultūra 6A','1',4,0);
+      INSERT INTO `lesson` VALUES(20,8,4,15,'Istorija 6A','1',5,0);
+      INSERT INTO `lesson` VALUES(21,9,4,25,'Menai 6A','1',6,0);
+      INSERT INTO `lesson` VALUES(22,10,4,16,'Anglų k. 6A','1',7,0);
+
+      INSERT INTO `lesson` VALUES(23,1,4,23,'Lietuvių k. 6A','2',1,0);
+      INSERT INTO `lesson` VALUES(24,2,4,25,'Matematika 6A','2',2,0);
+      INSERT INTO `lesson` VALUES(25,16,4,21,'Pilietinis ugd. 6A','2',3,0);
+      INSERT INTO `lesson` VALUES(26,11,4,17,'Antra užsienio k. 6A','2',4,0);
+      INSERT INTO `lesson` VALUES(27,3,4,11,'Geografija 6A','2',5,0);
+      INSERT INTO `lesson` VALUES(28,12,4,18,'Technologijos 6A','2',6,0);
+      INSERT INTO `lesson` VALUES(29,12,4,18,'Technologijos 6A','2',7,0);
+
+      INSERT INTO `lesson` VALUES(30,10,4,16,'Anglų k. 6A','3',1,0);
+      INSERT INTO `lesson` VALUES(31,13,4,24,'Etika 6A','3',2,0);
+      INSERT INTO `lesson` VALUES(32,8,4,15,'Istorija 6A','3',3,0);
+      INSERT INTO `lesson` VALUES(33,4,4,12,'Fizika 6A','3',4,0);
+      INSERT INTO `lesson` VALUES(34,1,4,23,'Lietuvių k. 6A','3',5,0);
+      INSERT INTO `lesson` VALUES(35,2,4,22,'Matematika 6A','3',6,0);
+      INSERT INTO `lesson` VALUES(36,14,4,19,'Biologija 6A','3',7,0);
+
+      INSERT INTO `lesson` VALUES(37,1,4,23,'Lietuvių k. 6A','4',1,0);
+      INSERT INTO `lesson` VALUES(38,7,4,14,'Kūno kultūra 6A','4',2,0);
+      INSERT INTO `lesson` VALUES(39,11,4,17,'Antra užsienio k. 6A','4',3,0);
+      INSERT INTO `lesson` VALUES(40,15,4,20,'Chemija 6A','4',4,0);
+      INSERT INTO `lesson` VALUES(41,9,4,25,'Menai 6A','4',5,0);
+      INSERT INTO `lesson` VALUES(42,5,4,13,'Informatika 6A','4',6,0);
+      INSERT INTO `lesson` VALUES(43,17,4,25,'Klasės valandėlė 6A','4',7,0);
+
+      INSERT INTO `lesson` VALUES(44,14,4,19,'Biologija 6A','4',1,0);
+      INSERT INTO `lesson` VALUES(45,3,4,11,'Geografija 6A','4',2,0);
+      INSERT INTO `lesson` VALUES(46,2,4,22,'Matematika 6A','4',3,0);
+      INSERT INTO `lesson` VALUES(47,15,4,20,'Chemija 6A','4',4,0);
+      INSERT INTO `lesson` VALUES(48,10,4,16,'Anglų k. 6A','4',5,0);
+      INSERT INTO `lesson` VALUES(49,4,4,12,'Fizika 6A','4',6,0);
+
+      create table schedule
+      (
+      ID BIGINT not null primary key,
+      START_TIME TIME(0),
+      END_TIME TIME(0)
+      );
+
+      INSERT INTO `schedule` VALUES(1, '08:00:00', '08:45:00');
+      INSERT INTO `schedule` VALUES(2, '08:55:00', '09:40:00');
+      INSERT INTO `schedule` VALUES(3, '09:50:00', '10:35:00');
+      INSERT INTO `schedule` VALUES(4, '11:05:00', '11:50:00');
+      INSERT INTO `schedule` VALUES(5, '12:00:00', '12:45:00');
+      INSERT INTO `schedule` VALUES(6, '12:55:00', '13:40:00');
+      INSERT INTO `schedule` VALUES(7, '13:50:00', '14:35:00');
+      INSERT INTO `schedule` VALUES(8, '14:45:00', '15:30:00');
+
+      ALTER TABLE Lesson
+      ADD FOREIGN KEY (Time) REFERENCES SCHEDULE (ID)
+
+    </sql>
+  </changeSet>
+</databaseChangeLog>
