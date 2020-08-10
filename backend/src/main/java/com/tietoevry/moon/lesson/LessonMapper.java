@@ -13,6 +13,7 @@ public class LessonMapper {
         lessonDto.setSubject(lesson.getSubject().getName());
         lessonDto.setTeacher(lesson.getTeacher().getFirstName()+" "+lesson.getTeacher().getLastName());
         lessonDto.setVideo(lesson.getVideo());
+        lessonDto.setTime(lesson.getTime());
         lessonDto.setClassName(lesson.getClassroom().getClassName());
         return lessonDto;
     }
