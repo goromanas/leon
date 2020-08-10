@@ -11,6 +11,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 
 @Configuration
 @EnableWebSecurity
@@ -57,6 +62,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/h2-console/**"
             ).permitAll()
             .antMatchers("/session").permitAll()
-            .antMatchers("/**").authenticated();
+            .antMatchers("/**").authenticated()
+            .and()
+            .rememberMe()
+            .rememberMeServices(this.rememberMeService())
+            .tokenValiditySeconds(1*24*60*60);
+    }
+
+    @Bean
+    public TokenBasedRememberMeServices rememberMeService(){
+        TokenBasedRememberMeServices tbrms =
+            new TokenBasedRememberMeServices("rememberMe", moonUserDetailsService);
+        tbrms.setAlwaysRemember(true);
+        return tbrms;
+    }
+
+    @Bean
+    public SavedRequestAwareAuthenticationSuccessHandler savedRequestAwareAuthenticationSuccessHandler() {
+        SavedRequestAwareAuthenticationSuccessHandler auth = new SavedRequestAwareAuthenticationSuccessHandler();
+        auth.setTargetUrlParameter("targetUrl");
+        return auth;
     }
 }
