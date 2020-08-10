@@ -12,6 +12,9 @@ import {
 import { navigationService } from 'app/service/navigation-service';
 import { connectContext, SettingsProps } from 'app/context';
 import { Lessons } from 'app/page/home/lessons/lessons';
+import styles from './topnavbar.module.scss';
+import { Clock } from 'app/components/clock/clock';
+
 
 const {SubMenu} = Menu;
 const {Header} = Layout;
@@ -28,18 +31,10 @@ interface ContextProps {
 type Props = OwnProps & ContextProps;
 
 class TopNavBarComponent extends React.Component<Props> {
-    public state = {
-        current: 'mail',
-        color: 'red',
-        user: 'Rytis',
-    };
-    public handleClick = (e: any) => {
-        console.log('click ', e);
-        this.setState({current: e.key});
-    };
+
 
     public render(): React.ReactNode {
-        const {current} = this.state;
+
 
         const {
             teacherLessons,
@@ -55,14 +50,17 @@ class TopNavBarComponent extends React.Component<Props> {
         }
         ;
 
+
+
         return (
             <Header>
-                <Menu theme="dark" onClick={this.handleClick} selectedKeys={[current]} mode="horizontal">
+
+                <Menu theme="dark"   mode="horizontal">
                     <Menu.Item key="home" onClick={() => this.handleClickToDefaultPage()}>
                         <CodeSandboxOutlined style={{fontSize: '30px', color: 'blue'}}/>
                     </Menu.Item>
+
                     <Menu.Item key="timetable"
-                        // style={this.navStudentHandler()}
                                onClick={this.handleClickToCalendarPage} icon={<CalendarOutlined/>}>
                         Tvarkaraštis
                     </Menu.Item>
@@ -77,10 +75,10 @@ class TopNavBarComponent extends React.Component<Props> {
                     </Menu.Item>
 
                     <SubMenu
-                        title="Vartotojo parinktys"
                         icon={<Avatar size="large">{this.props.username}</Avatar>}
                         style={{color: 'grey', float: 'right'}}
                     >
+
                         <Menu.ItemGroup>
                             <Menu.Item key="logout" style={{margin: 'auto'}}>
                                 <Button type="primary" onClick={this.handleClickLogout}>
@@ -88,10 +86,11 @@ class TopNavBarComponent extends React.Component<Props> {
                                 </Button>
                             </Menu.Item>
                         </Menu.ItemGroup>
+
                     </SubMenu>
 
                     <Button
-                        disabled={!lessonId ? false : true}
+                        disabled={!lessonId ? true : false}
                         type="primary"
                         style={{display: 'block', float: 'right', marginTop: '15px'}}
                         icon={<VideoCameraOutlined/>}
@@ -99,6 +98,9 @@ class TopNavBarComponent extends React.Component<Props> {
                     >
                         Į pamoką
                     </Button>
+                    <Menu.Item className={styles.modifiedItem} >
+                       <Clock/>
+                    </Menu.Item>
 
 
                 </Menu>
