@@ -1,25 +1,34 @@
 import React from 'react';
-import { Button } from 'antd';
 
 import styles from './lessons.module.scss';
+import { Button } from 'antd';
 import { navigationService } from 'app/service/navigation-service';
 import lessonTimes from '../lesson-times-data.json';
+
+const l = lessonTimes as SingleLessonTimes[];
 
 interface Props {
     lessonsList: Api.Lesson[];
 }
 interface State {
-
-        date: Date,
-        lessonsState: Api.Lesson[]
+    date: Date;
+    lessonsState: Api.Lesson[];
 }
 
-class Lessons extends React.Component<Props, State> {
+interface SingleLessonTimes {
+    id: number;
+    startTime: number;
+    endTime: number;
+}
+
+type LessonTimes = SingleLessonTimes[];
+
+class Lessons extends React.Component<Props, State, LessonTimes> {
     private timerID: any;
 
     constructor(props: Props) {
         super(props);
-        this.state = { date: new Date(), lessonsState:this.props.lessonsList};
+        this.state = { date: new Date(), lessonsState: this.props.lessonsList};
     }
 
     componentDidMount() {
@@ -27,19 +36,37 @@ class Lessons extends React.Component<Props, State> {
             () => this.tick(),
             1000
         );
-        // this.setState({date: new Date(), lessonsState: this.props.lessonsList})
+        this.updateLessonsStatus = this.updateLessonsStatus.bind(this);
     }
 
     componentWillUnmount() {
         clearInterval(this.timerID);
     }
+    updateLessonsStatus = () => {
+        let currentLesson: number;
+        currentLesson = lessonTimes.forEach(item => {
+            if (item.startTime >= this.state.date.getHours() && this.state.date.getHours() <= item.endTime) {
+                return item.id;
+            } else {
+                return null;
+            }
+        });
+
+        return this.state.lessonsState.map(item => {
+            if (item.id + 1 === currentLesson) {
+                item.status = 1;
+            } else if (item.id + 1 < currentLesson) {
+                item.status = 0;
+            } else if (item.id + 1 > currentLesson) {
+                item.status = 2;
+            }
+            return item;
+        });
+    };
 
     tick() {
-        this.setState({
-            date: new Date()
-        });
-        // console.log(lessonTimes[1]['start-time']);
-    };
+        this.setState({ date: new Date(), lessonsState: this.updateLessonsStatus() });
+    }
 
     public render(): React.ReactNode {
         const { lessonsList } = this.props;
@@ -68,7 +95,7 @@ class Lessons extends React.Component<Props, State> {
 
         return (
             <div>
-                <h1 className ={styles.classListHeader}>Šiandienos pamokos({lessonsList.length})</h1>
+                <h1 className={styles.classListHeader}>Šiandienos pamokos({lessonsList.length})</h1>
                 It is {this.state.date.toLocaleTimeString()}
                 <ul className={styles.list}>{allLessons}</ul>
             </div>

@@ -1,12 +1,17 @@
 
   [{
     "id": 1,
-    "start-time": "8:00",
-    "duration": 45
+    "startTime": 8,
+    "endTime": 9
   },
   {
     "id": 2,
-    "start-time": "9:00",
-    "duration": 45
-  }]
+    "startTime": 10,
+    "endTime": 11
+  },
+    {
+      "id": 3,
+      "startTime": 12,
+      "endTime": 17
+    }]
 
