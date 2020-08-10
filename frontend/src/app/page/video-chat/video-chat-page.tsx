@@ -36,6 +36,13 @@ class HomePageComponent extends React.Component<Props, {}> {
         } = this.props;
 
         const currentLesson = teacherLessons && teacherLessons.filter((lesson) => lesson.id === parseInt(id, 10));
+
+        const isUserInWrongVideoRoom = teacherLessons &&
+            !teacherLessons.map(lesson => lesson.id).includes(parseInt(id, 10));
+
+        if (isUserInWrongVideoRoom) {
+            navigationService.redirectToDefaultPage();
+        }
         const videoChatName: string = currentLesson && currentLesson[0].video.toString();
 
         return (
@@ -58,9 +65,8 @@ class HomePageComponent extends React.Component<Props, {}> {
         );
     }
 
-    private readonly generateUniqueName = (subject: string, video: string): string => {
-        return subject + ' ' + video;
-    };
+    private readonly generateUniqueName = (subject: string, video: string): string =>
+        subject + ' ' + video;
 
     private readonly handleClickToDefaultPage = (): void => {
         navigationService.redirectToDefaultPage();
