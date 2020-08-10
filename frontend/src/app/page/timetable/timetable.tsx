@@ -18,6 +18,7 @@ class TimetablePageComponent extends React.Component<Props> {
             userRoles,
             teacherLessons,
         } = this.props;
+
         console.log(teacherLessons);
         return (
             <>
