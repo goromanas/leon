@@ -8,6 +8,8 @@ import styles from './home.module.scss';
 
 import { Lessons } from './lessons/lessons';
 
+import { Whiteboard } from './../../components/whiteboard/whiteboard';
+
 const { Content } = Layout;
 
 interface ContextProps {
@@ -36,6 +38,7 @@ class HomePageComponent extends React.Component<Props> {
         return (
             <Layout>
                 <Content>
+
                     <PageContent>
                         <div className={styles.welcomeHeader}>
                             Labas, {userRoleToLT},

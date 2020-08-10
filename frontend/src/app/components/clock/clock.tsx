@@ -17,7 +17,7 @@ class Clock extends React.Component {
         });
     }
 
-    render() {
+    render(): React.ReactNode {
         const options = {
             weekday: 'long',
             year: 'numeric',
