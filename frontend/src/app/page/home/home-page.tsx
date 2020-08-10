@@ -6,7 +6,7 @@ import { navigationService } from 'app/service/navigation-service';
 import { PageContent } from 'app/components/layout';
 import styles from './home.module.scss';
 
-import { Lessons } from './lessons/lessons';
+import { Lessons } from './timetable/day-lessons-list/lessons';
 
 const { Content } = Layout;
 

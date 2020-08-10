@@ -11,7 +11,7 @@ import {
 
 import { navigationService } from 'app/service/navigation-service';
 import { connectContext, SettingsProps } from 'app/context';
-import { Lessons } from 'app/page/home/lessons/lessons';
+import { Lessons } from 'app/page/home/timetable/day-lessons-list/lessons';
 
 const { SubMenu } = Menu;
 const { Header } = Layout;

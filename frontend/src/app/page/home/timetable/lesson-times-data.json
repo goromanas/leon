@@ -1,0 +1,12 @@
+
+  [{
+    "id": 1,
+    "start-time": "8:00",
+    "duration": 45
+  },
+  {
+    "id": 2,
+    "start-time": "9:00",
+    "duration": 45
+  }]
+
