@@ -28,4 +28,4 @@ public class Lesson {
     private String day;
     private int time;
     private int status;
-}
+    }

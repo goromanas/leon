@@ -7,6 +7,7 @@ import Jitsi from 'react-jitsi';
 import { connectContext, SettingsProps } from 'app/context';
 import { PageContent } from 'app/components/layout';
 import { navigationService } from 'app/service/navigation-service';
+import { Whiteboard } from 'app/components/whiteboard/whiteboard';
 
 const { Content } = Layout;
 
@@ -59,6 +60,7 @@ class HomePageComponent extends React.Component<Props, {}> {
                                 onAPILoad={handleCallEnd}
                             />
                         )}
+                        <Whiteboard />
                     </PageContent>
                 </Content>
             </Layout>
