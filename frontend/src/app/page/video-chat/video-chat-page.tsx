@@ -37,7 +37,10 @@ class HomePageComponent extends React.Component<Props, {}> {
 
         const currentLesson = teacherLessons && teacherLessons.filter((lesson) => lesson.id === parseInt(id, 10));
 
-        if (teacherLessons && !teacherLessons.map(lesson => lesson.id).includes(parseInt(id, 10))) {
+        const isUserInWrongVideoRoom = teacherLessons &&
+            !teacherLessons.map(lesson => lesson.id).includes(parseInt(id, 10));
+
+        if (isUserInWrongVideoRoom) {
             navigationService.redirectToDefaultPage();
         }
         const videoChatName: string = currentLesson && currentLesson[0].video.toString();
