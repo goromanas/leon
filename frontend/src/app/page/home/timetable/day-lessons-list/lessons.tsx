@@ -1,18 +1,43 @@
 import React from 'react';
+import { Button } from 'antd';
+
+import { navigationService } from 'app/service/navigation-service';
 
 import styles from './lessons.module.scss';
-import { Button } from 'antd';
-import { navigationService } from 'app/service/navigation-service';
-import lessonTimes from '../lesson-times-data.json';
 
-const l = lessonTimes as SingleLessonTimes[];
+const lessonTimes: LessonTimes =   [{
+    id: 1,
+    startTime: 8,
+    endTime: 9,
+},
+    {
+        id: 2,
+        startTime: 10,
+        endTime: 11,
+    },
+    {
+        id: 3,
+        startTime: 12,
+        endTime: 13,
+    },
+    {
+        id: 4,
+        startTime: 14,
+        endTime: 15,
+    },
+    {
+        id: 5,
+        startTime: 16,
+        endTime: 17,
+    }];
 
 interface Props {
     lessonsList: Api.Lesson[];
 }
+
 interface State {
     date: Date;
-    lessonsState: Api.Lesson[];
+    currentLesson: SingleLessonTimes;
 }
 
 interface SingleLessonTimes {
@@ -28,59 +53,56 @@ class Lessons extends React.Component<Props, State, LessonTimes> {
 
     constructor(props: Props) {
         super(props);
-        this.state = { date: new Date(), lessonsState: this.props.lessonsList};
+        this.state = { date: new Date(), currentLesson: {
+            id: 0,
+            startTime: 0,
+            endTime: 0,
+        }};
     }
 
-    componentDidMount() {
+    public componentDidMount() {
         this.timerID = setInterval(
             () => this.tick(),
-            1000
+            1000,
         );
-        this.updateLessonsStatus = this.updateLessonsStatus.bind(this);
+        this.updateCurrentLesson = this.updateCurrentLesson.bind(this);
     }
 
-    componentWillUnmount() {
+    public componentWillUnmount() {
         clearInterval(this.timerID);
     }
-    updateLessonsStatus = () => {
-        let currentLesson: number;
-        currentLesson = lessonTimes.forEach(item => {
-            if (item.startTime >= this.state.date.getHours() && this.state.date.getHours() <= item.endTime) {
-                return item.id;
-            } else {
-                return null;
-            }
-        });
 
-        return this.state.lessonsState.map(item => {
-            if (item.id + 1 === currentLesson) {
-                item.status = 1;
-            } else if (item.id + 1 < currentLesson) {
-                item.status = 0;
-            } else if (item.id + 1 > currentLesson) {
-                item.status = 2;
-            }
-            return item;
-        });
-    };
+    public updateCurrentLesson() {
+        if (this.state.date.getHours() < lessonTimes[lessonTimes.length - 1].endTime) {
+            return lessonTimes.find((item: SingleLessonTimes) =>
+                item.startTime <= this.state.date.getHours() &&  item.endTime >= this.state.date.getHours());
+        } else { return this.state.currentLesson; }
 
-    tick() {
-        this.setState({ date: new Date(), lessonsState: this.updateLessonsStatus() });
+    }
+
+    public tick() {
+        this.setState({ date: new Date(), currentLesson: this.updateCurrentLesson() });
     }
 
     public render(): React.ReactNode {
         const { lessonsList } = this.props;
         const activeLesson = { backgroundColor: '#636363', color: '#000000' };
         const upcomingLesson = { backgroundColor: '#929292', color: '#000000' };
+        const lessonInList = (e: any) => lessonsList.indexOf(e) + 1;
 
-        const allLessons = lessonsList.map((item) => (
+        const allLessons = this.props.lessonsList.map((item: any) => (
+
             <li className={styles.listItem} key={item.id}>
-                <div className={styles.classNumber} style={item.status === 1 ? activeLesson : item.status === 2 ? upcomingLesson : null}>
+                <div className={styles.classNumber}
+                     style={lessonInList(item) === this.state.currentLesson.id ? activeLesson
+                    : lessonInList(item) > this.state.currentLesson.id ? upcomingLesson : null}>
                     {lessonsList.indexOf(item) + 1}.
                 </div>
-                <div className={styles.listContent} style={item.status === 1 ? activeLesson : item.status === 2 ? upcomingLesson : null}>
+                <div className={styles.listContent}
+                     style={lessonInList(item) === this.state.currentLesson.id ? activeLesson
+                    : lessonInList(item) > this.state.currentLesson.id ? upcomingLesson : null}>
                     {item.subject}
-                    {item.status === 1 ? (
+                    {lessonInList(item)  === this.state.currentLesson.id ? (
                         <Button
                             type="primary"
                             className={styles.toVideoButton}
