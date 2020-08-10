@@ -7,7 +7,7 @@ class Whiteboard extends React.Component<any, any> {
     render() {
         return (
 
-            <CanvasDraw disabled/>
+            <CanvasDraw />
         )
             ;
     }
