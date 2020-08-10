@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 public class SessionController {
@@ -24,9 +25,10 @@ public class SessionController {
     @RequestMapping(path = "/session", method = RequestMethod.POST)
     public Session createSession(
         HttpServletRequest httpServletRequest,
+        HttpServletResponse httpServletResponse,
         @RequestBody LoginData sessionRequest
     ) {
-        return sessionService.createSession(httpServletRequest, sessionRequest.getUsername(), sessionRequest.getPassword());
+        return sessionService.createSession(httpServletRequest,httpServletResponse, sessionRequest.getUsername(), sessionRequest.getPassword());
     }
 
     @RequestMapping(path = "/session", method = RequestMethod.DELETE)
