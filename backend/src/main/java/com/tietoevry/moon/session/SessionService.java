@@ -28,8 +28,8 @@ public class SessionService {
         );
     }
 
-    public Session createSession(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, String username, String password) {
-        MoonUserDetails userDetails = securityContextService.createSession(httpServletRequest,httpServletResponse, username, password);
+    public Session createSession(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, String username, String password, Boolean rememberMe) {
+        MoonUserDetails userDetails = securityContextService.createSession(httpServletRequest,httpServletResponse, username, password,rememberMe);
 
         return new Session(
             new SessionUser(userDetails.getUsername(),userDetails.getRoles())

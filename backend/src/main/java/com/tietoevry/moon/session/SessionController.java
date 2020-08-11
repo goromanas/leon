@@ -3,10 +3,7 @@ package com.tietoevry.moon.session;
 import com.tietoevry.moon.session.model.LoginData;
 import com.tietoevry.moon.session.model.Session;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,9 +23,10 @@ public class SessionController {
     public Session createSession(
         HttpServletRequest httpServletRequest,
         HttpServletResponse httpServletResponse,
-        @RequestBody LoginData sessionRequest
+        @RequestBody LoginData sessionRequest,
+        @RequestParam Boolean rememberMe
     ) {
-        return sessionService.createSession(httpServletRequest,httpServletResponse, sessionRequest.getUsername(), sessionRequest.getPassword());
+        return sessionService.createSession(httpServletRequest,httpServletResponse, sessionRequest.getUsername(), sessionRequest.getPassword(),rememberMe);
     }
 
     @RequestMapping(path = "/session", method = RequestMethod.DELETE)

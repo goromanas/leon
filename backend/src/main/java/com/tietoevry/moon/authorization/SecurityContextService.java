@@ -30,7 +30,7 @@ public class SecurityContextService {
         return principal instanceof MoonUserDetails ? (MoonUserDetails) principal : null;
     }
 
-    public MoonUserDetails createSession(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse, String username, String password) {
+    public MoonUserDetails createSession(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse, String username, String password, Boolean rememberMe) {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
             username,
             password
@@ -45,8 +45,10 @@ public class SecurityContextService {
 
         HttpSession session = httpServletRequest.getSession(true);
         session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, securityContext);
-         rememberMeService.loginSuccess(httpServletRequest,httpServletResponse,authentication);
-        return (MoonUserDetails) authentication.getPrincipal();
+        if(rememberMe) {
+         //   rememberMeService.loginSuccess(httpServletRequest, httpServletResponse, authentication);
+        }
+         return (MoonUserDetails) authentication.getPrincipal();
     }
 
     public void deleteSession(HttpServletRequest httpServletRequest) {
