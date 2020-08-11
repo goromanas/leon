@@ -30,7 +30,8 @@ class HomePageComponent extends React.Component<Props> {
 
         const userRoleToLT = userRoles.includes('STUDENT') ? 'mokiny'
             : userRoles.includes('TEACHER') ? 'mokytojau'
-                : userRoles.includes('ADMIN') ? 'administratoriau' : null;
+                : userRoles.includes('ADMIN') ? 'administratoriau'
+                    : userRoles.includes('PARENT') ? 'tėve' : null;
 
         return (
             <Layout>
@@ -38,7 +39,9 @@ class HomePageComponent extends React.Component<Props> {
 
                     <PageContent>
                         <div className={styles.welcomeHeader}>
+
                             Labas, {userRoleToLT},
+
                         </div>
                         {userRoles.includes('ADMIN') ? (
                             <Button type="primary" onClick={this.handleClickToUserList}>
