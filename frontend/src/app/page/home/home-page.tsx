@@ -28,9 +28,10 @@ class HomePageComponent extends React.Component<Props> {
             teacherLessons,
         } = this.props;
 
-        const userRoleToLT = userRoles.includes('STUDENT') ? 'mokinį'
-            : userRoles.includes('TEACHER') ? 'mokytojau'
-                : userRoles.includes('ADMIN') ? 'administratoriau' : null
+        const userRoleToLT = userRoles.includes('STUDENT') ? 'Mokinį'
+            : userRoles.includes('TEACHER') ? 'Mokytojau'
+                : userRoles.includes('ADMIN') ? 'Administratoriau'
+                    : userRoles.includes('PARENT') ? 'Tėvai' : null;
 
 
 
@@ -41,7 +42,7 @@ class HomePageComponent extends React.Component<Props> {
 
                     <PageContent>
                         <div className={styles.welcomeHeader}>
-                            Labas, {userRoleToLT},
+                            Labas, {userRoleToLT}
 
                         </div>
                         {userRoles.includes('ADMIN') ? (
