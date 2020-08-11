@@ -11,12 +11,16 @@ import {
 
 import { navigationService } from 'app/service/navigation-service';
 import { connectContext, SettingsProps } from 'app/context';
-import { Lessons } from 'app/page/home/timetable/day-lessons-list/lessons';
+import { Lessons } from 'app/page/home/lessons/lessons';
+import styles from './topnavbar.module.scss';
+import { Clock } from 'app/components/clock/clock';
 
-const { SubMenu } = Menu;
-const { Header } = Layout;
 
-interface OwnProps {}
+const {SubMenu} = Menu;
+const {Header} = Layout;
+
+interface OwnProps {
+}
 
 interface ContextProps {
     teacherLessons: Api.Lesson[];
@@ -27,18 +31,10 @@ interface ContextProps {
 type Props = OwnProps & ContextProps;
 
 class TopNavBarComponent extends React.Component<Props> {
-    public state = {
-        current: 'mail',
-        color: 'red',
-        user: 'Rytis',
-    };
-    public handleClick = (e: any) => {
-        console.log('click ', e);
-        this.setState({ current: e.key });
-    };
+
 
     public render(): React.ReactNode {
-        const { current } = this.state;
+
 
         const {
             teacherLessons,
@@ -48,55 +44,63 @@ class TopNavBarComponent extends React.Component<Props> {
 
         let lessonId: number;
         if (currentLesson != null) {
-            if( currentLesson.length > 0){
-            lessonId = currentLesson && parseInt(currentLesson[0].id.toString(), 10);
-        }};
+            if (currentLesson.length > 0) {
+                lessonId = currentLesson && parseInt(currentLesson[0].id.toString(), 10);
+            }
+        }
+        ;
+
+
 
         return (
             <Header>
-                <Menu theme="dark" onClick={this.handleClick} selectedKeys={[current]} mode="horizontal">
+
+                <Menu theme="dark"   mode="horizontal">
                     <Menu.Item key="home" onClick={() => this.handleClickToDefaultPage()}>
-                        <CodeSandboxOutlined style={{ fontSize: '30px', color: 'blue' }} />
+                        <CodeSandboxOutlined style={{fontSize: '30px', color: 'blue'}}/>
                     </Menu.Item>
+
                     <Menu.Item key="timetable"
-                               // style={this.navStudentHandler()}
-                               onClick={this.handleClickToCalendarPage} icon={<CalendarOutlined />}>
+                               onClick={this.handleClickToCalendarPage} icon={<CalendarOutlined/>}>
                         Tvarkaraštis
                     </Menu.Item>
-                    <Menu.Item key="material" icon={<BookOutlined />}>
+                    <Menu.Item key="material" icon={<BookOutlined/>}>
                         Pamokų medžiaga
                     </Menu.Item>
-                    <Menu.Item key="achievements" icon={<TrophyOutlined />}>
+                    <Menu.Item key="achievements" icon={<TrophyOutlined/>}>
                         Pasiekimai
                     </Menu.Item>
-                    <Menu.Item key="forum" icon={<FormOutlined />}>
+                    <Menu.Item key="forum" icon={<FormOutlined/>}>
                         Forumas
                     </Menu.Item>
 
                     <SubMenu
-                        title="Vartotojo parinktys"
                         icon={<Avatar size="large">{this.props.username}</Avatar>}
-                        style={{ color: 'grey', float: 'right' }}
+                        style={{color: 'grey', float: 'right'}}
                     >
+
                         <Menu.ItemGroup>
-                            <Menu.Item key="logout" style={{ margin: 'auto' }}>
+                            <Menu.Item key="logout" style={{margin: 'auto'}}>
                                 <Button type="primary" onClick={this.handleClickLogout}>
                                     Atsijungti
                                 </Button>
                             </Menu.Item>
                         </Menu.ItemGroup>
+
                     </SubMenu>
-                    {lessonId ?
+
                     <Button
+                        disabled={!lessonId ? true : false}
                         type="primary"
-                        style={{ display: 'block', float: 'right', marginTop: '15px' }}
-                        icon={<VideoCameraOutlined />}
-                        onClick={()=>this.handleOpenClassroom(lessonId)}
+                        style={{display: 'block', float: 'right', marginTop: '15px'}}
+                        icon={<VideoCameraOutlined/>}
+                        onClick={() => this.handleOpenClassroom(lessonId)}
                     >
                         Į pamoką
                     </Button>
-                    :''
-                     }
+                    <Menu.Item className={styles.modifiedItem} >
+                       <Clock/>
+                    </Menu.Item>
 
 
                 </Menu>
@@ -115,9 +119,9 @@ class TopNavBarComponent extends React.Component<Props> {
     private readonly handleClickToVideoPage = (): void => {
         navigationService.redirectToVideoChat();
     };
-    private readonly handleClickToCalendarPage=(): void => {
-        navigationService.redirectToCalendarPage()
-    }
+    private readonly handleClickToCalendarPage = (): void => {
+        navigationService.redirectToCalendarPage();
+    };
 
     private readonly handleOpenClassroom = (id: number): void => {
         if (id) {
@@ -126,7 +130,7 @@ class TopNavBarComponent extends React.Component<Props> {
     };
 }
 
-const mapContextToProps = ({ session: { user }, lessons }: SettingsProps): ContextProps => ({
+const mapContextToProps = ({session: {user}, lessons}: SettingsProps): ContextProps => ({
     teacherLessons: lessons,
     username: user != null ? user.username : null,
     userRoles: user.roles,

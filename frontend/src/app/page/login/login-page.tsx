@@ -76,14 +76,16 @@ class LoginPageComponent extends React.Component<Props, {}> {
     private readonly handleSubmit = (values: LoginValues, { resetForm }: FormikHelpers<LoginValues>): void => {
         sessionService.login(values.username, values.password)
             .then(() => { navigationService.redirectToDefaultPage(); })
-            .catch(error => this.handleError(error, resetForm));
+            .catch(error => this.handleError(error, resetForm, values));
     };
 
     private readonly handleError = (
         error: any,
         resetForm: (nextValues?: Partial<FormikState<LoginValues>>) => void,
+        values: LoginValues
     ): void => {
-        resetForm({ values: LoginPageComponent.LOGIN_INITIAL_VALUES });
+        values.password=LoginPageComponent.LOGIN_INITIAL_VALUES.password;
+        resetForm({values});
 
         const errorMessage: string = error.status === 403
             ? 'Neteisingas prisijungimo vardas arba slaptažodis'
