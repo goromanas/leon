@@ -47,21 +47,20 @@ const LoginForm: React.FC<Props> = (props: Props) => {
                         placeholder="Password"
                         prefix={<InputIcon component={LockOutlined} />}
                     />
-                    <div className="checkbox-wrapper">
-                    <Field
-                        component={CheckBoxField}
+                    <div className="block">
+                        <Field
                         type="checkbox"
                         name="checkbox"
                         prefix={<InputIcon component={LockOutlined} />}
                     />
+
+                        <label> Prisiminti mane</label>
                     </div>
-                    <label>prisiminti mane
                     <FormButton
                         component={SubmitButton}
                     >
                         Log in
                     </FormButton>
-                    </label>
                 </Form>
             )}
         </Formik>
