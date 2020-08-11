@@ -15,6 +15,10 @@
       "description": "Lesson Controller"
     },
     {
+      "name": "schedule-controller",
+      "description": "Schedule Controller"
+    },
+    {
       "name": "session-controller",
       "description": "Session Controller"
     },
@@ -202,6 +206,39 @@
         "deprecated": false
       }
     },
+    "/schedule": {
+      "get": {
+        "tags": [
+          "schedule-controller"
+        ],
+        "summary": "getSchedule",
+        "operationId": "getScheduleUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ScheduleDto"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
     "/session": {
       "get": {
         "tags": [
@@ -244,6 +281,13 @@
           "*/*"
         ],
         "parameters": [
+          {
+            "name": "rememberMe",
+            "in": "query",
+            "description": "rememberMe",
+            "required": true,
+            "type": "boolean"
+          },
           {
             "in": "body",
             "name": "sessionRequest",
@@ -659,6 +703,10 @@
         "teacher": {
           "type": "string"
         },
+        "time": {
+          "type": "integer",
+          "format": "int32"
+        },
         "video": {
           "type": "string"
         }
@@ -689,6 +737,22 @@
         }
       },
       "title": "Role"
+    },
+    "ScheduleDto": {
+      "type": "object",
+      "properties": {
+        "endTime": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "startTime": {
+          "type": "string"
+        }
+      },
+      "title": "ScheduleDto"
     },
     "Session": {
       "type": "object",

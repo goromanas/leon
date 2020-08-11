@@ -27,7 +27,7 @@ type Props = OwnProps & ContextProps;
 
 class LoginPageComponent extends React.Component<Props, {}> {
 
-    private static readonly LOGIN_INITIAL_VALUES: LoginValues = { username: '', password: '' };
+    private static readonly LOGIN_INITIAL_VALUES: LoginValues = { username: '', password: '', checkbox:false};
 
     private static readonly validate = (values: LoginValues): LoginErrors => {
         const errors: LoginErrors = {};
@@ -74,24 +74,25 @@ class LoginPageComponent extends React.Component<Props, {}> {
     }
 
     private readonly handleSubmit = (values: LoginValues, { resetForm }: FormikHelpers<LoginValues>): void => {
-        sessionService.login(values.username, values.password)
+        console.log(values.checkbox);
+        sessionService.login(values.username, values.password, values.checkbox)
             .then(() => { navigationService.redirectToDefaultPage(); })
-            .catch(error => this.handleError(error, resetForm, values));
+            .catch(error => this.handleError(error, resetForm,values));
     };
 
     private readonly handleError = (
         error: any,
         resetForm: (nextValues?: Partial<FormikState<LoginValues>>) => void,
-        values: LoginValues
+        values: LoginValues,
     ): void => {
         values.password=LoginPageComponent.LOGIN_INITIAL_VALUES.password;
-        resetForm({values});
+        resetForm({ values});
 
         const errorMessage: string = error.status === 403
             ? 'Neteisingas prisijungimo vardas arba slaptažodis'
             : error.data.message;
 
-        message.error(errorMessage, 20);
+        message.error(errorMessage, 3);
 
         loggerService.error(errorMessage, error);
     };

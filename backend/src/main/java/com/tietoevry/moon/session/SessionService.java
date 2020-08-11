@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Service
 public class SessionService {
@@ -27,16 +28,16 @@ public class SessionService {
         );
     }
 
-    public Session createSession(HttpServletRequest httpServletRequest, String username, String password) {
-        MoonUserDetails userDetails = securityContextService.createSession(httpServletRequest, username, password);
+    public Session createSession(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, String username, String password, Boolean rememberMe) {
+        MoonUserDetails userDetails = securityContextService.createSession(httpServletRequest,httpServletResponse, username, password,rememberMe);
 
         return new Session(
             new SessionUser(userDetails.getUsername(),userDetails.getRoles())
         );
     }
 
-    public void deleteSession(HttpServletRequest httpServletRequest) {
-        securityContextService.deleteSession(httpServletRequest);
+    public void deleteSession(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse) {
+        securityContextService.deleteSession(httpServletRequest,httpServletResponse);
     }
 
 }
