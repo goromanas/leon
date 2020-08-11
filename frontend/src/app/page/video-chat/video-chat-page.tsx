@@ -69,20 +69,15 @@ class HomePageComponent extends React.Component<Props, {}> {
                                     disableRemoteMute: userRoles[0] === 'STUDENT',
                                 }}
                                 interfaceConfig={userRoles[0] === 'STUDENT' &&
-                                {
-                                    TOOLBAR_BUTTONS: [
-                                        'microphone', 'camera', 'desktop', 'fullscreen', 'raisehand', 'chat', 'hangup',
-                                    ],
+                                    {
+                                        TOOLBAR_BUTTONS: [
+                                            'microphone', 'camera', 'desktop', 'fullscreen', 'raisehand', 'chat', 'hangup',
+                                        ],
+                                    }|| {
+
+                                    SHOW_WATERMARK_FOR_GUESTS: false, SHOW_JITSI_WATERMARK: false
                                 }
                                 }
-                                interfaceConfig={{
-
-
-
-
-
-                                    SHOW_WATERMARK_FOR_GUESTS: false, SHOW_JITSI_WATERMARK: false,}}
-
                             />
                         )}
                         {/*<Whiteboard/>*/}
