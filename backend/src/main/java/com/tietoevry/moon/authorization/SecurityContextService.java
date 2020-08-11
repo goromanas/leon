@@ -36,7 +36,6 @@ public class SecurityContextService {
             password
         );
 
-        System.out.println(httpServletRequest.toString());
 
         Authentication authentication = authenticationManager.authenticate(authenticationToken);
 
@@ -59,7 +58,6 @@ public class SecurityContextService {
         SecurityContextHolder.clearContext();
 
         HttpSession session = httpServletRequest.getSession();
-        System.out.println("logout");
         if (session != null) {
             session.invalidate();
         }

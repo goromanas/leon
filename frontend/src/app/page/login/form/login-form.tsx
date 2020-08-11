@@ -37,14 +37,14 @@ const LoginForm: React.FC<Props> = (props: Props) => {
                     <Field
                         component={InputField}
                         name="username"
-                        placeholder="Username"
+                        placeholder="Vardas123"
                         prefix={<InputIcon component={UserOutlined} />}
                     />
                     <label>Slaptažodis</label>
                     <Field
                         component={PasswordInputField}
                         name="password"
-                        placeholder="Password"
+                        placeholder="*********"
                         prefix={<InputIcon component={LockOutlined} />}
                     />
                     <div className="block">
@@ -59,7 +59,7 @@ const LoginForm: React.FC<Props> = (props: Props) => {
                     <FormButton
                         component={SubmitButton}
                     >
-                        Log in
+                        Prisijungti
                     </FormButton>
                 </Form>
             )}

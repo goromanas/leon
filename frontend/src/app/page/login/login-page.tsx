@@ -23,6 +23,11 @@ interface ContextProps {
 interface OwnProps {
 }
 
+message.config({
+    duration: 2,
+    maxCount: 1,
+});
+
 type Props = OwnProps & ContextProps;
 
 class LoginPageComponent extends React.Component<Props, {}> {
@@ -33,10 +38,10 @@ class LoginPageComponent extends React.Component<Props, {}> {
         const errors: LoginErrors = {};
 
         if (!values.username) {
-            errors.username = 'Username is required';
+            errors.username = 'Prisijungimo vardas yra privalomas';
         }
         if (!values.password) {
-            errors.password = 'Password is required';
+            errors.password = 'Slaptažodis yra privalomas';
         }
 
         return errors;
@@ -74,7 +79,6 @@ class LoginPageComponent extends React.Component<Props, {}> {
     }
 
     private readonly handleSubmit = (values: LoginValues, { resetForm }: FormikHelpers<LoginValues>): void => {
-        console.log(values.checkbox);
         sessionService.login(values.username, values.password, values.checkbox)
             .then(() => { navigationService.redirectToDefaultPage(); })
             .catch(error => this.handleError(error, resetForm,values));
