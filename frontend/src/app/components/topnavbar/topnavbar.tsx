@@ -11,14 +11,15 @@ import {
 
 import { navigationService } from 'app/service/navigation-service';
 import { connectContext, SettingsProps } from 'app/context';
+
 // import { Lessons } from 'app/page/home/timetable/day-lessons-list/lessons';
 
 import styles from './topnavbar.module.scss';
 import { Clock } from 'app/components/clock/clock';
 
 
-const {SubMenu} = Menu;
-const {Header} = Layout;
+const { SubMenu } = Menu;
+const { Header } = Layout;
 
 interface OwnProps {
 }
@@ -52,32 +53,32 @@ class TopNavBarComponent extends React.Component<Props> {
         return (
             <Header>
 
-                <Menu theme="dark"   mode="horizontal">
+                <Menu theme="dark" mode="horizontal">
                     <Menu.Item key="home" onClick={() => this.handleClickToDefaultPage()}>
-                        <CodeSandboxOutlined style={{fontSize: '30px', color: 'blue'}}/>
+                        <CodeSandboxOutlined style={{ fontSize: '30px', color: 'blue' }} />
                     </Menu.Item>
 
                     <Menu.Item key="timetable"
-                               onClick={this.handleClickToCalendarPage} icon={<CalendarOutlined/>}>
+                        onClick={this.handleClickToCalendarPage} icon={<CalendarOutlined />}>
                         Tvarkaraštis
                     </Menu.Item>
-                    <Menu.Item key="material" icon={<BookOutlined/>}>
+                    <Menu.Item key="material" icon={<BookOutlined />}>
                         Pamokų medžiaga
                     </Menu.Item>
-                    <Menu.Item key="achievements" icon={<TrophyOutlined/>}>
+                    <Menu.Item key="achievements" icon={<TrophyOutlined />}>
                         Pasiekimai
                     </Menu.Item>
-                    <Menu.Item key="forum" icon={<FormOutlined/>}>
+                    <Menu.Item key="forum" icon={<FormOutlined />}>
                         Forumas
                     </Menu.Item>
 
                     <SubMenu
                         icon={<Avatar size="large">{this.props.username}</Avatar>}
-                        style={{color: 'grey', float: 'right'}}
+                        style={{ color: 'grey', float: 'right' }}
                     >
 
                         <Menu.ItemGroup>
-                            <Menu.Item key="logout" style={{margin: 'auto'}}>
+                            <Menu.Item key="logout" style={{ margin: 'auto' }}>
                                 <Button type="primary" onClick={this.handleClickLogout}>
                                     Atsijungti
                                 </Button>
@@ -89,14 +90,14 @@ class TopNavBarComponent extends React.Component<Props> {
                     <Button
                         disabled={!lessonId ? true : false}
                         type="primary"
-                        style={{display: 'block', float: 'right', marginTop: '15px'}}
-                        icon={<VideoCameraOutlined/>}
+                        style={{ display: 'block', float: 'right', marginTop: '15px' }}
+                        icon={<VideoCameraOutlined />}
                         onClick={() => this.handleOpenClassroom(lessonId)}
                     >
                         Į pamoką
                     </Button>
                     <Menu.Item className={styles.modifiedItem} >
-                       <Clock/>
+                        <Clock />
                     </Menu.Item>
 
 
@@ -127,7 +128,7 @@ class TopNavBarComponent extends React.Component<Props> {
     };
 }
 
-const mapContextToProps = ({session: {user}, lessons}: SettingsProps): ContextProps => ({
+const mapContextToProps = ({ session: { user }, lessons }: SettingsProps): ContextProps => ({
     teacherLessons: lessons,
     username: user != null ? user.username : null,
     userRoles: user.roles,
