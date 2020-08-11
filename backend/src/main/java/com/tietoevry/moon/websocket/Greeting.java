@@ -8,7 +8,7 @@ public class Greeting {
     }
 
     public Greeting(String content) {
-        this.content = content;
+        this.content = "Cia bus pamoka";
     }
 
     public String getContent() {
