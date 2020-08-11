@@ -74,6 +74,7 @@ class LoginPageComponent extends React.Component<Props, {}> {
     }
 
     private readonly handleSubmit = (values: LoginValues, { resetForm }: FormikHelpers<LoginValues>): void => {
+        console.log(values.checkbox);
         sessionService.login(values.username, values.password, values.checkbox)
             .then(() => { navigationService.redirectToDefaultPage(); })
             .catch(error => this.handleError(error, resetForm,values));

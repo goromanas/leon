@@ -30,7 +30,7 @@ public class SecurityContextService {
         return principal instanceof MoonUserDetails ? (MoonUserDetails) principal : null;
     }
 
-    public MoonUserDetails createSession(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse, String username, String password, Boolean rememberMe) {
+    public MoonUserDetails createSession(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, String username, String password, Boolean rememberMe) {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
             username,
             password
@@ -45,18 +45,21 @@ public class SecurityContextService {
 
         HttpSession session = httpServletRequest.getSession(true);
         session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, securityContext);
-        if(rememberMe) {
-         //   rememberMeService.loginSuccess(httpServletRequest, httpServletResponse, authentication);
+        if (rememberMe) {
+            rememberMeService.loginSuccess(httpServletRequest, httpServletResponse, authentication);
         }
-         return (MoonUserDetails) authentication.getPrincipal();
+        return (MoonUserDetails) authentication.getPrincipal();
     }
 
-    public void deleteSession(HttpServletRequest httpServletRequest) {
+    public void deleteSession(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        rememberMeService.logout(httpServletRequest, httpServletResponse, authentication);
         SecurityContextHolder.getContext().setAuthentication(null);
         SecurityContextHolder.clearContext();
 
         HttpSession session = httpServletRequest.getSession();
-
+        System.out.println("logout");
         if (session != null) {
             session.invalidate();
         }

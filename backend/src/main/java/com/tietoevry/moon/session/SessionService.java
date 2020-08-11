@@ -36,8 +36,8 @@ public class SessionService {
         );
     }
 
-    public void deleteSession(HttpServletRequest httpServletRequest) {
-        securityContextService.deleteSession(httpServletRequest);
+    public void deleteSession(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse) {
+        securityContextService.deleteSession(httpServletRequest,httpServletResponse);
     }
 
 }

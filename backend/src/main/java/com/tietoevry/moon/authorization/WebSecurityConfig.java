@@ -72,15 +72,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public TokenBasedRememberMeServices rememberMeService(){
         TokenBasedRememberMeServices tbrms =
-            new TokenBasedRememberMeServices("rememberMe", moonUserDetailsService);
+            new TokenBasedRememberMeServices("remember-me", moonUserDetailsService);
         tbrms.setAlwaysRemember(true);
         return tbrms;
-    }
-
-    @Bean
-    public SavedRequestAwareAuthenticationSuccessHandler savedRequestAwareAuthenticationSuccessHandler() {
-        SavedRequestAwareAuthenticationSuccessHandler auth = new SavedRequestAwareAuthenticationSuccessHandler();
-        auth.setTargetUrlParameter("targetUrl");
-        return auth;
     }
 }

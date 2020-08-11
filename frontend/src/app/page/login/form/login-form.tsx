@@ -51,16 +51,17 @@ const LoginForm: React.FC<Props> = (props: Props) => {
                     <Field
                         component={CheckBoxField}
                         type="checkbox"
-                        name="rememberme"
+                        name="checkbox"
                         prefix={<InputIcon component={LockOutlined} />}
                     />
                     </div>
-                    <label>prisiminti mane</label>
+                    <label>prisiminti mane
                     <FormButton
                         component={SubmitButton}
                     >
                         Log in
                     </FormButton>
+                    </label>
                 </Form>
             )}
         </Formik>

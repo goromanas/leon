@@ -23,14 +23,12 @@ public class SessionController {
     public Session createSession(
         HttpServletRequest httpServletRequest,
         HttpServletResponse httpServletResponse,
-        @RequestBody LoginData sessionRequest,
-        @RequestParam Boolean rememberMe
+        @RequestBody LoginData sessionRequest
     ) {
-        return sessionService.createSession(httpServletRequest,httpServletResponse, sessionRequest.getUsername(), sessionRequest.getPassword(),rememberMe);
+        return sessionService.createSession(httpServletRequest,httpServletResponse, sessionRequest.getUsername(), sessionRequest.getPassword(),sessionRequest.getRememberMe());
     }
-
     @RequestMapping(path = "/session", method = RequestMethod.DELETE)
-    public void deleteSession(HttpServletRequest httpServletRequest) {
-        sessionService.deleteSession(httpServletRequest);
+    public void deleteSession(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse) {
+        sessionService.deleteSession(httpServletRequest,httpServletResponse);
     }
 }
