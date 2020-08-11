@@ -30,7 +30,6 @@ class TimetablePageComponent extends React.Component<Props> {
                     )) : null
                 }
 
-
             </>);
     }
 

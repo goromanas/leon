@@ -8,7 +8,7 @@ import styles from './home.module.scss';
 
 import { Lessons } from './timetable/day-lessons-list/lessons';
 
-import { Whiteboard } from './../../components/whiteboard/whiteboard';
+// import { Whiteboard } from './../../components/whiteboard/whiteboard';
 
 const { Content } = Layout;
 
@@ -28,12 +28,9 @@ class HomePageComponent extends React.Component<Props> {
             teacherLessons,
         } = this.props;
 
-        const userRoleToLT = userRoles.includes('STUDENT') ? 'mokinį'
+        const userRoleToLT = userRoles.includes('STUDENT') ? 'mokiny'
             : userRoles.includes('TEACHER') ? 'mokytojau'
                 : userRoles.includes('ADMIN') ? 'administratoriau' : null
-
-
-
 
         return (
             <Layout>
@@ -42,7 +39,6 @@ class HomePageComponent extends React.Component<Props> {
                     <PageContent>
                         <div className={styles.welcomeHeader}>
                             Labas, {userRoleToLT},
-
                         </div>
                         {userRoles.includes('ADMIN') ? (
                             <Button type="primary" onClick={this.handleClickToUserList}>
