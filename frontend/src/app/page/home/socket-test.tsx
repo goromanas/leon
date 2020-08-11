@@ -1,6 +1,6 @@
 import React from 'react';
 // @ts-ignore
-// import Websocket from 'react-websocket';
+import Websocket from 'react-websocket';
 
 interface State { currentLesson?: string }
 interface OwnProps {
@@ -23,18 +23,18 @@ class CurrentLesson extends React.Component<Props, State> {
         // this.setState({currentLesson: data});
         console.log(result)
     }
-
-    connect() {
-
-        const url ='ws://localhost:8080/web-socket';
-        const exampleSocket = new WebSocket(url, "protocolOne");
-        exampleSocket.onopen = (data) => {
-            console.log("connected to websocket!")
-        }
-        exampleSocket.onmessage = (data) => {
-            console.log(data)
-        }
-    }
+    //
+    // connect() {
+    //
+    //     const url ='ws://localhost:8080/web-socket';
+    //     const exampleSocket = new WebSocket(url, "protocolOne");
+    //     exampleSocket.onopen = (data) => {
+    //         console.log("connected to websocket!")
+    //     }
+    //     exampleSocket.onmessage = (data) => {
+    //         console.log(data)
+    //     }
+    // }
 
 
     render() {
@@ -42,11 +42,15 @@ class CurrentLesson extends React.Component<Props, State> {
         return (
             <div>
                 CurrentLesson <strong>{this.state.currentLesson}</strong>
-                <button onClick={this.connect}>connect to websocket</button>
+                {/*<button onClick={this.connect}>connect to websocket</button>*/}
                 {/*<Websocket url='ws://localhost:8080/currentLesson'*/}
                 {/*           onMessage={this.handleData.bind(this)}*/}
                 {/*           debug={true}/>*/}
 
+
+                <Websocket
+                           url='ws://localhost:8080/currentLesson'
+                           onMessage={this.handleData.bind(this)} />
             </div>
         );
     }
