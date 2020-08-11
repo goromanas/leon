@@ -9,22 +9,23 @@ import styles from './lessons.module.scss';
 
 interface Props {
     lessonsList: Api.Lesson[];
-}
-
-interface State {
     currentLesson: number;
 }
 
-class Lessons extends React.Component<Props, State> {
+// interface State {
+//     currentLesson: number;
+// }
+
+class Lessons extends React.Component<Props> {
 
     constructor(props: Props) {
         super(props);
-        this.state = { currentLesson: 2 };
-        this.handleData = this.handleData.bind(this);
+        // this.state = { currentLesson: 2 };
+        // this.handleData = this.handleData.bind(this);
     }
 
     public render(): React.ReactNode {
-        const { lessonsList } = this.props;
+        const { lessonsList, currentLesson } = this.props;
         const activeLesson = { backgroundColor: '#636363', color: '#000000' };
         const upcomingLesson = { backgroundColor: '#929292', color: '#000000' };
         const positionInList = (e: any) => lessonsList.indexOf(e) + 1;
@@ -33,15 +34,15 @@ class Lessons extends React.Component<Props, State> {
 
             <li className={styles.listItem} key={item.id}>
                 <div className={styles.classNumber}
-                     style={positionInList(item) === this.state.currentLesson ? activeLesson
-                    : positionInList(item) > this.state.currentLesson ? upcomingLesson : null}>
+                     style={positionInList(item) === currentLesson ? activeLesson
+                    : positionInList(item) > currentLesson ? upcomingLesson : null}>
                     {lessonsList.indexOf(item) + 1}.
                 </div>
                 <div className={styles.listContent}
-                     style={positionInList(item) === this.state.currentLesson ? activeLesson
-                    : positionInList(item) > this.state.currentLesson ? upcomingLesson : null}>
+                     style={positionInList(item) === currentLesson ? activeLesson
+                    : positionInList(item) > currentLesson ? upcomingLesson : null}>
                     {item.subject}
-                    {positionInList(item)  === this.state.currentLesson ? (
+                    {positionInList(item)  === currentLesson ? (
                         <Button
                             type="primary"
                             className={styles.toVideoButton}
