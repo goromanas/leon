@@ -16,6 +16,7 @@ interface ContextProps {
     username: string | null;
     userRoles: string[] | null;
     teacherLessons: Api.Lesson[];
+    currentLesson: number;
 }
 
 type Props = ContextProps;
@@ -26,6 +27,7 @@ class HomePageComponent extends React.Component<Props> {
         const {
             userRoles,
             teacherLessons,
+            currentLesson,
         } = this.props;
 
         const userRoleToLT = userRoles.includes('STUDENT') ? 'mokiny'
@@ -48,7 +50,7 @@ class HomePageComponent extends React.Component<Props> {
                                 To user list
                             </Button>
                         ) : (
-                                <Lessons lessonsList={teacherLessons || []} />
+                                <Lessons lessonsList={teacherLessons || []} currentLesson={currentLesson} />
                             )}
 
                     </PageContent>
@@ -63,10 +65,11 @@ class HomePageComponent extends React.Component<Props> {
 
 }
 
-const mapContextToProps = ({ session: { user }, lessons }: SettingsProps): ContextProps => ({
+const mapContextToProps = ({ session: { user }, lessons, currentLesson }: SettingsProps): ContextProps => ({
     username: user != null ? user.username : null,
     userRoles: user.roles,
     teacherLessons: lessons,
+    currentLesson: currentLesson,
 });
 
 const HomePage = connectContext(mapContextToProps)(HomePageComponent);

@@ -2,6 +2,7 @@ import {
     settingsContext,
     connectContext,
     INITIAL_SESSION,
+    INITIAL_CURRENT_LESSON,
     SettingsProps as _SettingsProps,
     Session as _Session,
     CurrentUser as _CurrentUser,
@@ -17,4 +18,5 @@ export {
     settingsContext,
     connectContext,
     INITIAL_SESSION,
+    INITIAL_CURRENT_LESSON,
 };

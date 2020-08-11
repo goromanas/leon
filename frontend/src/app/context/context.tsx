@@ -20,12 +20,14 @@ export interface SettingsProps {
     actions: Actions;
     session: Session;
     lessons: Api.Lesson[];
+    currentLesson: number;
 }
 
 const INITIAL_SESSION: Session = {
     user: null,
     authenticated: false,
 };
+const INITIAL_CURRENT_LESSON: number = 4;
 
 const INITIAL_LESSONS: Api.Lesson[] = [];
 
@@ -36,6 +38,7 @@ const DEFAULT_SETTINGS: SettingsProps = {
         updateLessons: () => undefined,
     },
     lessons: INITIAL_LESSONS,
+    currentLesson: INITIAL_CURRENT_LESSON,
 };
 
 const settingsContext: React.Context<SettingsProps> = React.createContext<SettingsProps>(DEFAULT_SETTINGS);
@@ -60,4 +63,5 @@ export {
     settingsContext,
     connectContext,
     INITIAL_SESSION,
+    INITIAL_CURRENT_LESSON,
 };
