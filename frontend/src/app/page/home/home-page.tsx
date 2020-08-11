@@ -7,7 +7,7 @@ import { PageContent } from 'app/components/layout';
 import styles from './home.module.scss';
 
 import { Lessons } from './timetable/day-lessons-list/lessons';
-
+import  CurrentLesson  from './socket-test'
 // import { Whiteboard } from './../../components/whiteboard/whiteboard';
 
 const { Content } = Layout;
@@ -39,6 +39,7 @@ class HomePageComponent extends React.Component<Props> {
                     <PageContent>
                         <div className={styles.welcomeHeader}>
                             Labas, {userRoleToLT},
+                            <CurrentLesson />
                         </div>
                         {userRoles.includes('ADMIN') ? (
                             <Button type="primary" onClick={this.handleClickToUserList}>
