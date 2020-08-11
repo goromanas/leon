@@ -8,6 +8,8 @@ import styles from './home.module.scss';
 
 import { Lessons } from './timetable/day-lessons-list/lessons';
 
+import { Whiteboard } from './../../components/whiteboard/whiteboard';
+
 const { Content } = Layout;
 
 interface ContextProps {
@@ -30,12 +32,17 @@ class HomePageComponent extends React.Component<Props> {
             : userRoles.includes('TEACHER') ? 'mokytojau'
                 : userRoles.includes('ADMIN') ? 'administratoriau' : null
 
+
+
+
         return (
             <Layout>
                 <Content>
+
                     <PageContent>
                         <div className={styles.welcomeHeader}>
                             Labas, {userRoleToLT},
+
                         </div>
                         {userRoles.includes('ADMIN') ? (
                             <Button type="primary" onClick={this.handleClickToUserList}>

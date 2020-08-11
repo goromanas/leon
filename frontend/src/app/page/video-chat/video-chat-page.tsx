@@ -7,6 +7,7 @@ import Jitsi from 'react-jitsi';
 import { connectContext, SettingsProps } from 'app/context';
 import { PageContent } from 'app/components/layout';
 import { navigationService } from 'app/service/navigation-service';
+import { Whiteboard } from 'app/components/whiteboard/whiteboard';
 
 const { Content } = Layout;
 
@@ -30,12 +31,20 @@ class HomePageComponent extends React.Component<Props, {}> {
         const {
             username,
             teacherLessons,
+            userRoles,
             match: {
                 params: { id },
             },
         } = this.props;
 
         const currentLesson = teacherLessons && teacherLessons.filter((lesson) => lesson.id === parseInt(id, 10));
+
+        const isUserInWrongVideoRoom = teacherLessons &&
+            !teacherLessons.map(lesson => lesson.id).includes(parseInt(id, 10));
+
+        if (isUserInWrongVideoRoom) {
+            navigationService.redirectToDefaultPage();
+        }
         const videoChatName: string = currentLesson && currentLesson[0].video.toString();
 
         return (
@@ -50,17 +59,30 @@ class HomePageComponent extends React.Component<Props, {}> {
                                 userInfo={{ email: username }}
                                 displayName={username}
                                 onAPILoad={handleCallEnd}
+                                config={{
+                                    startAudioMuted: 1, remoteVideoMenu: {
+                                        disableKick: userRoles[0] === 'STUDENT',
+                                    },
+                                    disableRemoteMute: userRoles[0] === 'STUDENT',
+                                }}
+                                interfaceConfig={userRoles[0] === 'STUDENT' &&
+                                    {
+                                        TOOLBAR_BUTTONS: [
+                                            'microphone', 'camera', 'desktop', 'fullscreen', 'raisehand', 'chat', 'hangup',
+                                        ],
+                                    }
+                                }
                             />
                         )}
+                        <Whiteboard />
                     </PageContent>
                 </Content>
             </Layout>
         );
     }
 
-    private readonly generateUniqueName = (subject: string, video: string): string => {
-        return subject + ' ' + video;
-    };
+    private readonly generateUniqueName = (subject: string, video: string): string =>
+        subject + ' ' + video;
 
     private readonly handleClickToDefaultPage = (): void => {
         navigationService.redirectToDefaultPage();
