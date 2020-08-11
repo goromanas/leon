@@ -30,6 +30,7 @@ class HomePageComponent extends React.Component<Props, {}> {
         const {
             username,
             teacherLessons,
+            userRoles,
             match: {
                 params: { id },
             },
@@ -57,6 +58,19 @@ class HomePageComponent extends React.Component<Props, {}> {
                                 userInfo={{ email: username }}
                                 displayName={username}
                                 onAPILoad={handleCallEnd}
+                                config={{
+                                    startAudioMuted: 1, remoteVideoMenu: {
+                                        disableKick: userRoles[0] === 'STUDENT',
+                                    },
+                                    disableRemoteMute: userRoles[0] === 'STUDENT',
+                                }}
+                                interfaceConfig={userRoles[0] === 'STUDENT' &&
+                                    {
+                                        TOOLBAR_BUTTONS: [
+                                            'microphone', 'camera', 'desktop', 'fullscreen', 'raisehand', 'chat', 'hangup',
+                                        ],
+                                    }
+                                }
                             />
                         )}
                     </PageContent>
