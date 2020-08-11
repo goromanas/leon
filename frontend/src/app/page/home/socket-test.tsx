@@ -27,8 +27,9 @@ class CurrentLesson extends React.Component<Props, State> {
             <div>
                 CurrentLesson <strong>{this.state.currentLesson}</strong>
 
-                <Websocket url='ws://localhost:8000/currentLesson/'
-                           onMessage={this.handleData.bind(this)}/>
+                <Websocket
+                           url='ws://localhost:8080/currentLesson'
+                           onMessage={this.handleData.bind(this)} />
             </div>
         );
     }
