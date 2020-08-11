@@ -4,11 +4,11 @@ import { Button, Layout } from 'antd';
 import { connectContext, SettingsProps } from 'app/context';
 import { navigationService } from 'app/service/navigation-service';
 import { PageContent } from 'app/components/layout';
-import styles from './home.module.scss';
 
 import { Lessons } from './timetable/day-lessons-list/lessons';
 
-import { Whiteboard } from './../../components/whiteboard/whiteboard';
+import styles from './home.module.scss';
+// import { Whiteboard } from './../../components/whiteboard/whiteboard';
 
 const { Content } = Layout;
 
@@ -28,13 +28,10 @@ class HomePageComponent extends React.Component<Props> {
             teacherLessons,
         } = this.props;
 
-        const userRoleToLT = userRoles.includes('STUDENT') ? 'Mokinį'
-            : userRoles.includes('TEACHER') ? 'Mokytojau'
-                : userRoles.includes('ADMIN') ? 'Administratoriau'
-                    : userRoles.includes('PARENT') ? 'Tėvai' : null;
-
-
-
+        const userRoleToLT = userRoles.includes('STUDENT') ? 'mokiny'
+            : userRoles.includes('TEACHER') ? 'mokytojau'
+                : userRoles.includes('ADMIN') ? 'administratoriau'
+                    : userRoles.includes('PARENT') ? 'tėve' : null;
 
         return (
             <Layout>
@@ -42,7 +39,8 @@ class HomePageComponent extends React.Component<Props> {
 
                     <PageContent>
                         <div className={styles.welcomeHeader}>
-                            Labas, {userRoleToLT}
+
+                            Labas, {userRoleToLT},
 
                         </div>
                         {userRoles.includes('ADMIN') ? (
@@ -50,8 +48,8 @@ class HomePageComponent extends React.Component<Props> {
                                 To user list
                             </Button>
                         ) : (
-                            <Lessons lessonsList={teacherLessons || []} />
-                        )}
+                                <Lessons lessonsList={teacherLessons || []} />
+                            )}
 
                     </PageContent>
                 </Content>
