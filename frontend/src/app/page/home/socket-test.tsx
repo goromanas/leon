@@ -1,6 +1,6 @@
 import React from 'react';
 // @ts-ignore
-import Websocket from 'react-websocket';
+// import Websocket from 'react-websocket';
 
 interface State { currentLesson?: string }
 interface OwnProps {
@@ -9,6 +9,7 @@ interface OwnProps {
 type Props = OwnProps;
 
 class CurrentLesson extends React.Component<Props, State> {
+    httpServletRequest: any;
 // @ts-ignore
     constructor(props: any) {
         super(props);
@@ -23,15 +24,28 @@ class CurrentLesson extends React.Component<Props, State> {
         console.log(result)
     }
 
+    connect() {
+
+        const url ='ws://localhost:8080/web-socket';
+        const exampleSocket = new WebSocket(url, "protocolOne");
+        exampleSocket.onopen = (data) => {
+            console.log("connected to websocket!")
+        }
+        exampleSocket.onmessage = (data) => {
+            console.log(data)
+        }
+    }
+
 
     render() {
+
         return (
             <div>
                 CurrentLesson <strong>{this.state.currentLesson}</strong>
-
-                <Websocket url='ws://localhost:3000/currentLesson'
-                           onMessage={this.handleData.bind(this)}
-                           debug={true}/>
+                <button onClick={this.connect}>connect to websocket</button>
+                {/*<Websocket url='ws://localhost:8080/currentLesson'*/}
+                {/*           onMessage={this.handleData.bind(this)}*/}
+                {/*           debug={true}/>*/}
 
             </div>
         );
