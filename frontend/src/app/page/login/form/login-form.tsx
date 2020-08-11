@@ -33,7 +33,7 @@ const LoginForm: React.FC<Props> = (props: Props) => {
         >
             {() => (
                 <Form>
-                    <label>Vartotojo vardas</label>
+                    <label>Prisijungimo vardas</label>
                     <Field
                         component={InputField}
                         name="username"
