@@ -24,7 +24,7 @@ class CurrentLessonSocket extends React.Component {
 
         return (
                 <Websocket
-                    url="ws://localhost:8080/currentLesson"
+                    url={this.getSocketUrl()}
                     onMessage={this.handleData}
                     debug={true}
                 />
@@ -34,7 +34,27 @@ class CurrentLessonSocket extends React.Component {
         // const result = JSON.parse(data);
         // this.setState({ currentLesson: result });
         console.log(data);
+        console.log(this.getSocketUrl());
     }
+
+    public getSocketUrl = (): string => {
+        const loc = window.location;
+
+        let newUrl: string;
+
+        if (loc.protocol === 'https:') {
+            newUrl = 'wss:';
+        } else {
+            newUrl = 'ws:';
+        }
+
+        newUrl += loc.host;
+        newUrl += '/api/currentLesson';
+
+        console.log(newUrl);
+
+        return newUrl;
+    };
 }
 
 export { CurrentLessonSocket };
