@@ -68,8 +68,7 @@ class ChatComponent extends React.Component<Props, State> {
 
     public addFile = (file: any) => {
         this.setState({ file: file });
-        // console.log(file);
-        // console.log(this.state);
+        console.log(file);
     }
 
     public sendMessage = (message: Message) => {

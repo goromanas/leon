@@ -1,6 +1,7 @@
 import React from 'react';
 import { Field, Form, Formik, FormikConfig } from 'formik';
-import { Button } from 'antd';
+import { Button, Upload, } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
 
 import { FormErrors } from 'app/model/form-errors';
 import { InputField } from './input';
@@ -31,6 +32,7 @@ const ChatForm: React.FC<Props> = (props: Props) => {
                 <Form>
                     <Field component={InputField} name="message" placeholder="Message..." />
                     <input type="file" name="file" onChange={changeHandler} />
+
                     <Button type="primary" htmlType="submit">
                         Send
                     </Button>
