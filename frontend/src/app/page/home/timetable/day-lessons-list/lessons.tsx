@@ -119,22 +119,19 @@ class Lessons extends React.Component<Props, State> {
             <div>
                 {/*<Websocket url="ws://localhost:8080/currentLesson"*/}
                 {/*           onMessage={this.handleData}*/}
-                {/*           debug={true}/>*/}
+                {/*           debug={true} />*/}
                 <h1 className={styles.classListHeader}>Šiandienos pamokos({lessonsList.length})</h1>
                 <ul className={styles.list}>{allLessons}</ul>
 
             </div>
         );
     }
-
-    //
     // private handleData(data: any): void {
     //     const result = JSON.parse(data);
     //
-    //     this.setState({currentLesson: result});
+    //     this.setState({ currentLesson: result });
     //     // console.log(result)
     // }
-
     private readonly handleOpenClassroom = (id?: number): void => {
         navigationService.redirectToVideoChat(id);
     };
