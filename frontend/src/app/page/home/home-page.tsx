@@ -29,11 +29,6 @@ class HomePageComponent extends React.Component<Props> {
             currentLesson,
         } = this.props;
 
-        const userRoleToLT = userRoles.includes('STUDENT') ? 'mokiny'
-            : userRoles.includes('TEACHER') ? 'mokytojau'
-                : userRoles.includes('ADMIN') ? 'administratoriau'
-                    : userRoles.includes('PARENT') ? 'tėve' : null;
-
         return (
             <Layout>
                 <Content>
@@ -41,7 +36,7 @@ class HomePageComponent extends React.Component<Props> {
                     <PageContent>
                         <div className={styles.welcomeHeader}>
 
-                            Labas, {userRoleToLT},
+                            Welcome back, {this.props.username},
 
                         </div>
                         {userRoles.includes('ADMIN') ? (

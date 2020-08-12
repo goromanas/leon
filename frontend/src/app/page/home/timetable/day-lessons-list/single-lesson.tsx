@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from 'antd';
 import classNames from 'classnames';
 
@@ -9,51 +9,64 @@ interface Props {
     currentLesson: number;
     lesson: any;
     handleOpenClassroom: any;
+    schedule: Api.ScheduleDto | null;
 }
 
 const { listItem, activeLesson, upcomingLesson, listNumber, listContent } = styles;
 
-const SingleLesson: React.FC<Props> = ({ currentLesson, positionInList, lesson, handleOpenClassroom }) => {
-    const listClass = classNames(
-        listItem,
-        positionInList === currentLesson && activeLesson,
-        positionInList > currentLesson && upcomingLesson,
-    );
-    const numberClass = classNames(
-        listNumber,
-        positionInList === currentLesson && activeLesson,
-        positionInList > currentLesson && upcomingLesson,
-    );
-    const contentClass = classNames(
-        listContent,
-        positionInList === currentLesson && activeLesson,
-        positionInList > currentLesson && upcomingLesson,
-    );
+const SingleLesson: React.FC<Props> =
+    ({ currentLesson, positionInList, lesson, handleOpenClassroom, schedule }) => {
+        const [scheduleTime, setScheduleTime] = useState<Api.ScheduleDto>({
+            endTime: 'endTime',
+            id: 1,
+            startTime: 'startTime',
+        });
+        // useEffect(() => {
+        //     setScheduleTime(schedule);
+        //     // console.log(schedule)
+        // }, [schedule]);
+        const listClass = classNames(
+            listItem,
+            positionInList === currentLesson && activeLesson,
+            positionInList > currentLesson && upcomingLesson,
+        );
+        const numberClass = classNames(
+            listNumber,
+            positionInList === currentLesson && activeLesson,
+            positionInList > currentLesson && upcomingLesson,
+        );
+        const contentClass = classNames(
+            listContent,
+            positionInList === currentLesson && activeLesson,
+            positionInList > currentLesson && upcomingLesson,
+        );
+        const lessonStart: string = (schedule.startTime).substr(0, 5);
+        // { schedule && (console.log(schedule.startTime)); }
+        return (
+            < li className={listClass} key={lesson.id} >
+                <div
+                    className={numberClass}
+                >
+                    <span>{schedule && lessonStart}</span>
+                    <span>{positionInList}</span>
+                </div>
+                <div
+                    className={contentClass}
+                >
+                    {lesson.subject}
+                    {positionInList === currentLesson ? (
+                        <Button
+                            type="primary"
+                            className={styles.toVideoButton}
+                            onClick={() => handleOpenClassroom(lesson.id)}
+                        >
+                            Live
+                        </Button>
+                    ) : null}
+                </div>
+            </li >
+        );
 
-    return (
-        < li className={listClass} key={lesson.id} >
-            <div
-                className={numberClass}
-            >
-                {positionInList}.
-            </div>
-            <div
-                className={contentClass}
-            >
-                {lesson.subject}
-                {positionInList === currentLesson ? (
-                    <Button
-                        type="primary"
-                        className={styles.toVideoButton}
-                        onClick={() => handleOpenClassroom(lesson.id)}
-                    >
-                        Prisijungti į pamoką
-                    </Button>
-                ) : null}
-            </div>
-        </li >
-    );
-
-};
+    };
 
 export { SingleLesson };

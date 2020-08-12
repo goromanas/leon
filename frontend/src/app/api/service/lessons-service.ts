@@ -4,6 +4,7 @@ class LessonsService {
 
     private static readonly TEACHER_LESSON_PATH: string = '/teacherLessons';
     private static readonly STUDENT_LESSON_PATH: string = '/studentLessons';
+    private static readonly SCHEDULE_PATH: string = '/schedule';
 
     private readonly restService: RestService;
 
@@ -17,6 +18,8 @@ class LessonsService {
     public readonly getStudentLessons = (): Promise<Api.Lesson[]> =>
         this.restService.get<Api.Lesson[]>(`${LessonsService.STUDENT_LESSON_PATH}`);
 
+    public readonly getSchedule = (): Promise<Api.ScheduleDto[]> =>
+        this.restService.get<Api.ScheduleDto[]>(`${LessonsService.SCHEDULE_PATH}`);
 }
 
 const lessonsService = new LessonsService();

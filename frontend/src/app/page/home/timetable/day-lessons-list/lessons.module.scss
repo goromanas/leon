@@ -1,7 +1,9 @@
 
 .list {
+  // position: relative;
   margin: 0;
   padding: 0;
+  padding-left: 50px;
   width: 430px;
   &Item {
     display: flex;
@@ -12,6 +14,7 @@
     width: 100%;
     margin-bottom: 10px;
     font-size: 1.1rem;
+
     & .activeLesson {
       background-color: #b6ab79;
       color: #000000;
@@ -22,7 +25,7 @@
     }
     div {
       background-color: #bfbfbf;
-      padding: 10px 15px;
+      // padding: 10px 15px;
     }
   }
 
@@ -36,9 +39,19 @@
 
   &Number {
     display: flex;
+    flex-direction: column;
     margin-right: 10px;
     height: auto;
     align-items: center;
+     span:nth-child(1) {
+      font-weight: 300;
+      font-size: 14px;
+      line-height: 16px;
+    }
+      span:nth-child(2) {
+        font-size: 24px;
+        line-height: 28px;
+      }
   }
 }
 
@@ -50,3 +63,7 @@
   margin: 15px;
 }
 
+.timeLine {
+  position: relative;
+  top:50%;
+}
