@@ -46,6 +46,20 @@ class HomePageComponent extends React.Component<Props, {}> {
             navigationService.redirectToDefaultPage();
         }
         const videoChatName: string = currentLesson && currentLesson[0].video.toString();
+        const config = userRoles[0] === 'STUDENT' ?
+        {
+            TOOLBAR_BUTTONS: [
+                    'microphone', 'camera', 'desktop', 'fullscreen', 'raisehand', 'hangup',
+                ],
+        } : {
+                TOOLBAR_BUTTONS: [
+                    'microphone', 'camera', 'closedcaptions', 'desktop', 'embedmeeting', 'fullscreen',
+                    'fodeviceselection', 'hangup', 'profile', 'recording',
+                    'livestreaming', 'etherpad', 'sharedvideo', 'settings', 'raisehand',
+                    'videoquality', 'filmstrip', 'invite', 'feedback', 'stats', 'shortcuts',
+                    'tileview', 'videobackgroundblur', 'download', 'help', 'mute-everyone', 'security',
+                ],
+            };
 
         return (
             <Layout>
@@ -71,7 +85,7 @@ class HomePageComponent extends React.Component<Props, {}> {
                                 interfaceConfig={userRoles[0] === 'STUDENT' &&
                                     {
                                         TOOLBAR_BUTTONS: [
-                                            'microphone', 'camera', 'desktop', 'fullscreen', 'raisehand', 'chat', 'hangup',
+                                            'microphone', 'camera', 'desktop', 'fullscreen', 'raisehand', 'hangup',
                                         ],
                                     }|| {
 
@@ -96,6 +110,11 @@ class HomePageComponent extends React.Component<Props, {}> {
 }
 
 const handleCallEnd = (api: any) => {
+    api.executeCommand('startRecording', {
+        mode: 'file',
+        shouldShare: true,
+    });
+
     api.addEventListener('readyToClose', () => {
         navigationService.redirectToDefaultPage();
     });
