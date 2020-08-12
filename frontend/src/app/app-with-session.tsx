@@ -14,7 +14,7 @@ interface State {
     content: React.ReactNode;
 }
 
-interface OwnProps {}
+interface OwnProps { }
 
 interface ContextProps {
     updateSession: (session: ContextSession) => void;
@@ -49,7 +49,6 @@ class AppWithSessionComponent extends React.Component<Props, State> {
         return (
             <AsyncContent loading={!content} loader={<PageLoadingSpinner />}>
                 {content}
-                {/*<CurrentLessonSocket />*/}
             </AsyncContent>
         );
     }
