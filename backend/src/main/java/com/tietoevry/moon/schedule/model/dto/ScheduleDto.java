@@ -8,7 +8,7 @@ import java.util.List;
 @Getter
 @Setter
 public class ScheduleDto {
-    private Long id;
-    private String startTime;
-    private String endTime;
+    public Long id;
+    public String startTime;
+    public String endTime;
 }

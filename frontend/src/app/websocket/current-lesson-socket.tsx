@@ -31,9 +31,9 @@ class CurrentLessonSocket extends React.Component {
         );
     }
     private handleData(data: any): void {
-        const result = JSON.parse(data);
-        this.setState({ currentLesson: result });
-        console.log(result)
+        // const result = JSON.parse(data);
+        // this.setState({ currentLesson: result });
+        console.log(data);
     }
 }
 
