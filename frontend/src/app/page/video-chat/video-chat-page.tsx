@@ -9,7 +9,7 @@ import { PageContent } from 'app/components/layout';
 import { navigationService } from 'app/service/navigation-service';
 import { Whiteboard } from 'app/components/whiteboard/whiteboard';
 
-const { Content } = Layout;
+const {Content} = Layout;
 
 interface ContextProps {
     username: string | null;
@@ -33,7 +33,7 @@ class HomePageComponent extends React.Component<Props, {}> {
             teacherLessons,
             userRoles,
             match: {
-                params: { id },
+                params: {id},
             },
         } = this.props;
 
@@ -46,17 +46,34 @@ class HomePageComponent extends React.Component<Props, {}> {
             navigationService.redirectToDefaultPage();
         }
         const videoChatName: string = currentLesson && currentLesson[0].video.toString();
+        const config = userRoles[0] === 'STUDENT' ?
+        {
+            TOOLBAR_BUTTONS: [
+                    'microphone', 'camera', 'desktop', 'fullscreen', 'raisehand', 'hangup',
+                ],
+        } : {
+                TOOLBAR_BUTTONS: [
+                    'microphone', 'camera', 'closedcaptions', 'desktop', 'embedmeeting', 'fullscreen',
+                    'fodeviceselection', 'hangup', 'profile', 'recording',
+                    'livestreaming', 'etherpad', 'sharedvideo', 'settings', 'raisehand',
+                    'videoquality', 'filmstrip', 'invite', 'feedback', 'stats', 'shortcuts',
+                    'tileview', 'videobackgroundblur', 'download', 'help', 'mute-everyone', 'security',
+                ],
+            };
 
         return (
             <Layout>
-                <Content>
+                <Content style={{margin: 'auto', width: '70%'}}>
                     <PageContent>
                         {videoChatName && (
                             <Jitsi
+
+                                frameStyle={{display: 'block', width: '150%', height: '150%'}}
+
                                 jwt="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250ZXh0Ijp7InVzZXIiOnsiYXZhdGFyIjoiaHR0cHM6Ly9hdmF0YXJzLmRpY2ViZWFyLmNvbS9hcGkvbWFsZS9tZW51by1zdS1pdC5zdmciLCJuYW1lIjoiTcSXbnVvIHN1IElUIn19LCJhdWQiOiJtZW51b19zdV9pdCIsImlzcyI6Im1lbnVvX3N1X2l0Iiwic3ViIjoibWVldC5qaXRzaSIsInJvb20iOiIqIn0.6CKZU_JWLhtj9eKJ-VdFGQZyRzvTZz29fn7--_dp-jw"
                                 roomName={videoChatName}
                                 domain="video-menuo-su-it.northeurope.cloudapp.azure.com:443"
-                                userInfo={{ email: username }}
+                                userInfo={{email: username}}
                                 displayName={username}
                                 onAPILoad={handleCallEnd}
                                 config={{
@@ -68,13 +85,16 @@ class HomePageComponent extends React.Component<Props, {}> {
                                 interfaceConfig={userRoles[0] === 'STUDENT' &&
                                     {
                                         TOOLBAR_BUTTONS: [
-                                            'microphone', 'camera', 'desktop', 'fullscreen', 'raisehand', 'chat', 'hangup',
+                                            'microphone', 'camera', 'desktop', 'fullscreen', 'raisehand', 'hangup',
                                         ],
-                                    }
+                                    }|| {
+
+                                    SHOW_WATERMARK_FOR_GUESTS: false, SHOW_JITSI_WATERMARK: false
+                                }
                                 }
                             />
                         )}
-                        <Whiteboard />
+                        {/*<Whiteboard/>*/}
                     </PageContent>
                 </Content>
             </Layout>
@@ -90,12 +110,17 @@ class HomePageComponent extends React.Component<Props, {}> {
 }
 
 const handleCallEnd = (api: any) => {
+    api.executeCommand('startRecording', {
+        mode: 'file',
+        shouldShare: true,
+    });
+
     api.addEventListener('readyToClose', () => {
         navigationService.redirectToDefaultPage();
     });
 };
 
-const mapContextToProps = ({ session: { user }, lessons }: SettingsProps): ContextProps => ({
+const mapContextToProps = ({session: {user}, lessons}: SettingsProps): ContextProps => ({
     username: user != null ? user.username : null,
     userRoles: user.roles,
     teacherLessons: lessons,

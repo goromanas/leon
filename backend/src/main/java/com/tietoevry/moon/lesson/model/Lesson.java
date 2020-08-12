@@ -28,4 +28,5 @@ public class Lesson {
     private int day;
     private int time;
     private int status;
-    }
+
+}

@@ -4,11 +4,12 @@ import { Button, Layout } from 'antd';
 import { connectContext, SettingsProps } from 'app/context';
 import { navigationService } from 'app/service/navigation-service';
 import { PageContent } from 'app/components/layout';
-import styles from './home.module.scss';
+import {CurrentLessonSocket} from '../../websocket/current-lesson-socket'
 
 import { Lessons } from './timetable/day-lessons-list/lessons';
 
-import { Whiteboard } from './../../components/whiteboard/whiteboard';
+import styles from './home.module.scss';
+// import { Whiteboard } from './../../components/whiteboard/whiteboard';
 
 const { Content } = Layout;
 
@@ -16,6 +17,7 @@ interface ContextProps {
     username: string | null;
     userRoles: string[] | null;
     teacherLessons: Api.Lesson[];
+    currentLesson: number;
 }
 
 type Props = ContextProps;
@@ -26,15 +28,13 @@ class HomePageComponent extends React.Component<Props> {
         const {
             userRoles,
             teacherLessons,
+            currentLesson,
         } = this.props;
 
-        const userRoleToLT = userRoles.includes('STUDENT') ? 'Mokinį'
-            : userRoles.includes('TEACHER') ? 'Mokytojau'
-                : userRoles.includes('ADMIN') ? 'Administratoriau'
-                    : userRoles.includes('PARENT') ? 'Tėvai' : null;
-
-
-
+        const userRoleToLT = userRoles.includes('STUDENT') ? 'mokiny'
+            : userRoles.includes('TEACHER') ? 'mokytojau'
+                : userRoles.includes('ADMIN') ? 'administratoriau'
+                    : userRoles.includes('PARENT') ? 'tėve' : null;
 
         return (
             <Layout>
@@ -42,16 +42,18 @@ class HomePageComponent extends React.Component<Props> {
 
                     <PageContent>
                         <div className={styles.welcomeHeader}>
-                            Labas, {userRoleToLT}
+
+                            Labas, {userRoleToLT},
 
                         </div>
+                        <CurrentLessonSocket/>
                         {userRoles.includes('ADMIN') ? (
                             <Button type="primary" onClick={this.handleClickToUserList}>
                                 To user list
                             </Button>
                         ) : (
-                            <Lessons lessonsList={teacherLessons || []} />
-                        )}
+                                <Lessons lessonsList={teacherLessons || []} currentLesson={currentLesson} />
+                            )}
 
                     </PageContent>
                 </Content>
@@ -65,10 +67,11 @@ class HomePageComponent extends React.Component<Props> {
 
 }
 
-const mapContextToProps = ({ session: { user }, lessons }: SettingsProps): ContextProps => ({
+const mapContextToProps = ({ session: { user }, lessons, currentLesson }: SettingsProps): ContextProps => ({
     username: user != null ? user.username : null,
     userRoles: user.roles,
     teacherLessons: lessons,
+    currentLesson: currentLesson,
 });
 
 const HomePage = connectContext(mapContextToProps)(HomePageComponent);

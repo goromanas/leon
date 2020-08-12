@@ -26,7 +26,7 @@ class TimetablePageComponent extends React.Component<Props, State> {
     private sortedLesson: Api.Lesson[];
 
     public render(): React.ReactNode {
-        const move: number = 0;
+
         const {
             username,
             userRoles,
@@ -46,19 +46,15 @@ class TimetablePageComponent extends React.Component<Props, State> {
                 <Row>
 
                     {Array(5).fill(new Date().getDay() + this.state.move).map((x, y) => x + y).map((item) => (
-                        item ==0? item=5:null,
-                        item < 0 ? item =0-item : null,
-                            (item % 5) == 0 ? item = 5 : null,
+                        item == 0 ? item = 5 : null,
+                        item < 0 ? item = 0 - item : null,
+                            (item % 5) != 0 ? null : item = 5,
                             (item % 5) != 0 ? item = item % 5 : null,
-
-                            console.log(item),
 
                     <Col xs={{ span: 5, offset: 1 }} lg={{ span: 6, offset: 1 }}>
                         <Lessons lessonsList={this.somefunction(teacherLessons, item) || []} day={item} />
                     </Col>
                         ))}
-                    {console.log(this.state.move + '-------')}
-
                 </Row>,
 
             </>);

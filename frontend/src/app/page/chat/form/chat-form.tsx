@@ -2,7 +2,7 @@ import React from 'react';
 import { Field, Form, Formik, FormikConfig } from 'formik';
 import { Button } from 'antd';
 
-import { InputField } from 'app/components/inputs';
+import { InputField } from './input';
 import { FormErrors } from 'app/model/form-errors';
 
 export interface MessageValue {
@@ -20,9 +20,7 @@ const ChatForm: React.FC<Props> = (props: Props) => {
         <Formik initialValues={initialValues} onSubmit={onSubmit}>
             {() => (
                 <Form>
-                    <Field component={InputField} name="message" placeholder="Message..." />
-                    {/* <Field name="message" placeholder="Message..." component={<Input />} /> */}
-
+                    <Field component={ InputField } name="message" placeholder="Message..." />
                     <Button type="primary" htmlType="submit">
                         Send
                     </Button>

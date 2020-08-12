@@ -11,12 +11,10 @@ import {
 
 import { navigationService } from 'app/service/navigation-service';
 import { connectContext, SettingsProps } from 'app/context';
-
-// import { Lessons } from 'app/page/home/timetable/day-lessons-list/lessons';
-
-import styles from './topnavbar.module.scss';
 import { Clock } from 'app/components/clock/clock';
 
+// import { Lessons } from 'app/page/home/timetable/day-lessons-list/lessons';
+import styles from './topnavbar.module.scss';
 
 const { SubMenu } = Menu;
 const { Header } = Layout;
@@ -43,12 +41,13 @@ class TopNavBarComponent extends React.Component<Props> {
         const currentLesson = teacherLessons && teacherLessons.filter((lesson) => lesson.status === 1);
 
         let lessonId: number;
+
         if (currentLesson != null) {
             if (currentLesson.length > 0) {
                 lessonId = currentLesson && parseInt(currentLesson[0].id.toString(), 10);
             }
         }
-        ;
+
 
         return (
             <Header>
@@ -99,7 +98,6 @@ class TopNavBarComponent extends React.Component<Props> {
                     <Menu.Item className={styles.modifiedItem} >
                         <Clock />
                     </Menu.Item>
-
 
                 </Menu>
             </Header>

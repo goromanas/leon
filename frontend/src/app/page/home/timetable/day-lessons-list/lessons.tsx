@@ -1,108 +1,48 @@
 import React from 'react';
 import { Button } from 'antd';
+// @ts-ignore
+import Websocket from 'react-websocket';
 
 import { navigationService } from 'app/service/navigation-service';
 
 import styles from './lessons.module.scss';
 
-const lessonTimes: LessonTimes =   [{
-    id: 1,
-    startTime: 8,
-    endTime: 9,
-},
-    {
-        id: 2,
-        startTime: 10,
-        endTime: 11,
-    },
-    {
-        id: 3,
-        startTime: 12,
-        endTime: 13,
-    },
-    {
-        id: 4,
-        startTime: 14,
-        endTime: 15,
-    },
-    {
-        id: 5,
-        startTime: 16,
-        endTime: 17,
-    }];
-
 interface Props {
     lessonsList: Api.Lesson[];
+    currentLesson?: number;
 }
 
-interface State {
-    date: Date;
-    currentLesson: SingleLessonTimes;
-}
+// interface State {
+//     currentLesson: number;
+// }
 
-interface SingleLessonTimes {
-    id: number;
-    startTime: number;
-    endTime: number;
-}
-
-type LessonTimes = SingleLessonTimes[];
-
-class Lessons extends React.Component<Props, State, LessonTimes> {
-    private timerID: any;
+class Lessons extends React.Component<Props> {
 
     constructor(props: Props) {
         super(props);
-        this.state = { date: new Date(), currentLesson: {
-            id: 0,
-            startTime: 0,
-            endTime: 0,
-        }};
-    }
-
-    public componentDidMount() {
-        this.timerID = setInterval(
-            () => this.tick(),
-            1000,
-        );
-        this.updateCurrentLesson = this.updateCurrentLesson.bind(this);
-    }
-
-    public componentWillUnmount() {
-        clearInterval(this.timerID);
-    }
-
-    public updateCurrentLesson() {
-        if (this.state.date.getHours() < lessonTimes[lessonTimes.length - 1].endTime) {
-            return lessonTimes.find((item: SingleLessonTimes) =>
-                item.startTime <= this.state.date.getHours() &&  item.endTime >= this.state.date.getHours());
-        } else { return this.state.currentLesson; }
-
-    }
-
-    public tick() {
-        this.setState({ date: new Date(), currentLesson: this.updateCurrentLesson() });
+        // this.state = { currentLesson: 2 };
+        // this.handleData = this.handleData.bind(this);
     }
 
     public render(): React.ReactNode {
-        const { lessonsList } = this.props;
+        const { lessonsList, currentLesson } = this.props;
         const activeLesson = { backgroundColor: '#636363', color: '#000000' };
         const upcomingLesson = { backgroundColor: '#929292', color: '#000000' };
-        const lessonInList = (e: any) => lessonsList.indexOf(e) + 1;
+        const positionInList = (e: any) => lessonsList.indexOf(e) + 1;
 
         const allLessons = this.props.lessonsList.map((item: any) => (
 
             <li className={styles.listItem} key={item.id}>
                 <div className={styles.classNumber}
-                     style={lessonInList(item) === this.state.currentLesson.id ? activeLesson
-                    : lessonInList(item) > this.state.currentLesson.id ? upcomingLesson : null}>
+                     style={positionInList(item) === currentLesson ? activeLesson
+                    : positionInList(item) > currentLesson ? upcomingLesson : null}>
                     {lessonsList.indexOf(item) + 1}.
                 </div>
                 <div className={styles.listContent}
-                     style={lessonInList(item) === this.state.currentLesson.id ? activeLesson
-                    : lessonInList(item) > this.state.currentLesson.id ? upcomingLesson : null}>
+                     style={positionInList(item) === currentLesson ? activeLesson
+                    : positionInList(item) > currentLesson ? upcomingLesson : null}>
                     {item.subject}
-                    {lessonInList(item)  === this.state.currentLesson.id ? (
+                    {positionInList(item) === currentLesson ? (
                         <Button
                             type="primary"
                             className={styles.toVideoButton}
@@ -117,16 +57,23 @@ class Lessons extends React.Component<Props, State, LessonTimes> {
 
         return (
             <div>
+                {/*<Websocket url="ws://localhost:8080/currentLesson"*/}
+                {/*           onMessage={this.handleData}*/}
+                {/*           debug={true} />*/}
                 <h1 className={styles.classListHeader}>Šiandienos pamokos({lessonsList.length})</h1>
-                It is {this.state.date.toLocaleTimeString()}
                 <ul className={styles.list}>{allLessons}</ul>
             </div>
         );
     }
+    // private handleData(data: any): void {
+    //     const result = JSON.parse(data);
+    //
+    //     this.setState({ currentLesson: result });
+    //     // console.log(result)
+    // }
     private readonly handleOpenClassroom = (id?: number): void => {
         navigationService.redirectToVideoChat(id);
     };
 }
-setInterval(Lessons, 1000);
 
 export { Lessons };
