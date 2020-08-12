@@ -1,32 +1,49 @@
 import React from 'react';
+// @ts-ignore
+// import Websocket from 'react-websocket';
 import { Layout } from 'antd';
 
 import { PageContent } from 'app/components/layout';
+import { connectContext, SettingsProps } from 'app/context';
 
 import { ChatForm, MessageValue } from './form/chat-form';
-import { connectContext, SettingsProps } from 'app/context';
+import { FormikHelpers } from 'formik';
+import { LoginValues } from 'app/page/login/form/login-form';
 
 const { Content } = Layout;
 
 interface ContextProps {
     username: string | null;
 }
-interface OwnProps {}
+
+interface OwnProps {
+}
 
 type Props = ContextProps & OwnProps;
 
-interface Message { text: string; author: string; date: string; }
+interface Message {
+    text: string;
+    author: string;
+    date: string;
+}
 
 interface State {
     messages: Message[];
 }
 
 class ChatComponent extends React.Component<Props, State> {
+    public ws = new WebSocket('ws://localhost:8080/currentLesson');
     public readonly state: State = {
         messages: [{ text: 'first message', author: 'no', date: 'no' },
                    { text: 'second message', author: 'no', date: 'no' }],
     };
-    private static readonly MESSAGE_INITIAL_VALUES: MessageValue = { message: '' };
+    public static MESSAGE_INITIAL_VALUES: MessageValue = { message: '' };
+
+    public componentDidMount() {
+        this.ws.onopen = () => {
+            console.log('connected');
+        };
+    }
 
     public render(): React.ReactNode {
         const { messages } = this.state;
@@ -48,16 +65,29 @@ class ChatComponent extends React.Component<Props, State> {
         );
     }
 
-    private readonly handleSubmit = (values: MessageValue): void => {
+    public sendMessage = (message: Message) => {
+        try {
+            console.log(message);
+            this.ws.send(JSON.stringify(message));
+        } catch (error) {
+            console.log(error); // catch error
+        }
+    };
+
+    private readonly handleSubmit = (values: MessageValue, { resetForm }: FormikHelpers<MessageValue>): void => {
         const { messages } = this.state;
         const time = new Date();
         const hours = time.getHours().toString();
         const minutes = time.getMinutes().toString();
 
-        this.setState({ messages:
-                [...messages, { text: values.message, author: this.props.username, date: hours + ':' + minutes }] });
-
+        this.setState({
+            messages:
+                [...messages, { text: values.message, author: this.props.username, date: hours + ':' + minutes }]
+        });
+        this.sendMessage({ text: values.message, author: this.props.username, date: hours + ':' + minutes });
+        resetForm();
     };
+
 }
 
 const mapContextToProps = ({ session: { user } }: SettingsProps): ContextProps => ({
