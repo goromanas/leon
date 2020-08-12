@@ -46,6 +46,20 @@ class HomePageComponent extends React.Component<Props, {}> {
             navigationService.redirectToDefaultPage();
         }
         const videoChatName: string = currentLesson && currentLesson[0].video.toString();
+        const config = userRoles[0] === 'STUDENT' ?
+        {
+            TOOLBAR_BUTTONS: [
+                    'microphone', 'camera', 'desktop', 'fullscreen', 'raisehand', 'hangup',
+                ],
+        } : {
+                TOOLBAR_BUTTONS: [
+                    'microphone', 'camera', 'closedcaptions', 'desktop', 'embedmeeting', 'fullscreen',
+                    'fodeviceselection', 'hangup', 'profile', 'recording',
+                    'livestreaming', 'etherpad', 'sharedvideo', 'settings', 'raisehand',
+                    'videoquality', 'filmstrip', 'invite', 'feedback', 'stats', 'shortcuts',
+                    'tileview', 'videobackgroundblur', 'download', 'help', 'mute-everyone', 'security',
+                ],
+            };
 
         return (
             <Layout>
@@ -68,18 +82,10 @@ class HomePageComponent extends React.Component<Props, {}> {
                                     },
                                     disableRemoteMute: userRoles[0] === 'STUDENT',
                                 }}
-                                interfaceConfig={userRoles[0] === 'STUDENT' ?
+                                interfaceConfig={userRoles[0] === 'STUDENT' &&
                                     {
                                         TOOLBAR_BUTTONS: [
                                             'microphone', 'camera', 'desktop', 'fullscreen', 'raisehand', 'hangup',
-                                        ],
-                                    } : {
-                                        TOOLBAR_BUTTONS: [
-                                            'microphone', 'camera', 'closedcaptions', 'desktop', 'embedmeeting', 'fullscreen',
-                                            'fodeviceselection', 'hangup', 'profile', 'recording',
-                                            'livestreaming', 'etherpad', 'sharedvideo', 'settings', 'raisehand',
-                                            'videoquality', 'filmstrip', 'invite', 'feedback', 'stats', 'shortcuts',
-                                            'tileview', 'videobackgroundblur', 'download', 'help', 'mute-everyone', 'security',
                                         ],
                                     }|| {
 
