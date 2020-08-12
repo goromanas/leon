@@ -62,7 +62,6 @@ class Lessons extends React.Component<Props, State, LessonTimes> {
     }
     public getDayFromInt(day: number):string
     {
-        console.log(day);
         switch(day)
         {
             case 1:
@@ -79,7 +78,7 @@ class Lessons extends React.Component<Props, State, LessonTimes> {
                 return "Saturday";
             case 7:
                 return "Sunday";
-            case 8:
+            default:
                 return "Nothing";
         }
     }
