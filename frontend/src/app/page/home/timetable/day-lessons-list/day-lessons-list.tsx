@@ -34,7 +34,9 @@ const DayLessonsList: React.FC<Props> = ({ lessonsList }) => {
         startTime: 0,
         endTime: 0,
     });
+    const [lineTop, setLineTop] = useState(0);
     const [clock, setClock] = useState<Date>(new Date());
+    const [currentTime, setCurrentTime] = useState<number>(0);
     const listRef = useRef(null);
     const positionInList = (e: any) => lessonsList.indexOf(e) + 1;
 
@@ -44,11 +46,15 @@ const DayLessonsList: React.FC<Props> = ({ lessonsList }) => {
             lessonsService.getSchedule()
                 .then((data) => setScheduleTimes(data))
                 .then(() => setLoadingSchedules(false))
+                // .then(() => setDayTimes())
                 .catch(error => { loggerService.error('Error occurred when getting session information', error); });
         };
         fetch();
     }, []);
-
+    useEffect(() => {
+        scheduleTimes.length > 0 &&
+            setDayTimes();
+    }, [clock]);
     // connect to websocect to get curentLesson
     useEffect(() => {
         ws.onopen = () => {
@@ -70,16 +76,22 @@ const DayLessonsList: React.FC<Props> = ({ lessonsList }) => {
     useEffect(() => {
         const timer = setTimeout(() => {
             setClock(new Date());
-            (currentLesson !== 0 && listHeight !== listRef.current.clientHeight) ?
+            (currentLesson !== 0) ?
                 setListHeight(listRef.current.clientHeight) : setListHeight(0);
-            // setDayTimes();
-            // console.log(startEndDay.endTime);
+            time !== null && setCurrentTime(convertTimeToMinutes(time));
+            // currentLesson !== 0 && setDayTimes();
+            console.log('end: ' + startEndDay.endTime + 'height: ' + listHeight + 'currentT: ' + currentTime + 'lineTop: ' + lineTop);
         }, 1000);
         return () => clearTimeout(timer);
     }, [clock]);
 
+    useEffect(() => {
+        listHeight > 0 &&
+            setLineTop((listHeight / startEndDay.endTime) * currentTime);
+    }, [listHeight]);
+
     const time = clock.toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' });
-    const convertTimeToMinutes = (time: string) => {
+    const convertTimeToMinutes = (time: any) => {
         const hours = parseInt(time.substr(0, 2), 10);
         const minutes = parseInt(time.substr(3, 4), 10);
         return hours * 60 + minutes;
@@ -109,9 +121,13 @@ const DayLessonsList: React.FC<Props> = ({ lessonsList }) => {
         !loadingSchedules &&
         (<div>
             <h1 className={styles.classListHeader}>Today's lecture ({lessonsList.length})</h1>
-            <span className={styles.timeLine}>{time}-------</span>
+            {(startEndDay.startTime < currentTime && currentTime < startEndDay.endTime) &&
+                <span className={styles.timeLine} style={{ top: lineTop }}>{time}-------</span>
+            }
+
             <ul className={styles.list} ref={listRef}>{allLessons}</ul>
-        </div>)
+
+        </div >)
     );
 };
 
