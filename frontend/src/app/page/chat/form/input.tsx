@@ -17,7 +17,7 @@ class InputField extends React.Component<FieldWrapperProps> {
             label,
             field,
             field: { name },
-            form: { touched, errors, isSubmitting },
+            form: { touched, errors },
             disabled,
             required,
             ...rest

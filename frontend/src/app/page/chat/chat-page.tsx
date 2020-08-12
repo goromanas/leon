@@ -1,14 +1,12 @@
 import React from 'react';
-// @ts-ignore
-// import Websocket from 'react-websocket';
 import { Layout } from 'antd';
 
 import { PageContent } from 'app/components/layout';
 import { connectContext, SettingsProps } from 'app/context';
 
 import { ChatForm, MessageValue } from './form/chat-form';
+import { ChatList } from './chat-list';
 import { FormikHelpers } from 'formik';
-import { LoginValues } from 'app/page/login/form/login-form';
 
 const { Content } = Layout;
 
@@ -29,6 +27,7 @@ interface Message {
 
 interface State {
     messages: Message[];
+    file: any;
 }
 
 class ChatComponent extends React.Component<Props, State> {
@@ -36,38 +35,50 @@ class ChatComponent extends React.Component<Props, State> {
     public readonly state: State = {
         messages: [{ text: 'first message', author: 'no', date: 'no' },
                    { text: 'second message', author: 'no', date: 'no' }],
+        file: null,
     };
     public static MESSAGE_INITIAL_VALUES: MessageValue = { message: '' };
 
-    public componentDidMount() {
-        this.ws.onopen = () => {
-            console.log('connected');
-        };
-    }
+    // public componentDidMount() {
+    //     this.ws.onopen = () => {
+    //         console.log('connected');
+    //     };
+    // }
 
     public render(): React.ReactNode {
         const { messages } = this.state;
-
+        // console.log(this.state);
         return (
+            <>
             <Layout>
                 <Content>
                     <PageContent>
-                        <div>{messages.map(msg => (
-                            <li key={msg.text}>
-                                {msg.text}
-                                <span style={{ fontWeight: 'bold' }}>-{msg.author}</span> {msg.date}
-                            </li>
-                        ))}</div>
-                        <ChatForm initialValues={ChatComponent.MESSAGE_INITIAL_VALUES} onSubmit={this.handleSubmit} />
+                        <ChatList messages={messages} />
+                        <ChatForm
+                            initialValues={ChatComponent.MESSAGE_INITIAL_VALUES}
+                            onSubmit={this.handleSubmit}
+                            addFile={this.addFile}
+                        />
                     </PageContent>
                 </Content>
             </Layout>
+                </>
         );
+    }
+
+    public addFile = (file: any) => {
+        this.setState({ file: file });
+        // console.log(file);
+        // console.log(this.state);
     }
 
     public sendMessage = (message: Message) => {
         try {
-            console.log(message);
+            // const data = new FormData();
+            // if (this.state.file) {
+               // data.append('file', this.state.file)
+            // }
+            // data.append('message', message);
             this.ws.send(JSON.stringify(message));
         } catch (error) {
             console.log(error); // catch error
@@ -82,10 +93,11 @@ class ChatComponent extends React.Component<Props, State> {
 
         this.setState({
             messages:
-                [...messages, { text: values.message, author: this.props.username, date: hours + ':' + minutes }]
+                [...messages, { text: values.message, author: this.props.username, date: hours + ':' + minutes}]
         });
         this.sendMessage({ text: values.message, author: this.props.username, date: hours + ':' + minutes });
         resetForm();
+        this.setState({ file: null });
     };
 
 }
