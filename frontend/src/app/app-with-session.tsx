@@ -8,6 +8,8 @@ import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-lo
 import { loggerService } from 'app/service/logger-service';
 import { lessonsService } from 'app/api/service/lessons-service';
 
+// import { CurrentLessonSocket } from './websocket/current-lesson-socket';
+
 interface State {
     content: React.ReactNode;
 }
@@ -47,6 +49,7 @@ class AppWithSessionComponent extends React.Component<Props, State> {
         return (
             <AsyncContent loading={!content} loader={<PageLoadingSpinner />}>
                 {content}
+                {/*<CurrentLessonSocket />*/}
             </AsyncContent>
         );
     }

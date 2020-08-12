@@ -4,32 +4,34 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
-import org.springframework.web.socket.handler.AbstractWebSocketHandler;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-import springfox.documentation.spring.web.json.Json;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.CopyOnWriteArrayList;
+
 
 @Component
 public class WebSocketHandler extends TextWebSocketHandler {
 
-    private List<WebSocketSession> webSocketSessions= new ArrayList<>();
+    private static final List<WebSocketSession> webSocketSessions = new ArrayList<>();
 
-    @Override
-    public void handleTextMessage(WebSocketSession session, TextMessage message)
+    public void handleTextMessage(TextMessage message)
         throws Exception {
 
-        for (WebSocketSession webSocketSession : webSocketSessions) {
-            webSocketSession.sendMessage(message);
-        }
+        webSocketSessions.forEach((webSocketSession -> {
+            try {
+                webSocketSession.sendMessage(message);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }));
     }
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+        System.out.println("Remove session called");
         webSocketSessions.remove(session);
     }
 
