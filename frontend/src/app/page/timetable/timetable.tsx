@@ -1,7 +1,8 @@
 import React from 'react';
+import { Col, Grid, Row } from 'antd';
 
 import { connectContext, SettingsProps } from 'app/context';
-import { Lessons } from 'app/page/home/timetable/day-lessons-list/lessons';
+import { Lessons } from 'app/page/timetable/day-lessons-list/lessons';
 
 interface ContextProps {
     username: string | null;
@@ -17,6 +18,7 @@ class TimetablePageComponent extends React.Component<Props> {
 
     private sortedLesson: Api.Lesson[];
 
+
     public render(): React.ReactNode {
 
         const {
@@ -24,36 +26,40 @@ class TimetablePageComponent extends React.Component<Props> {
             userRoles,
             teacherLessons,
         } = this.props;
-
-        this.somefunction(teacherLessons);
+        const arrNum = [1,2,3];
+        const d = new Date();
 
         return (
             <>
 
-                <Lessons lessonsList={this.somefunction(teacherLessons) || []} />
-                <p>Timetable page</p>
+                <Row>
 
-                {
-                   teacherLessons ? teacherLessons.map(lesson => (
-                        <li key={lesson.id}> {lesson.subject} {lesson.teacher} </li>
-                    )) : null
-                }
+
+                    {Array(5).fill(1).map((x, y) => x + y).map((item) => (
+
+
+                    <Col xs={{ span: 5, offset: 1 }} lg={{ span: 6, offset: 1 }}>
+                        <Lessons lessonsList={this.somefunction(teacherLessons, item) || []} day={item} />
+                    </Col>
+                        ))}
+                </Row>,
 
             </>);
     }
-    public somefunction(teacherLessons: Api.Lesson[]): Api.Lesson[] {
-
+    public somefunction(teacherLessons: Api.Lesson[], day: number): Api.Lesson[] {
         if (teacherLessons != null) {
             this.sortedLesson = teacherLessons.sort((n1, n2) => n1.time - n2.time);
-            for (let i = 1; i < 7; i++) {
 
-            return this.sortedLesson.filter(lesson => lesson.time == i ? lesson : null);
-        }
+            return this.sortedLesson.filter(lesson => parseInt(lesson.day) == day ? lesson : null);
+
         }}
 
 }
 
 const mapContextToProps = ({ session: { user }, lessons }: SettingsProps): ContextProps => ({
+
+
+
     username: user != null ? user.username : null,
     userRoles: user.roles,
     teacherLessons: lessons,

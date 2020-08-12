@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'antd';
+import { Button, Switch } from 'antd';
 
 import { navigationService } from 'app/service/navigation-service';
 
@@ -33,6 +33,7 @@ const lessonTimes: LessonTimes =   [{
 
 interface Props {
     lessonsList: Api.Lesson[];
+    day: number;
 }
 
 interface State {
@@ -58,6 +59,29 @@ class Lessons extends React.Component<Props, State, LessonTimes> {
             startTime: 0,
             endTime: 0,
         }};
+    }
+    public getDayFromInt(day: number):string
+    {
+        console.log(day);
+        switch(day)
+        {
+            case 1:
+                return "Monday";
+            case 2:
+                return "Tuesday";
+            case 3:
+                return "Wednesday";
+            case 4:
+                return "Thursday";
+            case 5:
+                return "Friday";
+            case 6:
+                return "Saturday";
+            case 7:
+                return "Sunday";
+            case 8:
+                return "Nothing";
+        }
     }
 
     public componentDidMount() {
@@ -85,7 +109,7 @@ class Lessons extends React.Component<Props, State, LessonTimes> {
     }
 
     public render(): React.ReactNode {
-        const { lessonsList } = this.props;
+        const { lessonsList,day } = this.props;
         const activeLesson = { backgroundColor: '#636363', color: '#000000' };
         const upcomingLesson = { backgroundColor: '#929292', color: '#000000' };
         const lessonInList = (e: any) => lessonsList.indexOf(e) + 1;
@@ -117,8 +141,7 @@ class Lessons extends React.Component<Props, State, LessonTimes> {
 
         return (
             <div>
-                <h1 className={styles.classListHeader}>Šiandienos pamokos({lessonsList.length})</h1>
-                It is {this.state.date.toLocaleTimeString()}
+                <h1 className={styles.classListHeader}>{(this.getDayFromInt(day))}</h1>
                 <ul className={styles.list}>{allLessons}</ul>
             </div>
         );

@@ -14,6 +14,7 @@ public class LessonMapper {
         lessonDto.setTeacher(lesson.getTeacher().getFirstName()+" "+lesson.getTeacher().getLastName());
         lessonDto.setVideo(lesson.getVideo());
         lessonDto.setTime(lesson.getTime());
+        lessonDto.setDay(lesson.getDay());
         lessonDto.setClassName(lesson.getClassroom().getClassName());
         return lessonDto;
     }

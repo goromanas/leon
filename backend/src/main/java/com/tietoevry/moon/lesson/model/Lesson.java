@@ -25,7 +25,7 @@ public class Lesson {
     @OneToOne
     private Classroom classroom;
     private String video;
-    private String day;
+    private int day;
     private int time;
     private int status;
     }

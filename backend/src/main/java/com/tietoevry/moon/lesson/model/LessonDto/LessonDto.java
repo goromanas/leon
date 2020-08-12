@@ -16,5 +16,6 @@ public class LessonDto {
     private String video;
     private String className;
     private int time;
+    private int day;
     private int status;
 }
