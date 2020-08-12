@@ -2,23 +2,18 @@ import React from 'react';
 import { Button } from 'antd';
 import classNames from 'classnames';
 
-import { navigationService } from 'app/service/navigation-service';
-
 import styles from './lessons.module.scss';
 
 interface Props {
     positionInList: number;
     currentLesson: number;
     lesson: any;
+    handleOpenClassroom: any;
 }
 
 const { listItem, activeLesson, upcomingLesson, listNumber, listContent } = styles;
 
-const handleOpenClassroom = (id?: number): void => {
-    navigationService.redirectToVideoChat(id);
-};
-
-const SingleLesson: React.FC<Props> = ({ currentLesson, positionInList, lesson }) => {
+const SingleLesson: React.FC<Props> = ({ currentLesson, positionInList, lesson, handleOpenClassroom }) => {
     const listClass = classNames(
         listItem,
         positionInList === currentLesson && activeLesson,
