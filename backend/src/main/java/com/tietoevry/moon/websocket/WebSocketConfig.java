@@ -13,8 +13,8 @@ public class WebSocketConfig implements WebSocketConfigurer {
         .setAllowedOrigins("*");
     }
 
-    @Bean
-    public WebSocketHandler getWebSocketHandler() {
-        return new WebSocketHandler();
-    }
+//    @Bean
+//    public WebSocketHandler getWebSocketHandler() {
+//        return new WebSocketHandler();
+//    }
 }

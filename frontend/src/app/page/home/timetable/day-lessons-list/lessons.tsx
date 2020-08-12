@@ -9,7 +9,7 @@ import styles from './lessons.module.scss';
 
 interface Props {
     lessonsList: Api.Lesson[];
-    currentLesson: number;
+    currentLesson?: number;
 }
 
 // interface State {
@@ -42,7 +42,7 @@ class Lessons extends React.Component<Props> {
                      style={positionInList(item) === currentLesson ? activeLesson
                     : positionInList(item) > currentLesson ? upcomingLesson : null}>
                     {item.subject}
-                    {positionInList(item)  === currentLesson ? (
+                    {positionInList(item) === currentLesson ? (
                         <Button
                             type="primary"
                             className={styles.toVideoButton}
@@ -57,20 +57,20 @@ class Lessons extends React.Component<Props> {
 
         return (
             <div>
-                <Websocket url="ws://localhost:8080/currentLesson"
-                           onMessage={this.handleData}
-                           debug={true} />
+                {/*<Websocket url="ws://localhost:8080/currentLesson"*/}
+                {/*           onMessage={this.handleData}*/}
+                {/*           debug={true} />*/}
                 <h1 className={styles.classListHeader}>Šiandienos pamokos({lessonsList.length})</h1>
                 <ul className={styles.list}>{allLessons}</ul>
             </div>
         );
     }
-    private handleData(data: any): void {
-        const result = JSON.parse(data);
-
-        this.setState({ currentLesson: result });
-        // console.log(result)
-    }
+    // private handleData(data: any): void {
+    //     const result = JSON.parse(data);
+    //
+    //     this.setState({ currentLesson: result });
+    //     // console.log(result)
+    // }
     private readonly handleOpenClassroom = (id?: number): void => {
         navigationService.redirectToVideoChat(id);
     };
