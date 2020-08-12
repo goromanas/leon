@@ -34,7 +34,6 @@ class CurrentLessonSocket extends React.Component {
         // const result = JSON.parse(data);
         // this.setState({ currentLesson: result });
         console.log(data);
-        console.log(this.getSocketUrl());
     }
 
     public getSocketUrl = (): string => {
@@ -42,16 +41,11 @@ class CurrentLessonSocket extends React.Component {
 
         let newUrl: string;
 
-        if (loc.protocol === 'https:') {
-            newUrl = 'wss:';
+        if (loc.host === 'localhost:3000') {
+            newUrl = 'ws://localhost:8080/ws/currentLesson';
         } else {
-            newUrl = 'ws:';
+            newUrl = ' wss://java-menuo-su-it.northeurope.cloudapp.azure.com/ws/currentLesson';
         }
-
-        newUrl += loc.host;
-        newUrl += '/api/currentLesson';
-
-        console.log(newUrl);
 
         return newUrl;
     };
