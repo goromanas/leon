@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'antd';
+import classNames from 'classnames';
 
 import { navigationService } from 'app/service/navigation-service';
 
@@ -11,28 +12,38 @@ interface Props {
     lesson: any;
 }
 
-const activeLesson = { backgroundColor: '#636363', color: '#000000' };
-const upcomingLesson = { backgroundColor: '#929292', color: '#000000' };
+const { listItem, activeLesson, upcomingLesson, listNumber, listContent } = styles;
 
 const handleOpenClassroom = (id?: number): void => {
     navigationService.redirectToVideoChat(id);
 };
 
-const SingleLesson: React.FC<Props> = ({ currentLesson, positionInList, lesson }) =>
+const SingleLesson: React.FC<Props> = ({ currentLesson, positionInList, lesson }) => {
+    const listClass = classNames(
+        listItem,
+        positionInList === currentLesson && activeLesson,
+        positionInList > currentLesson && upcomingLesson,
+    );
+    const numberClass = classNames(
+        listNumber,
+        positionInList === currentLesson && activeLesson,
+        positionInList > currentLesson && upcomingLesson,
+    );
+    const contentClass = classNames(
+        listContent,
+        positionInList === currentLesson && activeLesson,
+        positionInList > currentLesson && upcomingLesson,
+    );
 
-    (
-        <li className={styles.listItem}>
+    return (
+        < li className={listClass} key={lesson.id} >
             <div
-                className={styles.classNumber}
-                style={positionInList === currentLesson ? activeLesson
-                    : positionInList > currentLesson ? upcomingLesson : null}
+                className={numberClass}
             >
                 {positionInList}.
             </div>
             <div
-                className={styles.listContent}
-                style={positionInList === currentLesson ? activeLesson
-                    : positionInList > currentLesson ? upcomingLesson : null}
+                className={contentClass}
             >
                 {lesson.subject}
                 {positionInList === currentLesson ? (
@@ -45,7 +56,9 @@ const SingleLesson: React.FC<Props> = ({ currentLesson, positionInList, lesson }
                     </Button>
                 ) : null}
             </div>
-        </li>
+        </li >
     );
+
+};
 
 export { SingleLesson };
