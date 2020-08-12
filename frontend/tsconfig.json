@@ -1,5 +1,6 @@
 {
   "extends": "./tsconfig.paths.json",
+  "autoFixOnSave": true,
   "compilerOptions": {
     "target": "es5",
     "lib": [

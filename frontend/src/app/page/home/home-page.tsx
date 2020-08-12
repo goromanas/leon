@@ -1,14 +1,13 @@
 import React from 'react';
 import { Button, Layout } from 'antd';
 
-import { connectContext, SettingsProps } from 'app/context';
 import { navigationService } from 'app/service/navigation-service';
+import { connectContext, SettingsProps } from 'app/context';
 import { PageContent } from 'app/components/layout';
 
-import { Lessons } from './timetable/day-lessons-list/lessons';
+import { DayLessonsList } from './timetable/day-lessons-list/day-lessons-list';
 
 import styles from './home.module.scss';
-// import { Whiteboard } from './../../components/whiteboard/whiteboard';
 
 const { Content } = Layout;
 
@@ -50,7 +49,7 @@ class HomePageComponent extends React.Component<Props> {
                                 To user list
                             </Button>
                         ) : (
-                                <Lessons lessonsList={teacherLessons || []} currentLesson={currentLesson} />
+                                <DayLessonsList lessonsList={teacherLessons || []} />
                             )}
 
                     </PageContent>
@@ -69,7 +68,7 @@ const mapContextToProps = ({ session: { user }, lessons, currentLesson }: Settin
     username: user != null ? user.username : null,
     userRoles: user.roles,
     teacherLessons: lessons,
-    currentLesson: currentLesson,
+    currentLesson,
 });
 
 const HomePage = connectContext(mapContextToProps)(HomePageComponent);
