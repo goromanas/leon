@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Col, Grid, Row } from 'antd';
-import * as moment from "moment";
+import * as moment from 'moment';
 
 import { connectContext, SettingsProps } from 'app/context';
 import { Lessons } from 'app/page/timetable/day-lessons-list/lessons';
@@ -53,7 +53,7 @@ class TimetablePageComponent extends React.Component<Props, State> {
                             (item % 5) != 0 ? item = item % 5 : null,
 
                     <Col xs={{ span: 5, offset: 1 }} lg={{ span: 6, offset: 1 }}>
-                        <Lessons lessonsList={this.filterByDay(teacherLessons, item) || []} day={item} time={this.getDate()}/>
+                        <Lessons lessonsList={this.filterByDay(teacherLessons, item) || []} day={item} time={this.getDate()} />
                     </Col>
                         ))}
                 </Row>,
@@ -70,7 +70,8 @@ class TimetablePageComponent extends React.Component<Props, State> {
         }}
     public getDate = (): String => {
         const today = new Date();
-        let day=moment().add(this.state.move, 'd').format("YYYY-MM-DD");
+        const day = moment().add(this.state.move, 'd').format('YYYY-MM-DD');
+
         return day;
     };
     private handleButtonClick = (forward: boolean): void => {
