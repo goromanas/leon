@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Message } from './message'
+
 interface Message {
     text: string;
     author: string;
@@ -15,10 +17,7 @@ const ChatList: React.FC<Props> = ({ messages }) =>
         <div>
             <ul>
                 {messages.map((msg, i) => (
-                    <li key={i}>
-                        {msg.text}
-                        <span style={{ fontWeight: 'bold' }}>-{msg.author}</span> {msg.date}
-                    </li>
+                    <Message key={i} text={msg.text} author={msg.author} date={msg.date} />
                 ))}
             </ul>
         </div>

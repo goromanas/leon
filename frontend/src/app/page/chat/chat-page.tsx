@@ -5,7 +5,7 @@ import { PageContent } from 'app/components/layout';
 import { connectContext, SettingsProps } from 'app/context';
 
 import { ChatForm, MessageValue } from './form/chat-form';
-import { ChatList } from './chat-list';
+import { ChatList } from './chat-list/chat-list';
 // import {Channels} from './channels';
 import { FormikHelpers } from 'formik';
 
@@ -36,25 +36,23 @@ interface State {
 class ChatComponent extends React.Component<Props, State> {
     public ws = new WebSocket('ws://localhost:8080/ws/chat');
     public readonly state: State = {
-        messages: [{ text: 'first message', author: 'no', date: 'no' },
-                   { text: 'second message', author: 'no', date: 'no' }],
+        messages: [{ text: 'first message', author: 'Mokinys1', date: '12:45' },
+                   { text: 'second message', author: 'Mokinys2', date: '12:55' }],
         file: null,
     };
     public static MESSAGE_INITIAL_VALUES: MessageValue = { message: '' };
 
     public componentDidMount() {
         const { messages } = this.state;
+        const {teacherLessons} = this.props;
         this.ws.onopen = () => {
             console.log('connected');
         };
 
-        // @ts-ignore
-        const className: string = this.props.teacherLessons[0]["className"]
-        this.ws.send(className)
-
         this.ws.onmessage = e => {
             const message = JSON.parse(e.data);
             console.log('Chat page receives ',message);
+
             const copyMsg = [...this.state.messages];
             const newMsg = [...copyMsg, message];
             this.setState({
