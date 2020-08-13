@@ -15,6 +15,10 @@
       "description": "Lesson Controller"
     },
     {
+      "name": "lesson-information-controller",
+      "description": "Lesson Information Controller"
+    },
+    {
       "name": "schedule-controller",
       "description": "Schedule Controller"
     },
@@ -206,6 +210,53 @@
         "deprecated": false
       }
     },
+    "/lessonInformation": {
+      "post": {
+        "tags": [
+          "lesson-information-controller"
+        ],
+        "summary": "createLessonInformation",
+        "operationId": "createLessonInformationUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "lessonInformation",
+            "description": "lessonInformation",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LessonInformationDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/LessonInformationDto"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
     "/schedule": {
       "get": {
         "tags": [
@@ -281,13 +332,6 @@
           "*/*"
         ],
         "parameters": [
-          {
-            "name": "rememberMe",
-            "in": "query",
-            "description": "rememberMe",
-            "required": true,
-            "type": "boolean"
-          },
           {
             "in": "body",
             "name": "sessionRequest",
@@ -612,6 +656,19 @@
     }
   },
   "definitions": {
+    "Assignment": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "Assignment"
+    },
     "Classroom": {
       "type": "object",
       "properties": {
@@ -657,11 +714,18 @@
           "$ref": "#/definitions/Classroom"
         },
         "day": {
-          "type": "string"
+          "type": "integer",
+          "format": "int32"
         },
         "id": {
           "type": "integer",
           "format": "int64"
+        },
+        "lessonInformation": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LessonInformation"
+          }
         },
         "status": {
           "type": "integer",
@@ -689,9 +753,19 @@
         "className": {
           "type": "string"
         },
+        "day": {
+          "type": "integer",
+          "format": "int32"
+        },
         "id": {
           "type": "integer",
           "format": "int64"
+        },
+        "lessonAssignment": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LessonInformationDto"
+          }
         },
         "status": {
           "type": "integer",
@@ -713,11 +787,66 @@
       },
       "title": "LessonDto"
     },
+    "LessonInformation": {
+      "type": "object",
+      "properties": {
+        "assignment": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Assignment"
+          }
+        },
+        "date": {
+          "type": "string",
+          "format": "date"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "information": {
+          "type": "string"
+        },
+        "topic": {
+          "type": "string"
+        }
+      },
+      "title": "LessonInformation"
+    },
+    "LessonInformationDto": {
+      "type": "object",
+      "properties": {
+        "assignment": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "date": {
+          "type": "string",
+          "format": "date"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "information": {
+          "type": "string"
+        },
+        "topic": {
+          "type": "string"
+        }
+      },
+      "title": "LessonInformationDto"
+    },
     "LoginData": {
       "type": "object",
       "properties": {
         "password": {
           "type": "string"
+        },
+        "rememberMe": {
+          "type": "boolean"
         },
         "username": {
           "type": "string"
