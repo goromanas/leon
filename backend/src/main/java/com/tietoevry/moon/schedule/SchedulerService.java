@@ -20,7 +20,7 @@ public class SchedulerService {
 
     private String currentLesson;
 
-    @Scheduled(fixedDelay = 1000 * 5)
+    @Scheduled(fixedDelay = 1000 * 1)
     public void scheduleFixedDelayTask() throws Exception {
         currentLesson = Integer.toString(scheduleService.currentLessonNumber());
         webSocketHandler.handleTextMessage(new TextMessage(currentLesson));
