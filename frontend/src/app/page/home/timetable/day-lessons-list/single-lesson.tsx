@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Button, Modal } from 'antd';
 import classNames from 'classnames';
 
@@ -43,13 +43,12 @@ const SingleLesson: React.FC<Props> = (props) => {
     const lessonStart: string = scheduleTimes.length >= lessons.length ? (schedule.startTime).substr(0, 5) : 'undef';
 
     const modalButton = (): boolean =>
-        userRole[0] === 'STUDENT' || userRole[0] === 'PARENT';
+        userRole.includes('STUDENT') || userRole.includes('PARENT');
 
     const showModal = (index: number) => {
         setModalVisible(!modalVisible);
         // setActiveModal(index);
     };
-
     const handleOk = () => {
         setModalVisible(!modalVisible);
         // setActiveModal(null);
@@ -75,7 +74,8 @@ const SingleLesson: React.FC<Props> = (props) => {
                         }}
                     >
                         <Counter subject={lesson.subject} />
-                    </Modal>
+
+                    </Modal >
                 ) :
                 (
                     <Modal
@@ -90,11 +90,13 @@ const SingleLesson: React.FC<Props> = (props) => {
                     >
                         <p>{lesson.subject}</p>
                         <p>{userRole}</p>
+
                         <input maxLength={13} />
                         <p>{modalButton() ? 'tiesa' : 'netiesa'}</p>
-                    </Modal>
+                    </Modal >
                 )}
             < li className={listClass} key={lesson.id} onClick={() => showModal(lesson.id)} >
+
                 <div
                     className={numberClass}
                 >
@@ -115,10 +117,11 @@ const SingleLesson: React.FC<Props> = (props) => {
                         </Button>
                     ) : null}
                 </div>
-            </li >
-        </>
-    );
+            </li>
+        </ >
 
-};
+    )
+
+}
 
 export { SingleLesson };
