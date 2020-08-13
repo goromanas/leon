@@ -38,7 +38,7 @@
       TEACHER_ID BIGINT not null,
       VIDEO VARCHAR(255),
       DAY BIGINT,
-      time BIGINT,
+      TIME BIGINT,
       STATUS INT DEFAULT 0,
       constraint SUBJECT_FOREIGN_KEY
       foreign key (SUBJECT_ID) references subject(id),
@@ -55,9 +55,9 @@
       INSERT INTO `classroom_user` VALUES (1, 2);
       INSERT INTO `classroom_user` VALUES (1, 3);
 
-      INSERT INTO `lesson` VALUES (3,1,1,2,'Feed','1',3,0);
-      INSERT INTO `lesson` VALUES (4,1,1,3,'Feed1','2',3,0);
-      INSERT INTO `lesson` VALUES (5,1,1,3,'Feed2','3',3,0);
+      INSERT INTO `lesson` VALUES (3,1,1,2,'Feed',1,3,0);
+      INSERT INTO `lesson` VALUES (4,1,1,3,'Feed1',2,3,0);
+      INSERT INTO `lesson` VALUES (5,1,1,3,'Feed2',3,3,0);
 
     </sql>
   </changeSet>
