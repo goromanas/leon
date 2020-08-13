@@ -1,13 +1,13 @@
 import React from 'react';
 import { Layout } from 'antd';
+import { FormikHelpers } from 'formik';
 
 import { PageContent } from 'app/components/layout';
 import { connectContext, SettingsProps } from 'app/context';
 
 import { ChatForm, MessageValue } from './form/chat-form';
 import { ChatList } from './chat-list/chat-list';
-// import {Channels} from './channels';
-import { FormikHelpers } from 'formik';
+import { Channels } from './channels';
 
 const { Content } = Layout;
 
@@ -32,6 +32,7 @@ interface State {
     messages: Message[];
     file: any;
     className: string | null;
+    lessonId: number | null;
 }
 
 class ChatComponent extends React.Component<Props, State> {
@@ -41,6 +42,7 @@ class ChatComponent extends React.Component<Props, State> {
                    { text: 'second message', author: 'Mokinys2', date: '12:55' }],
         file: null,
         className: null,
+        lessonId: null,
     };
     public static MESSAGE_INITIAL_VALUES: MessageValue = { message: '' };
 
@@ -62,17 +64,22 @@ class ChatComponent extends React.Component<Props, State> {
             this.setState({
                 messages: newMsg,
             });
-        }
+        };
     }
 
     public render(): React.ReactNode {
         const { messages } = this.state;
+        const { teacherLessons } = this.props;
+
+        if (teacherLessons) {
+            console.log(teacherLessons);
+        }
 
         return (
             <Layout>
                 <Content>
                     <PageContent>
-                        {/*<Channels lessons={this.props.teacherLessons[0].subject} />*/}
+                        <Channels lessons={teacherLessons} />
                         <ChatList messages={messages} />
                         <ChatForm
                             initialValues={ChatComponent.MESSAGE_INITIAL_VALUES}
@@ -101,6 +108,7 @@ class ChatComponent extends React.Component<Props, State> {
 
     private readonly handleSubmit = (values: MessageValue, { resetForm }: FormikHelpers<MessageValue>): void => {
         const { messages } = this.state;
+        const { teacherLessons } = this.props;
         const time = new Date();
         const hours = time.getHours().toString();
         const minutes = time.getMinutes().toString();
@@ -108,29 +116,32 @@ class ChatComponent extends React.Component<Props, State> {
         // console.log(this.props.teacherLessons[0]["className"]);
 
         // @ts-ignore
-        const className: string = this.props.teacherLessons[0]["className"];
+        const className: string = this.props.teacherLessons[0].className;
 
+        console.log(teacherLessons);
         // const id: number = this.props.teacherLessons
-
-        this.setState({
-            messages:
-                [...messages, { text: values.message, author: this.props.username, date: hours + ':' + minutes}],
-            className: className,
-        });
-        this.sendMessage({
-            text: values.message,
-            author: this.props.username,
-            date: hours + ':' + minutes,
-            classroom: className,
-            // id:
-        });
+        console.log(values.message);
+        if (values.message.trim() !== '') {
+            this.setState({
+                messages:
+                    [...messages, { text: values.message, author: this.props.username, date: hours + ':' + minutes }],
+                className,
+            });
+            this.sendMessage({
+                text: values.message,
+                author: this.props.username,
+                date: hours + ':' + minutes,
+                classroom: className,
+                // id:
+            });
+        }
         resetForm();
         this.setState({ file: null });
     };
 
 }
 
-const mapContextToProps = ({ session: { user }, lessons, }: SettingsProps): ContextProps => ({
+const mapContextToProps = ({ session: { user }, lessons }: SettingsProps): ContextProps => ({
     username: user != null ? user.username : null,
     teacherLessons: lessons,
 });
