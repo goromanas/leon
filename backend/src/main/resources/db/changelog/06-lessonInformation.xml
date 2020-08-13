@@ -21,7 +21,10 @@
       primary key,
       DATE date null,
       INFORMATION varchar(255) null,
-      TOPIC varchar(255) null
+      TOPIC varchar(255) null,
+      LESSON_ID BIGINT,
+      constraint Dhffbn654ffsddv
+      foreign key (LESSON_ID) references lesson(ID)
       );
 
       create table lesson_information_assignment
@@ -41,25 +44,25 @@
       insert into assignment values(5,'Project');
 
 
-      insert into lesson_information values (1,'2020-08-13','test','Some Information');
-      insert into lesson_information values (2,'2020-08-14','another test','Some Information2');
+      insert into lesson_information values (1,'2020-08-13','test','Some Information',40);
+      insert into lesson_information values (2,'2020-08-14','another test','Some Information2',45);
       insert into lesson_information_assignment values (1,2);
       insert into lesson_information_assignment values (2,3);
 
-      create table lesson_lesson_information
-      (
-      LESSON_ID bigint not null,
-      LESSON_INFORMATION_ID bigint not null,
-      constraint UK_3j8bdx2b3g50s8o0sp7yo9xw0
-      unique (LESSON_INFORMATION_ID),
-      constraint FK22a954fid76oy6hwad6ygml8u
-      foreign key (LESSON_ID) references lesson (ID),
-      constraint FKoctj0io762kj5bs95qrpmn6vh
-      foreign key (LESSON_INFORMATION_ID) references lesson_information (ID)
-      );
+<!--      create table lesson_lesson_information-->
+<!--      (-->
+<!--      LESSON_ID bigint not null,-->
+<!--      LESSON_INFORMATION_ID bigint not null,-->
+<!--      constraint UK_3j8bdx2b3g50s8o0sp7yo9xw0-->
+<!--      unique (LESSON_INFORMATION_ID),-->
+<!--      constraint FK22a954fid76oy6hwad6ygml8u-->
+<!--      foreign key (LESSON_ID) references lesson (ID),-->
+<!--      constraint FKoctj0io762kj5bs95qrpmn6vh-->
+<!--      foreign key (LESSON_INFORMATION_ID) references lesson_information (ID)-->
+<!--      );-->
 
-      insert into lesson_lesson_information values(40,1);
-      insert into lesson_lesson_information values(45,2);
+<!--      insert into lesson_lesson_information values(40,1);-->
+<!--      insert into lesson_lesson_information values(45,2);-->
 
 
 

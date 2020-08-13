@@ -1,5 +1,7 @@
 package com.tietoevry.moon.lessonInformation;
 
+import com.tietoevry.moon.lesson.LessonService;
+import com.tietoevry.moon.lesson.model.Lesson;
 import com.tietoevry.moon.lessonInformation.model.Assignment;
 import com.tietoevry.moon.lessonInformation.model.Dto.LessonInformationDto;
 import com.tietoevry.moon.lessonInformation.model.LessonInformation;
@@ -14,16 +16,20 @@ import java.util.stream.Collectors;
 
 @Service
 public class LessonInformationService {
-@Autowired
-AssignmentRepository assignmentRepository;
-@Autowired
-LessonInformationRepository lessonInformationRepository;
+    @Autowired
+    AssignmentRepository assignmentRepository;
+    @Autowired
+    LessonInformationRepository lessonInformationRepository;
+    @Autowired
+    LessonService lessonService;
+
     public LessonInformationDto createLessonInformation(LessonInformationDto lessonInformation) {
+        Lesson lesson = lessonService.getLesson(lessonInformation.getLessonId());
         Map<String, Assignment> assignmentsByName = assignmentRepository.findAll()
             .stream()
             .collect(Collectors.toMap(Assignment::getName, Function.identity()));
         LessonInformation savedLessonInformation = lessonInformationRepository
-            .save(LessonInformationMapper.mapLessonInformationEntity(lessonInformation, assignmentsByName));
+            .save(LessonInformationMapper.mapLessonInformationEntity(lessonInformation, assignmentsByName, lesson));
         return LessonInformationMapper.lessonInformationToDto(savedLessonInformation);
     }
 }
