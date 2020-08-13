@@ -16,6 +16,7 @@ interface ContextProps {
     userRoles: string[] | null;
     teacherLessons: Api.Lesson[];
     currentLesson: number;
+
 }
 
 type Props = ContextProps;
@@ -32,19 +33,17 @@ class HomePageComponent extends React.Component<Props> {
         return (
             <Layout>
                 <Content>
-
                     <PageContent>
                         <div className={styles.welcomeHeader}>
-
                             Welcome back, {this.props.username},
-
                         </div>
                         {userRoles.includes('ADMIN') ? (
                             <Button type="primary" onClick={this.handleClickToUserList}>
                                 To user list
                             </Button>
                         ) : (
-                                <DayLessonsList lessonsList={teacherLessons || []} />
+                                <DayLessonsList userRole={this.props.userRoles} lessonsList={teacherLessons || []} />
+                                // <Lessons userRole={this.props.userRoles} lessonsList={teacherLessons || []} currentLesson={currentLesson} />
                             )}
 
                     </PageContent>

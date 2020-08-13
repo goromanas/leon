@@ -58,44 +58,44 @@
       INSERT INTO `subject` VALUES (16,'Pilietinis ugdymas','Pilietinio ugdymo pamoka');
       INSERT INTO `subject` VALUES (17,'Klasės valandėlė','Klasės valandėlė');
 
-      INSERT INTO `lesson` VALUES(16,2,4,25,'Matematika 6A','1',1,0);
-      INSERT INTO `lesson` VALUES(17,1,4,23,'Lietuvių k. 6A','1',2,0);
-      INSERT INTO `lesson` VALUES(18,1,4,23,'Lietuvių k. 6A','1',3,0);
-      INSERT INTO `lesson` VALUES(19,7,4,14,'Kūno kultūra 6A','1',4,0);
-      INSERT INTO `lesson` VALUES(20,8,4,15,'Istorija 6A','1',5,0);
-      INSERT INTO `lesson` VALUES(21,9,4,25,'Menai 6A','1',6,0);
-      INSERT INTO `lesson` VALUES(22,10,4,16,'Anglų k. 6A','1',7,0);
+      INSERT INTO `lesson` VALUES(16,2,4,25,'Matematika 6A',1,1,0);
+      INSERT INTO `lesson` VALUES(17,1,4,23,'Lietuvių k. 6A',1,2,0);
+      INSERT INTO `lesson` VALUES(18,1,4,23,'Lietuvių k. 6A',1,3,0);
+      INSERT INTO `lesson` VALUES(19,7,4,14,'Kūno kultūra 6A',1,4,0);
+      INSERT INTO `lesson` VALUES(20,8,4,15,'Istorija 6A',1,5,0);
+      INSERT INTO `lesson` VALUES(21,9,4,25,'Menai 6A',1,6,0);
+      INSERT INTO `lesson` VALUES(22,10,4,16,'Anglų k. 6A',1,7,0);
 
-      INSERT INTO `lesson` VALUES(23,1,4,23,'Lietuvių k. 6A','2',1,0);
-      INSERT INTO `lesson` VALUES(24,2,4,25,'Matematika 6A','2',2,0);
-      INSERT INTO `lesson` VALUES(25,16,4,21,'Pilietinis ugd. 6A','2',3,0);
-      INSERT INTO `lesson` VALUES(26,11,4,17,'Antra užsienio k. 6A','2',4,0);
-      INSERT INTO `lesson` VALUES(27,3,4,11,'Geografija 6A','2',5,0);
-      INSERT INTO `lesson` VALUES(28,12,4,18,'Technologijos 6A','2',6,0);
-      INSERT INTO `lesson` VALUES(29,12,4,18,'Technologijos 6A','2',7,0);
+      INSERT INTO `lesson` VALUES(23,1,4,23,'Lietuvių k. 6A',2,1,0);
+      INSERT INTO `lesson` VALUES(24,2,4,25,'Matematika 6A',2,2,0);
+      INSERT INTO `lesson` VALUES(25,16,4,21,'Pilietinis ugd. 6A',2,3,0);
+      INSERT INTO `lesson` VALUES(26,11,4,17,'Antra užsienio k. 6A',2,4,0);
+      INSERT INTO `lesson` VALUES(27,3,4,11,'Geografija 6A',2,5,0);
+      INSERT INTO `lesson` VALUES(28,12,4,18,'Technologijos 6A',2,6,0);
+      INSERT INTO `lesson` VALUES(29,12,4,18,'Technologijos 6A',2,7,0);
 
-      INSERT INTO `lesson` VALUES(30,10,4,16,'Anglų k. 6A','3',1,0);
-      INSERT INTO `lesson` VALUES(31,13,4,24,'Etika 6A','3',2,0);
-      INSERT INTO `lesson` VALUES(32,8,4,15,'Istorija 6A','3',3,0);
-      INSERT INTO `lesson` VALUES(33,4,4,12,'Fizika 6A','3',4,0);
-      INSERT INTO `lesson` VALUES(34,1,4,23,'Lietuvių k. 6A','3',5,0);
-      INSERT INTO `lesson` VALUES(35,2,4,22,'Matematika 6A','3',6,0);
-      INSERT INTO `lesson` VALUES(36,14,4,19,'Biologija 6A','3',7,0);
+      INSERT INTO `lesson` VALUES(30,10,4,16,'Anglų k. 6A',3,1,0);
+      INSERT INTO `lesson` VALUES(31,13,4,24,'Etika 6A',3,2,0);
+      INSERT INTO `lesson` VALUES(32,8,4,15,'Istorija 6A',3,3,0);
+      INSERT INTO `lesson` VALUES(33,4,4,12,'Fizika 6A',3,4,0);
+      INSERT INTO `lesson` VALUES(34,1,4,23,'Lietuvių k. 6A',3,5,0);
+      INSERT INTO `lesson` VALUES(35,2,4,22,'Matematika 6A',3,6,0);
+      INSERT INTO `lesson` VALUES(36,14,4,19,'Biologija 6A',3,7,0);
 
-      INSERT INTO `lesson` VALUES(37,1,4,23,'Lietuvių k. 6A','4',1,0);
-      INSERT INTO `lesson` VALUES(38,7,4,14,'Kūno kultūra 6A','4',2,0);
-      INSERT INTO `lesson` VALUES(39,11,4,17,'Antra užsienio k. 6A','4',3,0);
-      INSERT INTO `lesson` VALUES(40,15,4,20,'Chemija 6A','4',4,0);
-      INSERT INTO `lesson` VALUES(41,9,4,25,'Menai 6A','4',5,0);
-      INSERT INTO `lesson` VALUES(42,5,4,13,'Informatika 6A','4',6,0);
-      INSERT INTO `lesson` VALUES(43,17,4,25,'Klasės valandėlė 6A','4',7,0);
+      INSERT INTO `lesson` VALUES(37,1,4,23,'Lietuvių k. 6A',4,1,0);
+      INSERT INTO `lesson` VALUES(38,7,4,14,'Kūno kultūra 6A',4,2,0);
+      INSERT INTO `lesson` VALUES(39,11,4,17,'Antra užsienio k. 6A',4,3,0);
+      INSERT INTO `lesson` VALUES(40,15,4,20,'Chemija 6A',4,4,0);
+      INSERT INTO `lesson` VALUES(41,9,4,25,'Menai 6A',4,5,0);
+      INSERT INTO `lesson` VALUES(42,5,4,13,'Informatika 6A',4,6,0);
+      INSERT INTO `lesson` VALUES(43,17,4,25,'Klasės valandėlė 6A',4,7,0);
 
-      INSERT INTO `lesson` VALUES(44,14,4,19,'Biologija 6A','4',1,0);
-      INSERT INTO `lesson` VALUES(45,3,4,11,'Geografija 6A','4',2,0);
-      INSERT INTO `lesson` VALUES(46,2,4,22,'Matematika 6A','4',3,0);
-      INSERT INTO `lesson` VALUES(47,15,4,20,'Chemija 6A','4',4,0);
-      INSERT INTO `lesson` VALUES(48,10,4,16,'Anglų k. 6A','4',5,0);
-      INSERT INTO `lesson` VALUES(49,4,4,12,'Fizika 6A','4',6,0);
+      INSERT INTO `lesson` VALUES(44,14,4,19,'Biologija 6A',5,1,0);
+      INSERT INTO `lesson` VALUES(45,3,4,11,'Geografija 6A',5,2,0);
+      INSERT INTO `lesson` VALUES(46,2,4,22,'Matematika 6A',5,3,0);
+      INSERT INTO `lesson` VALUES(47,15,4,20,'Chemija 6A',5,4,0);
+      INSERT INTO `lesson` VALUES(48,10,4,16,'Anglų k. 6A',5,5,0);
+      INSERT INTO `lesson` VALUES(49,4,4,12,'Fizika 6A',5,6,0);
 
       create table schedule
       (

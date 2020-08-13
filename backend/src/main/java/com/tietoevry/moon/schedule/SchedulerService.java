@@ -6,9 +6,8 @@ import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.concurrent.ConcurrentTaskScheduler;
 import org.springframework.stereotype.Service;
-import com.tietoevry.moon.websocket.handler.WebSocketHandler;
+import com.tietoevry.moon.schedule.websocket.handler.WebSocketHandler;
 import org.springframework.web.socket.TextMessage;
-import com.tietoevry.moon.schedule.ScheduleService;
 
 @Service
 public class SchedulerService {

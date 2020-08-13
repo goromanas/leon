@@ -2,31 +2,68 @@ import React from 'react';
 import { Layout } from 'antd';
 
 import { PageContent } from 'app/components/layout';
+import { connectContext, SettingsProps } from 'app/context';
 
 import { ChatForm, MessageValue } from './form/chat-form';
-import { connectContext, SettingsProps } from 'app/context';
+import { ChatList } from './chat-list/chat-list';
+// import {Channels} from './channels';
+import { FormikHelpers } from 'formik';
 
 const { Content } = Layout;
 
 interface ContextProps {
     username: string | null;
+    teacherLessons: Api.Lesson[];
 }
-interface OwnProps {}
+
+interface OwnProps {
+}
 
 type Props = ContextProps & OwnProps;
 
-interface Message { text: string; author: string; date: string; }
+interface Message {
+    text: string;
+    author: string;
+    date: string;
+    classroom?: string;
+}
 
 interface State {
     messages: Message[];
+    file: any;
+    className: string | null;
 }
 
 class ChatComponent extends React.Component<Props, State> {
+    public ws = new WebSocket('ws://localhost:8080/ws/chat');
     public readonly state: State = {
-        messages: [{ text: 'first message', author: 'no', date: 'no' },
-                   { text: 'second message', author: 'no', date: 'no' }],
+        messages: [{ text: 'first message', author: 'Mokinys1', date: '12:45' },
+                   { text: 'second message', author: 'Mokinys2', date: '12:55' }],
+        file: null,
+        className: null,
     };
-    private static readonly MESSAGE_INITIAL_VALUES: MessageValue = { message: '' };
+    public static MESSAGE_INITIAL_VALUES: MessageValue = { message: '' };
+
+    // tslint:disable-next-line:typedef
+    public componentDidMount() {
+        const { messages } = this.state;
+        const { teacherLessons } = this.props;
+        // this.ws.onopen = () => {
+        //     console.log('connected');
+        // };
+
+        this.ws.onmessage = e => {
+            const message = JSON.parse(e.data);
+            // console.log('Chat page receives ',message.classroom);
+
+            const copyMsg = [...this.state.messages];
+            const newMsg = [...copyMsg, message];
+
+            this.setState({
+                messages: newMsg,
+            });
+        }
+    }
 
     public render(): React.ReactNode {
         const { messages } = this.state;
@@ -35,33 +72,67 @@ class ChatComponent extends React.Component<Props, State> {
             <Layout>
                 <Content>
                     <PageContent>
-                        <div>{messages.map(msg => (
-                            <li key={msg.text}>
-                                {msg.text}
-                                <span style={{ fontWeight: 'bold' }}>-{msg.author}</span> {msg.date}
-                            </li>
-                        ))}</div>
-                        <ChatForm initialValues={ChatComponent.MESSAGE_INITIAL_VALUES} onSubmit={this.handleSubmit} />
+                        {/*<Channels lessons={this.props.teacherLessons[0].subject} />*/}
+                        <ChatList messages={messages} />
+                        <ChatForm
+                            initialValues={ChatComponent.MESSAGE_INITIAL_VALUES}
+                            onSubmit={this.handleSubmit}
+                            // addFile={this.addFile}
+                        />
                     </PageContent>
                 </Content>
             </Layout>
         );
     }
 
-    private readonly handleSubmit = (values: MessageValue): void => {
+    // public addFile = (file: any) => {
+    //     this.setState({ file: file });
+    //     console.log(file);
+    // }
+
+    public sendMessage = (message: Message) => {
+        try {
+            // console.log(message)
+            this.ws.send(JSON.stringify(message));
+        } catch (error) {
+            console.log(error); // catch error
+        }
+    };
+
+    private readonly handleSubmit = (values: MessageValue, { resetForm }: FormikHelpers<MessageValue>): void => {
         const { messages } = this.state;
         const time = new Date();
         const hours = time.getHours().toString();
         const minutes = time.getMinutes().toString();
+        // console.log(Object.keys(this.props.teacherLessons[0]));
+        // console.log(this.props.teacherLessons[0]["className"]);
 
-        this.setState({ messages:
-                [...messages, { text: values.message, author: this.props.username, date: hours + ':' + minutes }] });
+        // @ts-ignore
+        const className: string = this.props.teacherLessons[0]["className"];
 
+        // const id: number = this.props.teacherLessons
+
+        this.setState({
+            messages:
+                [...messages, { text: values.message, author: this.props.username, date: hours + ':' + minutes}],
+            className: className,
+        });
+        this.sendMessage({
+            text: values.message,
+            author: this.props.username,
+            date: hours + ':' + minutes,
+            classroom: className,
+            // id:
+        });
+        resetForm();
+        this.setState({ file: null });
     };
+
 }
 
-const mapContextToProps = ({ session: { user } }: SettingsProps): ContextProps => ({
+const mapContextToProps = ({ session: { user }, lessons, }: SettingsProps): ContextProps => ({
     username: user != null ? user.username : null,
+    teacherLessons: lessons,
 });
 
 const ChatPage = connectContext(mapContextToProps)(ChatComponent);

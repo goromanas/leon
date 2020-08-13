@@ -11,6 +11,7 @@ import styles from './lessons.module.scss';
 
 interface Props {
     lessonsList: Api.Lesson[];
+    userRole: string[];
 }
 
 // navigate to video chat by class number id. Passed function in SingleLesson
@@ -21,7 +22,7 @@ const handleOpenClassroom = (id: number): void => {
 // create new websocket instance
 const ws = new WebSocket('ws://localhost:8080/currentLesson');
 
-const DayLessonsList: React.FC<Props> = ({ lessonsList }) => {
+const DayLessonsList: React.FC<Props> = ({ lessonsList, userRole }) => {
     const listRef: React.RefObject<HTMLUListElement> = useRef(null);
 
     const [currentLesson, setCurrentLesson] = useState<number>(0);
@@ -55,7 +56,7 @@ const DayLessonsList: React.FC<Props> = ({ lessonsList }) => {
     useEffect(() => {
         ws.onopen = () => {
             // on connecting, do nothing but log it to the console
-            console.log('connected');
+            // console.log('connected');
         };
 
         ws.onmessage = evt => {
@@ -66,7 +67,7 @@ const DayLessonsList: React.FC<Props> = ({ lessonsList }) => {
         };
 
         ws.onclose = () => {
-            console.log('disconnected');
+            // console.log('disconnected');
         };
     }, []);
 
@@ -106,6 +107,7 @@ const DayLessonsList: React.FC<Props> = ({ lessonsList }) => {
                 lesson={item}
                 handleOpenClassroom={handleOpenClassroom}
                 schedule={scheduleTimes[positionInList(item) - 1]}
+                userRole={userRole}
             />
             < span style={{ height: breakTimes[positionInList(item) - 1] }} className={styles.breakSpan} />
         </div>

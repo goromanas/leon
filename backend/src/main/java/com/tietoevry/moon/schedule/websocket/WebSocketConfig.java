@@ -1,7 +1,6 @@
-package com.tietoevry.moon.websocket;
+package com.tietoevry.moon.schedule.websocket;
 
-import com.tietoevry.moon.websocket.handler.WebSocketHandler;
-import org.springframework.context.annotation.Bean;
+import com.tietoevry.moon.schedule.websocket.handler.WebSocketHandler;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.*;
 
@@ -9,7 +8,7 @@ import org.springframework.web.socket.config.annotation.*;
 @EnableWebSocket
 public class WebSocketConfig implements WebSocketConfigurer {
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(new WebSocketHandler(), "/currentLesson")
+        registry.addHandler(new WebSocketHandler(), "/ws/currentLesson")
         .setAllowedOrigins("*");
     }
 
