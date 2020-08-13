@@ -25,10 +25,12 @@ public class LessonService {
     @Autowired
     public SecurityContextService securityContextService;
 
-    public List<Lesson> getAllLessons()
-    {
+    public List<Lesson> getAllLessons() {
         return lessonRepository.findAll();
     }
+
+    public Lesson getLesson(Long id) {
+    return lessonRepository.findById(id).orElseThrow();}
 
 
     public List<LessonDto> getTeacherLessons() {
@@ -40,8 +42,8 @@ public class LessonService {
     }
 
     //public void changeLessonState(LessonDto lessonDto) {
-   //     Lesson lesson = lessonRepository.getOne(lessonDto.getId());
-   //     lesson.setStatus(lesson.getStatus());
-   //     lessonRepository.save(lesson);
- //   }
+    //     Lesson lesson = lessonRepository.getOne(lessonDto.getId());
+    //     lesson.setStatus(lesson.getStatus());
+    //     lessonRepository.save(lesson);
+    //   }
 }
