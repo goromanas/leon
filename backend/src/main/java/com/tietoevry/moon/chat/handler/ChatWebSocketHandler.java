@@ -19,6 +19,9 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
         throws InterruptedException, IOException {
         System.out.println("Received a messaged");
         for (WebSocketSession webSocketSession: webSocketSessions) {
+            if (webSocketSession != session){
+                webSocketSession.sendMessage(message);
+            }
             webSocketSession.sendMessage(message);
         }
     }

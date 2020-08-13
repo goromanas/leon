@@ -14,8 +14,8 @@ const ChatList: React.FC<Props> = ({ messages }) =>
     (
         <div>
             <ul>
-                {messages.map(msg => (
-                    <li key={msg.text}>
+                {messages.map((msg, i) => (
+                    <li key={i}>
                         {msg.text}
                         <span style={{ fontWeight: 'bold' }}>-{msg.author}</span> {msg.date}
                     </li>
