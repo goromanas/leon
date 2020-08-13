@@ -1,7 +1,19 @@
-.message{
-  //background-color: #bfbfbf;
+.message {
+  background-color: #e4e6ec;
   margin: 20px;
+  padding: .5em;
 }
-.top span{
+
+.author {
+  padding-left: .5em;
+  font-weight: bold;
+}
+
+.timestamp {
+  color: #696969;
+  font-size: .7rem;
+}
+
+.top span {
   font-weight: bold;
 }

@@ -23,6 +23,7 @@ dependencies {
     implementation 'io.springfox:springfox-swagger-ui:2.9.2'
     implementation 'mysql:mysql-connector-java'
     implementation 'org.webjars:sockjs-client:1.0.2'
+    implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'org.webjars:stomp-websocket:2.3.3'
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'org.liquibase:liquibase-core'
