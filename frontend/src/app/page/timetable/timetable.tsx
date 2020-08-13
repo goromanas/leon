@@ -1,10 +1,12 @@
 import React from 'react';
 import { Button, Col, Grid, Row } from 'antd';
-import moment from 'moment'
+import moment from 'moment';
 
 import { connectContext, SettingsProps } from 'app/context';
 // import { Lessons } from 'app/page/timetable/day-lessons-list/lessons';
 import { DayLessonsList } from 'app/page/home/timetable/day-lessons-list/day-lessons-list';
+
+import styles from 'app/page/home/timetable/day-lessons-list/lessons.module.scss';
 
 interface ContextProps {
     username: string | null;
@@ -38,13 +40,14 @@ class TimetablePageComponent extends React.Component<Props, State> {
         const d = new Date();
 
         return (
-            <>
-
-                <Button type="primary"
-                    onClick={() => this.handleButtonClick(false)}
-                >Previous</Button>
-                <Button type="primary"
-                    onClick={() => this.handleButtonClick(true)}>Next</Button>
+            <div>
+                <div className={styles.weekButtons} >
+                    <Button type="primary"
+                        onClick={() => this.handleButtonClick(false)}
+                    >Previous Week</Button>
+                    <Button type="primary"
+                        onClick={() => this.handleButtonClick(true)}>Next Week</Button>
+                </div>
                 <Row>
 
                     {Array(5).fill(new Date().getDay() + this.state.move).map((x, y) => x + y).map((item) => (
@@ -62,7 +65,7 @@ class TimetablePageComponent extends React.Component<Props, State> {
                     ))}
                 </Row>,
 
-            </>);
+            </div>);
     }
 
     public filterByDay(teacherLessons: Api.Lesson[], day: number): Api.Lesson[] {
