@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Col, Grid, Row } from 'antd';
-import * as moment from 'moment';
+import moment from "moment"
 
 import { connectContext, SettingsProps } from 'app/context';
 import { Lessons } from 'app/page/timetable/day-lessons-list/lessons';
