@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+  <changeSet id="06" author="Julius">
+    <sql >
+      create table assignment
+      (
+      ID bigint auto_increment
+      primary key,
+      NAME varchar(255)
+      );
+
+
+      create table lesson_information
+      (
+      ID bigint auto_increment
+      primary key,
+      DATE date null,
+      INFORMATION varchar(255) null,
+      TOPIC varchar(255) null
+      );
+
+      create table lesson_information_assignment
+      (
+      LESSON_INFORMATION_ID bigint not null,
+      ASSIGNMENT_ID bigint not null,
+      constraint FKk3rscq0ot932k51hg9mpe2dl2
+      foreign key (LESSON_INFORMATION_ID) references lesson_information (ID),
+      constraint FKmh28rv4of4x8pe99gi62u4m2x
+      foreign key (ASSIGNMENT_ID) references assignment (ID)
+      );
+
+      insert into assignment values(1,'Test');
+      insert into assignment values(2,'Homework');
+      insert into assignment values(3,'Exam');
+      insert into assignment values(4,'Presentation');
+      insert into assignment values(5,'Project');
+
+
+      insert into lesson_information values (1,'2020-08-13','test','Some Information');
+      insert into lesson_information values (2,'2020-08-14','another test','Some Information2');
+      insert into lesson_information_assignment values (1,2);
+      insert into lesson_information_assignment values (2,3);
+
+      create table lesson_lesson_information
+      (
+      LESSON_ID bigint not null,
+      LESSON_INFORMATION_ID bigint not null,
+      constraint UK_3j8bdx2b3g50s8o0sp7yo9xw0
+      unique (LESSON_INFORMATION_ID),
+      constraint FK22a954fid76oy6hwad6ygml8u
+      foreign key (LESSON_ID) references lesson (ID),
+      constraint FKoctj0io762kj5bs95qrpmn6vh
+      foreign key (LESSON_INFORMATION_ID) references lesson_information (ID)
+      );
+
+      insert into lesson_lesson_information values(40,1);
+      insert into lesson_lesson_information values(45,2);
+
+
+
+
+    </sql>
+  </changeSet>
+</databaseChangeLog>

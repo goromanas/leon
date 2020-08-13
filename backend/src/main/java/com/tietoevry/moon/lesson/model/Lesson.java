@@ -1,11 +1,13 @@
 package com.tietoevry.moon.lesson.model;
 
 import com.tietoevry.moon.classroom.model.Classroom;
+import com.tietoevry.moon.lessonInformation.model.LessonInformation;
 import com.tietoevry.moon.subject.model.Subject;
 import com.tietoevry.moon.user.model.User;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -28,5 +30,6 @@ public class Lesson {
     private int day;
     private int time;
     private int status;
-
+    @OneToMany
+    private List<LessonInformation> lessonInformation;
 }

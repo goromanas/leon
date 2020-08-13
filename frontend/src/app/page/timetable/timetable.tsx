@@ -63,7 +63,7 @@ class TimetablePageComponent extends React.Component<Props, State> {
         if (teacherLessons != null) {
             this.sortedLesson = teacherLessons.sort((n1, n2) => n1.time - n2.time);
 
-            return this.sortedLesson.filter(lesson => parseInt(lesson.day) == day ? lesson : null);
+            return this.sortedLesson.filter(lesson => lesson.day == day ? lesson : null);
 
         }}
     private handleButtonClick = (forward: boolean): void => {
