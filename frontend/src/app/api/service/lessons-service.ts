@@ -1,5 +1,3 @@
-import { message } from 'antd';
-
 import { CancelSource, RestService } from 'app/api/common';
 
 class LessonsService {

@@ -11,6 +11,7 @@ export interface Actions {
     updateSession: (session: Session) => void;
     updateLessons: (lessons: Api.Lesson[]) => void;
     updateCurrentLesson: (currentLesson: number) => void;
+    updateSchedule: (schedule: Api.ScheduleDto[]) => void;
 }
 
 export interface SettingsProps {
@@ -18,6 +19,7 @@ export interface SettingsProps {
     session: Session;
     lessons: Api.Lesson[];
     currentLesson: number;
+    schedule: Api.ScheduleDto[];
 }
 
 const INITIAL_SESSION: Session = {
@@ -28,15 +30,19 @@ const INITIAL_CURRENT_LESSON: number = 4;
 
 const INITIAL_LESSONS: Api.Lesson[] = [];
 
+const INITIAL_SCHEDULE: Api.ScheduleDto[] = [];
+
 const DEFAULT_SETTINGS: SettingsProps = {
     session: INITIAL_SESSION,
     actions: {
         updateSession: () => undefined,
         updateLessons: () => undefined,
         updateCurrentLesson: () => undefined,
+        updateSchedule: () => undefined,
     },
     lessons: INITIAL_LESSONS,
     currentLesson: INITIAL_CURRENT_LESSON,
+    schedule: INITIAL_SCHEDULE,
 };
 
 const settingsContext: React.Context<SettingsProps> = React.createContext<SettingsProps>(DEFAULT_SETTINGS);
@@ -62,4 +68,5 @@ export {
     connectContext,
     INITIAL_SESSION,
     INITIAL_CURRENT_LESSON,
+    INITIAL_SCHEDULE,
 };
