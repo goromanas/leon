@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 import styles from './chat-list.module.scss';
 
@@ -8,13 +8,12 @@ interface Props {
     date: string;
 }
 
-const Message: React.FC<Props> = ({text,author, date}) => {
-    return (
+const Message: React.FC<Props> = ({ text,author, date }) =>
+    (
         <div className={styles.message}>
-            <div><span>{author}</span> {date}</div>
+            <div><span style={{ fontWeight: 'bold' }}>{author}</span> {date}</div>
             <div>{text}</div>
         </div>
-    )
-}
+    );
 
-export { Message }
+export { Message };

@@ -21,17 +21,17 @@ type Props = FormikConfig<MessageValue> & OwnProps;
 const ChatForm: React.FC<Props> = (props: Props) => {
     const { initialValues, onSubmit } = props;
 
-    const changeHandler = (event: any) => {
+    // const changeHandler = (event: any) => {
         // addFile(event.target.files[0]);
         // console.log(event.target.files[0]);
-    };
+    // };
 
     return (
         <Formik initialValues={initialValues} onSubmit={onSubmit}>
             {() => (
                 <Form>
                     <Field component={InputField} name="message" placeholder="Message..." />
-                    <input type="file" name="file" onChange={changeHandler} />
+                    {/*<input type="file" name="file" onChange={changeHandler} />*/}
 
                     <Button type="primary" htmlType="submit">
                         Send
