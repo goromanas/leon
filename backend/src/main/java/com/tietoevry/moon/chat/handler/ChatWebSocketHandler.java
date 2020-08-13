@@ -21,8 +21,8 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
         for (WebSocketSession webSocketSession: webSocketSessions) {
             if (webSocketSession != session){
                 webSocketSession.sendMessage(message);
+                System.out.println("wow");
             }
-            webSocketSession.sendMessage(message);
         }
     }
 

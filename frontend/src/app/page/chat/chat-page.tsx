@@ -47,6 +47,11 @@ class ChatComponent extends React.Component<Props, State> {
         this.ws.onopen = () => {
             console.log('connected');
         };
+
+        // @ts-ignore
+        const className: string = this.props.teacherLessons[0]["className"]
+        this.ws.send(className)
+
         this.ws.onmessage = e => {
             const message = JSON.parse(e.data);
             console.log('Chat page receives ',message);
@@ -60,9 +65,7 @@ class ChatComponent extends React.Component<Props, State> {
 
     public render(): React.ReactNode {
         const { messages } = this.state;
-        // console.log(this.state);
         return (
-            <>
             <Layout>
                 <Content>
                     <PageContent>
@@ -76,7 +79,6 @@ class ChatComponent extends React.Component<Props, State> {
                     </PageContent>
                 </Content>
             </Layout>
-                </>
         );
     }
 
