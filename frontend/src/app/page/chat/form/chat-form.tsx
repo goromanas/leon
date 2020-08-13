@@ -11,7 +11,7 @@ export interface MessageValue {
 }
 
 interface OwnProps {
-    addFile: (file: any) => void;
+    // addFile: (file: any) => void;
 }
 
 export type ChatErrors = FormErrors<MessageValue>;
@@ -19,10 +19,10 @@ export type ChatErrors = FormErrors<MessageValue>;
 type Props = FormikConfig<MessageValue> & OwnProps;
 
 const ChatForm: React.FC<Props> = (props: Props) => {
-    const { initialValues, onSubmit, addFile } = props;
+    const { initialValues, onSubmit } = props;
 
     const changeHandler = (event: any) => {
-        addFile(event.target.files[0]);
+        // addFile(event.target.files[0]);
         // console.log(event.target.files[0]);
     };
 

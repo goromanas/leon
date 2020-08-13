@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Message } from './message'
+
 interface Message {
     text: string;
     author: string;
@@ -13,13 +15,9 @@ interface Props {
 const ChatList: React.FC<Props> = ({ messages }) =>
     (
         <div>
-            <h1>Message list</h1>
             <ul>
-                {messages.map(msg => (
-                    <li key={msg.text}>
-                        {msg.text}
-                        <span style={{ fontWeight: 'bold' }}>-{msg.author}</span> {msg.date}
-                    </li>
+                {messages.map((msg, i) => (
+                    <Message key={i} text={msg.text} author={msg.author} date={msg.date} />
                 ))}
             </ul>
         </div>

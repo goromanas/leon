@@ -4,7 +4,7 @@ import { Button, Layout } from 'antd';
 import { connectContext, SettingsProps } from 'app/context';
 import { navigationService } from 'app/service/navigation-service';
 import { PageContent } from 'app/components/layout';
-import {CurrentLessonSocket} from '../../websocket/current-lesson-socket'
+// import {CurrentLessonSocket} from '../../websocket/current-lesson-socket'
 
 import { Lessons } from './timetable/day-lessons-list/lessons';
 
@@ -45,7 +45,7 @@ class HomePageComponent extends React.Component<Props> {
                         <div className={styles.welcomeHeader}>
                             Labas, {userRoleToLT},
                         </div>
-                        <CurrentLessonSocket/>
+                        {/*<CurrentLessonSocket/>*/}
                         {userRoles.includes('ADMIN') ? (
                             <Button type="primary" onClick={this.handleClickToUserList}>
                                 To user list

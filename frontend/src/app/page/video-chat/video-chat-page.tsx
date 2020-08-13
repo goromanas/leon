@@ -49,7 +49,7 @@ class HomePageComponent extends React.Component<Props, {}> {
         const config = userRoles[0] === 'STUDENT' ?
         {
             TOOLBAR_BUTTONS: [
-                    'microphone', 'camera', 'desktop', 'fullscreen', 'raisehand', 'hangup',
+                    'microphone', 'camera', 'desktop', 'fullscreen', 'raisehand', 'hangup', 'chat'
                 ],
         } : {
                 TOOLBAR_BUTTONS: [
