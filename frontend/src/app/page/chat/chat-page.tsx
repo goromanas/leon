@@ -25,7 +25,7 @@ interface Message {
     text: string;
     author: string;
     date: string;
-    // classroom: string;
+    classroom?: string;
 }
 
 interface State {
@@ -99,12 +99,21 @@ class ChatComponent extends React.Component<Props, State> {
         const time = new Date();
         const hours = time.getHours().toString();
         const minutes = time.getMinutes().toString();
-        console.log(this.props.teacherLessons[0].classroom)
+        // console.log(Object.keys(this.props.teacherLessons[0]));
+        // console.log(this.props.teacherLessons[0]["className"]);
+
+        // @ts-ignore
+        const className: string = this.props.teacherLessons[0]["className"]
         this.setState({
             messages:
                 [...messages, { text: values.message, author: this.props.username, date: hours + ':' + minutes}]
         });
-        this.sendMessage({ text: values.message, author: this.props.username, date: hours + ':' + minutes });
+        this.sendMessage({
+            text: values.message,
+            author: this.props.username,
+            date: hours + ':' + minutes,
+            classroom: className,
+        });
         resetForm();
         this.setState({ file: null });
     };
