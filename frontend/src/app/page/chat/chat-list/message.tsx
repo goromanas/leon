@@ -11,7 +11,7 @@ interface Props {
 const Message: React.FC<Props> = ({text,author, date}) => {
     return (
         <div className={styles.message}>
-            <div className={styles.top}><span>{author}</span> {date}</div>
+            <div><span>{author}</span> {date}</div>
             <div>{text}</div>
         </div>
     )

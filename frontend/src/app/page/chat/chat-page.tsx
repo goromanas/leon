@@ -31,6 +31,7 @@ interface Message {
 interface State {
     messages: Message[];
     file: any;
+    className: string | null;
 }
 
 class ChatComponent extends React.Component<Props, State> {
@@ -39,30 +40,34 @@ class ChatComponent extends React.Component<Props, State> {
         messages: [{ text: 'first message', author: 'Mokinys1', date: '12:45' },
                    { text: 'second message', author: 'Mokinys2', date: '12:55' }],
         file: null,
+        className: null,
     };
     public static MESSAGE_INITIAL_VALUES: MessageValue = { message: '' };
 
+    // tslint:disable-next-line:typedef
     public componentDidMount() {
         const { messages } = this.state;
-        const {teacherLessons} = this.props;
-        this.ws.onopen = () => {
-            console.log('connected');
-        };
+        const { teacherLessons } = this.props;
+        // this.ws.onopen = () => {
+        //     console.log('connected');
+        // };
 
         this.ws.onmessage = e => {
             const message = JSON.parse(e.data);
-            console.log('Chat page receives ',message);
+            // console.log('Chat page receives ',message.classroom);
 
             const copyMsg = [...this.state.messages];
             const newMsg = [...copyMsg, message];
+
             this.setState({
-                messages: newMsg
+                messages: newMsg,
             });
         }
     }
 
     public render(): React.ReactNode {
         const { messages } = this.state;
+
         return (
             <Layout>
                 <Content>
@@ -72,7 +77,7 @@ class ChatComponent extends React.Component<Props, State> {
                         <ChatForm
                             initialValues={ChatComponent.MESSAGE_INITIAL_VALUES}
                             onSubmit={this.handleSubmit}
-                            addFile={this.addFile}
+                            // addFile={this.addFile}
                         />
                     </PageContent>
                 </Content>
@@ -80,21 +85,15 @@ class ChatComponent extends React.Component<Props, State> {
         );
     }
 
-    public addFile = (file: any) => {
-        this.setState({ file: file });
-        console.log(file);
-    }
+    // public addFile = (file: any) => {
+    //     this.setState({ file: file });
+    //     console.log(file);
+    // }
 
     public sendMessage = (message: Message) => {
         try {
-            // const data = new FormData();
-            // if (this.state.file) {
-               // data.append('file', this.state.file)
-            // }
-            // data.append('message', message);
-            console.log(message)
+            // console.log(message)
             this.ws.send(JSON.stringify(message));
-            console.log(message);
         } catch (error) {
             console.log(error); // catch error
         }
@@ -109,16 +108,21 @@ class ChatComponent extends React.Component<Props, State> {
         // console.log(this.props.teacherLessons[0]["className"]);
 
         // @ts-ignore
-        const className: string = this.props.teacherLessons[0]["className"]
+        const className: string = this.props.teacherLessons[0]["className"];
+
+        // const id: number = this.props.teacherLessons
+
         this.setState({
             messages:
-                [...messages, { text: values.message, author: this.props.username, date: hours + ':' + minutes}]
+                [...messages, { text: values.message, author: this.props.username, date: hours + ':' + minutes}],
+            className: className,
         });
         this.sendMessage({
             text: values.message,
             author: this.props.username,
             date: hours + ':' + minutes,
             classroom: className,
+            // id:
         });
         resetForm();
         this.setState({ file: null });
