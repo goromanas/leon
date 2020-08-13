@@ -52,7 +52,7 @@ class TimetablePageComponent extends React.Component<Props, State> {
                             (item % 5) != 0 ? item = item % 5 : null,
 
                     <Col xs={{ span: 5, offset: 1 }} lg={{ span: 6, offset: 1 }}>
-                        <Lessons lessonsList={this.somefunction(teacherLessons, item) || []} day={item} />
+                        <Lessons lessonsList={this.somefunction(teacherLessons, item) || []} day={item} time={this.getDate()}/>
                     </Col>
                         ))}
                 </Row>,
@@ -60,12 +60,19 @@ class TimetablePageComponent extends React.Component<Props, State> {
             </>);
     }
     public somefunction(teacherLessons: Api.Lesson[], day: number): Api.Lesson[] {
+
         if (teacherLessons != null) {
             this.sortedLesson = teacherLessons.sort((n1, n2) => n1.time - n2.time);
 
             return this.sortedLesson.filter(lesson => lesson.day == day ? lesson : null);
 
         }}
+    public getDate = (): Date => {
+        const tomorrow = new Date();
+
+        tomorrow.setDate(tomorrow.getDate() + this.state.move);
+        return tomorrow;
+    };
     private handleButtonClick = (forward: boolean): void => {
 
         forward ?
