@@ -11,6 +11,7 @@
     "craco-antd": "^1.18.1",
     "formik": "^2.1.5",
     "lodash": "^4.17.19",
+    "moment": "^2.27.0",
     "react": "^16.13.1",
     "react-canvas-draw": "^1.1.1",
     "react-dom": "^16.13.1",

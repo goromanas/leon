@@ -34,7 +34,7 @@ const lessonTimes: LessonTimes =   [{
 interface Props {
     lessonsList: Api.Lesson[];
     day: number;
-    time: Date;
+    time: String;
 }
 
 interface State {
@@ -62,7 +62,6 @@ class Lessons extends React.Component<Props, State, LessonTimes> {
         }};
     }
     public getDayFromInt(day: number): string {
-        console.log(this.props.time);
         switch (day) {
             case 1:
                 return 'Monday';
