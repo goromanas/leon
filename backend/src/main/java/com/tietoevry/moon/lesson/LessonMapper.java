@@ -19,7 +19,7 @@ public class LessonMapper {
         lessonDto.setTime(lesson.getTime());
         lessonDto.setDay(lesson.getDay());
         lessonDto.setClassName(lesson.getClassroom().getClassName());
-        lessonDto.setLessonAssignment(
+        lessonDto.setLessonInformation(
             lesson
                 .getLessonInformation()
                 .stream()

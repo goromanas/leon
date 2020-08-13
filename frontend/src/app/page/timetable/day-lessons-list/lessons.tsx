@@ -10,22 +10,22 @@ const lessonTimes: LessonTimes =   [{
     startTime: 8,
     endTime: 9,
 },
-    {
+                                    {
         id: 2,
         startTime: 10,
         endTime: 11,
     },
-    {
+                                    {
         id: 3,
         startTime: 12,
         endTime: 13,
     },
-    {
+                                    {
         id: 4,
         startTime: 14,
         endTime: 15,
     },
-    {
+                                    {
         id: 5,
         startTime: 16,
         endTime: 17,
@@ -34,6 +34,7 @@ const lessonTimes: LessonTimes =   [{
 interface Props {
     lessonsList: Api.Lesson[];
     day: number;
+    time: String;
 }
 
 interface State {
@@ -60,26 +61,24 @@ class Lessons extends React.Component<Props, State, LessonTimes> {
             endTime: 0,
         }};
     }
-    public getDayFromInt(day: number):string
-    {
-        switch(day)
-        {
+    public getDayFromInt(day: number): string {
+        switch (day) {
             case 1:
-                return "Monday";
+                return 'Monday';
             case 2:
-                return "Tuesday";
+                return 'Tuesday';
             case 3:
-                return "Wednesday";
+                return 'Wednesday';
             case 4:
-                return "Thursday";
+                return 'Thursday';
             case 5:
-                return "Friday";
+                return 'Friday';
             case 6:
-                return "Saturday";
+                return 'Saturday';
             case 7:
-                return "Sunday";
+                return 'Sunday';
             default:
-                return "Nothing";
+                return 'Nothing';
         }
     }
 
@@ -108,7 +107,7 @@ class Lessons extends React.Component<Props, State, LessonTimes> {
     }
 
     public render(): React.ReactNode {
-        const { lessonsList,day } = this.props;
+        const { lessonsList, day } = this.props;
         const activeLesson = { backgroundColor: '#636363', color: '#000000' };
         const upcomingLesson = { backgroundColor: '#929292', color: '#000000' };
         const lessonInList = (e: any) => lessonsList.indexOf(e) + 1;

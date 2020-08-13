@@ -21,5 +21,5 @@ public class LessonDto {
     private int time;
     private int day;
     private int status;
-    private List<LessonInformationDto> lessonAssignment;
+    private List<LessonInformationDto> lessonInformation;
 }
