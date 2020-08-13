@@ -37,7 +37,7 @@ const SingleLesson: React.FC<Props> = (props) => {
         positionInList === currentLesson && activeLesson,
         positionInList > currentLesson && upcomingLesson,
     );
-    const lessonStart: string = (schedule.startTime).substr(0, 5);
+    // const lessonStart: string = (schedule.startTime).substr(0, 5);
 
     const modalButton = (): boolean =>
         userRole[0] === 'STUDENT' || userRole[0] === 'PARENT';
@@ -62,19 +62,21 @@ const SingleLesson: React.FC<Props> = (props) => {
     return (
         <>
             < li className={listClass} key={lesson.id} onClick={() => showModal(lesson.id)} >
+
                 {modalButton() ?
                     (
                         <Modal
                             key={lesson.id}
                             title={lesson.subject}
-                            visible={activeModal === lesson.id}
+                            visible={modalVisible}
                             onOk={() => setActiveModal(null)}
-                            onCancel={() => setActiveModal(null)}
+                            onCancel={handleCancel}
                             footer={null}
                             okButtonProps={{
                                 children: 'Custom OK',
                             }}
                         >
+                            <button onClick={() => setModalVisible(false)} >cancel</button>
                             <Counter subject={lesson.subject} />
                         </Modal>
                     ) :
@@ -98,7 +100,7 @@ const SingleLesson: React.FC<Props> = (props) => {
                 <div
                     className={numberClass}
                 >
-                    <span>{schedule && lessonStart}</span>
+                    {/* <span>{schedule && lessonStart}</span> */}
                     <span>{positionInList}</span>
                 </div>
                 <div

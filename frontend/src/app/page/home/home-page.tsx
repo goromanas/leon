@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Layout } from 'antd';
+import moment from 'moment';
 
 import { navigationService } from 'app/service/navigation-service';
 import { connectContext, SettingsProps } from 'app/context';
@@ -20,8 +21,15 @@ interface ContextProps {
 }
 
 type Props = ContextProps;
+interface State {
+    move: number;
+}
 
-class HomePageComponent extends React.Component<Props> {
+class HomePageComponent extends React.Component<Props, State> {
+    public state =
+        {
+            move: 0,
+        };
 
     public render(): React.ReactNode {
         const {
@@ -56,6 +64,12 @@ class HomePageComponent extends React.Component<Props> {
         navigationService.redirectToUserListPage();
     };
 
+    public getDate = (): String => {
+        const today = new Date();
+        const day = moment().add(this.state.move, 'd').format('YYYY-MM-DD');
+
+        return day;
+    };
 }
 
 const mapContextToProps = ({ session: { user }, lessons, currentLesson }: SettingsProps): ContextProps => ({
