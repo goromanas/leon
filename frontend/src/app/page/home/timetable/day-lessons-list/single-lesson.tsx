@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Button, Modal } from 'antd';
 import classNames from 'classnames';
 
@@ -15,12 +15,10 @@ interface Props {
     userRole: string[];
 }
 
-const { listItem, activeLesson, upcomingLesson, listNumber, listContent } = styles;
+const {listItem, activeLesson, upcomingLesson, listNumber, listContent} = styles;
 
 const SingleLesson: React.FC<Props> = (props) => {
-    const { currentLesson, positionInList, lesson, handleOpenClassroom, schedule, userRole } = props;
-    const [modalVisible, setModalVisible] = useState(false);
-    const [activeModal, setActiveModal] = useState<any>(null);
+    const {currentLesson, positionInList, lesson, handleOpenClassroom, userRole} = props;
 
     const listClass = classNames(
         listItem,
@@ -40,63 +38,61 @@ const SingleLesson: React.FC<Props> = (props) => {
     // const lessonStart: string = (schedule.startTime).substr(0, 5);
 
     const modalButton = (): boolean =>
-        userRole[0] === 'STUDENT' || userRole[0] === 'PARENT';
+        userRole.includes('STUDENT') || userRole.includes('PARENT');
+
+    const [modalVisible, setModalVisible] = useState(false);
+    // const [activeModal, setActiveModal] = useState(null);
 
     const showModal = (index: number) => {
-        setModalVisible(true);
-        setActiveModal(index);
+        setModalVisible(!modalVisible);
+        // setActiveModal(index);
     };
 
-    const handleOk = (e: any) => {
-        // console.log(e);
-        setModalVisible(false);
-        setActiveModal(null);
+    const handleOk = () => {
+        setModalVisible(!modalVisible);
+        // setActiveModal(null);
     };
-
-    const handleCancel = (e: any) => {
-        // console.log('e');
-        setModalVisible(false);
-        setActiveModal(null);
-    };
+    //
+    // const handleCancel = () => {
+    //     setModalVisible(false);
+    // setActiveModal(null);
+    // };
 
     return (
         <>
-            < li className={listClass} key={lesson.id} onClick={() => showModal(lesson.id)} >
-
-                {modalButton() ?
-                    (
-                        <Modal
-                            key={lesson.id}
-                            title={lesson.subject}
-                            visible={modalVisible}
-                            onOk={() => setActiveModal(null)}
-                            onCancel={handleCancel}
-                            footer={null}
-                            okButtonProps={{
-                                children: 'Custom OK',
-                            }}
-                        >
-                            <button onClick={() => setModalVisible(false)} >cancel</button>
-                            <Counter subject={lesson.subject} />
-                        </Modal>
-                    ) :
-                    (
-                        <Modal
-                            key={lesson.id}
-                            title={lesson.subject}
-                            visible={activeModal === lesson.id}
-                            onOk={() => setActiveModal(null)}
-                            onCancel={() => setActiveModal(null)}
-                            // footer={this.modalButton() ? ' ' : ' '}
-                            okButtonProps={{
-                                children: 'Custom OK',
-                            }}
-                        >
-                            <p>{lesson.subject}</p>
-                            <p>{userRole}</p>
-                            <p>{modalButton() ? 'tiesa' : 'netiesa'}</p>
-                        </Modal>
-                    )}
+            {modalButton() ?
+                (
+                    <Modal
+                        key={lesson.id}
+                        title={lesson.subject}
+                        visible={modalVisible}
+                        onOk={() => handleOk()}
+                        onCancel={() => handleOk()}
+                        okButtonProps={{
+                            children: 'Custom OK',
+                        }}
+                    >
+                        <Counter subject={lesson.subject}/>
+                    </Modal>
+                ) :
+                (
+                    <Modal
+                        key={lesson.id}
+                        title={lesson.subject}
+                        visible={modalVisible}
+                        onOk={() => handleOk()}
+                        onCancel={() => handleOk()}
+                        okButtonProps={{
+                            children: 'Custom OK',
+                        }}
+                    >
+                        <p>{lesson.subject}</p>
+                        <p>{userRole}</p>
+                        <input maxLength={13}></input>
+                        <p>{modalButton() ? 'tiesa' : 'netiesa'}</p>
+                    </Modal>
+                )}
+            <li className={listClass} key={lesson.id} onClick={() => showModal(lesson.id)}>
                 <div
                     className={numberClass}
                 >
@@ -117,7 +113,7 @@ const SingleLesson: React.FC<Props> = (props) => {
                         </Button>
                     ) : null}
                 </div>
-            </li >
+            </li>
         </>
     );
 
