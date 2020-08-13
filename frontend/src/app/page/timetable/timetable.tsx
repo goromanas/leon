@@ -56,7 +56,7 @@ class TimetablePageComponent extends React.Component<Props, State> {
                         <Col xs={{ span: 5, offset: 1 }} lg={{ span: 6, offset: 1 }}>
                             {/* <Lessons lessonsList={this.filterByDay(teacherLessons, item) || []} day={item}
                                          time={this.getDate()}/> */}
-                            < DayLessonsList lessonsList={this.filterByDay(teacherLessons, item) || []} day={item}
+                            < DayLessonsList userRole={this.props.userRoles} lessonsList={this.filterByDay(teacherLessons, item) || []} day={item}
                             />
                         </Col>
                     ))}

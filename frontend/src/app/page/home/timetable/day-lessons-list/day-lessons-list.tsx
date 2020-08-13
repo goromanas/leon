@@ -12,6 +12,7 @@ import styles from './lessons.module.scss';
 interface Props {
     lessonsList: Api.Lesson[];
     userRole: string[];
+    day?: number;
 }
 
 // navigate to video chat by class number id. Passed function in SingleLesson
@@ -22,7 +23,7 @@ const handleOpenClassroom = (id: number): void => {
 // create new websocket instance
 const ws = new WebSocket('ws://localhost:8080/currentLesson');
 
-const DayLessonsList: React.FC<Props> = ({ lessonsList, userRole }) => {
+const DayLessonsList: React.FC<Props> = ({ lessonsList, userRole, day }) => {
     const listRef: React.RefObject<HTMLUListElement> = useRef(null);
 
     const [currentLesson, setCurrentLesson] = useState<number>(0);
@@ -85,6 +86,7 @@ const DayLessonsList: React.FC<Props> = ({ lessonsList, userRole }) => {
         return hours * 60 + minutes;
     };
 
+    // create breaks array from schedule times
     const setBreaks = (schedule: any) => {
         const breaks: any = [];
         const starts = schedule.map((item: any) => item.startTime);
@@ -99,6 +101,7 @@ const DayLessonsList: React.FC<Props> = ({ lessonsList, userRole }) => {
         return breakTimes;
     };
 
+    // loop all lessons and return SingleLesson for each
     const allLessons = lessonsList.map((item: any) => (
         <div key={item.id}>
             <SingleLesson
@@ -111,8 +114,28 @@ const DayLessonsList: React.FC<Props> = ({ lessonsList, userRole }) => {
             />
             < span style={{ height: breakTimes[positionInList(item) - 1] }} className={styles.breakSpan} />
         </div>
-
     ));
+
+    const getDayFromInt = (d: number): string => {
+        switch (d) {
+            case 1:
+                return 'Monday';
+            case 2:
+                return 'Tuesday';
+            case 3:
+                return 'Wednesday';
+            case 4:
+                return 'Thursday';
+            case 5:
+                return 'Friday';
+            case 6:
+                return 'Saturday';
+            case 7:
+                return 'Sunday';
+            default:
+                return 'Nothing';
+        }
+    };
 
     return (
         <div>
@@ -120,6 +143,7 @@ const DayLessonsList: React.FC<Props> = ({ lessonsList, userRole }) => {
                 !loadingSchedules && breakTimes.length > 0 &&
                 (
                     <>
+                        <h1 className={styles.classListHeader}>{(getDayFromInt(day))}</h1>
                         <h1 className={styles.classListHeader}>Today's lecture ({lessonsList.length})</h1>
                         {listHeight > 0 && scheduleTimes && currentLesson &&
                             (

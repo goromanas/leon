@@ -67,9 +67,9 @@ const SingleLesson: React.FC<Props> = (props) => {
                         <Modal
                             key={lesson.id}
                             title={lesson.subject}
-                            visible={modalVisible && activeModal === lesson.id}
-                            onOk={handleOk}
-                            onCancel={handleCancel}
+                            visible={activeModal === lesson.id}
+                            onOk={() => setActiveModal(null)}
+                            onCancel={() => setActiveModal(null)}
                             footer={null}
                             okButtonProps={{
                                 children: 'Custom OK',
@@ -83,8 +83,8 @@ const SingleLesson: React.FC<Props> = (props) => {
                             key={lesson.id}
                             title={lesson.subject}
                             visible={activeModal === lesson.id}
-                            onOk={handleOk}
-                            onCancel={handleCancel}
+                            onOk={() => setActiveModal(null)}
+                            onCancel={() => setActiveModal(null)}
                             // footer={this.modalButton() ? ' ' : ' '}
                             okButtonProps={{
                                 children: 'Custom OK',
