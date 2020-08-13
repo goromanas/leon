@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,UAAU,CAAC;EACT,OAAO,EAAE,IAAI;EACb,WAAW,EAAE,MAAM;EACnB,eAAe,EAAE,MAAM;CACxB",
+    "sources": [
+        "../page-loading-spinner/page-loading-spinner.module.scss"
+    ],
+    "names": [],
+    "file": "page-loading-spinner.module.css"
+}

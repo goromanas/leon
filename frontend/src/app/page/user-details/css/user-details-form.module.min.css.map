@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,eAAe,AAAC,CACd,SAAS,CAAE,KAAK,CACjB",
+    "sources": [
+        "../form/user-details-form.module.scss"
+    ],
+    "names": [],
+    "file": "user-details-form.module.min.css"
+}

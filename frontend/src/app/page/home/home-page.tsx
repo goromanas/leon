@@ -1,15 +1,13 @@
 import React from 'react';
 import { Button, Layout } from 'antd';
 
-import { connectContext, SettingsProps } from 'app/context';
 import { navigationService } from 'app/service/navigation-service';
+import { connectContext, SettingsProps } from 'app/context';
 import { PageContent } from 'app/components/layout';
-// import {CurrentLessonSocket} from '../../websocket/current-lesson-socket'
 
-import { Lessons } from './timetable/day-lessons-list/lessons';
+import { DayLessonsList } from './timetable/day-lessons-list/day-lessons-list';
 
 import styles from './home.module.scss';
-// import { Whiteboard } from './../../components/whiteboard/whiteboard';
 
 const { Content } = Layout;
 
@@ -32,26 +30,20 @@ class HomePageComponent extends React.Component<Props> {
             currentLesson,
         } = this.props;
 
-        const userRoleToLT = userRoles.includes('STUDENT') ? 'mokiny'
-            : userRoles.includes('TEACHER') ? 'mokytojau'
-                : userRoles.includes('ADMIN') ? 'administratoriau'
-                    : userRoles.includes('PARENT') ? 'tėve' : null;
-        console.log("Home page props :" )
         return (
             <Layout>
                 <Content>
-
                     <PageContent>
                         <div className={styles.welcomeHeader}>
-                            Labas, {userRoleToLT},
+                            Welcome back, {this.props.username},
                         </div>
-                        {/*<CurrentLessonSocket/>*/}
                         {userRoles.includes('ADMIN') ? (
                             <Button type="primary" onClick={this.handleClickToUserList}>
                                 To user list
                             </Button>
                         ) : (
-                                <Lessons userRole={this.props.userRoles} lessonsList={teacherLessons || []} currentLesson={currentLesson} />
+                                <DayLessonsList userRole={this.props.userRoles} lessonsList={teacherLessons || []} />
+                                // <Lessons userRole={this.props.userRoles} lessonsList={teacherLessons || []} currentLesson={currentLesson} />
                             )}
 
                     </PageContent>
@@ -70,7 +62,7 @@ const mapContextToProps = ({ session: { user }, lessons, currentLesson }: Settin
     username: user != null ? user.username : null,
     userRoles: user.roles,
     teacherLessons: lessons,
-    currentLesson: currentLesson,
+    currentLesson,
 });
 
 const HomePage = connectContext(mapContextToProps)(HomePageComponent);
