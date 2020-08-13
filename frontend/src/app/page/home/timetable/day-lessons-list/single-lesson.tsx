@@ -15,16 +15,18 @@ interface Props {
 const { listItem, activeLesson, upcomingLesson, listNumber, listContent } = styles;
 
 const SingleLesson: React.FC<Props> =
-    ({ currentLesson, positionInList, lesson, handleOpenClassroom, schedule }) => {
+    (props) => {
+        const { currentLesson, positionInList, lesson, handleOpenClassroom, schedule } = props;
         const [scheduleTime, setScheduleTime] = useState<Api.ScheduleDto>({
             endTime: 'endTime',
             id: 1,
             startTime: 'startTime',
         });
-        // useEffect(() => {
-        //     setScheduleTime(schedule);
-        //     // console.log(schedule)
-        // }, [schedule]);
+
+        useEffect(() => {
+            setScheduleTime(schedule);
+            // console.log(schedule)
+        }, [schedule]);
         const listClass = classNames(
             listItem,
             positionInList === currentLesson && activeLesson,
@@ -41,30 +43,32 @@ const SingleLesson: React.FC<Props> =
             positionInList > currentLesson && upcomingLesson,
         );
         const lessonStart: string = (schedule.startTime).substr(0, 5);
-        // { schedule && (console.log(schedule.startTime)); }
+
         return (
-            < li className={listClass} key={lesson.id} >
-                <div
-                    className={numberClass}
-                >
-                    <span>{schedule && lessonStart}</span>
-                    <span>{positionInList}</span>
-                </div>
-                <div
-                    className={contentClass}
-                >
-                    {lesson.subject}
-                    {positionInList === currentLesson ? (
-                        <Button
-                            type="primary"
-                            className={styles.toVideoButton}
-                            onClick={() => handleOpenClassroom(lesson.id)}
-                        >
-                            Live
-                        </Button>
-                    ) : null}
-                </div>
-            </li >
+            <>
+                < li className={listClass} key={lesson.id}>
+                    <div
+                        className={numberClass}
+                    >
+                        <span>{schedule && lessonStart}</span>
+                        <span>{positionInList}</span>
+                    </div>
+                    <div
+                        className={contentClass}
+                    >
+                        {lesson.subject}
+                        {positionInList === currentLesson ? (
+                            <Button
+                                type="primary"
+                                className={styles.toVideoButton}
+                                onClick={() => handleOpenClassroom(lesson.id)}
+                            >
+                                Live
+                            </Button>
+                        ) : null}
+                    </div>
+                </li >
+            </>
         );
 
     };

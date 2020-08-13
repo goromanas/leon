@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,aAAa,CAAC;EACZ,MAAM,EAAE,KAAK;EACb,OAAO,EAAE,IAAI;CACd",
+    "sources": [
+        "../page-content/page-content.module.scss"
+    ],
+    "names": [],
+    "file": "page-content.module.css"
+}

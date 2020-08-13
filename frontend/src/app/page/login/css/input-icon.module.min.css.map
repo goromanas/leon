@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,WAAW,AAAC,CACV,KAAK,CAAE,gBAAmB,CAC3B",
+    "sources": [
+        "../form/input-icon.module.scss"
+    ],
+    "names": [],
+    "file": "input-icon.module.min.css"
+}

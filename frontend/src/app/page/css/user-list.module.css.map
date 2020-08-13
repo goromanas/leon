@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,gBAAgB,CAAC;EACf,gBAAgB,EAAE,OAAO;CAC1B",
+    "sources": [
+        "../user-list/user-list.module.scss"
+    ],
+    "names": [],
+    "file": "user-list.module.css"
+}
