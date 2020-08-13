@@ -13,7 +13,6 @@ interface Props {
 const ChatList: React.FC<Props> = ({ messages }) =>
     (
         <div>
-            <h1>Message list</h1>
             <ul>
                 {messages.map(msg => (
                     <li key={msg.text}>
