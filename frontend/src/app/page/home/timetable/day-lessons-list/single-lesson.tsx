@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Button, Modal } from 'antd';
 import classNames from 'classnames';
 
@@ -13,88 +13,90 @@ interface Props {
     handleOpenClassroom: any;
     schedule: Api.ScheduleDto | null;
     userRole: string[];
+    lessons: Api.Lesson[];
+    scheduleTimes: Api.ScheduleDto[];
+    isThisDay: boolean;
 }
 
-const { listItem, activeLesson, upcomingLesson, listNumber, listContent } = styles;
+const { listItem, activeLesson, endedLesson, listNumber, listContent } = styles;
 
 const SingleLesson: React.FC<Props> = (props) => {
-    const { currentLesson, positionInList, lesson, handleOpenClassroom, schedule, userRole } = props;
+    const { currentLesson, positionInList, lesson, handleOpenClassroom, schedule, userRole, scheduleTimes, lessons, isThisDay } = props;
     const [modalVisible, setModalVisible] = useState(false);
     const [activeModal, setActiveModal] = useState<any>(null);
 
     const listClass = classNames(
         listItem,
-        positionInList === currentLesson && activeLesson,
-        positionInList > currentLesson && upcomingLesson,
+        isThisDay && positionInList === currentLesson && activeLesson,
+        isThisDay && positionInList < currentLesson && endedLesson,
     );
     const numberClass = classNames(
         listNumber,
-        positionInList === currentLesson && activeLesson,
-        positionInList > currentLesson && upcomingLesson,
+        isThisDay && positionInList === currentLesson && activeLesson,
+        isThisDay && positionInList < currentLesson && endedLesson,
     );
     const contentClass = classNames(
         listContent,
-        positionInList === currentLesson && activeLesson,
-        positionInList > currentLesson && upcomingLesson,
+        isThisDay && positionInList === currentLesson && activeLesson,
+        isThisDay && positionInList < currentLesson && endedLesson,
     );
-    const lessonStart: string = (schedule.startTime).substr(0, 5);
+    const lessonStart: string = scheduleTimes.length >= lessons.length ? (schedule.startTime).substr(0, 5) : 'undef';
 
     const modalButton = (): boolean =>
-        userRole[0] === 'STUDENT' || userRole[0] === 'PARENT';
+        userRole.includes('STUDENT') || userRole.includes('PARENT');
 
     const showModal = (index: number) => {
-        setModalVisible(true);
-        setActiveModal(index);
+        setModalVisible(!modalVisible);
+        // setActiveModal(index);
     };
-
-    const handleOk = (e: any) => {
-        // console.log(e);
-        setModalVisible(false);
-        setActiveModal(null);
+    const handleOk = () => {
+        setModalVisible(!modalVisible);
+        // setActiveModal(null);
     };
-
-    const handleCancel = (e: any) => {
-        // console.log('e');
-        setModalVisible(false);
-        setActiveModal(null);
-    };
+    //
+    // const handleCancel = () => {
+    //     setModalVisible(false);
+    // setActiveModal(null);
+    // };
 
     return (
         <>
+            {modalButton() ?
+                (
+                    <Modal
+                        key={lesson.id}
+                        title={lesson.subject}
+                        visible={modalVisible}
+                        onOk={() => handleOk()}
+                        onCancel={() => handleOk()}
+                        okButtonProps={{
+                            children: 'Custom OK',
+                        }}
+                    >
+                        <Counter subject={lesson.subject} />
+
+                    </Modal >
+                ) :
+                (
+                    <Modal
+                        key={lesson.id}
+                        title={lesson.subject}
+                        visible={modalVisible}
+                        onOk={() => handleOk()}
+                        onCancel={() => handleOk()}
+                        okButtonProps={{
+                            children: 'Custom OK',
+                        }}
+                    >
+                        <p>{lesson.subject}</p>
+                        <p>{userRole}</p>
+
+                        <input maxLength={13} />
+                        <p>{modalButton() ? 'tiesa' : 'netiesa'}</p>
+                    </Modal >
+                )}
             < li className={listClass} key={lesson.id} onClick={() => showModal(lesson.id)} >
-                {modalButton() ?
-                    (
-                        <Modal
-                            key={lesson.id}
-                            title={lesson.subject}
-                            visible={modalVisible && activeModal === lesson.id}
-                            onOk={handleOk}
-                            onCancel={handleCancel}
-                            footer={null}
-                            okButtonProps={{
-                                children: 'Custom OK',
-                            }}
-                        >
-                            <Counter subject={lesson.subject} />
-                        </Modal>
-                    ) :
-                    (
-                        <Modal
-                            key={lesson.id}
-                            title={lesson.subject}
-                            visible={activeModal === lesson.id}
-                            onOk={handleOk}
-                            onCancel={handleCancel}
-                            // footer={this.modalButton() ? ' ' : ' '}
-                            okButtonProps={{
-                                children: 'Custom OK',
-                            }}
-                        >
-                            <p>{lesson.subject}</p>
-                            <p>{userRole}</p>
-                            <p>{modalButton() ? 'tiesa' : 'netiesa'}</p>
-                        </Modal>
-                    )}
+
                 <div
                     className={numberClass}
                 >
@@ -105,20 +107,21 @@ const SingleLesson: React.FC<Props> = (props) => {
                     className={contentClass}
                 >
                     {lesson.subject}
-                    {positionInList === currentLesson ? (
+                    {positionInList === currentLesson && isThisDay ? (
                         <Button
                             type="primary"
                             className={styles.toVideoButton}
                             onClick={() => handleOpenClassroom(lesson.id)}
                         >
-                            Live lesson
+                            Live
                         </Button>
                     ) : null}
                 </div>
-            </li >
-        </>
-    );
+            </li>
+        </ >
 
-};
+    )
+
+}
 
 export { SingleLesson };
