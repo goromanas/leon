@@ -1,1 +1,996 @@
-{"swagger":"2.0","info":{"title":"Month with IT 2020 REST API"},"host":"localhost:8080","basePath":"/","tags":[{"name":"classroom-controller","description":"Classroom Controller"},{"name":"lesson-controller","description":"Lesson Controller"},{"name":"lesson-information-controller","description":"Lesson Information Controller"},{"name":"schedule-controller","description":"Schedule Controller"},{"name":"session-controller","description":"Session Controller"},{"name":"subject-controller","description":"Subject Controller"},{"name":"user-controller","description":"User Controller"}],"paths":{"/allLessons":{"get":{"tags":["lesson-controller"],"summary":"getAllLessons","operationId":"getAllLessonsUsingGET","produces":["*/*"],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/Lesson"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"}},"deprecated":false}},"/allSubjects":{"get":{"tags":["subject-controller"],"summary":"getAllSubjects","operationId":"getAllSubjectsUsingGET","produces":["*/*"],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/Subject"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"}},"deprecated":false}},"/classroom":{"get":{"tags":["classroom-controller"],"summary":"getClassrooms","operationId":"getClassroomsUsingGET","produces":["*/*"],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/ClassroomDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"}},"deprecated":false}},"/classroom/{id}":{"get":{"tags":["classroom-controller"],"summary":"getClassroom","operationId":"getClassroomUsingGET","produces":["*/*"],"parameters":[{"name":"id","in":"path","description":"id","required":true,"type":"integer","format":"int64"}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/ClassroomDto"}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"}},"deprecated":false},"delete":{"tags":["classroom-controller"],"summary":"deleteClassroom","operationId":"deleteClassroomUsingDELETE","produces":["*/*"],"parameters":[{"name":"id","in":"path","description":"id","required":true,"type":"integer","format":"int64"}],"responses":{"200":{"description":"OK"},"204":{"description":"No Content"},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"}},"deprecated":false}},"/lessonInformation":{"post":{"tags":["lesson-information-controller"],"summary":"createLessonInformation","operationId":"createLessonInformationUsingPOST","consumes":["application/json"],"produces":["*/*"],"parameters":[{"in":"body","name":"lessonInformation","description":"lessonInformation","required":true,"schema":{"$ref":"#/definitions/LessonInformationDto"}}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/LessonInformationDto"}},"201":{"description":"Created"},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"}},"deprecated":false}},"/schedule":{"get":{"tags":["schedule-controller"],"summary":"getSchedule","operationId":"getScheduleUsingGET","produces":["*/*"],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/ScheduleDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"}},"deprecated":false}},"/session":{"get":{"tags":["session-controller"],"summary":"getSession","operationId":"getSessionUsingGET","produces":["*/*"],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/Session"}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"}},"deprecated":false},"post":{"tags":["session-controller"],"summary":"createSession","operationId":"createSessionUsingPOST","consumes":["application/json"],"produces":["*/*"],"parameters":[{"in":"body","name":"sessionRequest","description":"sessionRequest","required":true,"schema":{"$ref":"#/definitions/LoginData"}}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/Session"}},"201":{"description":"Created"},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"}},"deprecated":false},"delete":{"tags":["session-controller"],"summary":"deleteSession","operationId":"deleteSessionUsingDELETE","produces":["*/*"],"responses":{"200":{"description":"OK"},"204":{"description":"No Content"},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"}},"deprecated":false}},"/studentLessons":{"get":{"tags":["lesson-controller"],"summary":"getStudentLessons","operationId":"getStudentLessonsUsingGET","produces":["*/*"],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/LessonDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"}},"deprecated":false}},"/teacherLessons":{"get":{"tags":["lesson-controller"],"summary":"getTeacherLessons","operationId":"getTeacherLessonsUsingGET","produces":["*/*"],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/LessonDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"}},"deprecated":false}},"/user":{"get":{"tags":["user-controller"],"summary":"getUsers","operationId":"getUsersUsingGET","produces":["*/*"],"responses":{"200":{"description":"OK","schema":{"type":"array","items":{"$ref":"#/definitions/UserDto"}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"}},"deprecated":false},"post":{"tags":["user-controller"],"summary":"createUser","operationId":"createUserUsingPOST","consumes":["application/json"],"produces":["*/*"],"parameters":[{"in":"body","name":"user","description":"user","required":true,"schema":{"$ref":"#/definitions/UserDto"}}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/UserDto"}},"201":{"description":"Created"},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"}},"deprecated":false},"put":{"tags":["user-controller"],"summary":"updateUser","operationId":"updateUserUsingPUT","consumes":["application/json"],"produces":["*/*"],"parameters":[{"in":"body","name":"user","description":"user","required":true,"schema":{"$ref":"#/definitions/UserDto"}}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/UserDto"}},"201":{"description":"Created"},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"}},"deprecated":false}},"/user/{id}":{"get":{"tags":["user-controller"],"summary":"getUser","operationId":"getUserUsingGET","produces":["*/*"],"parameters":[{"name":"id","in":"path","description":"id","required":true,"type":"integer","format":"int64"}],"responses":{"200":{"description":"OK","schema":{"$ref":"#/definitions/UserDto"}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"},"404":{"description":"Not Found"}},"deprecated":false},"delete":{"tags":["user-controller"],"summary":"deleteUser","operationId":"deleteUserUsingDELETE","produces":["*/*"],"parameters":[{"name":"id","in":"path","description":"id","required":true,"type":"integer","format":"int64"}],"responses":{"200":{"description":"OK"},"204":{"description":"No Content"},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden"}},"deprecated":false}}},"definitions":{"Assignment":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"}},"title":"Assignment"},"Classroom":{"type":"object","properties":{"className":{"type":"string"},"id":{"type":"integer","format":"int64"},"user":{"type":"array","items":{"$ref":"#/definitions/User"}}},"title":"Classroom"},"ClassroomDto":{"type":"object","properties":{"classroomName":{"type":"string"},"id":{"type":"integer","format":"int64"},"user":{"type":"array","items":{"$ref":"#/definitions/User"}}},"title":"ClassroomDto"},"Lesson":{"type":"object","properties":{"classroom":{"$ref":"#/definitions/Classroom"},"day":{"type":"integer","format":"int32"},"id":{"type":"integer","format":"int64"},"lessonInformation":{"type":"array","items":{"$ref":"#/definitions/LessonInformation"}},"status":{"type":"integer","format":"int32"},"subject":{"$ref":"#/definitions/Subject"},"teacher":{"$ref":"#/definitions/User"},"time":{"type":"integer","format":"int32"},"video":{"type":"string"}},"title":"Lesson"},"LessonDto":{"type":"object","properties":{"className":{"type":"string"},"day":{"type":"integer","format":"int32"},"id":{"type":"integer","format":"int64"},"lessonAssignment":{"type":"array","items":{"$ref":"#/definitions/LessonInformationDto"}},"status":{"type":"integer","format":"int32"},"subject":{"type":"string"},"teacher":{"type":"string"},"time":{"type":"integer","format":"int32"},"video":{"type":"string"}},"title":"LessonDto"},"LessonInformation":{"type":"object","properties":{"assignment":{"type":"array","items":{"$ref":"#/definitions/Assignment"}},"date":{"type":"string","format":"date"},"id":{"type":"integer","format":"int64"},"information":{"type":"string"},"topic":{"type":"string"}},"title":"LessonInformation"},"LessonInformationDto":{"type":"object","properties":{"assignment":{"type":"array","items":{"type":"string"}},"date":{"type":"string","format":"date"},"id":{"type":"integer","format":"int64"},"information":{"type":"string"},"topic":{"type":"string"}},"title":"LessonInformationDto"},"LoginData":{"type":"object","properties":{"password":{"type":"string"},"rememberMe":{"type":"boolean"},"username":{"type":"string"}},"title":"LoginData"},"Role":{"type":"object","properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"}},"title":"Role"},"ScheduleDto":{"type":"object","properties":{"endTime":{"type":"string"},"id":{"type":"integer","format":"int64"},"startTime":{"type":"string"}},"title":"ScheduleDto"},"Session":{"type":"object","properties":{"user":{"$ref":"#/definitions/SessionUser"}},"title":"Session"},"SessionUser":{"type":"object","properties":{"roles":{"type":"array","items":{"type":"string"}},"username":{"type":"string"}},"title":"SessionUser"},"Subject":{"type":"object","properties":{"description":{"type":"string"},"id":{"type":"integer","format":"int64"},"name":{"type":"string"}},"title":"Subject"},"User":{"type":"object","properties":{"email":{"type":"string"},"firstName":{"type":"string"},"id":{"type":"integer","format":"int64"},"lastName":{"type":"string"},"password":{"type":"string"},"role":{"type":"array","items":{"$ref":"#/definitions/Role"}},"username":{"type":"string"}},"title":"User"},"UserDto":{"type":"object","properties":{"email":{"type":"string"},"firstName":{"type":"string"},"id":{"type":"integer","format":"int64"},"lastName":{"type":"string"},"role":{"type":"array","items":{"type":"string"}},"username":{"type":"string"}},"title":"UserDto"}}}
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Month with IT 2020 REST API"
+  },
+  "host": "localhost:8080",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "classroom-controller",
+      "description": "Classroom Controller"
+    },
+    {
+      "name": "lesson-controller",
+      "description": "Lesson Controller"
+    },
+    {
+      "name": "lesson-information-controller",
+      "description": "Lesson Information Controller"
+    },
+    {
+      "name": "schedule-controller",
+      "description": "Schedule Controller"
+    },
+    {
+      "name": "session-controller",
+      "description": "Session Controller"
+    },
+    {
+      "name": "subject-controller",
+      "description": "Subject Controller"
+    },
+    {
+      "name": "user-controller",
+      "description": "User Controller"
+    }
+  ],
+  "paths": {
+    "/allLessons": {
+      "get": {
+        "tags": [
+          "lesson-controller"
+        ],
+        "summary": "getAllLessons",
+        "operationId": "getAllLessonsUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Lesson"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/allSubjects": {
+      "get": {
+        "tags": [
+          "subject-controller"
+        ],
+        "summary": "getAllSubjects",
+        "operationId": "getAllSubjectsUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Subject"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/classroom": {
+      "get": {
+        "tags": [
+          "classroom-controller"
+        ],
+        "summary": "getClassrooms",
+        "operationId": "getClassroomsUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ClassroomDto"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/classroom/{id}": {
+      "get": {
+        "tags": [
+          "classroom-controller"
+        ],
+        "summary": "getClassroom",
+        "operationId": "getClassroomUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ClassroomDto"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "classroom-controller"
+        ],
+        "summary": "deleteClassroom",
+        "operationId": "deleteClassroomUsingDELETE",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/lessonInformation": {
+      "post": {
+        "tags": [
+          "lesson-information-controller"
+        ],
+        "summary": "createLessonInformation",
+        "operationId": "createLessonInformationUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "lessonInformation",
+            "description": "lessonInformation",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LessonInformationDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/LessonInformationDto"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/schedule": {
+      "get": {
+        "tags": [
+          "schedule-controller"
+        ],
+        "summary": "getSchedule",
+        "operationId": "getScheduleUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ScheduleDto"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/session": {
+      "get": {
+        "tags": [
+          "session-controller"
+        ],
+        "summary": "getSession",
+        "operationId": "getSessionUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Session"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "tags": [
+          "session-controller"
+        ],
+        "summary": "createSession",
+        "operationId": "createSessionUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "sessionRequest",
+            "description": "sessionRequest",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Session"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "session-controller"
+        ],
+        "summary": "deleteSession",
+        "operationId": "deleteSessionUsingDELETE",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/studentLessons": {
+      "get": {
+        "tags": [
+          "lesson-controller"
+        ],
+        "summary": "getStudentLessons",
+        "operationId": "getStudentLessonsUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/LessonDto"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/teacherLessons": {
+      "get": {
+        "tags": [
+          "lesson-controller"
+        ],
+        "summary": "getTeacherLessons",
+        "operationId": "getTeacherLessonsUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/LessonDto"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/user": {
+      "get": {
+        "tags": [
+          "user-controller"
+        ],
+        "summary": "getUsers",
+        "operationId": "getUsersUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/UserDto"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "tags": [
+          "user-controller"
+        ],
+        "summary": "createUser",
+        "operationId": "createUserUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "user",
+            "description": "user",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/UserDto"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "user-controller"
+        ],
+        "summary": "updateUser",
+        "operationId": "updateUserUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "user",
+            "description": "user",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/UserDto"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/user/{id}": {
+      "get": {
+        "tags": [
+          "user-controller"
+        ],
+        "summary": "getUser",
+        "operationId": "getUserUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/UserDto"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "user-controller"
+        ],
+        "summary": "deleteUser",
+        "operationId": "deleteUserUsingDELETE",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "definitions": {
+    "Assignment": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "Assignment"
+    },
+    "Classroom": {
+      "type": "object",
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "user": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/User"
+          }
+        }
+      },
+      "title": "Classroom"
+    },
+    "ClassroomDto": {
+      "type": "object",
+      "properties": {
+        "classroomName": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "user": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/User"
+          }
+        }
+      },
+      "title": "ClassroomDto"
+    },
+    "Lesson": {
+      "type": "object",
+      "properties": {
+        "classroom": {
+          "$ref": "#/definitions/Classroom"
+        },
+        "day": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "lessonInformation": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LessonInformation"
+          }
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "subject": {
+          "$ref": "#/definitions/Subject"
+        },
+        "teacher": {
+          "$ref": "#/definitions/User"
+        },
+        "time": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "video": {
+          "type": "string"
+        }
+      },
+      "title": "Lesson"
+    },
+    "LessonDto": {
+      "type": "object",
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "day": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "lessonInformation": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LessonInformationDto"
+          }
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "subject": {
+          "type": "string"
+        },
+        "teacher": {
+          "type": "string"
+        },
+        "time": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "video": {
+          "type": "string"
+        }
+      },
+      "title": "LessonDto"
+    },
+    "LessonInformation": {
+      "type": "object",
+      "properties": {
+        "assignment": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Assignment"
+          }
+        },
+        "date": {
+          "type": "string",
+          "format": "date"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "information": {
+          "type": "string"
+        },
+        "lesson": {
+          "$ref": "#/definitions/Lesson"
+        },
+        "topic": {
+          "type": "string"
+        }
+      },
+      "title": "LessonInformation"
+    },
+    "LessonInformationDto": {
+      "type": "object",
+      "properties": {
+        "assignment": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "date": {
+          "type": "string",
+          "format": "date"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "information": {
+          "type": "string"
+        },
+        "lessonId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "topic": {
+          "type": "string"
+        }
+      },
+      "title": "LessonInformationDto"
+    },
+    "LoginData": {
+      "type": "object",
+      "properties": {
+        "password": {
+          "type": "string"
+        },
+        "rememberMe": {
+          "type": "boolean"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "title": "LoginData"
+    },
+    "Role": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "Role"
+    },
+    "ScheduleDto": {
+      "type": "object",
+      "properties": {
+        "endTime": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "startTime": {
+          "type": "string"
+        }
+      },
+      "title": "ScheduleDto"
+    },
+    "Session": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/SessionUser"
+        }
+      },
+      "title": "Session"
+    },
+    "SessionUser": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "title": "SessionUser"
+    },
+    "Subject": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "Subject"
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "role": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Role"
+          }
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "title": "User"
+    },
+    "UserDto": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "role": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "title": "UserDto"
+    }
+  }
+}
