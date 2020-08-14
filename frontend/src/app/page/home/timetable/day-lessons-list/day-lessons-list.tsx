@@ -9,6 +9,7 @@ import { TimeLine } from './time-line';
 import { SingleLesson } from './single-lesson';
 
 import styles from './lessons.module.scss';
+import moment from 'moment';
 
 interface Props {
     lessonsList: Api.Lesson[];
@@ -129,6 +130,7 @@ const DayLessonsList: React.FC<Props> = ({lessonsList, userRole, day, date}) => 
                 lessons={todaysLessons}
                 scheduleTimes={scheduleTimes}
                 isThisDay={dayOfWeek === item.day}
+                date={date}
             />
             < span style={{height: breakTimes[positionInList(item) - 1]}} className={styles.breakSpan}/>
         </div>
@@ -168,7 +170,7 @@ const DayLessonsList: React.FC<Props> = ({lessonsList, userRole, day, date}) => 
                 (
                     <>
                         {day ? (
-                            <h1 className={styles.classListHeader}>{(getDayFromInt(day))} {isThisDay ? `(today)` : ``}
+                            <h1 className={styles.classListHeader}>{(getDayFromInt(day))} {isThisDay&&moment().format('YYYY-MM-DD')===date ? `(today)` : ``}
                                 <h3>{date}</h3>
                             </h1>) : <>
                             <h1 className={styles.classListHeader}>Today's lecture ({todaysLessons.length})</h1>
