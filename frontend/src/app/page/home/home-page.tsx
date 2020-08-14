@@ -14,6 +14,7 @@ const { Content } = Layout;
 
 interface ContextProps {
     username: string | null;
+    firstName: string | null;
     userRoles: string[] | null;
     teacherLessons: Api.Lesson[];
     currentLesson: number;
@@ -46,7 +47,7 @@ class HomePageComponent extends React.Component<Props, State> {
                 <Content>
                     <PageContent>
                         <div className={styles.welcomeHeader}>
-                            Welcome back, {this.props.username},
+                            Welcome back, {this.props.firstName},
                         </div>
                         {userRoles.includes('ADMIN') ? (
                             <Button type="primary" onClick={this.handleClickToUserList}>
@@ -77,6 +78,7 @@ class HomePageComponent extends React.Component<Props, State> {
 
 const mapContextToProps = ({ session: { user }, lessons, currentLesson }: SettingsProps): ContextProps => ({
     username: user != null ? user.username : null,
+    firstName: user != null ? user.firstName : null,
     userRoles: user.roles,
     teacherLessons: lessons,
     currentLesson,

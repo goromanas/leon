@@ -19,7 +19,7 @@ interface Values {
     id: number;
 }
 
-const TeacherModal: React.FC<{ lessonId: number, onClose: () => void }> = (props) => {
+const TeacherModal: React.FC<{ lessonId: number, onClose: () => void, date: string }> = (props) => {
 
     const saveLessonInformation = (lessonInformation: Api.LessonInformationDto): void => {
         lessonInformationService
@@ -40,7 +40,7 @@ const TeacherModal: React.FC<{ lessonId: number, onClose: () => void }> = (props
                     topic: '',
                     id: 0,
                     lessonId: props.lessonId,
-                    date: '2020-08-14',
+                    date: props.date,
                 }}
                 onSubmit={(
                     values: Api.LessonInformationDto,
