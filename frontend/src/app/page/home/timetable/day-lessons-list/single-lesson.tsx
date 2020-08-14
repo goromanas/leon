@@ -16,12 +16,13 @@ interface Props {
     lessons: Api.Lesson[];
     scheduleTimes: Api.ScheduleDto[];
     isThisDay: boolean;
+    date:String;
 }
 
 const { listItem, activeLesson, endedLesson, listNumber, listContent } = styles;
 
 const SingleLesson: React.FC<Props> = (props) => {
-    const { currentLesson, positionInList, lesson, handleOpenClassroom, schedule, userRole, scheduleTimes, lessons, isThisDay } = props;
+    const { currentLesson, positionInList, lesson, handleOpenClassroom, schedule, userRole, scheduleTimes, lessons, isThisDay,date } = props;
     const [modalVisible, setModalVisible] = useState(false);
     const [activeModal, setActiveModal] = useState<any>(null);
 
