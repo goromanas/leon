@@ -24,9 +24,20 @@ const handleOpenClassroom = (id: number): void => {
 };
 
 // create new websocket instance
-const ws = new WebSocket('ws://localhost:8080/currentLesson');
+const getSocketUrl = (): string => {
+    const loc = window.location;
+    let newUrl: string;
+    if (loc.host === 'localhost:3000') {
+        newUrl = 'ws://localhost:8080/ws/currentLesson';
+    } else {
+        newUrl = ' wss://java-menuo-su-it.northeurope.cloudapp.azure.com/ws/currentLesson';
+    }
+    return newUrl;
+};
 
-const DayLessonsList: React.FC<Props> = ({lessonsList, userRole, day, date}) => {
+const ws = new WebSocket(getSocketUrl());
+
+const DayLessonsList: React.FC<Props> = ({ lessonsList, userRole, day, date }) => {
     const listRef: React.RefObject<HTMLUListElement> = useRef(null);
 
     const [currentLesson, setCurrentLesson] = useState<number>(3);
@@ -56,6 +67,8 @@ const DayLessonsList: React.FC<Props> = ({lessonsList, userRole, day, date}) => 
         setDayLength((convertTimeToMinutes(data[lessonsList.length].endTime)
             - convertTimeToMinutes(data[0].startTime)));
     };
+
+
 
     // connect to websocect to get curentLesson
     useEffect(() => {
@@ -102,7 +115,7 @@ const DayLessonsList: React.FC<Props> = ({lessonsList, userRole, day, date}) => 
         for (let i: number = 1; i < schedule.length; i++) {
             const breakStartMinutes = convertTimeToMinutes(ends[i - 1]);
             const breakEndMinutes = convertTimeToMinutes(starts[i]);
-            breaks.push({startTime: breakStartMinutes, endTime: breakEndMinutes});
+            breaks.push({ startTime: breakStartMinutes, endTime: breakEndMinutes });
         }
         const breakTimes: number[] = breaks.map((item: any) => item.endTime - item.startTime);
         return breakTimes;
@@ -132,7 +145,7 @@ const DayLessonsList: React.FC<Props> = ({lessonsList, userRole, day, date}) => 
                 isThisDay={dayOfWeek === item.day}
                 date={date}
             />
-            < span style={{height: breakTimes[positionInList(item) - 1]}} className={styles.breakSpan}/>
+            < span style={{ height: breakTimes[positionInList(item) - 1] }} className={styles.breakSpan} />
         </div>
     ));
 
@@ -170,20 +183,20 @@ const DayLessonsList: React.FC<Props> = ({lessonsList, userRole, day, date}) => 
                 (
                     <>
                         {day ? (
-                            <h1 className={styles.classListHeader}>{(getDayFromInt(day))} {isThisDay&&moment().format('YYYY-MM-DD')===date ? `(today)` : ``}
+                            <h1 className={styles.classListHeader}>{(getDayFromInt(day))} {isThisDay && moment().format('YYYY-MM-DD') === date ? `(today)` : ``}
                                 <h3>{date}</h3>
                             </h1>) : <>
-                            <h1 className={styles.classListHeader}>Today's lecture ({todaysLessons.length})</h1>
-                        </>}
+                                <h1 className={styles.classListHeader}>Today's lecture ({todaysLessons.length})</h1>
+                            </>}
 
                         {listHeight > 0 && scheduleTimes && !day &&
-                        (
-                            <TimeLine
-                                scheduleTimes={scheduleTimes}
-                                listHeight={listHeight || 0}
-                                lessonsList={todaysLessons}
-                            />
-                        )}
+                            (
+                                <TimeLine
+                                    scheduleTimes={scheduleTimes}
+                                    listHeight={listHeight || 0}
+                                    lessonsList={todaysLessons}
+                                />
+                            )}
                         <ul className={listClass} ref={listRef}>{allLessons}</ul>
                     </>
                 )}
