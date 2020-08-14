@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, ReactElement } from 'react';
+import classNames from 'classnames';
 
 import { navigationService } from 'app/service/navigation-service';
 import { lessonsService } from 'app/api/service/lessons-service';
@@ -26,14 +27,13 @@ const ws = new WebSocket('ws://localhost:8080/currentLesson');
 const DayLessonsList: React.FC<Props> = ({ lessonsList, userRole, day }) => {
     const listRef: React.RefObject<HTMLUListElement> = useRef(null);
 
-    const [currentLesson, setCurrentLesson] = useState<number>(0);
+    const [currentLesson, setCurrentLesson] = useState<number>(3);
     const [scheduleTimes, setScheduleTimes] = useState<Api.ScheduleDto[]>([]);
     const [loadingSchedules, setLoadingSchedules] = useState<boolean>(true);
     const [listHeight, setListHeight] = useState<number>(0);
     const [breakTimes, setBreakTimes] = useState<any>([]);
     const [dayLength, setDayLength] = useState<number>(0);
-
-    const positionInList = (e: any) => lessonsList.indexOf(e) + 1;
+    const [dayOfWeek, setDayOfWeek] = useState<number>(0);
 
     // get schedule times from /schedule
     useEffect(() => {
@@ -55,9 +55,11 @@ const DayLessonsList: React.FC<Props> = ({ lessonsList, userRole, day }) => {
 
     // connect to websocect to get curentLesson
     useEffect(() => {
+        const date = new Date();
+        setDayOfWeek(date.getDay());
         ws.onopen = () => {
             // on connecting, do nothing but log it to the console
-            // console.log('connected');
+            console.log('connected');
         };
 
         ws.onmessage = evt => {
@@ -68,7 +70,7 @@ const DayLessonsList: React.FC<Props> = ({ lessonsList, userRole, day }) => {
         };
 
         ws.onclose = () => {
-            // console.log('disconnected');
+            console.log('disconnected');
         };
     }, []);
 
@@ -78,6 +80,7 @@ const DayLessonsList: React.FC<Props> = ({ lessonsList, userRole, day }) => {
             setListHeight(listRef.current.clientHeight);
         }
         setBreakTimes(setBreaks(scheduleTimes));
+        console.log(lessonsList);
     }, [scheduleTimes]);
 
     const convertTimeToMinutes = (time: any) => {
@@ -102,8 +105,17 @@ const DayLessonsList: React.FC<Props> = ({ lessonsList, userRole, day }) => {
     };
 
     // loop all lessons and return SingleLesson for each
-    const allLessons = lessonsList.map((item: any) => (
+
+    const todaysLessons = !day ? lessonsList.filter((item) => item.day === dayOfWeek) : lessonsList;
+    const positionInList = (e: any) => todaysLessons.indexOf(e) + 1;
+    // const date = new Date();
+    const isThisDay = dayOfWeek === day;
+    // const isThisDayInList = todaysLessons[0].day === dayOfWeek;
+    // find(({ day }) => name === 'cherries');
+
+    const allLessons = todaysLessons.map((item: any) => (
         <div key={item.id}>
+            {/* {dayOfWeek} */}
             <SingleLesson
                 positionInList={positionInList(item)}
                 currentLesson={currentLesson}
@@ -111,6 +123,9 @@ const DayLessonsList: React.FC<Props> = ({ lessonsList, userRole, day }) => {
                 handleOpenClassroom={handleOpenClassroom}
                 schedule={scheduleTimes[positionInList(item) - 1]}
                 userRole={userRole}
+                lessons={todaysLessons}
+                scheduleTimes={scheduleTimes}
+                isThisDay={dayOfWeek === item.day}
             />
             < span style={{ height: breakTimes[positionInList(item) - 1] }} className={styles.breakSpan} />
         </div>
@@ -137,25 +152,31 @@ const DayLessonsList: React.FC<Props> = ({ lessonsList, userRole, day }) => {
         }
     };
 
+    const listClass = classNames(
+        styles.list,
+        // !isThisDay && styles.listOtherDay,
+        day && styles.listOtherDay,
+        // isThisDay && positionInList < currentLesson && endedLesson,
+    );
     return (
         <div>
             {
                 !loadingSchedules && breakTimes.length > 0 &&
                 (
                     <>
-                        <h1 className={styles.classListHeader}>{(getDayFromInt(day))}</h1>
-                        <h1 className={styles.classListHeader}>Today's lecture ({lessonsList.length})</h1>
-                        {listHeight > 0 && scheduleTimes && currentLesson &&
+                        {day ? <h1 className={styles.classListHeader}>{(getDayFromInt(day))} {isThisDay ? `(today)` : ``} </h1> : <>
+                            <h1 className={styles.classListHeader}>Today's lecture ({todaysLessons.length})</h1>
+                        </>}
+
+                        {listHeight > 0 && scheduleTimes && !day &&
                             (
-                                <>
-                                    <TimeLine
-                                        scheduleTimes={scheduleTimes}
-                                        listHeight={listHeight || 0}
-                                        lessonsList={lessonsList}
-                                    />
-                                </>
+                                <TimeLine
+                                    scheduleTimes={scheduleTimes}
+                                    listHeight={listHeight || 0}
+                                    lessonsList={todaysLessons}
+                                />
                             )}
-                        <ul className={styles.list} ref={listRef}>{allLessons}</ul>
+                        <ul className={listClass} ref={listRef}>{allLessons}</ul>
                     </>
                 )}
 

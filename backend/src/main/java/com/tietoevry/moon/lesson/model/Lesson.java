@@ -30,6 +30,6 @@ public class Lesson {
     private int day;
     private int time;
     private int status;
-    @OneToMany
+    @OneToMany(mappedBy = "lesson")
     private List<LessonInformation> lessonInformation;
 }

@@ -19,4 +19,5 @@ public class LessonInformationDto {
     private String topic;
     private String information;
     private List<String> assignment;
+    private Long lessonId;
 }

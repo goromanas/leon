@@ -22,5 +22,8 @@ public class LessonInformation {
     private String information;
      @OneToMany
     private List<Assignment> assignment;
+     @ManyToOne
+     @JoinColumn(name = "LESSON_ID")
+    private Lesson lesson;
 }
 

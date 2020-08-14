@@ -1,7 +1,5 @@
 import React from 'react';
 
-
-
 interface Props {
     lessons: Api.Lesson[];
 }
@@ -9,8 +7,8 @@ interface Props {
 const Channels: React.FC<Props> = ({ lessons }) =>
     (
         <div>
-            {lessons.map(lesson=>(
-                <button>{lesson.subject}</button>
+            {lessons && lessons.map(lesson => (
+                 <button>{lesson.subject}</button>
             ))}
         </div>
     );

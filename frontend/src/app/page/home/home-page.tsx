@@ -6,7 +6,7 @@ import { navigationService } from 'app/service/navigation-service';
 import { connectContext, SettingsProps } from 'app/context';
 import { PageContent } from 'app/components/layout';
 
-import { DayLessonsList } from './timetable/day-lessons-list/day-lessons-list';
+import { DayLessonsList } from 'app/page/home/timetable/day-lessons-list/day-lessons-list';
 
 import styles from './home.module.scss';
 
@@ -26,6 +26,7 @@ interface State {
 }
 
 class HomePageComponent extends React.Component<Props, State> {
+
     public state =
         {
             move: 0,
@@ -37,7 +38,8 @@ class HomePageComponent extends React.Component<Props, State> {
             teacherLessons,
             currentLesson,
         } = this.props;
-
+        // const date = new Date();
+        // const day = date.getDay();
         return (
             <Layout>
                 <Content>
