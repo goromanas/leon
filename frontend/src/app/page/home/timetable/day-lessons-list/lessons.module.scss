@@ -20,6 +20,7 @@
   }
   &Item {
     display: flex;
+    cursor: pointer;
     flex-direction: row;
     justify-content: space-between;
     list-style: none;
@@ -48,6 +49,8 @@
 
   .breakSpan {
     display: block;
+    margin: 0.1em 0;
+    background: repeating-linear-gradient(-45deg, #fff, #fff 5px, rgba(#DBDBDB, 0.3) 5px, rgba(#DBDBDB, 0.3) 6px);
   }
 
   &Content {
@@ -56,6 +59,12 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+  }
+
+  &Content:hover {
+    background-color: rgba(#bfbfbf, 0.8);
+    transition: all 0.3s ease-out;
+    box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.31);
   }
 
   &Number {
