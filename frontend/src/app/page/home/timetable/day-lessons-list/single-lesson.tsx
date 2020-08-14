@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import styles from './lessons.module.scss';
 import { TeacherModal } from 'app/components/modalContent/teacherModal';
 import { navigationService } from 'app/service/navigation-service';
+import moment from 'moment';
 
 interface Props {
     positionInList: number;
@@ -19,27 +20,27 @@ interface Props {
     date: string;
 }
 
-const { listItem, activeLesson, endedLesson, listNumber, listContent } = styles;
+const {listItem, activeLesson, endedLesson, listNumber, listContent} = styles;
 
 const SingleLesson: React.FC<Props> = (props) => {
-    const { currentLesson, positionInList, lesson, handleOpenClassroom, schedule, userRole, scheduleTimes, lessons, isThisDay,date } = props;
+    const {currentLesson, positionInList, lesson, handleOpenClassroom, schedule, userRole, scheduleTimes, lessons, isThisDay, date} = props;
     const [modalVisible, setModalVisible] = useState(false);
     const [activeModal, setActiveModal] = useState<any>(null);
 
     const listClass = classNames(
         listItem,
-        isThisDay && positionInList === currentLesson && activeLesson,
-        isThisDay && positionInList < currentLesson && endedLesson,
+        isThisDay && positionInList === currentLesson && moment().format('YYYY-MM-DD') === date && activeLesson,
+        isThisDay && positionInList < currentLesson && moment().format('YYYY-MM-DD') === date && endedLesson,
     );
     const numberClass = classNames(
         listNumber,
-        isThisDay && positionInList === currentLesson && activeLesson,
-        isThisDay && positionInList < currentLesson && endedLesson,
+        isThisDay && positionInList === currentLesson && moment().format('YYYY-MM-DD') === date && activeLesson,
+        isThisDay && positionInList < currentLesson && moment().format('YYYY-MM-DD') === date && endedLesson,
     );
     const contentClass = classNames(
         listContent,
-        isThisDay && positionInList === currentLesson && activeLesson,
-        isThisDay && positionInList < currentLesson && endedLesson,
+        isThisDay && positionInList === currentLesson && moment().format('YYYY-MM-DD') === date && activeLesson,
+        isThisDay && positionInList < currentLesson && moment().format('YYYY-MM-DD') === date && endedLesson,
     );
     const lessonStart: string = scheduleTimes.length >= lessons.length ? (schedule.startTime).substr(0, 5) : 'undef';
 
@@ -54,8 +55,6 @@ const SingleLesson: React.FC<Props> = (props) => {
         setModalVisible(!modalVisible);
         // setActiveModal(null);
     };
-
-
 
     return (
         <>
@@ -91,7 +90,7 @@ const SingleLesson: React.FC<Props> = (props) => {
                         <TeacherModal lessonId={lesson.id} onClose={handleOk} date={date}/>
                     </Modal>
                 )}
-            < li className={listClass} key={lesson.id} onClick={() => showModal(lesson.id)} >
+            < li className={listClass} key={lesson.id} onClick={() => showModal(lesson.id)}>
 
                 <div
                     className={numberClass}
@@ -103,7 +102,7 @@ const SingleLesson: React.FC<Props> = (props) => {
                     className={contentClass}
                 >
                     {lesson.subject}
-                    {positionInList === currentLesson && isThisDay ? (
+                    {positionInList === currentLesson && isThisDay && moment().format('YYYY-MM-DD') === date ? (
                         <Button
                             type="primary"
                             className={styles.toVideoButton}
@@ -116,8 +115,8 @@ const SingleLesson: React.FC<Props> = (props) => {
             </li>
         </ >
 
-    )
+    );
 
-}
+};
 
 export { SingleLesson };

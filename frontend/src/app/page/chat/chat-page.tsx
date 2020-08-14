@@ -49,8 +49,7 @@ class ChatComponent extends React.Component<Props, State> {
     public ws = new WebSocket(this.getSocketUrl());
 
     public readonly state: State = {
-        messages: [{ text: 'first message', author: 'Mokinys1', date: '12:45' },
-                   { text: 'second message', author: 'Mokinys2', date: '12:55' }],
+        messages: [],
         file: null,
         className: null,
         lessonId: null,

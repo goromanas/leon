@@ -33,8 +33,12 @@ public class UserService {
             .map(UserMapper::mapUserDto)
             .collect(Collectors.toList());
     }
-    public Optional<User> getUserFromSession()
-    {
+
+    public String getUsersByUsername(String username) {
+       return userRepository.findByUsername(username).orElseThrow().getFirstName();
+    }
+
+    public Optional<User> getUserFromSession() {
         return userRepository.findByUsername(sessionService.getSession().getUser().getUsername());
     }
 
