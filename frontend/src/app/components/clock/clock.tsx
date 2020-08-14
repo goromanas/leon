@@ -28,7 +28,7 @@ class Clock extends React.Component {
             second: 'numeric'
         };
         return (
-            this.state.date.toLocaleTimeString('lt-LT', options)
+            this.state.date.toLocaleTimeString('en-EN', options)
         );
     }
 }
