@@ -36,32 +36,33 @@ class TimetablePageComponent extends React.Component<Props, State> {
             userRoles,
             teacherLessons,
         } = this.props;
-        const arrNum = [1, 2, 3];
-        const d = new Date();
+        const now = new Date().getDay();
 
         return (
             <div>
-                <div className={styles.weekButtons} >
+                <div className={styles.weekButtons}>
                     <Button type="primary"
-                        onClick={() => this.handleButtonClick(false)}
+                            onClick={() => this.handleButtonClick(false)}
                     >Previous Week</Button>
                     <Button type="primary"
-                        onClick={() => this.handleButtonClick(true)}>Next Week</Button>
+                            onClick={() => this.handleButtonClick(true)}>Next Week</Button>
                 </div>
                 <Row>
 
-                    {Array(5).fill(new Date().getDay() + this.state.move).map((x, y) => x + y).map((item) => (
+                    {Array(5).fill(now + this.state.move).map((x, y) => x + y).map((item) => (
                         item == 0 ? item = 5 : null,
-                        item < 0 ? item = 0 - item : null,
-                        (item % 5) != 0 ? null : item = 5,
-                        (item % 5) != 0 ? item = item % 5 : null,
+                            item < 0 ? item = 0 - item : null,
+                            (item % 5) != 0 ? null : item = 5,
+                            (item % 5) != 0 ? item = item % 5 : null,
 
-                        <Col xs={{ span: 5, offset: 1 }} lg={{ span: 6, offset: 1 }}>
-                            {/* <Lessons lessonsList={this.filterByDay(teacherLessons, item) || []} day={item}
+                            <Col xs={{span: 5, offset: 1}} lg={{span: 6, offset: 1}}>
+                                {/* <Lessons lessonsList={this.filterByDay(teacherLessons, item) || []} day={item}
                                          time={this.getDate()}/> */}
-                            < DayLessonsList userRole={this.props.userRoles} lessonsList={this.filterByDay(teacherLessons, item) || []} day={item}
-                            />
-                        </Col>
+                                < DayLessonsList userRole={this.props.userRoles}
+                                                 lessonsList={this.filterByDay(teacherLessons, item) || []} day={item}
+                                                 date={this.getDate(item, now)}
+                                />
+                            </Col>
                     ))}
                 </Row>,
 
@@ -77,23 +78,30 @@ class TimetablePageComponent extends React.Component<Props, State> {
         }
     }
 
-    public getDate = (): String => {
+    public getDate = (item: number, now: number): string => {
         const today = new Date();
-        const day = moment().add(this.state.move, 'd').format('YYYY-MM-DD');
+        let t;
+        if(now>item)
+        {
+            t=(item)+7;
+        }else{
+            t=item;
+        }
+        const day = moment().add(this.state.move / 5*7-now+t, 'd').format('YYYY-MM-DD');
 
         return day;
     };
     private handleButtonClick = (forward: boolean): void => {
 
         forward ?
-            this.setState({ move: this.state.move + 1 }) :
-            this.setState({ move: this.state.move - 1 });
+            this.setState({move: this.state.move + 5}) :
+            this.setState({move: this.state.move - 5});
 
     };
 
 }
 
-const mapContextToProps = ({ session: { user }, lessons }: SettingsProps): ContextProps => ({
+const mapContextToProps = ({session: {user}, lessons}: SettingsProps): ContextProps => ({
 
     username: user != null ? user.username : null,
     userRoles: user.roles,
