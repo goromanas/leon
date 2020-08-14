@@ -10,15 +10,11 @@ class LessonInformationService {
         this.restService = cancelSource.service;
     }
 
-    public readonly PostLessonInformation = (assignment: string[], date: string, id: number, information: string, topic: string): Promise<Api.LessonInformationDto> =>
+    public readonly postLessonInformation =
+        (lessonInformation: Api.LessonInformationDto): Promise<Api.LessonInformationDto> =>
         this.restService.post<Api.LessonInformationDto>(LessonInformationService.LESSON_INFORMATION_PATH, {
-            assignment,
-            date,
-            id,
-            information,
-            topic,
+            lessonInformation
         });
-
 }
 
 const lessonInformationService = new LessonInformationService();
