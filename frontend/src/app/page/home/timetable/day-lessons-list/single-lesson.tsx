@@ -61,33 +61,34 @@ const SingleLesson: React.FC<Props> = (props) => {
         <>
             {modalButton() ?
                 (
-                    <Modal
-                        key={lesson.id}
-                        title={lesson.subject}
-                        visible={modalVisible}
-                        onOk={() => handleOk()}
-                        onCancel={() => handleOk()}
-                        footer={null}
-                        okButtonProps={{
-                            children: 'Custom OK',
-                        }}
-                    >
-
-                    </Modal>
+                    <></>
+                    // <Modal
+                    //     key={lesson.id}
+                    //     title={lesson.subject}
+                    //     visible={modalVisible}
+                    //     onOk={() => handleOk()}
+                    //     onCancel={() => handleOk()}
+                    //     footer={null}
+                    //     okButtonProps={{
+                    //         children: 'Custom OK',
+                    //     }}
+                    // >
+                    //
+                    // </Modal>
                 ) :
                 (
                     <Modal
                         key={lesson.id}
                         title={lesson.subject}
                         visible={modalVisible}
-                        onOk={() => handleOk()}
-                        onCancel={() => handleOk()}
                         footer={null}
+                        onCancel={handleOk}
                         okButtonProps={{
                             children: 'Custom OK',
                         }}
+
                     >
-                        <TeacherModal subject={lesson.subject}/>
+                        <TeacherModal lessonId={lesson.id} onClose={handleOk}/>
                     </Modal>
                 )}
             < li className={listClass} key={lesson.id} onClick={() => showModal(lesson.id)} >

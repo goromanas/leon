@@ -15,6 +15,7 @@ public class LessonInformationController {
     LessonInformationService lessonInformationService;
     @RequestMapping(path = "/lessonInformation", method = RequestMethod.POST)
     public LessonInformationDto createLessonInformation(@RequestBody LessonInformationDto lessonInformation) {
+        System.out.println(lessonInformation);
         return lessonInformationService.createLessonInformation(lessonInformation);
     }
 
