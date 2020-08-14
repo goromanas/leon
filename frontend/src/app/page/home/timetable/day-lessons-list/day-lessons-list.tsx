@@ -14,6 +14,7 @@ interface Props {
     lessonsList: Api.Lesson[];
     userRole: string[];
     day?: number;
+    date: string;
 }
 
 // navigate to video chat by class number id. Passed function in SingleLesson
@@ -24,7 +25,7 @@ const handleOpenClassroom = (id: number): void => {
 // create new websocket instance
 const ws = new WebSocket('ws://localhost:8080/currentLesson');
 
-const DayLessonsList: React.FC<Props> = ({ lessonsList, userRole, day }) => {
+const DayLessonsList: React.FC<Props> = ({lessonsList, userRole, day, date}) => {
     const listRef: React.RefObject<HTMLUListElement> = useRef(null);
 
     const [currentLesson, setCurrentLesson] = useState<number>(3);
@@ -41,7 +42,9 @@ const DayLessonsList: React.FC<Props> = ({ lessonsList, userRole, day }) => {
             lessonsService.getSchedule()
                 .then((data) => setScheduleData(data))
                 .then(() => setLoadingSchedules(false))
-                .catch(error => { loggerService.error('Error occurred when getting session information', error); });
+                .catch(error => {
+                    loggerService.error('Error occurred when getting session information', error);
+                });
         };
 
         fetch();
@@ -98,7 +101,7 @@ const DayLessonsList: React.FC<Props> = ({ lessonsList, userRole, day }) => {
         for (let i: number = 1; i < schedule.length; i++) {
             const breakStartMinutes = convertTimeToMinutes(ends[i - 1]);
             const breakEndMinutes = convertTimeToMinutes(starts[i]);
-            breaks.push({ startTime: breakStartMinutes, endTime: breakEndMinutes });
+            breaks.push({startTime: breakStartMinutes, endTime: breakEndMinutes});
         }
         const breakTimes: number[] = breaks.map((item: any) => item.endTime - item.startTime);
         return breakTimes;
@@ -127,7 +130,7 @@ const DayLessonsList: React.FC<Props> = ({ lessonsList, userRole, day }) => {
                 scheduleTimes={scheduleTimes}
                 isThisDay={dayOfWeek === item.day}
             />
-            < span style={{ height: breakTimes[positionInList(item) - 1] }} className={styles.breakSpan} />
+            < span style={{height: breakTimes[positionInList(item) - 1]}} className={styles.breakSpan}/>
         </div>
     ));
 
@@ -164,23 +167,26 @@ const DayLessonsList: React.FC<Props> = ({ lessonsList, userRole, day }) => {
                 !loadingSchedules && breakTimes.length > 0 &&
                 (
                     <>
-                        {day ? <h1 className={styles.classListHeader}>{(getDayFromInt(day))} {isThisDay ? `(today)` : ``} </h1> : <>
+                        {day ? (
+                            <h1 className={styles.classListHeader}>{(getDayFromInt(day))} {isThisDay ? `(today)` : ``}
+                                <h3>{date}</h3>
+                            </h1>) : <>
                             <h1 className={styles.classListHeader}>Today's lecture ({todaysLessons.length})</h1>
                         </>}
 
                         {listHeight > 0 && scheduleTimes && !day &&
-                            (
-                                <TimeLine
-                                    scheduleTimes={scheduleTimes}
-                                    listHeight={listHeight || 0}
-                                    lessonsList={todaysLessons}
-                                />
-                            )}
+                        (
+                            <TimeLine
+                                scheduleTimes={scheduleTimes}
+                                listHeight={listHeight || 0}
+                                lessonsList={todaysLessons}
+                            />
+                        )}
                         <ul className={listClass} ref={listRef}>{allLessons}</ul>
                     </>
                 )}
 
-        </div >
+        </div>
     );
 };
 
