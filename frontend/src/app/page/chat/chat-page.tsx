@@ -36,7 +36,19 @@ interface State {
 }
 
 class ChatComponent extends React.Component<Props, State> {
-    public ws = new WebSocket('ws://localhost:8080/ws/chat');
+    public getSocketUrl = (): string => {
+        const loc = window.location;
+        let newUrl: string;
+        if (loc.host === 'localhost:3000') {
+            newUrl = 'ws://localhost:8080/ws/chat';
+        } else {
+            newUrl = ' wss://java-menuo-su-it.northeurope.cloudapp.azure.com/ws/chat';
+        }
+        return newUrl;
+    };
+
+    public ws = new WebSocket(this.getSocketUrl());
+
     public readonly state: State = {
         messages: [{ text: 'first message', author: 'Mokinys1', date: '12:45' },
                    { text: 'second message', author: 'Mokinys2', date: '12:55' }],
@@ -50,6 +62,7 @@ class ChatComponent extends React.Component<Props, State> {
     public componentDidMount() {
         const { messages } = this.state;
         const { teacherLessons } = this.props;
+        console.log(teacherLessons)
         // this.ws.onopen = () => {
         //     console.log('connected');
         // };
@@ -73,13 +86,27 @@ class ChatComponent extends React.Component<Props, State> {
 
         if (teacherLessons) {
             console.log(teacherLessons);
+            const removedDuplicates = (teacherLessons: Api.Lesson[]) => {
+                const result = teacherLessons.reduce((acc, current) => {
+                    const x = acc.find((item) => item.subject === current.subject);
+                    console.log(x);
+                    if (!x) {
+                        return acc.concat([current]);
+                    } else {
+                        return acc;
+                    }
+                }, []);
+                return result;
+            };
+            // console.log(removedDuplicates)
         }
+
 
         return (
             <Layout>
                 <Content>
                     <PageContent>
-                        <Channels lessons={teacherLessons} />
+                        {/*<Channels lessons={teacherLessons} />*/}
                         <ChatList messages={messages} />
                         <ChatForm
                             initialValues={ChatComponent.MESSAGE_INITIAL_VALUES}
