@@ -5,6 +5,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.2.1",
     "@types/react-canvas-draw": "^1.1.0",
+    "@types/react-transition-group": "^4.4.0",
     "antd": "^4.5.1",
     "axios": "^0.19.2",
     "classnames": "^2.2.6",
@@ -19,6 +20,7 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "react-transition-group": "^4.4.1",
     "react-websocket": "^2.1.0"
   },
   "devDependencies": {
