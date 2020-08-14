@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Button, Modal } from 'antd';
 import classNames from 'classnames';
 
-import { Counter } from 'app/components/modalContent/modalContent';
-
 import styles from './lessons.module.scss';
+import { TeacherModal } from 'app/components/modalContent/teacherModal';
+import { navigationService } from 'app/service/navigation-service';
 
 interface Props {
     positionInList: number;
@@ -52,11 +52,8 @@ const SingleLesson: React.FC<Props> = (props) => {
         setModalVisible(!modalVisible);
         // setActiveModal(null);
     };
-    //
-    // const handleCancel = () => {
-    //     setModalVisible(false);
-    // setActiveModal(null);
-    // };
+
+
 
     return (
         <>
@@ -68,11 +65,12 @@ const SingleLesson: React.FC<Props> = (props) => {
                         visible={modalVisible}
                         onOk={() => handleOk()}
                         onCancel={() => handleOk()}
+                        footer={null}
                         okButtonProps={{
                             children: 'Custom OK',
                         }}
                     >
-                        <Counter subject={lesson.subject}/>
+
                     </Modal>
                 ) :
                 (
@@ -82,14 +80,12 @@ const SingleLesson: React.FC<Props> = (props) => {
                         visible={modalVisible}
                         onOk={() => handleOk()}
                         onCancel={() => handleOk()}
+                        footer={null}
                         okButtonProps={{
                             children: 'Custom OK',
                         }}
                     >
-                        <p>{lesson.subject}</p>
-                        <p>{userRole}</p>
-                        <input maxLength={13}></input>
-                        <p>{modalButton() ? 'tiesa' : 'netiesa'}</p>
+                        <TeacherModal subject={lesson.subject}/>
                     </Modal>
                 )}
             <li className={listClass} key={lesson.id} onClick={() => showModal(lesson.id)}>

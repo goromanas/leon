@@ -39,10 +39,10 @@ const TimeLine: React.FC<Props> = (props) => {
     useEffect(() => {
         setCurrentTime(convertTimeToMinutes(time));
         setDayTimes();
-    }, []);
+    }, [setDayTimes, time]);
     useEffect(() => {
         setLineTop((listHeight / startEndDay.endTime) * currentTime);
-    }, [currentTime]);
+    }, [currentTime, listHeight, startEndDay.endTime]);
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -50,7 +50,7 @@ const TimeLine: React.FC<Props> = (props) => {
             setCurrentTime(convertTimeToMinutes(time));
         }, 1000);
         return () => clearTimeout(timer);
-    }, [clock]);
+    }, [clock, time]);
 
     return (
         currentTime > startEndDay.startTime && currentTime < startEndDay.endTime &&
