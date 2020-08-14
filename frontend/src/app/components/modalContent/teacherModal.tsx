@@ -6,6 +6,7 @@ import { SelectField } from 'app/components/inputs';
 import { FormButton, SubmitButton } from 'app/components/buttons';
 
 import { lessonInformationService } from 'app/api/service/lessonInformation-service';
+import styles from './teacherModal.module.scss';
 
 const {Option} = Select;
 
@@ -13,9 +14,13 @@ interface Values {
     assignment: string[];
     information: string;
     topic: string;
+    lessonId: number;
+    date: string;
+    id: number;
 }
 
-const TeacherModal: React.FC<{ subject: string }> = (props) => {
+const TeacherModal: React.FC<{ lessonId: number, onClose: () => void }> = (props) => {
+
     const saveLessonInformation = (lessonInformation: Api.LessonInformationDto): void => {
         lessonInformationService
             .postLessonInformation(lessonInformation)
@@ -26,29 +31,36 @@ const TeacherModal: React.FC<{ subject: string }> = (props) => {
         // .catch(() => message.error('Failure saving user'));
     };
     return (
-        <div>
-            <h1>Signup</h1>
+        <div className={styles.teacherModal}>
+            <h1>Edit lesson info</h1>
             <Formik
                 initialValues={{
                     assignment: [],
                     information: '',
                     topic: '',
+                    id: 0,
+                    lessonId: props.lessonId,
+                    date: '2020-08-14',
                 }}
                 onSubmit={(
-                    values: Values,
+                    values: Api.LessonInformationDto,
                     {setSubmitting}: FormikHelpers<Values>
                 ) => {
+                    console.log(values);
                     saveLessonInformation(values);
-                    // setTimeout(() => {
-                    //     alert(JSON.stringify(values, null, 2));
-                    //     setSubmitting(false);
-                    // }, 500);
+                    setTimeout(() => {
+                        setSubmitting(false);
+                        props.onClose();
+                    }, 500);
+
                 }}
             >
                 {({setFieldValue}) => (
-                    <Form>
+                    <Form className={styles.teacherModal}>
+
                         <label htmlFor="topic">Lesson topic</label>
-                        <Field id="topic" name="topic" placeholder="Enter topic for a lesson"/>
+                        <Field id="topic" name="topic" placeholder="Enter topic for this lesson"/>
+
 
                         <label htmlFor="information">Lesson information</label>
                         <Field as="textarea" id="information" name="information"
@@ -56,13 +68,12 @@ const TeacherModal: React.FC<{ subject: string }> = (props) => {
 
                         <Field
                             component={SelectField}
-                            label="Assignments for this lesson:"
-                            name="role"
-                            placeholder="Please select roles"
+                            name="assignment"
+                            placeholder="Please select assignments for this lesson"
                             mode="multiple"
                             onChange={(option: string) => setFieldValue('assignment', option)}
                         >
-                            <Option value="TEST">Test</Option>
+                            <Option value="Test">Test</Option>
                             <Option value="Homework">Homework</Option>
                             <Option value="Exam">Exam</Option>
                             <Option value="Presentation">Presentation</Option>
