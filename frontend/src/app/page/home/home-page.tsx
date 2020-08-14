@@ -78,7 +78,7 @@ class HomePageComponent extends React.Component<Props, State> {
 
 const mapContextToProps = ({ session: { user }, lessons, currentLesson }: SettingsProps): ContextProps => ({
     username: user != null ? user.username : null,
-    firstName: user != null ? user.firstName : null,
+    firstName: user != null ? user.firstName: null,
     userRoles: user.roles,
     teacherLessons: lessons,
     currentLesson,
