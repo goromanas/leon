@@ -60,13 +60,13 @@ class TopNavBarComponent extends React.Component<Props> {
                                onClick={this.handleClickToCalendarPage} icon={<CalendarOutlined/>}>
                         Tvarkaraštis
                     </Menu.Item>
-                    <Menu.Item key="material"
-                               icon={<BookOutlined/>}>
-                        Pamokų medžiaga
-                    </Menu.Item>
-                    <Menu.Item key="achievements" icon={<TrophyOutlined/>}>
-                        Pasiekimai
-                    </Menu.Item>
+                    {/*<Menu.Item key="material"*/}
+                    {/*           icon={<BookOutlined/>}>*/}
+                    {/*    Pamokų medžiaga*/}
+                    {/*</Menu.Item>*/}
+                    {/*<Menu.Item key="achievements" icon={<TrophyOutlined/>}>*/}
+                    {/*    Pasiekimai*/}
+                    {/*</Menu.Item>*/}
                     <Menu.Item key="forum"
                                onClick={this.handleOpenChatRoom}
                                icon={<FormOutlined/>}>

@@ -132,41 +132,18 @@ class ChatComponent extends React.Component<Props, State> {
         }
     };
 
-    if (teacherLessons) {
-      console.log(teacherLessons);
-    }
+    // if (teacherLessons) {
+    //   console.log(teacherLessons);
+    // }
 
-    return (
-      <Layout>
-        <Content>
-          <PageContent>
-            <h2>Class of {this.state.className && this.state.className}</h2>
-            <Channels lessons={teacherLessons} />
-            <ChatList messages={messages} />
-            <ChatForm
-              initialValues={ChatComponent.MESSAGE_INITIAL_VALUES}
-              onSubmit={this.handleSubmit}
-              // addFile={this.addFile}
-            />
-          </PageContent>
-        </Content>
-      </Layout>
-    );
-  }
+
+
 
   // public addFile = (file: any) => {
   //     this.setState({ file: file });
   //     console.log(file);
   // }
 
-  public sendMessage = (message: Message) => {
-    try {
-      // console.log(message)
-      this.ws.send(JSON.stringify(message));
-    } catch (error) {
-      console.log(error); // catch error
-    }
-  };
 
   private readonly handleSubmit = (values: MessageValue, { resetForm }: FormikHelpers<MessageValue>): void => {
     const { messages } = this.state;
