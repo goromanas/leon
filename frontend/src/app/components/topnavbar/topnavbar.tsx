@@ -58,7 +58,7 @@ class TopNavBarComponent extends React.Component<Props> {
 
                     <Menu.Item key="timetable"
                                onClick={this.handleClickToCalendarPage} icon={<CalendarOutlined/>}>
-                        Tvarkaraštis
+                        Timetable
                     </Menu.Item>
                     {/*<Menu.Item key="material"*/}
                     {/*           icon={<BookOutlined/>}>*/}
@@ -70,7 +70,7 @@ class TopNavBarComponent extends React.Component<Props> {
                     <Menu.Item key="forum"
                                onClick={this.handleOpenChatRoom}
                                icon={<FormOutlined/>}>
-                        Forumas
+                        Chat
                     </Menu.Item>
 
                     <SubMenu
@@ -95,18 +95,16 @@ class TopNavBarComponent extends React.Component<Props> {
                             icon={<VideoCameraOutlined/>}
                             onClick={() => this.handleOpenClassroom(lessonId)}
                         >
-                            Į pamoką
+                            Current lesson
                         </Button>
                     </Menu.Item>
                     <Menu.Item className={styles.modifiedItem}>
                         <Clock/>
                     </Menu.Item>
-
                 </Menu>
             </Header>
         );
     }
-
     private readonly handleClickLogout = (): void => {
         navigationService.redirectToLogoutPage();
     };
