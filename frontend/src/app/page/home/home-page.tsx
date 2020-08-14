@@ -52,7 +52,7 @@ class HomePageComponent extends React.Component<Props, State> {
                                 To user list
                             </Button>
                         ) : (
-                                <DayLessonsList userRole={this.props.userRoles} lessonsList={teacherLessons || []} />
+                                <DayLessonsList userRole={this.props.userRoles} lessonsList={teacherLessons || []} date={moment().format("YYYY-MM-DD")} />
                                 // <Lessons userRole={this.props.userRoles} lessonsList={teacherLessons || []} currentLesson={currentLesson} />
                             )}
 

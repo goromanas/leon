@@ -16,7 +16,7 @@ interface Props {
     lessons: Api.Lesson[];
     scheduleTimes: Api.ScheduleDto[];
     isThisDay: boolean;
-    date:String;
+    date: string;
 }
 
 const { listItem, activeLesson, endedLesson, listNumber, listContent } = styles;
@@ -88,7 +88,7 @@ const SingleLesson: React.FC<Props> = (props) => {
                         }}
 
                     >
-                        <TeacherModal lessonId={lesson.id} onClose={handleOk}/>
+                        <TeacherModal lessonId={lesson.id} onClose={handleOk} date={date}/>
                     </Modal>
                 )}
             < li className={listClass} key={lesson.id} onClick={() => showModal(lesson.id)} >
