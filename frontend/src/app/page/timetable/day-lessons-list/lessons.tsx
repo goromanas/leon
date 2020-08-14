@@ -5,31 +5,31 @@ import { navigationService } from 'app/service/navigation-service';
 
 import styles from './lessons.module.scss';
 
-const lessonTimes: LessonTimes =   [{
+const lessonTimes: LessonTimes = [{
     id: 1,
     startTime: 8,
     endTime: 9,
 },
-                                    {
-        id: 2,
-        startTime: 10,
-        endTime: 11,
-    },
-                                    {
-        id: 3,
-        startTime: 12,
-        endTime: 13,
-    },
-                                    {
-        id: 4,
-        startTime: 14,
-        endTime: 15,
-    },
-                                    {
-        id: 5,
-        startTime: 16,
-        endTime: 17,
-    }];
+{
+    id: 2,
+    startTime: 10,
+    endTime: 11,
+},
+{
+    id: 3,
+    startTime: 12,
+    endTime: 13,
+},
+{
+    id: 4,
+    startTime: 14,
+    endTime: 15,
+},
+{
+    id: 5,
+    startTime: 16,
+    endTime: 17,
+}];
 
 interface Props {
     lessonsList: Api.Lesson[];
@@ -55,11 +55,13 @@ class Lessons extends React.Component<Props, State, LessonTimes> {
 
     constructor(props: Props) {
         super(props);
-        this.state = { date: new Date(), currentLesson: {
-            id: 0,
-            startTime: 0,
-            endTime: 0,
-        }};
+        this.state = {
+            date: new Date(), currentLesson: {
+                id: 0,
+                startTime: 0,
+                endTime: 0,
+            }
+        };
     }
     public getDayFromInt(day: number): string {
         switch (day) {
@@ -97,7 +99,7 @@ class Lessons extends React.Component<Props, State, LessonTimes> {
     public updateCurrentLesson() {
         if (this.state.date.getHours() < lessonTimes[lessonTimes.length - 1].endTime) {
             return lessonTimes.find((item: SingleLessonTimes) =>
-                item.startTime <= this.state.date.getHours() &&  item.endTime >= this.state.date.getHours());
+                item.startTime <= this.state.date.getHours() && item.endTime >= this.state.date.getHours());
         } else { return this.state.currentLesson; }
 
     }
@@ -116,15 +118,15 @@ class Lessons extends React.Component<Props, State, LessonTimes> {
 
             <li className={styles.listItem} key={item.id}>
                 <div className={styles.classNumber}
-                     style={lessonInList(item) === this.state.currentLesson.id ? activeLesson
-                    : lessonInList(item) > this.state.currentLesson.id ? upcomingLesson : null}>
+                    style={lessonInList(item) === this.state.currentLesson.id ? activeLesson
+                        : lessonInList(item) > this.state.currentLesson.id ? upcomingLesson : null}>
                     {lessonsList.indexOf(item) + 1}.
                 </div>
                 <div className={styles.listContent}
-                     style={lessonInList(item) === this.state.currentLesson.id ? activeLesson
-                    : lessonInList(item) > this.state.currentLesson.id ? upcomingLesson : null}>
+                    style={lessonInList(item) === this.state.currentLesson.id ? activeLesson
+                        : lessonInList(item) > this.state.currentLesson.id ? upcomingLesson : null}>
                     {item.subject}
-                    {lessonInList(item)  === this.state.currentLesson.id ? (
+                    {lessonInList(item) === this.state.currentLesson.id ? (
                         <Button
                             type="primary"
                             className={styles.toVideoButton}
@@ -147,7 +149,8 @@ class Lessons extends React.Component<Props, State, LessonTimes> {
     private readonly handleOpenClassroom = (id?: number): void => {
         navigationService.redirectToVideoChat(id);
     };
+    // public setInterval(() => tick(), 1000;)
+
 }
-setInterval(Lessons, 1000);
 
 export { Lessons };

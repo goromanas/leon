@@ -39,6 +39,7 @@ const TimeLine: React.FC<Props> = (props) => {
     useEffect(() => {
         setCurrentTime(convertTimeToMinutes(time));
         setDayTimes();
+        // console.log('asd');
     }, []);
     useEffect(() => {
         setLineTop((listHeight / startEndDay.endTime) * currentTime);
@@ -53,19 +54,17 @@ const TimeLine: React.FC<Props> = (props) => {
     }, [clock]);
 
     return (
-        currentTime > startEndDay.startTime && currentTime < startEndDay.endTime &&
-        (
-            <div>
-                <span
-                    className={styles.timeLine}
-                    style={{ top: currentTime - startEndDay.startTime + 'px' }}
-                >
-                    <div>{time}<span /></div>
-                </span>
-            </div>
-
-        )
-
+        currentTime > startEndDay.startTime && currentTime < startEndDay.endTime ?
+            (
+                <div>
+                    <span
+                        className={styles.timeLine}
+                        style={{ top: currentTime - startEndDay.startTime + 'px' }}
+                    >
+                        <div>{time}<span /></div>
+                    </span>
+                </div>
+            ) : null
     );
 };
 

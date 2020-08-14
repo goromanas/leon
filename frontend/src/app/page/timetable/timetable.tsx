@@ -1,9 +1,12 @@
 import React from 'react';
 import { Button, Col, Grid, Row } from 'antd';
-import moment from "moment"
+import moment from 'moment';
 
 import { connectContext, SettingsProps } from 'app/context';
-import { Lessons } from 'app/page/timetable/day-lessons-list/lessons';
+// import { Lessons } from 'app/page/timetable/day-lessons-list/lessons';
+import { DayLessonsList } from 'app/page/home/timetable/day-lessons-list/day-lessons-list';
+
+import styles from 'app/page/home/timetable/day-lessons-list/lessons.module.scss';
 
 interface ContextProps {
     username: string | null;
@@ -37,29 +40,32 @@ class TimetablePageComponent extends React.Component<Props, State> {
         const d = new Date();
 
         return (
-            <>
-
-                <Button type="primary"
+            <div>
+                <div className={styles.weekButtons} >
+                    <Button type="primary"
                         onClick={() => this.handleButtonClick(false)}
-                >Previous</Button>
-                <Button type="primary"
-                        onClick={() => this.handleButtonClick(true)}>Next</Button>
+                    >Previous Week</Button>
+                    <Button type="primary"
+                        onClick={() => this.handleButtonClick(true)}>Next Week</Button>
+                </div>
                 <Row>
 
                     {Array(5).fill(new Date().getDay() + this.state.move).map((x, y) => x + y).map((item) => (
                         item == 0 ? item = 5 : null,
-                            item < 0 ? item = 0 - item : null,
-                            (item % 5) != 0 ? null : item = 5,
-                            (item % 5) != 0 ? item = item % 5 : null,
+                        item < 0 ? item = 0 - item : null,
+                        (item % 5) != 0 ? null : item = 5,
+                        (item % 5) != 0 ? item = item % 5 : null,
 
-                            <Col xs={{span: 5, offset: 1}} lg={{span: 6, offset: 1}}>
-                                <Lessons lessonsList={this.filterByDay(teacherLessons, item) || []} day={item}
-                                         time={this.getDate()}/>
-                            </Col>
+                        <Col xs={{ span: 5, offset: 1 }} lg={{ span: 6, offset: 1 }}>
+                            {/* <Lessons lessonsList={this.filterByDay(teacherLessons, item) || []} day={item}
+                                         time={this.getDate()}/> */}
+                            < DayLessonsList userRole={this.props.userRoles} lessonsList={this.filterByDay(teacherLessons, item) || []} day={item}
+                            />
+                        </Col>
                     ))}
                 </Row>,
 
-            </>);
+            </div>);
     }
 
     public filterByDay(teacherLessons: Api.Lesson[], day: number): Api.Lesson[] {
@@ -80,14 +86,14 @@ class TimetablePageComponent extends React.Component<Props, State> {
     private handleButtonClick = (forward: boolean): void => {
 
         forward ?
-            this.setState({move: this.state.move + 1}) :
-            this.setState({move: this.state.move - 1});
+            this.setState({ move: this.state.move + 1 }) :
+            this.setState({ move: this.state.move - 1 });
 
     };
 
 }
 
-const mapContextToProps = ({session: {user}, lessons}: SettingsProps): ContextProps => ({
+const mapContextToProps = ({ session: { user }, lessons }: SettingsProps): ContextProps => ({
 
     username: user != null ? user.username : null,
     userRoles: user.roles,
