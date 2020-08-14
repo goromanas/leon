@@ -35,42 +35,102 @@ interface State {
 }
 
 class ChatComponent extends React.Component<Props, State> {
-  public ws = new WebSocket("ws://localhost:8080/ws/chat");
-  public readonly state: State = {
-    messages: [
-      { text: "first message", author: "Mokinys1", date: "12:45" },
-      { text: "second message", author: "Mokinys2", date: "12:55" }
-    ],
-    file: null,
-    className: null,
-    lessonId: null
-  };
-  public static MESSAGE_INITIAL_VALUES: MessageValue = { message: "" };
-
-  // tslint:disable-next-line:typedef
-  public componentDidMount() {
-    const { messages } = this.state;
-    const { teacherLessons } = this.props;
-    // this.ws.onopen = () => {
-    //     console.log('connected');
-    // };
-
-    this.ws.onmessage = e => {
-      const message = JSON.parse(e.data);
-      // console.log('Chat page receives ',message.classroom);
-
-      const copyMsg = [...this.state.messages];
-      const newMsg = [...copyMsg, message];
-
-      this.setState({
-        messages: newMsg
-      });
+    public getSocketUrl = (): string => {
+        const loc = window.location;
+        let newUrl: string;
+        if (loc.host === 'localhost:3000') {
+            newUrl = 'ws://localhost:8080/ws/chat';
+        } else {
+            newUrl = ' wss://java-menuo-su-it.northeurope.cloudapp.azure.com/ws/chat';
+        }
+        return newUrl;
     };
-  }
 
-  public render(): React.ReactNode {
-    const { messages } = this.state;
-    const { teacherLessons } = this.props;
+    public ws = new WebSocket(this.getSocketUrl());
+
+    public readonly state: State = {
+        messages: [{ text: 'first message', author: 'Mokinys1', date: '12:45' },
+                   { text: 'second message', author: 'Mokinys2', date: '12:55' }],
+        file: null,
+        className: null,
+        lessonId: null,
+    };
+    public static MESSAGE_INITIAL_VALUES: MessageValue = { message: '' };
+
+    // tslint:disable-next-line:typedef
+    public componentDidMount() {
+        const { messages } = this.state;
+        const { teacherLessons } = this.props;
+        console.log(teacherLessons)
+        // this.ws.onopen = () => {
+        //     console.log('connected');
+        // };
+
+        this.ws.onmessage = e => {
+            const message = JSON.parse(e.data);
+            // console.log('Chat page receives ',message.classroom);
+
+            const copyMsg = [...this.state.messages];
+            const newMsg = [...copyMsg, message];
+
+            this.setState({
+                messages: newMsg,
+            });
+        };
+    }
+
+    public render(): React.ReactNode {
+        const { messages } = this.state;
+        const { teacherLessons } = this.props;
+
+        if (teacherLessons) {
+            console.log(teacherLessons);
+            const removedDuplicates = (teacherLessons: Api.Lesson[]) => {
+                const result = teacherLessons.reduce((acc, current) => {
+                    const x = acc.find((item) => item.subject === current.subject);
+                    console.log(x);
+                    if (!x) {
+                        return acc.concat([current]);
+                    } else {
+                        return acc;
+                    }
+                }, []);
+                return result;
+            };
+            // console.log(removedDuplicates)
+        }
+
+
+        return (
+            <Layout>
+                <Content>
+                    <PageContent>
+                        {/*<Channels lessons={teacherLessons} />*/}
+                        <ChatList messages={messages} />
+                        <ChatForm
+                            initialValues={ChatComponent.MESSAGE_INITIAL_VALUES}
+                            onSubmit={this.handleSubmit}
+                            // addFile={this.addFile}
+                        />
+                    </PageContent>
+                </Content>
+            </Layout>
+        );
+    }
+
+    // public addFile = (file: any) => {
+    //     this.setState({ file: file });
+    //     console.log(file);
+    // }
+
+    public sendMessage = (message: Message) => {
+        try {
+            // console.log(message)
+            this.ws.send(JSON.stringify(message));
+        } catch (error) {
+            console.log(error); // catch error
+        }
+    };
 
     if (teacherLessons) {
       console.log(teacherLessons);
