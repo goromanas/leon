@@ -39,15 +39,13 @@ class HomePageComponent extends React.Component<Props, State> {
             teacherLessons,
             currentLesson,
         } = this.props;
-        // const date = new Date();
-        // const day = date.getDay();
 
         return (
             <Layout>
                 <Content>
                     <PageContent>
                         <div className={styles.welcomeHeader}>
-                            Welcome back, {this.props.firstName},
+                            Welcome back, {this.props.firstName}, {currentLesson}
                         </div>
                         {userRoles.includes('ADMIN') ? (
                             <Button type="primary" onClick={this.handleClickToUserList}>
@@ -55,7 +53,6 @@ class HomePageComponent extends React.Component<Props, State> {
                             </Button>
                         ) : (
                                 <DayLessonsList userRole={this.props.userRoles} lessonsList={teacherLessons || []} date={moment().format('YYYY-MM-DD')} />
-                                // <Lessons userRole={this.props.userRoles} lessonsList={teacherLessons || []} currentLesson={currentLesson} />
                             )}
 
                     </PageContent>
@@ -78,7 +75,7 @@ class HomePageComponent extends React.Component<Props, State> {
 
 const mapContextToProps = ({ session: { user }, lessons, currentLesson }: SettingsProps): ContextProps => ({
     username: user != null ? user.username : null,
-    firstName: user != null ? user.firstName: null,
+    firstName: user != null ? user.firstName : null,
     userRoles: user.roles,
     teacherLessons: lessons,
     currentLesson,

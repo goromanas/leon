@@ -26,7 +26,6 @@ class AppWithSessionComponent extends React.Component<Props, State> {
     public readonly state: State = {
         content: null,
     };
-    private ws: any = new WebSocket('ws://localhost:8080/ws/currentLesson');
     public componentDidMount(): void {
         sessionService
             .getSession()
@@ -40,9 +39,8 @@ class AppWithSessionComponent extends React.Component<Props, State> {
         lessonsService.getStudentLessons()
             .then(this.handleLessonsResponse)
             .catch(error => { loggerService.error('Error occurred when getting session information', error); });
-        lessonsService.connectToSocket(this.ws);
-        // .then(this.handleSocketResponse);
-        // .catch(error => { loggerService.error('Error occurred when getting session information', error); });
+
+        this.handleSocketResponse();
     }
 
     public render(): React.ReactNode {
@@ -71,11 +69,20 @@ class AppWithSessionComponent extends React.Component<Props, State> {
         updateLessons(lessons);
     };
 
-    private readonly handleSocketResponse = (message: number): void => {
-        // console.log(message);
+    private readonly handleSocketResponse = (): void => {
         const { updateCurrentLesson } = this.props;
+        const ws: any = new WebSocket(lessonsService.getSocketUrl());
 
-        updateCurrentLesson(999);
+        ws.onopen = () => {
+            console.log('connected');
+        };
+        ws.onmessage = (evt: any) => {
+            console.log(evt.data);
+            updateCurrentLesson(evt.data);
+        };
+        ws.onclose = () => {
+            console.log('disconnected');
+        };
     };
 
     private readonly createSession = (user: Api.SessionUser): ContextSession => ({ user, authenticated: !!user });

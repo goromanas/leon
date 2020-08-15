@@ -7,13 +7,12 @@ import { connectContext, SettingsProps } from 'app/context';
 import { DayLessonsList } from 'app/page/home/timetable/day-lessons-list/day-lessons-list';
 
 import styles from 'app/page/home/timetable/day-lessons-list/lessons.module.scss';
-import CurrentLesson from '../home/socket-test';
 
 interface ContextProps {
     username: string | null;
     userRoles: string[] | null;
     teacherLessons: Api.Lesson[];
-    currL: number;
+    currentLesson: number;
 }
 
 interface State {
@@ -37,7 +36,7 @@ class TimetablePageComponent extends React.Component<Props, State> {
             username,
             userRoles,
             teacherLessons,
-            currL,
+            currentLesson,
         } = this.props;
         const now = new Date().getDay();
 
@@ -49,7 +48,7 @@ class TimetablePageComponent extends React.Component<Props, State> {
                     >Previous Week</Button>
                     <Button type="primary"
                         onClick={() => this.handleButtonClick(true)}>Next Week</Button>
-                    {currL}
+                    {currentLesson}
                 </div>
                 <Row>
 
@@ -110,7 +109,7 @@ const mapContextToProps = ({ session: { user }, lessons, currentLesson }: Settin
     username: user != null ? user.username : null,
     userRoles: user.roles,
     teacherLessons: lessons,
-    currL: currentLesson,
+    currentLesson,
 });
 
 const TimetablePage = connectContext(mapContextToProps)(TimetablePageComponent);
