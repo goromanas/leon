@@ -8,8 +8,6 @@ import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-lo
 import { loggerService } from 'app/service/logger-service';
 import { lessonsService } from 'app/api/service/lessons-service';
 
-// import { CurrentLessonSocket } from './websocket/current-lesson-socket';
-
 interface State {
     content: React.ReactNode;
 }
@@ -19,6 +17,7 @@ interface OwnProps { }
 interface ContextProps {
     updateSession: (session: ContextSession) => void;
     updateLessons: (lessons: Api.Lesson[]) => void;
+    updateCurrentLesson: (currentLesson: number) => void;
 }
 
 type Props = OwnProps & ContextProps;
@@ -27,7 +26,7 @@ class AppWithSessionComponent extends React.Component<Props, State> {
     public readonly state: State = {
         content: null,
     };
-
+    private ws: any = new WebSocket('ws://localhost:8080/ws/currentLesson');
     public componentDidMount(): void {
         sessionService
             .getSession()
@@ -41,6 +40,9 @@ class AppWithSessionComponent extends React.Component<Props, State> {
         lessonsService.getStudentLessons()
             .then(this.handleLessonsResponse)
             .catch(error => { loggerService.error('Error occurred when getting session information', error); });
+        lessonsService.connectToSocket(this.ws);
+        // .then(this.handleSocketResponse);
+        // .catch(error => { loggerService.error('Error occurred when getting session information', error); });
     }
 
     public render(): React.ReactNode {
@@ -69,13 +71,21 @@ class AppWithSessionComponent extends React.Component<Props, State> {
         updateLessons(lessons);
     };
 
+    private readonly handleSocketResponse = (message: number): void => {
+        // console.log(message);
+        const { updateCurrentLesson } = this.props;
+
+        updateCurrentLesson(999);
+    };
+
     private readonly createSession = (user: Api.SessionUser): ContextSession => ({ user, authenticated: !!user });
 }
 
 const mapContextToProps = ({
-    actions: { updateSession, updateLessons } }: SettingsProps): ContextProps => ({
+    actions: { updateSession, updateLessons, updateCurrentLesson } }: SettingsProps): ContextProps => ({
         updateSession,
         updateLessons,
+        updateCurrentLesson,
     });
 
 const AppWithSession = connectContext(mapContextToProps)(AppWithSessionComponent);

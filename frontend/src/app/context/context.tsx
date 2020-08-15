@@ -14,6 +14,7 @@ export interface Session {
 export interface Actions {
     updateSession: (session: Session) => void;
     updateLessons: (lessons: Api.Lesson[]) => void;
+    updateCurrentLesson: (currentLesson: number) => void;
 }
 
 export interface SettingsProps {
@@ -36,6 +37,7 @@ const DEFAULT_SETTINGS: SettingsProps = {
     actions: {
         updateSession: () => undefined,
         updateLessons: () => undefined,
+        updateCurrentLesson: () => undefined,
     },
     lessons: INITIAL_LESSONS,
     currentLesson: INITIAL_CURRENT_LESSON,

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, ReactElement } from 'react';
 import classNames from 'classnames';
+import moment from 'moment';
 
 import { navigationService } from 'app/service/navigation-service';
 import { lessonsService } from 'app/api/service/lessons-service';
@@ -9,7 +10,6 @@ import { TimeLine } from './time-line';
 import { SingleLesson } from './single-lesson';
 
 import styles from './lessons.module.scss';
-import moment from 'moment';
 
 interface Props {
     lessonsList: Api.Lesson[];
@@ -68,28 +68,26 @@ const DayLessonsList: React.FC<Props> = ({ lessonsList, userRole, day, date }) =
             - convertTimeToMinutes(data[0].startTime)));
     };
 
-
-
     // connect to websocect to get curentLesson
-    useEffect(() => {
-        const date = new Date();
-        setDayOfWeek(date.getDay());
-        ws.onopen = () => {
-            // on connecting, do nothing but log it to the console
-            console.log('connected');
-        };
+    // useEffect(() => {
+    //     const date = new Date();
+    //     setDayOfWeek(date.getDay());
+    //     ws.onopen = () => {
+    //         // on connecting, do nothing but log it to the console
+    //         console.log('connected');
+    //     };
 
-        ws.onmessage = evt => {
-            // listen to data sent from the websocket server
-            setCurrentLesson(parseInt(evt.data, 10));
-            // setCurrentLesson(3);
-            // console.log(evt.data)
-        };
+    //     ws.onmessage = evt => {
+    //         // listen to data sent from the websocket server
+    //         setCurrentLesson(parseInt(evt.data, 10));
+    //         // setCurrentLesson(3);
+    //         console.log(evt.data);
+    //     };
 
-        ws.onclose = () => {
-            console.log('disconnected');
-        };
-    }, []);
+    //     ws.onclose = () => {
+    //         console.log('disconnected');
+    //     };
+    // }, []);
 
     // set height of current list
     useEffect(() => {
@@ -97,7 +95,7 @@ const DayLessonsList: React.FC<Props> = ({ lessonsList, userRole, day, date }) =
             setListHeight(listRef.current.clientHeight);
         }
         setBreakTimes(setBreaks(scheduleTimes));
-        console.log(lessonsList);
+        // console.log(lessonsList);
     }, [scheduleTimes]);
 
     const convertTimeToMinutes = (time: any) => {

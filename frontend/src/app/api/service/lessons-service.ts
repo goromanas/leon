@@ -1,3 +1,5 @@
+import { message } from 'antd';
+
 import { CancelSource, RestService } from 'app/api/common';
 
 class LessonsService {
@@ -20,8 +22,37 @@ class LessonsService {
 
     public readonly getSchedule = (): Promise<Api.ScheduleDto[]> =>
         this.restService.get<Api.ScheduleDto[]>(`${LessonsService.SCHEDULE_PATH}`);
+
+    public readonly connectToSocket = (ws: any) => {
+        ws.onopen = () => {
+            console.log('connected');
+        };
+    };
+    // this.getSock();
+
+    // ws.onmessage = (evt: any) => {
+    //     console.log(evt.data);
+    // };
+    // public message: any = 9999;
+
+    // private getSock = (): Promise<number> => (this.message);
+
 }
 
 const lessonsService = new LessonsService();
 
 export { lessonsService };
+
+// create new websocket instance
+// const getSocketUrl = (): string => {
+//     const loc = window.location;
+//     let newUrl: string;
+//     if (loc.host === 'localhost:3000') {
+//         newUrl = 'ws://localhost:8080/ws/currentLesson';
+//     } else {
+//         newUrl = ' wss://java-menuo-su-it.northeurope.cloudapp.azure.com/ws/currentLesson';
+//     }
+//     return newUrl;
+// };
+
+// const ws = new WebSocket(getSocketUrl());
