@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef, ReactElement } from 'react';
+import ReactTooltip from 'react-tooltip';
+
 import classNames from 'classnames';
 import moment from 'moment';
 
@@ -143,7 +145,9 @@ const DayLessonsList: React.FC<Props> = ({ lessonsList, userRole, day, date }) =
                 isThisDay={dayOfWeek === item.day}
                 date={date}
             />
-            < span style={{ height: breakTimes[positionInList(item) - 1] }} className={styles.breakSpan} />
+            < span data-tip="Break" style={{ height: breakTimes[positionInList(item) - 1] }} className={styles.breakSpan} />
+            <ReactTooltip />
+
         </div>
     ));
 

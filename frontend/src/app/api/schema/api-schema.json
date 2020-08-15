@@ -902,6 +902,9 @@
     "SessionUser": {
       "type": "object",
       "properties": {
+        "firstName": {
+          "type": "string"
+        },
         "roles": {
           "type": "array",
           "items": {
