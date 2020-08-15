@@ -7,10 +7,6 @@ export interface Session {
     authenticated: boolean;
 }
 
-// export interface Lessons {
-//     [index: number]: {id: number, status: number, subject: string, teacher: string, key: number, video: string};
-// }
-
 export interface Actions {
     updateSession: (session: Session) => void;
     updateLessons: (lessons: Api.Lesson[]) => void;

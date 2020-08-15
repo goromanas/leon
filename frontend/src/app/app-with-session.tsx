@@ -10,6 +10,7 @@ import { lessonsService } from 'app/api/service/lessons-service';
 
 interface State {
     content: React.ReactNode;
+    lessons: Api.Lesson[];
 }
 
 interface OwnProps { }
@@ -25,6 +26,7 @@ type Props = OwnProps & ContextProps;
 class AppWithSessionComponent extends React.Component<Props, State> {
     public readonly state: State = {
         content: null,
+        lessons: null,
     };
     public componentDidMount(): void {
         sessionService
@@ -44,7 +46,7 @@ class AppWithSessionComponent extends React.Component<Props, State> {
     }
 
     public render(): React.ReactNode {
-        const { content } = this.state;
+        const { content, lessons } = this.state;
 
         return (
             <AsyncContent loading={!content} loader={<PageLoadingSpinner />}>
@@ -66,23 +68,38 @@ class AppWithSessionComponent extends React.Component<Props, State> {
             updateLessons,
         } = this.props;
 
+        this.setState({ ...this.state, lessons });
         updateLessons(lessons);
     };
 
     private readonly handleSocketResponse = (): void => {
         const { updateCurrentLesson } = this.props;
+
+        // connect to websocket to get currentLesson
         const ws: any = new WebSocket(lessonsService.getSocketUrl());
 
         ws.onopen = () => {
             console.log('connected');
         };
         ws.onmessage = (evt: any) => {
-            console.log(evt.data);
-            updateCurrentLesson(evt.data);
+            const date = new Date();
+            const currentDay = date.getDay();
+            const currentLesson = evt.data;
+
+            // set first property to currentLesson to get currentLessonID of this day.
+            updateCurrentLesson(this.getCurrentLessonID(3, currentDay));
         };
         ws.onclose = () => {
             console.log('disconnected');
         };
+    };
+
+    // get currentLessonID from lessons by curent day of week and currentLesson from websocket
+    private readonly getCurrentLessonID = (currentLesson: number, currentDay: number): any => {
+        const days = this.state.lessons.filter(lesson => lesson.day === currentDay - 1);
+
+        console.log(days);
+        return days[currentLesson].id;
     };
 
     private readonly createSession = (user: Api.SessionUser): ContextSession => ({ user, authenticated: !!user });

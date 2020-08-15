@@ -27,7 +27,11 @@ class AppStore extends React.Component<{}, State> {
             currentLesson,
         } = this.state;
 
-        const actions: Actions = { updateSession: this.updateSession, updateLessons: this.updateLessons, updateCurrentLesson: this.updateCurrentLesson };
+        const actions: Actions = {
+            updateSession: this.updateSession,
+            updateLessons: this.updateLessons,
+            updateCurrentLesson: this.updateCurrentLesson,
+        };
 
         return (
             <settingsContext.Provider value={{ session, lessons, currentLesson, actions }}>
