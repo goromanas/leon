@@ -3,11 +3,15 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 import { Message } from "./message";
 import { connectContext, SettingsProps } from "app/context";
+import { message } from "antd";
 
 interface Message {
   text: string;
   author: string;
   date: string;
+  classroom?: string;
+  subject?: number;
+  channel?: number;
 }
 
 interface ContextProps {
@@ -16,18 +20,21 @@ interface ContextProps {
 
 interface OwnProps {
   messages: Message[];
+  currentChannel: number;
 }
 type Props = ContextProps & OwnProps;
 
-const ChatListComponent: React.FC<Props> = ({ messages }) => (
+const ChatListComponent: React.FC<Props> = ({ messages, currentChannel }) => (
   <div>
     <ul>
       <TransitionGroup className="chat-messages" appear>
-        {messages.map((msg, i) => (
-          <CSSTransition key={i} timeout={300} classNames="fade" appear={true}>
-            <Message key={i} text={msg.text} author={msg.author} date={msg.date} />
-          </CSSTransition>
-        ))}
+        {messages
+          .filter(message => message.channel === currentChannel)
+          .map((msg, i) => (
+            <CSSTransition key={i} timeout={300} classNames="fade" appear={true}>
+              <Message key={i} text={msg.text} author={msg.author} date={msg.date} channel={msg.channel} />
+            </CSSTransition>
+          ))}
       </TransitionGroup>
     </ul>
   </div>

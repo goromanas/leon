@@ -8,15 +8,17 @@ interface Props {
   text: string;
   author: string;
   date: string;
+  channel: number;
 }
 
-const Message: React.FC<Props> = ({ text, author, date }) => (
+const Message: React.FC<Props> = ({ text, author, date, channel }) => (
   <div className={styles.message}>
     <div>
       <Avatar size="small" icon={<UserOutlined />} />
       <span className={styles.author}>{author}</span> <span className={styles.timestamp}>{date}</span>
     </div>
     <div>{text}</div>
+    <p>channel: {channel}</p>
   </div>
 );
 
