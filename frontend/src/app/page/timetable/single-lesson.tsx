@@ -2,58 +2,53 @@ import React, { useState } from 'react';
 import { Button, Modal } from 'antd';
 import classNames from 'classnames';
 
-import styles from './lessons.module.scss';
 import { TeacherModal } from 'app/components/modalContent/teacherModal';
-import { navigationService } from 'app/service/navigation-service';
-import moment from 'moment';
+
+import styles from './lessons.module.scss';
 
 interface Props {
-    positionInList: number;
     currentLesson: number;
-    lesson: any;
+    thisLesson: any;
     handleOpenClassroom: any;
-    schedule: Api.ScheduleDto | null;
+    schedule: any | null;
     userRole: string[];
-    lessons: Api.Lesson[];
-    scheduleTimes: Api.ScheduleDto[];
-    isThisDay: boolean;
     date: string;
 }
 
-const {listItem, activeLesson, endedLesson, listNumber, listContent} = styles;
+const { listItem, activeLesson, endedLesson, listNumber, listContent } = styles;
 
 const SingleLesson: React.FC<Props> = (props) => {
-    const {currentLesson, positionInList, lesson, handleOpenClassroom, schedule, userRole, scheduleTimes, lessons, isThisDay, date} = props;
+    const { currentLesson, thisLesson, handleOpenClassroom, schedule, userRole, date } = props;
     const [modalVisible, setModalVisible] = useState(false);
-    const [activeModal, setActiveModal] = useState<any>(null);
 
+    // define classNames
     const listClass = classNames(
         listItem,
-        isThisDay && positionInList === currentLesson && moment().format('YYYY-MM-DD') === date && activeLesson,
-        isThisDay && positionInList < currentLesson && moment().format('YYYY-MM-DD') === date && endedLesson,
+        currentLesson === thisLesson.id && activeLesson,
+        currentLesson > thisLesson.id && endedLesson,
     );
     const numberClass = classNames(
         listNumber,
-        isThisDay && positionInList === currentLesson && moment().format('YYYY-MM-DD') === date && activeLesson,
-        isThisDay && positionInList < currentLesson && moment().format('YYYY-MM-DD') === date && endedLesson,
+        currentLesson === thisLesson.id && activeLesson,
+        currentLesson > thisLesson.id && endedLesson,
     );
     const contentClass = classNames(
         listContent,
-        isThisDay && positionInList === currentLesson && moment().format('YYYY-MM-DD') === date && activeLesson,
-        isThisDay && positionInList < currentLesson && moment().format('YYYY-MM-DD') === date && endedLesson,
+        currentLesson === thisLesson.id && activeLesson,
+        currentLesson > thisLesson.id && endedLesson,
     );
-    const lessonStart: string = scheduleTimes.length >= lessons.length ? (schedule.startTime).substr(0, 5) : 'undef';
+
+    // get thisLesson start as 8:00
+    const lessonStart: string = schedule ? (schedule.startTime).substr(0, 5) : 'undef';
 
     const modalButton = (): boolean =>
         userRole.includes('STUDENT') || userRole.includes('PARENT');
 
     const showModal = (index: number) => {
         setModalVisible(!modalVisible);
-        // setActiveModal(index);
     };
     const handleOk = () => {
         setModalVisible(!modalVisible);
-        // setActiveModal(null);
     };
 
     return (
@@ -62,8 +57,8 @@ const SingleLesson: React.FC<Props> = (props) => {
                 (
                     <></>
                     // <Modal
-                    //     key={lesson.id}
-                    //     title={lesson.subject}
+                    //     key={thisLesson.id}
+                    //     title={thisLesson.subject}
                     //     visible={modalVisible}
                     //     onOk={() => handleOk()}
                     //     onCancel={() => handleOk()}
@@ -77,36 +72,36 @@ const SingleLesson: React.FC<Props> = (props) => {
                 ) :
                 (
                     <Modal
-                        key={lesson.id}
-                        title={lesson.subject}
+                        key={thisLesson.id}
+                        title={thisLesson.subject}
                         visible={modalVisible}
                         footer={null}
                         onCancel={handleOk}
                         okButtonProps={{
                             children: 'Custom OK',
                         }}
-
                     >
-                        <TeacherModal lessonId={lesson.id} onClose={handleOk} date={date}/>
+                        <TeacherModal lessonId={thisLesson.id} onClose={handleOk} date={date} />
                     </Modal>
                 )}
-            < li className={listClass} key={lesson.id} onClick={() => showModal(lesson.id)}>
+            < li className={listClass} key={thisLesson.id} onClick={() => showModal(thisLesson.id)}>
 
                 <div
                     className={numberClass}
                 >
                     <span>{schedule && lessonStart}</span>
-                    <span>{positionInList}</span>
+                    <span>{thisLesson.time}</span>
                 </div>
                 <div
                     className={contentClass}
                 >
-                    {lesson.subject}
-                    {positionInList === currentLesson && isThisDay && moment().format('YYYY-MM-DD') === date ? (
+                    {thisLesson.subject}
+                    .  ID: {thisLesson.id}
+                    {thisLesson.id === currentLesson ? (
                         <Button
                             type="primary"
                             className={styles.toVideoButton}
-                            onClick={() => handleOpenClassroom(lesson.id)}
+                            onClick={() => handleOpenClassroom(thisLesson.id)}
                         >
                             Live
                         </Button>
