@@ -58,8 +58,7 @@ const DayLessonsList: React.FC<Props> = ({ allLessons, userRole, day, date, curr
     return (
         <div>
             <h1 className={styles.classListHeader}>
-                {(scheduleCalc.getDayFromInt(day))} {moment().format('YYYY-MM-DD') === date ? `(today)` : ``}
-                <h3>{date}</h3>
+                {(scheduleCalc.getDayFromInt(day))} {moment().format('YYYY-MM-DD') === date ? `(today)` : date}
             </h1>
             {date === moment().format('YYYY-MM-DD') ?
                 <h1 className={styles.classListHeader}>Today's lecture ({dayLessons.length})</h1>

@@ -58,12 +58,12 @@ class TimetablePageComponent extends React.Component<Props, State> {
                 <Row>
 
                     {Array(5).fill(now + this.state.move).map((x, y) => x + y).map((item) => (
-                        item == 0 ? item = 5 : null,
+                        item === 0 ? item = 5 : null,
                         item < 0 ? item = 0 - item : null,
                         (item % 5) !== 0 ? null : item = 5,
                         (item % 5) !== 0 ? item = item % 5 : null,
 
-                        < Col xs={{ span: 5, offset: 1 }} lg={{ span: 6, offset: 1 }}>
+                        < Col xs={{ span: 5, offset: 1 }} lg={{ span: 6, offset: 1 }} key={item}>
 
                             < DayLessonsList
                                 userRole={this.props.userRoles}
