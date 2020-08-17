@@ -8,6 +8,7 @@ import { connectContext, SettingsProps } from 'app/context';
 import { PageContent } from 'app/components/layout';
 import { navigationService } from 'app/service/navigation-service';
 import { Button } from 'antd';
+import { lessonsService } from 'app/api/service/lessons-service';
 
 const { Content } = Layout;
 
@@ -27,6 +28,29 @@ type Props = OwnProps & ContextProps;
 
 class HomePageComponent extends React.Component<Props, {}> {
 
+    public readonly getSocketUrlQuiz = (): string => {
+        const loc = window.location;
+
+        return (loc.host === 'localhost:3000') ? 'ws://localhost:8080/ws/lessonQuiz'
+            : 'wss://java-menuo-su-it.northeurope.cloudapp.azure.com/ws/lessonQuiz';
+    };
+
+    public ws = new WebSocket(this.getSocketUrlQuiz());
+
+public componentDidMount() {
+    this.ws.onopen = () => {
+        // tslint:disable-next-line: no-console
+        console.log('connected222');
+    };
+    this.ws.onmessage = e => {
+        const message = JSON.parse(e.data);
+        console.log('Chat page receives ', message.classroom);
+
+    }
+}
+public sendMessage=():void=> {
+    this.ws.send('"Classroom":"6A", "TeacherId":"??", "Question": "Is this legit?", "Options": [{"Id":"1""Name":"2"},{"Id":"1""Name":"2"}]}');
+}
     public render(): React.ReactNode {
         const {
             username,
@@ -52,7 +76,9 @@ class HomePageComponent extends React.Component<Props, {}> {
                 <Content style={{ margin: 'auto', width: '70%' }}>
                     <PageContent>
 
-                        <Button>
+                        <Button
+                        onClick={this.sendMessage}
+                        >
                             "hello"
                         </Button>
                         {videoChatName && (
@@ -101,6 +127,8 @@ class HomePageComponent extends React.Component<Props, {}> {
         navigationService.redirectToDefaultPage();
     };
 }
+
+
 
 const handleCallEnd = (api: any) => {
     api.executeCommand('startRecording', {
