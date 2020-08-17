@@ -30,7 +30,7 @@ interface Message {
     date: string;
     classroom?: string;
     subject?: number;
-    channel?: number;
+    channel?: string;
     userRoles: string[] | null;
 }
 
@@ -41,7 +41,7 @@ interface State {
     lessonId: number | null;
     channels: Api.Subject[];
     classRooms: Api.ClassroomDto[];
-    currentChannel: number | null;
+    currentChannel: string | null;
 }
 
 class ChatComponent extends React.Component<Props, State> {
@@ -66,7 +66,7 @@ class ChatComponent extends React.Component<Props, State> {
         lessonId: null,
         channels: [],
         classRooms: [],
-        currentChannel: 1,
+        currentChannel: '1',
     };
     public static MESSAGE_INITIAL_VALUES: MessageValue = { message: '' };
 

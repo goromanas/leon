@@ -12,7 +12,7 @@ interface Message {
     date: string;
     classroom?: string;
     subject?: number;
-    channel?: number;
+    channel?: string;
 }
 
 interface ContextProps {
@@ -21,7 +21,7 @@ interface ContextProps {
 
 interface OwnProps {
     messages: Message[];
-    currentChannel: number;
+    currentChannel: string;
 }
 type Props = ContextProps & OwnProps;
 
@@ -33,7 +33,7 @@ const ChatListComponent: React.FC<Props> = ({ messages, currentChannel }) => (
           .filter(message => message.channel === currentChannel)
           .map((msg, i) => (
             <CSSTransition key={i} timeout={300} classNames="fade" appear={true}>
-              <Message key={i} text={msg.text} author={msg.author} date={msg.date} channel={msg.channel} />
+              <Message key={i} text={msg.text} author={msg.author} date={msg.date} channel={parseInt(msg.channel)} />
             </CSSTransition>
           ))}
       </TransitionGroup>
