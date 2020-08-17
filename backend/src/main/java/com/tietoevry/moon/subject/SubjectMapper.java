@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class SubjectMapper {
 
-    public static SubjectDto mapUserDto(Subject subject) {
+    public static SubjectDto mapSubjectDto (Subject subject) {
         SubjectDto subjectDto = new SubjectDto();
         subjectDto.setId(subject.getId());
         subjectDto.setDescription(subject.getDescription());
