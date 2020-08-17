@@ -3,6 +3,7 @@ import {
     connectContext,
     INITIAL_SESSION,
     INITIAL_CURRENT_LESSON,
+    INITIAL_SCHEDULE,
     SettingsProps as _SettingsProps,
     Session as _Session,
     CurrentUser as _CurrentUser,
@@ -19,4 +20,5 @@ export {
     connectContext,
     INITIAL_SESSION,
     INITIAL_CURRENT_LESSON,
+    INITIAL_SCHEDULE,
 };

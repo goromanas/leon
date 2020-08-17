@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.util.Date;
+import java.util.TimeZone;
 
 @RestController
 public class SessionController {
@@ -16,6 +20,7 @@ public class SessionController {
 
     @RequestMapping(path = "/session", method = RequestMethod.GET)
     public Session getSession() {
+        System.out.println(LocalTime.now());
         return sessionService.getSession();
     }
 
@@ -25,10 +30,11 @@ public class SessionController {
         HttpServletResponse httpServletResponse,
         @RequestBody LoginData sessionRequest
     ) {
-        return sessionService.createSession(httpServletRequest,httpServletResponse, sessionRequest.getUsername(), sessionRequest.getPassword(),sessionRequest.getRememberMe());
+        return sessionService.createSession(httpServletRequest, httpServletResponse, sessionRequest.getUsername(), sessionRequest.getPassword(), sessionRequest.getRememberMe());
     }
+
     @RequestMapping(path = "/session", method = RequestMethod.DELETE)
-    public void deleteSession(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse) {
-        sessionService.deleteSession(httpServletRequest,httpServletResponse);
+    public void deleteSession(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
+        sessionService.deleteSession(httpServletRequest, httpServletResponse);
     }
 }

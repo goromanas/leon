@@ -20,6 +20,13 @@ class LessonsService {
 
     public readonly getSchedule = (): Promise<Api.ScheduleDto[]> =>
         this.restService.get<Api.ScheduleDto[]>(`${LessonsService.SCHEDULE_PATH}`);
+
+    public readonly getSocketUrl = (): string => {
+        const loc = window.location;
+
+        return (loc.host === 'localhost:3000') ? 'ws://localhost:8080/ws/currentLesson'
+            : 'wss://java-menuo-su-it.northeurope.cloudapp.azure.com/ws/currentLesson';
+    };
 }
 
 const lessonsService = new LessonsService();

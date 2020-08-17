@@ -1,11 +1,12 @@
 import * as React from 'react';
 
-import { Actions, INITIAL_SESSION, INITIAL_CURRENT_LESSON, Session, settingsContext } from 'app/context';
+import { Actions, INITIAL_SESSION, INITIAL_CURRENT_LESSON, INITIAL_SCHEDULE, Session, settingsContext } from 'app/context';
 
 interface State {
     session: Session;
     lessons: Api.Lesson[];
     currentLesson: number;
+    schedule: Api.ScheduleDto[];
 }
 
 class AppStore extends React.Component<{}, State> {
@@ -14,6 +15,7 @@ class AppStore extends React.Component<{}, State> {
         session: INITIAL_SESSION,
         lessons: null,
         currentLesson: INITIAL_CURRENT_LESSON,
+        schedule: INITIAL_SCHEDULE,
     };
 
     public render(): React.ReactNode {
@@ -25,12 +27,18 @@ class AppStore extends React.Component<{}, State> {
             session,
             lessons,
             currentLesson,
+            schedule,
         } = this.state;
 
-        const actions: Actions = { updateSession: this.updateSession, updateLessons: this.updateLessons };
+        const actions: Actions = {
+            updateSession: this.updateSession,
+            updateLessons: this.updateLessons,
+            updateCurrentLesson: this.updateCurrentLesson,
+            updateSchedule: this.updateSchedule,
+        };
 
         return (
-            <settingsContext.Provider value={{ session, lessons, currentLesson, actions }}>
+            <settingsContext.Provider value={{ session, lessons, currentLesson, actions, schedule }}>
                 {children}
             </settingsContext.Provider>
         );
@@ -42,6 +50,14 @@ class AppStore extends React.Component<{}, State> {
 
     private readonly updateLessons = (lessons: Api.Lesson[]): void => {
         this.setState({ lessons });
+    };
+
+    private readonly updateCurrentLesson = (currentLesson: number): void => {
+        this.setState({ currentLesson });
+    };
+
+    private readonly updateSchedule = (schedule: Api.ScheduleDto[]): void => {
+        this.setState({ schedule });
     };
 
 }
