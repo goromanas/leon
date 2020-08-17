@@ -21,7 +21,7 @@ public class SchedulerService {
 
     @Scheduled(fixedDelay = 1000 * 1)
     public void scheduleFixedDelayTask() throws Exception {
-        currentLesson = Integer.toString(scheduleService.currentLessonNumber());
+        currentLesson = Integer.toString(scheduleService.currentLessonNumber(scheduleService.getSchedule()));
         webSocketHandler.handleTextMessage(new TextMessage(currentLesson));
 
     }
