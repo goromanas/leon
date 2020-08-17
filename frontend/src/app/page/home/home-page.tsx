@@ -69,6 +69,7 @@ class HomePageComponent extends React.Component<Props, State> {
                                     date={moment().format('YYYY-MM-DD')}
                                     day={this.state.dayOfWeek}
                                     schedule={schedule}
+                                    homepage={true}
                                 />
                             )}
 

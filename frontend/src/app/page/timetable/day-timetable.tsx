@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactTooltip from 'react-tooltip';
 import classNames from 'classnames';
 import moment from 'moment';
 
@@ -17,9 +16,10 @@ interface Props {
     userRole: string[];
     day: number;
     date: string;
+    homepage?: boolean;
 }
 
-const DayLessonsList: React.FC<Props> = ({ allLessons, userRole, day, date, currentLesson, schedule }) => {
+const DayLessonsList: React.FC<Props> = ({ allLessons, userRole, day, date, currentLesson, schedule, homepage }) => {
 
     // filter this { day } lessons from allLessons
     const dayLessons = allLessons && allLessons.filter((lesson: Api.Lesson) =>
@@ -31,42 +31,32 @@ const DayLessonsList: React.FC<Props> = ({ allLessons, userRole, day, date, curr
     };
 
     const lessonsList = dayLessons.map((item: any) => (
-        <div key={item.id}>
-            <SingleLesson
-                currentLesson={currentLesson}
-                thisLesson={item}
-                handleOpenClassroom={handleOpenClassroom}
-                schedule={schedule[item.time - 1]}
-                userRole={userRole}
-                date={date}
-            />
-            < span
-                data-tip="Break"
-                style={{ height: scheduleCalc.getBreakTime(schedule, item.time) }}
-                className={styles.breakSpan}
-            />
-            <ReactTooltip />
 
-        </div>
+        <SingleLesson
+            key={item.id}
+            currentLesson={currentLesson}
+            thisLesson={item}
+            handleOpenClassroom={handleOpenClassroom}
+            schedule={schedule[item.time - 1]}
+            userRole={userRole}
+            date={date}
+            homepage={homepage}
+        />
     ));
 
-    const listClass = classNames(
-        styles.list,
-        // moment().format('YYYY-MM-DD') !== date && styles.listOtherDay,
-        styles.listOtherDay,
-    );
     return (
-        <div>
-            <h1 className={styles.classListHeader}>
-                {(scheduleCalc.getDayFromInt(day))} {moment().format('YYYY-MM-DD') === date ? `(today)` : date}
+        <div className={styles.day}>
+            <h1 className={styles.dayHeader}>
+                <span>
+                    {(scheduleCalc.getDayFromInt(day).toUpperCase())} {moment().format('MM-DD') === date ? `(TODAY)` : ''}
+                </span>
+                <span>{date}</span>
             </h1>
-            {date === moment().format('YYYY-MM-DD') ?
-                <h1 className={styles.classListHeader}>Today's lecture ({dayLessons.length})</h1>
+            {date === moment().format('MM-DD') && homepage ?
+                <h1 className={styles.dayHeader}>Today's lecture ({dayLessons.length})</h1>
                 : null
             }
-
-            <ul className={listClass}>{lessonsList}</ul>
-
+            <div className={styles.dayLessonsList}>{lessonsList}</div>
         </div>
     );
 };

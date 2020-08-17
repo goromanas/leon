@@ -32,7 +32,7 @@ class ScheduleCalc {
     };
 
     // return breakTime in minutes from schedule times and break position
-    public getBreakTime = (schedule: Api.ScheduleDto[], currentBreak: number): any => {
+    public getBreakTime = (schedule?: Api.ScheduleDto[], currentBreak?: number): any => {
 
         if (schedule.length !== 0) {
             const starts = schedule[currentBreak - 1].endTime;
@@ -42,7 +42,15 @@ class ScheduleCalc {
             const breakEndMinutes = this.convertTimeToMinutes(ends);
 
             return schedule && breakEndMinutes - breakStartMinutes;
-        } else { return 0; }
+        }
+        return 0;
+    };
+
+    public getLessonLength = (schedule: Api.ScheduleDto[]): number => {
+        if (schedule.length !== 0) {
+            return this.convertTimeToMinutes(schedule[1].endTime) - this.convertTimeToMinutes(schedule[1].startTime);
+        }
+        return 0;
     };
 
 }

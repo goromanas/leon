@@ -1,11 +1,15 @@
 import React from 'react';
-import { Button, Col, Row } from 'antd';
+import { Button, Col, Row, Layout } from 'antd';
 import moment from 'moment';
 
+import { PageContent } from 'app/components/layout';
 import { connectContext, SettingsProps } from 'app/context';
 import { DayLessonsList } from 'app/page/timetable/day-timetable';
-
 import styles from 'app/page/timetable/lessons.module.scss';
+
+import { scheduleCalc } from './schedule-calc';
+
+const { Content } = Layout;
 
 interface ContextProps {
     username: string | null;
@@ -41,8 +45,11 @@ class TimetablePageComponent extends React.Component<Props, State> {
         const now = new Date().getDay();
 
         return (
-            <div>
-                <div className={styles.weekButtons}>
+            <Layout>
+                <Content>
+                    <PageContent>
+                        <div className={styles.week}>
+                            {/* <div className={styles.weekButtons}>
                     <Button
                         type="primary"
                         onClick={() => this.handleButtonClick(false)}
@@ -53,31 +60,38 @@ class TimetablePageComponent extends React.Component<Props, State> {
                         onClick={() => this.handleButtonClick(true)}
                     >Next Week
                     </Button>
-                </div>
-                <Row>
+                </div> */}
+                            <h1>Classname Schedule</h1>
+                            <p>Lesson duration: {scheduleCalc.getLessonLength(schedule)}min</p>
+                            {/* <Row> */}
+                            <div className={styles.weekList}>
+                                {Array(5).fill(now + this.state.move).map((x, y) => x + y).map((item) => (
+                                    item === 0 ? item = 5 : null,
+                                    item < 0 ? item = 0 - item : null,
+                                    (item % 5) !== 0 ? null : item = 5,
+                                    (item % 5) !== 0 ? item = item % 5 : null,
 
-                    {Array(5).fill(now + this.state.move).map((x, y) => x + y).map((item) => (
-                        item === 0 ? item = 5 : null,
-                        item < 0 ? item = 0 - item : null,
-                        (item % 5) !== 0 ? null : item = 5,
-                        (item % 5) !== 0 ? item = item % 5 : null,
+                                    // < Col xs={{ span: 5, offset: 1 }} lg={{ span: 3, offset: 1 }} key={item}>
 
-                        < Col xs={{ span: 5, offset: 1 }} lg={{ span: 6, offset: 1 }} key={item}>
+                                    < DayLessonsList
+                                        userRole={this.props.userRoles}
+                                        allLessons={this.filterByDay(allLessons, item) || []}
+                                        currentLesson={this.props.currentLesson}
+                                        day={item}
+                                        date={this.getDate(item, now)}
+                                        schedule={this.props.schedule}
+                                    // title={false}
+                                    />
+                                    // </Col>
+                                ))}
+                            </div>
+                            {/* </Row> */}
 
-                            < DayLessonsList
-                                userRole={this.props.userRoles}
-                                allLessons={this.filterByDay(allLessons, item) || []}
-                                currentLesson={this.props.currentLesson}
-                                day={item}
-                                date={this.getDate(item, now)}
-                                schedule={this.props.schedule}
-                            />
-                        </Col>
-                    ))}
+                        </div >
+                    </PageContent>
+                </Content>
+            </Layout>
 
-                </Row>
-
-            </div >
         );
     }
 
@@ -99,7 +113,8 @@ class TimetablePageComponent extends React.Component<Props, State> {
         } else {
             t = item;
         }
-        const day = moment().add(this.state.move / 5 * 7 - now + t, 'd').format('YYYY-MM-DD');
+        // const day = moment().add(this.state.move / 5 * 7 - now + t, 'd').format('YYYY-MM-DD');
+        const day = moment().add(this.state.move / 5 * 7 - now + t, 'd').format('MM-DD');
 
         return day;
     };

@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,QAAQ,AAAC,CACP,gBAAgB,CAAE,OAAO,CACzB,MAAM,CAAE,IAAI,CACZ,OAAO,CAAE,IAAI,CACd,AAED,AAAA,OAAO,AAAC,CACN,YAAY,CAAE,IAAI,CAClB,WAAW,CAAE,IAAI,CAClB,AAED,AAAA,UAAU,AAAC,CACT,KAAK,CAAE,OAAO,CACd,SAAS,CAAE,KAAK,CACjB,AAED,AAAA,IAAI,CAAC,IAAI,AAAC,CACR,WAAW,CAAE,IAAI,CAClB",
+    "sources": [
+        "../chat-list/chat-list.module.scss"
+    ],
+    "names": [],
+    "file": "chat-list.module.min.css"
+}

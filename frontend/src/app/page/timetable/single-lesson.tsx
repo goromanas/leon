@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { Button, Modal } from 'antd';
 import classNames from 'classnames';
+import ReactTooltip from 'react-tooltip';
 
 import { TeacherModal } from 'app/components/modalContent/teacherModal';
+
+import { scheduleCalc } from './schedule-calc';
 
 import styles from './lessons.module.scss';
 
@@ -13,27 +16,18 @@ interface Props {
     schedule: any | null;
     userRole: string[];
     date: string;
+    homepage?: boolean;
 }
 
-const { listItem, activeLesson, endedLesson, listNumber, listContent } = styles;
+const { lesson, activeLesson, endedLesson, lessonBarContent, lessonBarTime, lessonBar } = styles;
 
 const SingleLesson: React.FC<Props> = (props) => {
-    const { currentLesson, thisLesson, handleOpenClassroom, schedule, userRole, date } = props;
+    const { currentLesson, thisLesson, handleOpenClassroom, schedule, userRole, date, homepage } = props;
     const [modalVisible, setModalVisible] = useState(false);
 
     // define classNames
-    const listClass = classNames(
-        listItem,
-        currentLesson === thisLesson.id && activeLesson,
-        currentLesson > thisLesson.id && endedLesson,
-    );
-    const numberClass = classNames(
-        listNumber,
-        currentLesson === thisLesson.id && activeLesson,
-        currentLesson > thisLesson.id && endedLesson,
-    );
-    const contentClass = classNames(
-        listContent,
+    const lessonClass = classNames(
+        lesson,
         currentLesson === thisLesson.id && activeLesson,
         currentLesson > thisLesson.id && endedLesson,
     );
@@ -56,19 +50,7 @@ const SingleLesson: React.FC<Props> = (props) => {
             {modalButton() ?
                 (
                     <></>
-                    // <Modal
-                    //     key={thisLesson.id}
-                    //     title={thisLesson.subject}
-                    //     visible={modalVisible}
-                    //     onOk={() => handleOk()}
-                    //     onCancel={() => handleOk()}
-                    //     footer={null}
-                    //     okButtonProps={{
-                    //         children: 'Custom OK',
-                    //     }}
-                    // >
-                    //
-                    // </Modal>
+
                 ) :
                 (
                     <Modal
@@ -84,30 +66,39 @@ const SingleLesson: React.FC<Props> = (props) => {
                         <TeacherModal lessonId={thisLesson.id} onClose={handleOk} date={date} />
                     </Modal>
                 )}
-            < li className={listClass} key={thisLesson.id} onClick={() => showModal(thisLesson.id)}>
+            <div className={lessonClass} key={thisLesson.id}>
+                <div onClick={() => showModal(thisLesson.id)} className={lessonBar}>
 
-                <div
-                    className={numberClass}
-                >
-                    <span>{schedule && lessonStart}</span>
-                    <span>{thisLesson.time}</span>
-                </div>
-                <div
-                    className={contentClass}
-                >
-                    {thisLesson.subject}
-                    .  ID: {thisLesson.id}
-                    {thisLesson.id === currentLesson ? (
-                        <Button
-                            type="primary"
-                            className={styles.toVideoButton}
-                            onClick={() => handleOpenClassroom(thisLesson.id)}
+                    {(homepage || thisLesson.day === 1) && (
+                        <div
+                            className={lessonBarTime}
                         >
-                            Live
-                        </Button>
-                    ) : null}
+                            <span>{schedule && lessonStart}</span>
+                            <span>{thisLesson.time}</span>
+                        </div>
+                    )}
+                    <div
+                        className={lessonBarContent}
+                    >
+                        {thisLesson.subject}
+                        {thisLesson.id === currentLesson ? (
+                            <Button
+                                type="primary"
+                                className={styles.toVideoButton}
+                                onClick={() => handleOpenClassroom(thisLesson.id)}
+                            >
+                                Live
+                            </Button>
+                        ) : null}
+                    </div>
                 </div>
-            </li>
+                < span
+                    data-tip="Break"
+                    // style={{ height: scheduleCalc.getBreakTime(schedule, thisLesson.time) }}
+                    className={styles.breakSpan}
+                />
+                <ReactTooltip />
+            </div>
         </ >
 
     );
