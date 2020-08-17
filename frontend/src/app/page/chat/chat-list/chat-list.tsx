@@ -1,40 +1,48 @@
-import React from "react";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
+import React from 'react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { message } from 'antd';
 
-import { Message } from "./message";
-import { connectContext, SettingsProps } from "app/context";
+import { connectContext, SettingsProps } from 'app/context';
+
+import { Message } from './message';
 
 interface Message {
-  text: string;
-  author: string;
-  date: string;
+    text: string;
+    author: string;
+    date: string;
+    classroom?: string;
+    subject?: number;
+    channel?: number;
 }
 
 interface ContextProps {
-  teacherLessons: Api.Lesson[];
+    teacherLessons: Api.Lesson[];
 }
 
 interface OwnProps {
-  messages: Message[];
+    messages: Message[];
+    currentChannel: number;
 }
 type Props = ContextProps & OwnProps;
 
-const ChatListComponent: React.FC<Props> = ({ messages }) => (
+const ChatListComponent: React.FC<Props> = ({ messages, currentChannel }) => (
   <div>
     <ul>
-      <TransitionGroup className="chat-messages" appear>
-        {messages.map((msg, i) => (
-          <CSSTransition key={i} timeout={300} classNames="fade" appear={true}>
-            <Message key={i} text={msg.text} author={msg.author} date={msg.date} />
-          </CSSTransition>
-        ))}
+      <TransitionGroup className="chat-messages" appear={true}>
+        {messages
+          .filter(message => message.channel === currentChannel)
+          .map((msg, i) => (
+            <CSSTransition key={i} timeout={300} classNames="fade" appear={true}>
+              <Message key={i} text={msg.text} author={msg.author} date={msg.date} channel={msg.channel} />
+            </CSSTransition>
+          ))}
       </TransitionGroup>
     </ul>
   </div>
 );
 
 const mapContextToProps = ({ lessons }: SettingsProps): ContextProps => ({
-  teacherLessons: lessons
+    teacherLessons: lessons,
 });
 
 const ChatList = connectContext(mapContextToProps)(ChatListComponent);
