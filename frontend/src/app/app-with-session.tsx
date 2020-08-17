@@ -126,24 +126,19 @@ class AppWithSessionComponent extends React.Component<Props, State> {
     private readonly getCurrentLessonID = (currentLesson: number): number => {
         const date = new Date();
         const currentDay = date.getDay();
-        let currentLessonID: number = 0;
-        let day: Api.Lesson[] | null = null;
-        let pos: number = 0;
 
-        day = this.state.lessons && currentDay !== 0 && currentDay !== 6
-            ? this.state.lessons.filter(lesson => lesson.day && lesson.day === currentDay)
-            : day = this.state.lessons;
-
-        if (currentLesson > 0 && currentDay !== 0 && currentDay !== 6) {
-            pos = currentLesson - 1;
-            currentLessonID = day[pos].id;
+        // console.log(this.state.lessons);
+        if (!this.state.lessons || currentDay === 0 || currentDay === 6) {
+            console.log('none');
+            return 0;
         }
-        // console.log('currentLesson: ' + currentLesson);
-        // console.log('currentDAY: ' + currentDay);
-        // console.log('currentID: ' + currentLessonID);
-        return currentLessonID;
-    };
 
+        return this.state.lessons.find(
+            _lesson =>
+                _lesson.day && _lesson.day === currentDay && _lesson.time == currentLesson,
+        )?.id || 0;
+
+    };
     private readonly createSession = (user: Api.SessionUser): ContextSession => ({ user, authenticated: !!user });
 }
 
