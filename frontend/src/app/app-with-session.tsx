@@ -35,19 +35,30 @@ class AppWithSessionComponent extends React.Component<Props, State> {
         sessionService
             .getSession()
             .then(this.handleResponse)
-            .catch(error => { loggerService.error('Error occurred when getting session information', error); });
+            .catch(error => {
+                loggerService.error('Error occurred when getting session information', error);
+            });
 
-        lessonsService.getTeacherLessons()
+        lessonsService
+            .getTeacherLessons()
             .then(this.handleLessonsResponse)
-            .catch(error => { loggerService.error('Error occurred when getting session information', error); });
+            .catch(error => {
+                loggerService.error('Error occurred when getting session information', error);
+            });
 
-        lessonsService.getStudentLessons()
+        lessonsService
+            .getStudentLessons()
             .then(this.handleLessonsResponse)
-            .catch(error => { loggerService.error('Error occurred when getting session information', error); });
+            .catch(error => {
+                loggerService.error('Error occurred when getting session information', error);
+            });
 
-        lessonsService.getSchedule()
+        lessonsService
+            .getSchedule()
             .then(this.handleScheduleResponse)
-            .catch(error => { loggerService.error('Error occurred when getting session information', error); });
+            .catch(error => {
+                loggerService.error('Error occurred when getting session information', error);
+            });
 
         this.handleSocketResponse();
     }
@@ -71,9 +82,7 @@ class AppWithSessionComponent extends React.Component<Props, State> {
     };
 
     private readonly handleLessonsResponse = (lessons: Api.Lesson[]): void => {
-        const {
-            updateLessons,
-        } = this.props;
+        const { updateLessons } = this.props;
 
         this.setState({ ...this.state, lessons });
         updateLessons(lessons);
@@ -113,7 +122,6 @@ class AppWithSessionComponent extends React.Component<Props, State> {
             console.log('disconnected');
         };
     };
-
     // get currentLessonID from lessons using curent day of week and currentLesson from websocket
     private readonly getCurrentLessonID = (currentLesson: number): number => {
         const date = new Date();
@@ -122,11 +130,10 @@ class AppWithSessionComponent extends React.Component<Props, State> {
         let day: Api.Lesson[] | null = null;
         let pos: number = 0;
 
-        if (this.state.lessons && currentDay !== 0 && currentDay !== 6) {
-            day = this.state.lessons.filter(lesson => lesson.day && lesson.day === currentDay);
-        } else {
-            day = this.state.lessons;
-        }
+        day = this.state.lessons && currentDay !== 0 && currentDay !== 6
+            ? this.state.lessons.filter(lesson => lesson.day && lesson.day === currentDay)
+            : day = this.state.lessons;
+
         if (currentLesson > 0 && currentDay !== 0 && currentDay !== 6) {
             pos = currentLesson - 1;
             currentLessonID = day[pos].id;
@@ -141,7 +148,8 @@ class AppWithSessionComponent extends React.Component<Props, State> {
 }
 
 const mapContextToProps = ({
-    actions: { updateSession, updateLessons, updateCurrentLesson, updateSchedule } }: SettingsProps): ContextProps => ({
+    actions: { updateSession, updateLessons, updateCurrentLesson, updateSchedule } }: SettingsProps)
+    : ContextProps => ({
         updateSession,
         updateLessons,
         updateCurrentLesson,

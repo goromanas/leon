@@ -20,4 +20,5 @@ public class SubjectController {
     public List<Subject> getAllSubjects() {
         return subjectService.getAllSubjects();
     }
+
 }
