@@ -5,9 +5,12 @@ import com.tietoevry.moon.session.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
@@ -30,31 +33,17 @@ public class ScheduleService {
             .collect(Collectors.toList());
     }
 
-    public int currentLessonNumber() {
+    public int currentLessonNumber(List<ScheduleDto> schedule) {
 
-        String strDateFormat = "HH:mm:ss";
-        List<ScheduleDto> schedule = getSchedule();
-
-        DateFormat timeFormat = new SimpleDateFormat(strDateFormat);
-        Date dateTenMinutesBack = new Date(System.currentTimeMillis() + 60 * 1000 * 10);
-        Date date = new Date();
-
-        for (ScheduleDto item: schedule) {
-            try {
-                java.sql.Time startTimeValue = new java.sql.Time(timeFormat.parse(item.startTime).getTime());
-                java.sql.Time endTimeValue = new java.sql.Time(timeFormat.parse(item.endTime).getTime());
-                String currentTimeValueForParseTenMinutesBack = timeFormat.format(dateTenMinutesBack);
-                String currentTimeValueForParse = timeFormat.format(date);
-                java.sql.Time currentTimeValueTenMinutesBack = new java.sql.Time(timeFormat.parse(currentTimeValueForParseTenMinutesBack).getTime());
-                java.sql.Time currentTimeValue = new java.sql.Time(timeFormat.parse(currentTimeValueForParse).getTime());
-
-                if (currentTimeValueTenMinutesBack.after(startTimeValue) && currentTimeValue.before(endTimeValue)) {
-                    return Math.toIntExact(item.id);
-               }
-            } catch (ParseException e) {
-                e.printStackTrace();
+        LocalTime currentTime = LocalTime.now();
+        for (ScheduleDto item : schedule) {
+            LocalTime startTimeValue = LocalTime.parse(item.startTime).minus(10, ChronoUnit.MINUTES);
+            LocalTime endTimeValue = LocalTime.parse(item.endTime);
+            if (currentTime.isAfter(startTimeValue) && currentTime.isBefore(endTimeValue)) {
+                return Math.toIntExact(item.id);
             }
-        };
+        }
+
 
         return 0;
     }

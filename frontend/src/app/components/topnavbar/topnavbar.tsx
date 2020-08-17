@@ -1,11 +1,7 @@
 import React from 'react';
 import { Avatar, Button, Layout, Menu } from 'antd';
 import {
-    BookOutlined,
-    CalendarOutlined,
     CodeSandboxOutlined,
-    FormOutlined,
-    TrophyOutlined,
     VideoCameraOutlined,
 } from '@ant-design/icons';
 
@@ -13,7 +9,6 @@ import { navigationService } from 'app/service/navigation-service';
 import { connectContext, SettingsProps } from 'app/context';
 import { Clock } from 'app/components/clock/clock';
 
-// import { Lessons } from 'app/page/home/timetable/day-lessons-list/lessons';
 import styles from './topnavbar.module.scss';
 
 const { SubMenu } = Menu;
@@ -26,6 +21,7 @@ interface ContextProps {
     teacherLessons: Api.Lesson[];
     username: string | null;
     userRoles: string[] | null;
+    currentLesson: number;
 }
 
 type Props = OwnProps & ContextProps;
@@ -35,69 +31,62 @@ class TopNavBarComponent extends React.Component<Props> {
     public render(): React.ReactNode {
 
         const {
-            teacherLessons,
+            currentLesson,
+            username,
         } = this.props;
-
-        const currentLesson = teacherLessons && teacherLessons.filter((lesson) => lesson.status === 1);
-
-        let lessonId: number;
-
-        if (currentLesson != null) {
-            if (currentLesson.length > 0) {
-                lessonId = currentLesson && parseInt(currentLesson[0].id.toString(), 10);
-            }
-        }
 
         return (
             <Header>
 
                 <Menu theme="dark" mode="horizontal">
-                    <Menu.Item key="home" onClick={() => this.handleClickToDefaultPage()}>
+                    <Menu.Item key="logo" onClick={() => this.handleClickToDefaultPage()}>
                         <CodeSandboxOutlined style={{ fontSize: '30px', color: 'blue' }} />
                     </Menu.Item>
-
-                    <Menu.Item key="timetable"
-                               onClick={this.handleClickToCalendarPage} icon={<CalendarOutlined/>}>
-                        Timetable
+                    <Menu.Item
+                        key="home"
+                        onClick={this.handleClickToDefaultPage}
+                        style={{ fontWeight: 'bold' }}
+                    >
+                        Home
                     </Menu.Item>
-                    {/*<Menu.Item key="material"*/}
-                    {/*           icon={<BookOutlined/>}>*/}
-                    {/*    Pamokų medžiaga*/}
-                    {/*</Menu.Item>*/}
-                    {/*<Menu.Item key="achievements" icon={<TrophyOutlined/>}>*/}
-                    {/*    Pasiekimai*/}
-                    {/*</Menu.Item>*/}
-                    <Menu.Item key="forum"
-                               onClick={this.handleOpenChatRoom}
-                               icon={<FormOutlined/>}>
+                    <Menu.Item
+                        key="timetable"
+                        onClick={this.handleClickToCalendarPage}
+                    >
+                        Schedule
+                    </Menu.Item>
+                    <Menu.Item
+                        key="forum"
+                        onClick={this.handleOpenChatRoom}
+                    >
                         Chat
                     </Menu.Item>
 
                     <SubMenu
-                        icon={<Avatar size="large">{this.props.username}</Avatar>}
+                        icon={<Avatar size="large">{username}</Avatar>}
                         style={{ color: 'grey', float: 'right' }}
                     >
 
                         <Menu.ItemGroup>
                             <Menu.Item key="logout" style={{ margin: 'auto' }}>
                                 <Button type="primary" onClick={this.handleClickLogout}>
-                                    Atsijungti
+                                    Log out
                                 </Button>
                             </Menu.Item>
                         </Menu.ItemGroup>
 
                     </SubMenu>
-                    {/* <Menu.Item style={{display: 'block', float: 'right'}}>
+                    <Menu.Item style={{ display: 'block', float: 'right' }}>
                         <Button
-                            disabled={!lessonId ? true : false}
+                            disabled={currentLesson === 0 ? true : false}
                             type="primary"
 
-                            icon={<VideoCameraOutlined/>}
-                            onClick={() => this.handleOpenClassroom(lessonId)}
+                            icon={<VideoCameraOutlined />}
+                            onClick={() => this.handleOpenClassroom(currentLesson)}
                         >
-                            Current lesson
+                            Join a Class
                         </Button>
-                    </Menu.Item> */}
+                    </Menu.Item>
                     <Menu.Item className={styles.modifiedItem}>
                         <Clock />
                     </Menu.Item>
@@ -131,10 +120,11 @@ class TopNavBarComponent extends React.Component<Props> {
     };
 }
 
-const mapContextToProps = ({ session: { user }, lessons }: SettingsProps): ContextProps => ({
+const mapContextToProps = ({ session: { user }, lessons, currentLesson }: SettingsProps): ContextProps => ({
     teacherLessons: lessons,
     username: user != null ? user.username : null,
     userRoles: user.roles,
+    currentLesson,
 });
 
 const TopNavBar = connectContext(mapContextToProps)(TopNavBarComponent);
