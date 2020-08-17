@@ -12,11 +12,11 @@ class LessonsService {
         this.restService = cancelSource.service;
     }
 
-    public readonly getTeacherLessons = (): Promise<Api.Lesson[]> =>
-        this.restService.get<Api.Lesson[]>(`${LessonsService.TEACHER_LESSON_PATH}`);
+    public readonly getTeacherLessons = (): Promise<Api.LessonDto[]> =>
+        this.restService.get<Api.LessonDto[]>(`${LessonsService.TEACHER_LESSON_PATH}`);
 
-    public readonly getStudentLessons = (): Promise<Api.Lesson[]> =>
-        this.restService.get<Api.Lesson[]>(`${LessonsService.STUDENT_LESSON_PATH}`);
+    public readonly getStudentLessons = (): Promise<Api.LessonDto[]> =>
+        this.restService.get<Api.LessonDto[]>(`${LessonsService.STUDENT_LESSON_PATH}`);
 
     public readonly getSchedule = (): Promise<Api.ScheduleDto[]> =>
         this.restService.get<Api.ScheduleDto[]>(`${LessonsService.SCHEDULE_PATH}`);

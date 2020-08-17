@@ -16,7 +16,7 @@ const { Content } = Layout;
 
 interface ContextProps {
     username: string | null;
-    teacherLessons: Api.Lesson[];
+    teacherLessons: Api.LessonDto[];
 }
 
 interface OwnProps {}
