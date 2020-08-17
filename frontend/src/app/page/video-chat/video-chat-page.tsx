@@ -3,14 +3,18 @@ import { RouteComponentProps } from 'react-router';
 
 import { Layout, Button } from 'antd';
 import Sider from "antd/lib/layout/Sider";
+import { TeamOutlined, MessageOutlined } from "@ant-design/icons";
 import Jitsi from 'react-jitsi';
 
 import { connectContext, SettingsProps } from 'app/context';
 import { PageContent } from 'app/components/layout';
 import { navigationService } from 'app/service/navigation-service';
 
+import {Wand} from "./wand"
+
 import {Top} from './top/top'
-import { start } from 'repl';
+
+import styles from './video-chat-page.module.scss'
 
 const { Content } = Layout;
 
@@ -61,13 +65,17 @@ class HomePageComponent extends React.Component<Props, {}> {
         if (currentLessonTimeObj) {
             lessonTitle = currentLesson[0].className + ' ' + currentLesson[0].subject;
             startTime = currentLessonTimeObj.startTime
-            console.log(startTime)
             endTime = currentLessonTimeObj.endTime
         }
+
         return (
-            <Layout>
-                <Sider>
-                    <Button type='primary'>Whiteboard</Button>
+            <Layout >
+                <Sider className={styles.sider} >
+                    <div>
+                        <Button type='primary'><TeamOutlined />Participants</Button>
+                        <Button type='primary'><MessageOutlined /> Question Form</Button>
+                        <Button type='primary'><span className={styles.wandI}><Wand /></span> Whiteboard</Button>
+                    </div>
                 </Sider>
                 <Content style={{ margin: 'auto', width: '70%' }}>
                     <PageContent>
@@ -76,20 +84,11 @@ class HomePageComponent extends React.Component<Props, {}> {
                              startTime={startTime}
                              endTime={endTime}
                         />
-                        {/*<div>*/}
-                        {/*    <div>*/}
-                        {/*        <h1>*/}
-                        {/*            /!*{currentLesson && currentLesson[0].className} {currentLesson && currentLesson[0].subject}*!/*/}
-                        {/*        </h1>*/}
-                        {/*        {currentLesson && currentLesson[0].teacher}*/}
-                        {/*    </div>*/}
-                        {/*    <div><ClockCircleOutlined />Time left: 00:20</div>*/}
-                        {/*</div>*/}
+
                         {videoChatName && (
                             <Jitsi
 
-                                frameStyle={{ display: 'block', width: '150%', height: '150%' }}
-
+                                frameStyle={{ display: 'block', width: '1200px', height: '150%' }}
                                 jwt="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250ZXh0Ijp7InVzZXIiOnsiYXZhdGFyIjoiaHR0cHM6Ly9hdmF0YXJzLmRpY2ViZWFyLmNvbS9hcGkvbWFsZS9tZW51by1zdS1pdC5zdmciLCJuYW1lIjoiTcSXbnVvIHN1IElUIn19LCJhdWQiOiJtZW51b19zdV9pdCIsImlzcyI6Im1lbnVvX3N1X2l0Iiwic3ViIjoibWVldC5qaXRzaSIsInJvb20iOiIqIn0.6CKZU_JWLhtj9eKJ-VdFGQZyRzvTZz29fn7--_dp-jw"
                                 roomName={videoChatName}
                                 domain="video-menuo-su-it.northeurope.cloudapp.azure.com:443"
