@@ -1,19 +1,25 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
 
-import { Layout } from 'antd';
+import { Layout, Button } from 'antd';
+import { ClockCircleOutlined } from '@ant-design/icons';
+import Sider from "antd/lib/layout/Sider";
 import Jitsi from 'react-jitsi';
 
 import { connectContext, SettingsProps } from 'app/context';
 import { PageContent } from 'app/components/layout';
 import { navigationService } from 'app/service/navigation-service';
 
+import {Top} from './top/top'
+
 const { Content } = Layout;
 
 interface ContextProps {
     username: string | null;
+    firstName: string | null;
     teacherLessons: Api.Lesson[];
     userRoles: string[] | null;
+    schedule: Api.ScheduleDto[];
 }
 
 type OwnProps = RouteComponentProps<Params>;
@@ -29,8 +35,10 @@ class HomePageComponent extends React.Component<Props, {}> {
     public render(): React.ReactNode {
         const {
             username,
+            firstName,
             teacherLessons,
             userRoles,
+            schedule,
             match: {
                 params: { id },
             },
@@ -45,11 +53,33 @@ class HomePageComponent extends React.Component<Props, {}> {
             navigationService.redirectToDefaultPage();
         }
         const videoChatName: string = currentLesson && currentLesson[0].video.toString();
-
+        // console.log(firstName)
+        // console.log(teacherLessons)
+        // console.log(currentLesson && currentLesson[0].subject)
+        // console.log(currentLesson && currentLesson[0].className)
+        // const startTime
+        // console.log(currentLesson && schedule && schedule[currentLesson[0].time-1].startTime)
+        console.log(currentLesson)
+        console.log(currentLesson[0].className)
+        console.log(currentLesson[0].classroom)
+        const lessonTitle = currentLesson && currentLesson[0].className + ' ' + currentLesson && currentLesson[0].subject
         return (
             <Layout>
+                <Sider>
+                    <Button type='primary'>Whiteboard</Button>
+                </Sider>
                 <Content style={{ margin: 'auto', width: '70%' }}>
                     <PageContent>
+                        {/*<Top lessonTitle={lessonTitle} />*/}
+                        <div>
+                            <div>
+                                <h1>
+                                    {currentLesson && currentLesson[0].className} {currentLesson && currentLesson[0].subject}
+                                </h1>
+                                {currentLesson && currentLesson[0].teacher}
+                            </div>
+                            <div><ClockCircleOutlined />Time left: 00:20</div>
+                        </div>
                         {videoChatName && (
                             <Jitsi
 
@@ -108,11 +138,13 @@ const handleCallEnd = (api: any) => {
     });
 };
 
-const mapContextToProps = ({ session: { user }, lessons }: SettingsProps): ContextProps => ({
+const mapContextToProps = ({ session: { user }, lessons, schedule }: SettingsProps): ContextProps => ({
     username: user != null ? user.username : null,
+    firstName: user != null ? user.firstName : null,
     userRoles: user.roles,
     teacherLessons: lessons,
     // studentLessons: lessons,
+    schedule,
 });
 
 const VideoChatPage = connectContext(mapContextToProps)(HomePageComponent);

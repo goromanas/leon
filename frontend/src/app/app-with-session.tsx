@@ -124,8 +124,8 @@ class AppWithSessionComponent extends React.Component<Props, State> {
 
     const day = this.state.lessons && currentDay !== 0 && currentDay !== 6 ? this.state.lessons.filter(lesson => lesson.day && lesson.day === currentDay) : 0;
 
-    return 0;
-    // return day !== 0 ? day[currentLesson - 1].id : 0;
+    // return 0;
+    return day !== 0 ? day[currentLesson - 1].id : 0;
   };
 
   private readonly createSession = (user: Api.SessionUser): ContextSession => ({ user, authenticated: !!user });
