@@ -129,7 +129,6 @@ class AppWithSessionComponent extends React.Component<Props, State> {
 
         // console.log(this.state.lessons);
         if (!this.state.lessons || currentDay === 0 || currentDay === 6) {
-            console.log('none');
             return 0;
         }
 
