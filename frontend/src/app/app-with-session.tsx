@@ -102,7 +102,11 @@ class AppWithSessionComponent extends React.Component<Props, State> {
             const currentLesson = evt.data;
             // set first property to currentLesson to get currentLessonID of this day.
 
-            updateCurrentLesson(this.getCurrentLessonID(currentLesson));
+            if (currentLesson === 0) {
+                updateCurrentLesson(this.getCurrentLessonID(0));
+            } else {
+                updateCurrentLesson(this.getCurrentLessonID(currentLesson));
+            }
         };
         ws.onclose = () => {
             // tslint:disable-next-line: no-console
@@ -114,12 +118,23 @@ class AppWithSessionComponent extends React.Component<Props, State> {
     private readonly getCurrentLessonID = (currentLesson: number): number => {
         const date = new Date();
         const currentDay = date.getDay();
+        let currentLessonID: number = 0;
+        let day: Api.Lesson[] | null = null;
+        let pos: number = 0;
 
-        const day = (this.state.lessons && currentDay !== 0 && currentDay !== 6)
-            ? this.state.lessons.filter(lesson => lesson.day && lesson.day === currentDay)
-            : 0;
-
-        return day !== 0 ? day[currentLesson - 1].id : 0;
+        if (this.state.lessons && currentDay !== 0 && currentDay !== 6) {
+            day = this.state.lessons.filter(lesson => lesson.day && lesson.day === currentDay);
+        } else {
+            day = this.state.lessons;
+        }
+        if (currentLesson > 0 && currentDay !== 0 && currentDay !== 6) {
+            pos = currentLesson - 1;
+            currentLessonID = day[pos].id;
+        }
+        // console.log('currentLesson: ' + currentLesson);
+        // console.log('currentDAY: ' + currentDay);
+        // console.log('currentID: ' + currentLessonID);
+        return currentLessonID;
     };
 
     private readonly createSession = (user: Api.SessionUser): ContextSession => ({ user, authenticated: !!user });
