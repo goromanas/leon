@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { Layout } from "antd";
-import { FormikHelpers } from "formik";
-import Sider from "antd/lib/layout/Sider";
+import React, { useState } from 'react';
+import { Layout } from 'antd';
+import { FormikHelpers } from 'formik';
+import Sider from 'antd/lib/layout/Sider';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
-import { PageContent } from "app/components/layout";
-import { connectContext, SettingsProps } from "app/context";
-import { chatService } from "app/api/service/chat-service";
+import { PageContent } from 'app/components/layout';
+import { connectContext, SettingsProps } from 'app/context';
+import { chatService } from 'app/api/service/chat-service';
 
-import { ChatForm, MessageValue } from "./form/chat-form";
-import { ChatList } from "./chat-list/chat-list";
-import { Channels } from "./channels";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
+import { ChatForm, MessageValue } from './form/chat-form';
+import { ChatList } from './chat-list/chat-list';
+import { Channels } from './channels';
 
 const { Content } = Layout;
 
@@ -30,8 +30,7 @@ interface Message {
     date: string;
     classroom?: string;
     subject?: number;
-    channel?: string;
-    userRoles: string[] | null;
+    channel?: number;
 }
 
 interface State {
@@ -41,7 +40,7 @@ interface State {
     lessonId: number | null;
     channels: Api.Subject[];
     classRooms: Api.ClassroomDto[];
-    currentChannel: string | null;
+    currentChannel: number | null;
 }
 
 class ChatComponent extends React.Component<Props, State> {
@@ -66,7 +65,7 @@ class ChatComponent extends React.Component<Props, State> {
         lessonId: null,
         channels: [],
         classRooms: [],
-        currentChannel: '1',
+        currentChannel: 1,
     };
     public static MESSAGE_INITIAL_VALUES: MessageValue = { message: '' };
 
@@ -177,7 +176,7 @@ class ChatComponent extends React.Component<Props, State> {
 
     private readonly handleSubmit = (values: MessageValue, { resetForm }: FormikHelpers<MessageValue>): void => {
         const { messages, currentChannel } = this.state;
-        const { teacherLessons } = this.props;
+        const { teacherLessons, userRoles } = this.props;
         const time = new Date();
         const hours = time.getHours().toString();
         const minutes = time.getMinutes().toString();
@@ -192,7 +191,11 @@ class ChatComponent extends React.Component<Props, State> {
     // console.log(values.message, messages[0].channel);
         if (values.message.trim() !== '') {
             this.setState({
-                messages: [...messages, { text: values.message, author: this.props.username, date: hours + ':' + minutes, channel: currentChannel }],
+                messages: [{
+                     text: values.message,
+                     author: this.props.username,
+                     date: hours + ':' + minutes,
+                     channel: currentChannel, }],
                 className,
             });
             this.sendMessage({
