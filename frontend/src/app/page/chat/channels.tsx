@@ -1,23 +1,24 @@
-import React from "react";
-import { Menu } from "antd";
-import SubMenu from "antd/lib/menu/SubMenu";
+import React from 'react';
+import { Menu } from 'antd';
+import SubMenu from 'antd/lib/menu/SubMenu';
 
 interface Props {
-  channels: Api.Subject[];
-  currentChannel: number;
-  onChannelChange: any;
-  classRooms: Api.ClassroomDto[];
+    channels: Api.Subject[];
+    currentChannel: number;
+    onChannelChange: any;
+    classRooms: Api.ClassroomDto[];
 }
 
 class Channels extends React.Component<Props> {
-  public componentDidMount() {
+    public componentDidMount() {
     // const { currentChannel } = this.state;
-  }
+    }
 
-  public render(): React.ReactNode {
-    const { channels, currentChannel, onChannelChange, classRooms } = this.props;
-    return (
-      <Menu defaultSelectedKeys={["1"]} defaultOpenKeys={["sub1"]} mode="inline">
+    public render(): React.ReactNode {
+        const { channels, currentChannel, onChannelChange, classRooms } = this.props;
+
+        return (
+      <Menu defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']} mode="inline">
         <SubMenu key="sub1" title="Channels">
           {this.props.channels &&
             this.props.channels.map(channel => (
@@ -33,8 +34,8 @@ class Channels extends React.Component<Props> {
             ))}
         </SubMenu>
       </Menu>
-    );
-  }
+      );
+    }
 }
 
 export { Channels };

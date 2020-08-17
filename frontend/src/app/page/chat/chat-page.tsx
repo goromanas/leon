@@ -1,15 +1,8 @@
-<<<<<<< HEAD
-import React from "react";
-import { Layout } from "antd";
-import { FormikHelpers } from "formik";
-import Sider from "antd/lib/layout/Sider";
-=======
 import React, { useState } from 'react';
 import { Layout } from 'antd';
 import { FormikHelpers } from 'formik';
 import Sider from 'antd/lib/layout/Sider';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
->>>>>>> chat-be
 
 import { PageContent } from 'app/components/layout';
 import { connectContext, SettingsProps } from 'app/context';
@@ -199,10 +192,10 @@ class ChatComponent extends React.Component<Props, State> {
         if (values.message.trim() !== '') {
             this.setState({
                 messages: [{
-                     text: values.message,
-                     author: this.props.username,
-                     date: hours + ':' + minutes,
-                     channel: currentChannel, }],
+                    text: values.message,
+                    author: this.props.username,
+                    date: hours + ':' + minutes,
+                    channel: currentChannel }],
                 className,
             });
             this.sendMessage({
