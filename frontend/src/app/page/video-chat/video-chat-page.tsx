@@ -7,6 +7,7 @@ import Jitsi from 'react-jitsi';
 import { connectContext, SettingsProps } from 'app/context';
 import { PageContent } from 'app/components/layout';
 import { navigationService } from 'app/service/navigation-service';
+import { Button } from 'antd';
 
 const { Content } = Layout;
 
@@ -50,6 +51,10 @@ class HomePageComponent extends React.Component<Props, {}> {
             <Layout>
                 <Content style={{ margin: 'auto', width: '70%' }}>
                     <PageContent>
+
+                        <Button>
+                            "hello"
+                        </Button>
                         {videoChatName && (
                             <Jitsi
 
