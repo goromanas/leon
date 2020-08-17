@@ -23,7 +23,7 @@ interface OwnProps {
 }
 
 interface ContextProps {
-    teacherLessons: Api.Lesson[];
+    teacherLessons: Api.LessonDto[];
     username: string | null;
     userRoles: string[] | null;
 }

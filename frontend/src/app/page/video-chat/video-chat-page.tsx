@@ -2,7 +2,6 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router';
 
 import { Layout, Button } from 'antd';
-import { ClockCircleOutlined } from '@ant-design/icons';
 import Sider from "antd/lib/layout/Sider";
 import Jitsi from 'react-jitsi';
 
@@ -11,13 +10,14 @@ import { PageContent } from 'app/components/layout';
 import { navigationService } from 'app/service/navigation-service';
 
 import {Top} from './top/top'
+import { start } from 'repl';
 
 const { Content } = Layout;
 
 interface ContextProps {
     username: string | null;
     firstName: string | null;
-    teacherLessons: Api.Lesson[];
+    teacherLessons: Api.LessonDto[];
     userRoles: string[] | null;
     schedule: Api.ScheduleDto[];
 }
@@ -53,16 +53,17 @@ class HomePageComponent extends React.Component<Props, {}> {
             navigationService.redirectToDefaultPage();
         }
         const videoChatName: string = currentLesson && currentLesson[0].video.toString();
-        // console.log(firstName)
-        // console.log(teacherLessons)
-        // console.log(currentLesson && currentLesson[0].subject)
-        // console.log(currentLesson && currentLesson[0].className)
-        // const startTime
-        // console.log(currentLesson && schedule && schedule[currentLesson[0].time-1].startTime)
-        // console.log(currentLesson)
-        // console.log(currentLesson[0].className)
-        // console.log(currentLesson[0].classroom)
-        // const lessonTitle = currentLesson && currentLesson[0].className + ' ' + currentLesson && currentLesson[0].subject
+        const currentLessonTimeObj = currentLesson && schedule[currentLesson[0].time-1];
+
+        let lessonTitle: string;
+        let startTime: string;
+        let endTime: string;
+        if (currentLessonTimeObj) {
+            lessonTitle = currentLesson[0].className + ' ' + currentLesson[0].subject;
+            startTime = currentLessonTimeObj.startTime
+            console.log(startTime)
+            endTime = currentLessonTimeObj.endTime
+        }
         return (
             <Layout>
                 <Sider>
@@ -70,16 +71,20 @@ class HomePageComponent extends React.Component<Props, {}> {
                 </Sider>
                 <Content style={{ margin: 'auto', width: '70%' }}>
                     <PageContent>
-                        {/*<Top lessonTitle={lessonTitle} />*/}
-                        <div>
-                            <div>
-                                <h1>
-                                    {/*{currentLesson && currentLesson[0].className} {currentLesson && currentLesson[0].subject}*/}
-                                </h1>
-                                {currentLesson && currentLesson[0].teacher}
-                            </div>
-                            <div><ClockCircleOutlined />Time left: 00:20</div>
-                        </div>
+                        <Top lessonTitle={lessonTitle}
+                             teacher={currentLesson && currentLesson[0].teacher}
+                             startTime={startTime}
+                             endTime={endTime}
+                        />
+                        {/*<div>*/}
+                        {/*    <div>*/}
+                        {/*        <h1>*/}
+                        {/*            /!*{currentLesson && currentLesson[0].className} {currentLesson && currentLesson[0].subject}*!/*/}
+                        {/*        </h1>*/}
+                        {/*        {currentLesson && currentLesson[0].teacher}*/}
+                        {/*    </div>*/}
+                        {/*    <div><ClockCircleOutlined />Time left: 00:20</div>*/}
+                        {/*</div>*/}
                         {videoChatName && (
                             <Jitsi
 
