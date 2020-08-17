@@ -53,7 +53,6 @@ class TimetablePageComponent extends React.Component<Props, State> {
                         onClick={() => this.handleButtonClick(true)}
                     >Next Week
                     </Button>
-                    current lesson ID: {currentLesson}
                 </div>
                 <Row>
 
@@ -75,6 +74,7 @@ class TimetablePageComponent extends React.Component<Props, State> {
                             />
                         </Col>
                     ))}
+
                 </Row>
 
             </div >

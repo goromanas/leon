@@ -54,7 +54,8 @@ class HomePageComponent extends React.Component<Props, State> {
                 <Content>
                     <PageContent>
                         <div className={styles.welcomeHeader}>
-                            Welcome back, {this.props.firstName}, current-lesson ID: {currentLesson}
+                            Welcome back, {this.props.firstName},
+                            {currentLesson}
                         </div>
                         {userRoles.includes('ADMIN') ? (
                             <Button type="primary" onClick={this.handleClickToUserList}>
@@ -72,7 +73,6 @@ class HomePageComponent extends React.Component<Props, State> {
                             )}
 
                     </PageContent>
-                    <h1> homepage currentLesson {currentLesson}</h1>
                 </Content>
             </Layout>
         );

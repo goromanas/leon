@@ -59,10 +59,10 @@ class HomePageComponent extends React.Component<Props, {}> {
         // console.log(currentLesson && currentLesson[0].className)
         // const startTime
         // console.log(currentLesson && schedule && schedule[currentLesson[0].time-1].startTime)
-        console.log(currentLesson)
-        console.log(currentLesson[0].className)
-        console.log(currentLesson[0].classroom)
-        const lessonTitle = currentLesson && currentLesson[0].className + ' ' + currentLesson && currentLesson[0].subject
+        // console.log(currentLesson)
+        // console.log(currentLesson[0].className)
+        // console.log(currentLesson[0].classroom)
+        // const lessonTitle = currentLesson && currentLesson[0].className + ' ' + currentLesson && currentLesson[0].subject
         return (
             <Layout>
                 <Sider>
@@ -74,7 +74,7 @@ class HomePageComponent extends React.Component<Props, {}> {
                         <div>
                             <div>
                                 <h1>
-                                    {currentLesson && currentLesson[0].className} {currentLesson && currentLesson[0].subject}
+                                    {/*{currentLesson && currentLesson[0].className} {currentLesson && currentLesson[0].subject}*/}
                                 </h1>
                                 {currentLesson && currentLesson[0].teacher}
                             </div>

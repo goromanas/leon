@@ -26,7 +26,7 @@ const INITIAL_SESSION: Session = {
     user: null,
     authenticated: false,
 };
-const INITIAL_CURRENT_LESSON: number = 4;
+const INITIAL_CURRENT_LESSON: number = 0;
 
 const INITIAL_LESSONS: Api.Lesson[] = [];
 
