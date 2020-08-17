@@ -11,7 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@PreAuthorize("hasRole('ROLE_ADMIN')")
+//@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class ClassroomController {
     @Autowired
     private ClassroomService classroomService;
@@ -44,4 +44,8 @@ public class ClassroomController {
         classroomService.deleteClassroom(id);
     }
 
+    @RequestMapping(path = "/classroomByTeacher", method = RequestMethod.GET)
+    public List<ClassroomDto> getClassroomByTeacher() {
+        return classroomService.getClassroomByTeacher();
+    }
 }

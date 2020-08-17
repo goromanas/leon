@@ -210,6 +210,39 @@
         "deprecated": false
       }
     },
+    "/classroomByTeacher": {
+      "get": {
+        "tags": [
+          "classroom-controller"
+        ],
+        "summary": "getClassroomByTeacher",
+        "operationId": "getClassroomByTeacherUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ClassroomDto"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
     "/lessonInformation": {
       "post": {
         "tags": [
@@ -407,6 +440,39 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/LessonDto"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/subjectByStudent": {
+      "get": {
+        "tags": [
+          "subject-controller"
+        ],
+        "summary": "getSubjectByStudent",
+        "operationId": "getSubjectByStudentUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SubjectDto"
               }
             }
           },
@@ -932,6 +998,22 @@
         }
       },
       "title": "Subject"
+    },
+    "SubjectDto": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "SubjectDto"
     },
     "User": {
       "type": "object",

@@ -2,6 +2,7 @@ package com.tietoevry.moon.subject;
 
 
 import com.tietoevry.moon.subject.model.Subject;
+import com.tietoevry.moon.subject.model.dto.SubjectDto;
 import com.tietoevry.moon.user.model.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,11 @@ public class SubjectController {
     @RequestMapping(path = "/allSubjects", method = RequestMethod.GET)
     public List<Subject> getAllSubjects() {
         return subjectService.getAllSubjects();
+    }
+
+    @RequestMapping(path = "/subjectByStudent", method = RequestMethod.GET)
+    public List<SubjectDto> getSubjectByStudent() {
+        return subjectService.getSubjectByStudent();
     }
 
 }
