@@ -7,7 +7,7 @@ import { connectContext, SettingsProps } from "app/context";
 
 import { ChatForm, MessageValue } from "./form/chat-form";
 import { ChatList } from "./chat-list/chat-list";
-import { Channels } from "./channels";
+
 
 const { Content } = Layout;
 

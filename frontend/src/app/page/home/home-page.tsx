@@ -10,7 +10,7 @@ import { DayLessonsList } from 'app/page/home/timetable/day-lessons-list/day-les
 
 import styles from './home.module.scss';
 
-const { Content } = Layout;
+const {Content} = Layout;
 
 interface ContextProps {
     username: string | null;
@@ -22,6 +22,7 @@ interface ContextProps {
 }
 
 type Props = ContextProps;
+
 interface State {
     move: number;
 }
@@ -39,8 +40,6 @@ class HomePageComponent extends React.Component<Props, State> {
             teacherLessons,
             currentLesson,
         } = this.props;
-        // const date = new Date();
-        // const day = date.getDay();
 
         return (
             <Layout>
@@ -54,9 +53,11 @@ class HomePageComponent extends React.Component<Props, State> {
                                 To user list
                             </Button>
                         ) : (
-                                <DayLessonsList userRole={this.props.userRoles} lessonsList={teacherLessons || []} date={moment().format('YYYY-MM-DD')} />
-                                // <Lessons userRole={this.props.userRoles} lessonsList={teacherLessons || []} currentLesson={currentLesson} />
-                            )}
+                            <DayLessonsList
+                                userRole={this.props.userRoles}
+                                lessonsList={teacherLessons || []}
+                                date={moment().format('YYYY-MM-DD')}/>
+                        )}
 
                     </PageContent>
                 </Content>
@@ -76,9 +77,9 @@ class HomePageComponent extends React.Component<Props, State> {
     };
 }
 
-const mapContextToProps = ({ session: { user }, lessons, currentLesson }: SettingsProps): ContextProps => ({
+const mapContextToProps = ({session: {user}, lessons, currentLesson}: SettingsProps): ContextProps => ({
     username: user != null ? user.username : null,
-    firstName: user != null ? user.firstName: null,
+    firstName: user != null ? user.firstName : null,
     userRoles: user.roles,
     teacherLessons: lessons,
     currentLesson,

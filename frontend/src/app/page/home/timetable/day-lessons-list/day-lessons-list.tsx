@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef, ReactElement } from 'react';
-import ReactTooltip from 'react-tooltip';
+import React, { useEffect, useRef, useState } from 'react';
 
+import moment from 'moment';
+import ReactTooltip from 'react-tooltip';
 import classNames from 'classnames';
 
 import { navigationService } from 'app/service/navigation-service';
@@ -11,7 +12,6 @@ import { TimeLine } from './time-line';
 import { SingleLesson } from './single-lesson';
 
 import styles from './lessons.module.scss';
-import moment from 'moment';
 
 interface Props {
     lessonsList: Api.Lesson[];
@@ -39,7 +39,7 @@ const getSocketUrl = (): string => {
 
 const ws = new WebSocket(getSocketUrl());
 
-const DayLessonsList: React.FC<Props> = ({ lessonsList, userRole, day, date }) => {
+const DayLessonsList: React.FC<Props> = ({lessonsList, userRole, day, date}) => {
     const listRef: React.RefObject<HTMLUListElement> = useRef(null);
 
     const [currentLesson, setCurrentLesson] = useState<number>(3);
@@ -70,9 +70,7 @@ const DayLessonsList: React.FC<Props> = ({ lessonsList, userRole, day, date }) =
             - convertTimeToMinutes(data[0].startTime)));
     };
 
-
-
-    // connect to websocect to get curentLesson
+    // connect to websocket to get currentLesson
     useEffect(() => {
         const date = new Date();
         setDayOfWeek(date.getDay());
@@ -84,8 +82,6 @@ const DayLessonsList: React.FC<Props> = ({ lessonsList, userRole, day, date }) =
         ws.onmessage = evt => {
             // listen to data sent from the websocket server
             setCurrentLesson(parseInt(evt.data, 10));
-            // setCurrentLesson(3);
-            // console.log(evt.data)
         };
 
         ws.onclose = () => {
@@ -99,7 +95,6 @@ const DayLessonsList: React.FC<Props> = ({ lessonsList, userRole, day, date }) =
             setListHeight(listRef.current.clientHeight);
         }
         setBreakTimes(setBreaks(scheduleTimes));
-        console.log(lessonsList);
     }, [scheduleTimes]);
 
     const convertTimeToMinutes = (time: any) => {
@@ -117,7 +112,7 @@ const DayLessonsList: React.FC<Props> = ({ lessonsList, userRole, day, date }) =
         for (let i: number = 1; i < schedule.length; i++) {
             const breakStartMinutes = convertTimeToMinutes(ends[i - 1]);
             const breakEndMinutes = convertTimeToMinutes(starts[i]);
-            breaks.push({ startTime: breakStartMinutes, endTime: breakEndMinutes });
+            breaks.push({startTime: breakStartMinutes, endTime: breakEndMinutes});
         }
         const breakTimes: number[] = breaks.map((item: any) => item.endTime - item.startTime);
         return breakTimes;
@@ -127,14 +122,10 @@ const DayLessonsList: React.FC<Props> = ({ lessonsList, userRole, day, date }) =
 
     const todaysLessons = !day ? lessonsList.filter((item) => item.day === dayOfWeek) : lessonsList;
     const positionInList = (e: any) => todaysLessons.indexOf(e) + 1;
-    // const date = new Date();
     const isThisDay = dayOfWeek === day;
-    // const isThisDayInList = todaysLessons[0].day === dayOfWeek;
-    // find(({ day }) => name === 'cherries');
 
     const allLessons = todaysLessons.map((item: any) => (
         <div key={item.id}>
-            {/* {dayOfWeek} */}
             <SingleLesson
                 positionInList={positionInList(item)}
                 currentLesson={currentLesson}
@@ -147,8 +138,13 @@ const DayLessonsList: React.FC<Props> = ({ lessonsList, userRole, day, date }) =
                 isThisDay={dayOfWeek === item.day}
                 date={date}
             />
-            < span data-tip="Break" style={{ height: breakTimes[positionInList(item) - 1] }} className={styles.breakSpan} />
-            <ReactTooltip />
+            <p>
+             {item.day}
+                {date}
+            </p>
+            < span data-tip="Break" style={{height: breakTimes[positionInList(item) - 1]}}
+                   className={styles.breakSpan}/>
+            <ReactTooltip/>
 
         </div>
     ));
@@ -188,19 +184,19 @@ const DayLessonsList: React.FC<Props> = ({ lessonsList, userRole, day, date }) =
                     <>
                         {day ? (
                             <h1 className={styles.classListHeader}>{(getDayFromInt(day))} {isThisDay && moment().format('YYYY-MM-DD') === date ? `(today)` : ``}
-                                <h3>{date}</h3>
+                                <p>{date}</p>
                             </h1>) : <>
-                                <h1 className={styles.classListHeader}>Today's lecture ({todaysLessons.length})</h1>
-                            </>}
+                            <h1 className={styles.classListHeader}>Today's lecture ({todaysLessons.length})</h1>
+                        </>}
 
                         {listHeight > 0 && scheduleTimes && !day &&
-                            (
-                                <TimeLine
-                                    scheduleTimes={scheduleTimes}
-                                    listHeight={listHeight || 0}
-                                    lessonsList={todaysLessons}
-                                />
-                            )}
+                        (
+                            <TimeLine
+                                scheduleTimes={scheduleTimes}
+                                listHeight={listHeight || 0}
+                                lessonsList={todaysLessons}
+                            />
+                        )}
                         <ul className={listClass} ref={listRef}>{allLessons}</ul>
                     </>
                 )}

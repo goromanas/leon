@@ -23,10 +23,9 @@ interface Props {
 const {listItem, activeLesson, endedLesson, listNumber, listContent} = styles;
 
 const SingleLesson: React.FC<Props> = (props) => {
-    const {currentLesson, positionInList, lesson, handleOpenClassroom, schedule, userRole, scheduleTimes, lessons, isThisDay, date} = props;
+    const {currentLesson, positionInList, lesson, handleOpenClassroom, schedule, userRole, scheduleTimes, lessons,
+           isThisDay, date} = props;
     const [modalVisible, setModalVisible] = useState(false);
-    const [activeModal, setActiveModal] = useState<any>(null);
-
     const listClass = classNames(
         listItem,
         isThisDay && positionInList === currentLesson && moment().format('YYYY-MM-DD') === date && activeLesson,
@@ -49,18 +48,14 @@ const SingleLesson: React.FC<Props> = (props) => {
 
     const showModal = (index: number) => {
         setModalVisible(!modalVisible);
-        // setActiveModal(index);
     };
     const handleOk = () => {
         setModalVisible(!modalVisible);
-        // setActiveModal(null);
     };
 
     return (
         <>
             <Modal
-                key={lesson.id}
-                title={lesson.subject}
                 visible={modalVisible}
                 footer={null}
                 onCancel={handleOk}
@@ -70,8 +65,12 @@ const SingleLesson: React.FC<Props> = (props) => {
 
             >
                 {modalButton() ?
-                    (<StudentModal onClose={handleOk} lessonInformation={lesson.lessonInformation}
-                                   classId={lesson.id}/>) :
+                    (<StudentModal
+                        subject={lesson.subject}
+                        onClose={handleOk}
+                        lessonInformation={lesson.lessonInformation.filter((lesson: any) => lesson.date == date)}
+                        classId={lesson.id}
+                    />) :
                     (<TeacherModal lessonId={lesson.id} onClose={handleOk} date={date}/>)}
             </Modal>
 
