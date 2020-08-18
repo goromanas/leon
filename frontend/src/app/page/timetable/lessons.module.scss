@@ -1,125 +1,224 @@
-.list {
-  // position: relative;
-  // margin-top: 30px;
-  padding: 0;
-  padding-left: 50px;
-  padding-right: 30px;
-  // padding: 0 50px;
-  // margin-right: 30px;
-  width: 400px;
+@import '~app/style/style';
+// WEEK page
+.weekPage {
+  padding: $container-padding;
+}
 
-  // width: fit-content;
-  div:nth-last-child(1) {
-    .breakSpan {
-      display: none;
-    }
+// WEEK <div>
+.week {
+  background: $background;
+  box-shadow: $containerShadow;
+  border-radius: $conteinerRadius;
+  height: 100%;
+  padding: 50px 46px;
+  margin-top:12px;
+}
+.weekList {
+  display: flex;
+  // flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+}
 
+.weekInfo {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 35px;
+  margin-top: 40px;
+  p {
+    color: $grey7;
+    margin: 0;
   }
+}
 
-  &OtherDay {
-    padding-left: 0;
-  }
-
-  &Item {
-    display: flex;
+.weekNavigation {
+  box-shadow: $smallContainerShadow;
+  border-radius: $conteinerRadius;
+  padding: 7px 42px;
+  display: flex;
+  flex-direction: row;
+}
+.weekNavigationText {
+  font-weight: $semiBold;
+  font-size: $lg;
+  color: $grey9;
+  margin-right: 25px;
+}
+.weekNavigationDate {
+  font-weight: $normal;
+  font-size: $sm;
+  display: flex;
+  align-items: center;
+  img {
     cursor: pointer;
-    flex-direction: row;
-    justify-content: space-between;
-    list-style: none;
-    color: #000000;
+  }
+  img:nth-child(3) {
+    transform: rotate(180deg);
+  }
+  span {
+    margin: 0 15px;
+  }
+}
+
+// ONE DAY LESSONS LIST <div>
+.dayClass {
+  display: flex;
+  width: 18%;
+  // min-width: fit-content;
+  flex-direction: column;
+}
+.dayHeader {
+  font-size:$md;
+  display: flex;
+  justify-content: space-between;
+  span:nth-child(2) {
+    color: $grey6;
+    font-size: 14px;
+    font-weight: $normal;
+  }
+}
+.activeDay {
+  .dayHeader {
+    span:nth-child(1) {
+      font-weight: $bold;
+    }
+  }
+}
+.dayLessonsList {
+    width: 100%;
+    .lesson:nth-last-child(1) {
+      .breakSpan {
+        display: none;
+      }
+      .lessonBarTime {
+        margin-bottom: 0 !important;
+      }
+    }
+}
+
+// SINGLE LESSON <div>  WITH BREAK(<span>) INSIDE
+  .lesson {
+    margin: none;
+    width: 100%;
+  }
+
+  .lessonBar {
+    width: 100%;
+    cursor: pointer;
+    display: flex;
+  }
+
+  .lessonBarWithBreak {
+    width: 100%;
+  }
+
+  .lessonBarContent {
+    position: relative;
+    background-color:   #FAFAFA;
+    box-shadow: $lessonShadow;
+    border-radius: $elementRadius;
     width: 100%;
     height: 45px;
-    font-size: 1.1rem;
-
-    div:nth-child(2) {
-      padding: 0 25px 0 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    &:hover {
+        background-color: rgba(#eeeeee, 0.8);
+        transition: all 0.2s ease-in-out;
+        box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.31);
+      }
+    &::after {
+      border-radius: $elementRadius 0px 0px $elementRadius;
+      position: absolute;
+      content: '';
+      width: 14px;
+      height: 100%;
+      background-color: $primary;
     }
+    & h1 {
+      color: #000000;
+      font-size: $lg;
+      margin: 0 0 0 30px;
+      font-weight: $light;
+      max-width: 50%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
 
-    & .activeLesson {
-      background-color: #b6ab79;
+  .lessonBarTime {
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+    align-items: center;
+     span:nth-child(1) {
+      font-weight: 300;
+      font-size: $xs;
+      line-height: 16px;
+    }
+      span:nth-child(2) {
+        font-size: $sm;
+        line-height: 28px;
+        font-weight: $semiBold;
+      }
+  }
+
+  .activeLesson {
+    .lessonBarContent {
+      background-color: $grey2;
+      // box-shadow: $activeLessonShadow;
+      & h1 {
+        font-weight: $semiBold;
+        color: #000000;
+      }
+    }
+    .lessonBarTime {
       color: #000000;
     }
-
-    & .endedLesson {
-      background-color: #bfbfbf;
-      ;
+  }
+  .activeInSchedules {
+    .lessonBarContent {
+      & img {
+        height: 16px;
+        bottom: 10px;
+        position: relative;
+      }
+      & span {
+        position: relative;
+        margin: 0 10px 0 5px;
+        bottom: 10px;
+        font-size: 10px;
+        font-style: italic;
+      }
+    }
+  }
+  .endedLesson {
+    .lessonBarContent {
       color: #727272;
-    }
-
-    div {
-      background-color: #929292;
-    }
-
-    button {
-      margin-left: 15px;
+      & h1 {
+        color: $grey5;
+      }
+      &::after {
+        background-color: $grey3;
+      }
     }
   }
 
   .breakSpan {
+    height: 10px;
     display: block;
-    margin: 0.1em 0;
+    // margin: 0.1em 0;
     background: repeating-linear-gradient(-45deg, #fff, #fff 5px, rgba(#DBDBDB, 0.3) 5px, rgba(#DBDBDB, 0.3) 6px);
+    // background-color: #F3F3F3;
   }
 
-  &Content {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  &Content:hover {
-    background-color: rgba(#bfbfbf, 0.8);
-    transition: all 0.3s ease-out;
-    box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.31);
-  }
-
-  &Number {
-    display: flex;
-    flex-direction: column;
-    margin-right: 10px;
-    height: auto;
-    align-items: center;
-    padding: 2px 5px;
-
-    span:nth-child(1) {
-      font-weight: 300;
-      font-size: 12px;
-      line-height: 16px;
-    }
-
-    span:nth-child(2) {
-      font-size: 22px;
-      line-height: 28px;
-    }
-  }
-}
-
-.classListHeader {
-  font-size: 18px;
-}
 
 .toVideoButton {
-  // margin: 15px;
-  margin: 0;
-}
-
-.timeLine {
-  position: relative;
-
-  div {
-    position: absolute;
-    transform: translateY(-50%);
-
-    span {
-      border-bottom: 1px solid black;
-      width: 340px;
-      position: absolute;
-      bottom: 50%;
-      margin-bottom: 0px;
-    }
-  }
+    margin: 0 16px;
 }
 
 .weekButtons {
@@ -131,3 +230,20 @@
     margin: 0 20px;
   }
 }
+.timeLine {
+  position: relative;
+  // div {
+  //   position: absolute;
+  //   transform: translateY(-50%);
+  //   span {
+  //     border-bottom: 1px solid black;
+  //   width: 340px;
+  //   position: absolute;
+  //   bottom: 50%;
+  //   margin-bottom: 0px;
+  //   }
+  // }
+}
+
+
+

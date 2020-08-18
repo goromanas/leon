@@ -1,36 +1,31 @@
-import React from "react";
+import React from 'react';
+import moment from 'moment';
 
-import { scheduleCalc } from "app/page/timetable/schedule-calc";
+import { scheduleCalc } from 'app/page/timetable/schedule-calc';
 
 class Clock extends React.Component {
-  public state = { date: new Date() };
 
-  public componentDidMount() {
-    setInterval(() => this.tick(), 1000);
-  }
+    public state = { date: moment() };
 
-  public tick() {
-    this.setState({
-      date: new Date()
-    });
-  }
+    public componentDidMount() {
+        setInterval(
+            () => this.tick(),
+            1000,
+        );
+    }
 
-  public render(): React.ReactNode {
-    const options = {
-      weekday: "long",
-      year: "numeric",
-      month: "numeric",
-      day: "numeric",
-      hour: "numeric",
-      minute: "numeric",
-      second: "numeric"
-    };
+    public tick() {
+        this.setState({
+            date: moment(),
+        });
+    }
 
-    return (
-      // this.state.date.toLocaleTimeString('en-EN', options)
-      scheduleCalc.getDayFromInt(this.state.date.getDay()) + " " + this.state.date.getFullYear() + "-" + this.state.date.getMonth() + "-" + this.state.date.getDate() + " " + this.state.date.getHours() + " " + this.state.date.getMinutes() + ":" + this.state.date.getSeconds()
-    );
-  }
+    public render(): React.ReactNode {
+
+        return (
+            this.state.date.format('dddd YYYY M D HH:mm')
+        );
+    }
 }
 
 export { Clock };

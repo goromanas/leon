@@ -1,11 +1,11 @@
 import React from 'react';
 import { Select } from 'antd';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
+
 import { SelectField } from 'app/components/inputs';
-
 import { FormButton, SubmitButton } from 'app/components/buttons';
-
 import { lessonInformationService } from 'app/api/service/lessonInformation-service';
+
 import styles from './teacherModal.module.scss';
 
 const {Option} = Select;
@@ -19,27 +19,39 @@ interface Values {
     id: number;
 }
 
-const TeacherModal: React.FC<{ lessonId: number, onClose: () => void, date: string }> = (props) => {
+const TeacherModal: React.FC<{ lessonId: number, onClose: () => void, date: string, subject: string, lessonInformation?: any }> = (props) => {
 
     const saveLessonInformation = (lessonInformation: Api.LessonInformationDto): void => {
         lessonInformationService
             .postLessonInformation(lessonInformation)
             .then(() => console.log(lessonInformation));
-
-        // .updateUser(user)
-        // .then(() => navigationService.redirectToUserListPage())
-        // .catch(() => message.error('Failure saving user'));
     };
-    console.log(props.date);
+
+    const updateLessonInformation = (lessonInformation: Api.LessonInformationDto): void => {
+        lessonInformationService
+            .updateLessonInformation(lessonInformation)
+            .then(() => console.log("updeitas"))
+            .then(() => console.log(lessonInformation));
+    };
+
+    const saveInformation = (lessonInformation: Api.LessonInformationDto): void => {
+        // if (props.lessonInformation[0]) {
+        console.log('before update');
+        updateLessonInformation(lessonInformation);
+        console.log('after update');
+        // } else {
+        //     saveLessonInformation(lessonInformation);
+        // }
+    };
+    console.log(props.lessonInformation);
     return (
-        <div className={styles.teacherModal}>
-            <h1>Edit lesson info</h1>
+        <div>
             <Formik
                 initialValues={{
-                    assignment: [],
-                    information: '',
-                    topic: '',
-                    id: 0,
+                    assignment: props.lessonInformation[0] && props.lessonInformation[0].assignment,
+                    information: props.lessonInformation[0] ? props.lessonInformation[0].information : 'Add homework',
+                    topic: props.lessonInformation[0] ? props.lessonInformation[0].topic : 'Enter lesson topic',
+                    id: props.lessonInformation[0] ? props.lessonInformation[0].id : 0,
                     lessonId: props.lessonId,
                     date: props.date,
                 }}
@@ -48,7 +60,7 @@ const TeacherModal: React.FC<{ lessonId: number, onClose: () => void, date: stri
                     {setSubmitting}: FormikHelpers<Values>
                 ) => {
                     console.log(values);
-                    saveLessonInformation(values);
+                    saveInformation(values);
                     setTimeout(() => {
                         setSubmitting(false);
                         props.onClose();
@@ -58,30 +70,36 @@ const TeacherModal: React.FC<{ lessonId: number, onClose: () => void, date: stri
             >
                 {({setFieldValue}) => (
                     <Form className={styles.teacherModal}>
+                        <div className={styles.circle}>
+                            <img
+                                alt="Lesson modal icon"
+                                src={'icons/science.svg'}
+                            />
+                        </div>
+                        <div className={styles.modalTop}>
+                            <p>{props.subject}</p>
+                            <Field id="topic" name="topic" placeholder="Enter topic for this lesson"/>
 
-                        <label htmlFor="topic">Lesson topic</label>
-                        <Field id="topic" name="topic" placeholder="Enter topic for this lesson"/>
+                        </div>
+                        <div className={styles.textareaModal}>
+                            <label htmlFor='information'><h3>Homework</h3></label>
+                            <Field as="textarea" id="information" name="information"
+                                   placeholder="Assignments, information, homework, etc."/>
+                        </div>
+                        <div className={styles.selectorField}>
+                            <Field
 
-
-                        <label htmlFor="information">Lesson information</label>
-                        <Field as="textarea" id="information" name="information"
-                               placeholder="Assignments, information, homework, etc."/>
-
-                        <Field
-                            component={SelectField}
-                            name="assignment"
-                            placeholder="Please select assignments for this lesson"
-                            mode="multiple"
-                            onChange={(option: string) => setFieldValue('assignment', option)}
-                        >
-                            <Option value="Test">Test</Option>
-                            <Option value="Homework">Homework</Option>
-                            <Option value="Exam">Exam</Option>
-                            <Option value="Presentation">Presentation</Option>
-                            <Option value="Project">Project</Option>
-                        </Field>
-
-                        <FormButton component={SubmitButton}>Save</FormButton>
+                                component={SelectField}
+                                name="assignment"
+                                placeholder="Please select assignments for this lesson"
+                                mode="multiple"
+                                onChange={(option: string) => setFieldValue('assignment', option)}
+                            >
+                                <Option value="Test">Test</Option>
+                                <Option value="Homework">Homework</Option>
+                            </Field>
+                        </div>
+                        <FormButton component={SubmitButton}>{props.lessonInformation[0] ? 'Update' : 'Save'}</FormButton>
                     </Form>)}
             </Formik>
         </div>
