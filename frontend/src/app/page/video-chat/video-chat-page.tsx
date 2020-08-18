@@ -68,7 +68,6 @@ class HomePageComponent extends React.Component<Props, {}> {
             endTime = currentLessonTimeObj.endTime
         }
 
-        // @ts-ignore
         return (
             <Layout >
                 <Sider
