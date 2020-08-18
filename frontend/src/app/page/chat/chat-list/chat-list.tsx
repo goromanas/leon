@@ -27,27 +27,36 @@ interface OwnProps {
 type Props = ContextProps & OwnProps;
 
 const ChatListComponent: React.FC<Props> = ({ messages, currentChannel, currentClassroom }) => {
-console.log(currentClassroom)
+    console.log(currentClassroom);
 
     return(
         < div >
         < ul >
         < TransitionGroup
-    className = 'chat-messages'
-    appear = {true} >
+            className="chat-messages"
+            appear={true}
+        >
         {
             messages
-            .filter(message => message.channel === currentChannel && currentClassroom === message.classroom)
+            .filter(message => message.channel === currentChannel && message.classroom === currentClassroom)
                 .map((msg, i) => (
                     <CSSTransition key={i} timeout={300} classNames="fade" appear={true}>
-                        <Message key={i} text={msg.text} author={msg.author} date={msg.date} channel={msg.channel}/>
+                        <Message
+                            key={i}
+                            text={msg.text}
+                            author={msg.author}
+                            date={msg.date}
+                            channel={msg.channel}
+                            classroom={msg.classroom}
+                        />
+
                     </CSSTransition>
                 ))
-        };
+        }
 </TransitionGroup>
 </ul>
 </div>
-)};
+    ); };
 
 const mapContextToProps = ({ lessons }: SettingsProps): ContextProps => ({
     teacherLessons: lessons,

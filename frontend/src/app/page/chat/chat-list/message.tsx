@@ -9,9 +9,10 @@ interface Props {
     author: string;
     date: string;
     channel: number;
+    classroom: string;
 }
 
-const Message: React.FC<Props> = ({ text, author, date, channel }) => (
+const Message: React.FC<Props> = ({ text, author, date, channel, classroom }) => (
   <div className={styles.message}>
     <div>
       <Avatar size="small" icon={<UserOutlined />} />
@@ -19,6 +20,7 @@ const Message: React.FC<Props> = ({ text, author, date, channel }) => (
     </div>
     <div>{text}</div>
     <p>channel: {channel}</p>
+<p>Clasroom: {classroom}</p>
   </div>
 );
 
