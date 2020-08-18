@@ -1,16 +1,20 @@
 import React from 'react';
-import Item from 'antd/lib/list/Item';
 
 interface Props {
     schedule?: Api.ScheduleDto[];
 }
 
 const SideTimebar: React.FC<Props> = ({ schedule }) => {
-    // const allTimes = schedule.length !== 0 ? schedule.map((item: any) => <p key={Item}>1</p>)
-    console.log(schedule);
+    const allTimes = schedule.map((item: Api.ScheduleDto) =>
+        (
+            <div key={item.startTime}>
+                {item.startTime.substr(0, 5)}
+            </div>
+        )
+    );
     return (
         <div>
-            {/* {allTimes} */}
+            {allTimes}
         </div>
     );
 };
