@@ -58,7 +58,7 @@ const DayLessonsList: React.FC<Props> = ({ allLessons, userRole, day, date, curr
                 </span>
                 <span>{date}</span>
             </h1>
-            {date === moment().format('MM-DD') && homepage ?
+            {date === moment().format('MMM DD') && homepage ?
                 <h1 className={dayHeader}>Today's lecture ({dayLessons.length})</h1>
                 : null
             }

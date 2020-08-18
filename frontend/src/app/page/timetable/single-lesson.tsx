@@ -20,7 +20,7 @@ interface Props {
     homepage?: boolean;
 }
 
-const { lesson, activeLesson, endedLesson, lessonBarContent, lessonBarTime, lessonBar, lessonBarWithBreak } = styles;
+const { lesson, activeLesson, endedLesson, lessonBarContent, lessonBarTime, lessonBar, lessonBarWithBreak, activeInSchedules } = styles;
 
 const SingleLesson: React.FC<Props> = (props) => {
     const { currentLesson, thisLesson, handleOpenClassroom, schedule, userRole, date, homepage } = props;
@@ -31,6 +31,7 @@ const SingleLesson: React.FC<Props> = (props) => {
         lesson,
         currentLesson === thisLesson.id && activeLesson,
         currentLesson > thisLesson.id && endedLesson,
+        !homepage && activeInSchedules,
     );
 
     // get thisLesson start as 8:00
@@ -92,15 +93,41 @@ const SingleLesson: React.FC<Props> = (props) => {
                             className={lessonBarContent}
                         >
                             <h1>{thisLesson.subject}</h1>
-                            {thisLesson.id === currentLesson ? (
-                                <Button
-                                    type="primary"
-                                    className={styles.toVideoButton}
-                                    onClick={() => handleOpenClassroom(thisLesson.id)}
-                                >
-                                    Live
-                                </Button>
-                            ) : null}
+                            {
+                                thisLesson.lessonInformation[0] !== undefined &&
+                                <h1>1</h1>
+                            }
+                            {thisLesson.id === currentLesson ?
+
+                                homepage ?
+
+                                    (
+                                        <>
+                                            <img
+                                                alt="Lesson camera icon"
+                                                src={'icons/camera.svg'}
+                                            />
+                                            <Button
+                                                type="primary"
+                                                shape="round"
+                                                className={styles.toVideoButton}
+                                                onClick={() => handleOpenClassroom(thisLesson.id)}
+                                            >
+                                                Join a Class
+                                            </Button>
+                                        </>
+                                    )
+
+                                    : (
+                                        <div onClick={() => handleOpenClassroom(thisLesson.id)}>
+                                            <img
+                                                alt="Lesson modal icon"
+                                                src={'icons/camera.svg'}
+                                            /> <span>live</span>
+                                        </div>
+                                    )
+
+                                : null}
                         </div>
                         < span
                             data-tip="Break"

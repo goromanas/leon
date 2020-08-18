@@ -11,34 +11,84 @@
   border-radius: $conteinerRadius;
   height: 100%;
   padding: 50px 46px;
+  margin-top:12px;
 }
 .weekList {
   display: flex;
-  flex-wrap: wrap;
+  // flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-between;
-  .day:nth-child(1) {
+  .dayClass:nth-child(1) {
     .dayHeader {
       margin-left: 45px;
     }
   }
 }
 
+.weekInfo {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 35px;
+  margin-top: 40px;
+  p {
+    color: $grey7;
+    margin: 0;
+  }
+}
+
+.weekNavigation {
+  box-shadow: $smallContainerShadow;
+  border-radius: $conteinerRadius;
+  padding: 7px 42px;
+  display: flex;
+  flex-direction: row;
+}
+.weekNavigationText {
+  font-weight: $semiBold;
+  font-size: $lg;
+  color: $grey9;
+  margin-right: 25px;
+}
+.weekNavigationDate {
+  font-weight: $normal;
+  font-size: $sm;
+  display: flex;
+  align-items: center;
+  img {
+    cursor: pointer;
+  }
+  img:nth-child(3) {
+    transform: rotate(180deg);
+  }
+  span {
+    margin: 0 15px;
+  }
+}
+
 // ONE DAY LESSONS LIST <div>
 .dayClass {
   display: flex;
-  width: 18%;
-  min-width: fit-content;
+  width: 16%;
+  // min-width: fit-content;
   flex-direction: column;
 }
 .dayHeader {
   font-size:$md;
   display: flex;
   justify-content: space-between;
+  span:nth-child(2) {
+    color: $grey6;
+    font-size: 14px;
+    font-weight: $normal;
+  }
 }
 .activeDay {
   .dayHeader {
-    font-weight: $bold;
+    span:nth-child(1) {
+      font-weight: $bold;
+    }
   }
 }
 .dayLessonsList {
@@ -56,19 +106,19 @@
 // SINGLE LESSON <div>  WITH BREAK(<span>) INSIDE
   .lesson {
     margin: none;
+    width: 100%;
   }
 
   .lessonBar {
+    width: 100%;
     cursor: pointer;
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-
   }
+
   .lessonBarWithBreak {
     width: 100%;
   }
+
   .lessonBarContent {
     position: relative;
     background-color:   #FAFAFA;
@@ -97,7 +147,11 @@
       color: #000000;
       font-size: $lg;
       margin: 0 30px;
-      font-weight: $normal;
+      font-weight: $light;
+      width: 50%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 
@@ -123,7 +177,7 @@
       background-color: $grey2;
       // box-shadow: $activeLessonShadow;
       & h1 {
-        font-weight: $bold;
+        font-weight: $semiBold;
         color: #000000;
       }
     }
@@ -131,9 +185,24 @@
       color: #000000;
     }
   }
+  .activeInSchedules {
+    .lessonBarContent {
+      & img {
+        height: 16px;
+        bottom: 10px;
+        position: relative;
+      }
+      & span {
+        position: relative;
+        margin: 0 10px 0 5px;
+        bottom: 10px;
+        font-size: 10px;
+        font-style: italic;
+      }
+    }
+  }
   .endedLesson {
     .lessonBarContent {
-      background-color: #F3F3F3;;
       color: #727272;
       & h1 {
         color: $grey5;
@@ -154,7 +223,7 @@
 
 
 .toVideoButton {
-  margin: 0;
+    margin: 0 16px;
 }
 
 .weekButtons {
