@@ -78,16 +78,6 @@ const SingleLesson: React.FC<Props> = (props) => {
             </Modal>
             <div className={lessonClass} key={thisLesson.id}>
                 <div onClick={() => showModal(thisLesson.id)} className={lessonBar}>
-
-                    {(homepage || thisLesson.day === 1) && (
-                        <div
-                            className={lessonBarTime}
-                            style={{ marginBottom: scheduleCalc.getBreakTime(schedule, thisLesson.time) }}
-                        >
-                            <span>{schedule && lessonStart}</span>
-                            <span>{thisLesson.time}</span>
-                        </div>
-                    )}
                     <div className={lessonBarWithBreak}>
                         <div
                             className={lessonBarContent}

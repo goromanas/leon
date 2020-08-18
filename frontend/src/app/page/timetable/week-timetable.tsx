@@ -70,6 +70,7 @@ class TimetablePageComponent extends React.Component<Props, State> {
                     </div>
                     <div className={styles.week}>
                         <div className={styles.weekList}>
+                            {this.timesBar}
                             {Array(5).fill(1 + this.state.move).map((x, y) => x + y).map((item) => (
                                 item === 0 ? item = 5 : null,
                                 item < 0 ? item = 0 - item : null,
@@ -90,7 +91,7 @@ class TimetablePageComponent extends React.Component<Props, State> {
 
             </AsyncContent>
         );
-    }
+
 
     public filterByDay(teacherLessons: Api.LessonDto[], day: number): Api.LessonDto[] {
 
@@ -135,17 +136,16 @@ class TimetablePageComponent extends React.Component<Props, State> {
             this.setState({ move: this.state.move + 5 }) :
             this.setState({ move: this.state.move - 5 });
     };
-}
 
-const mapContextToProps = ({ session: { user }, lessons, currentLesson, schedule }: SettingsProps): ContextProps => ({
+    public const mapContextToProps = ({ session: { user }, lessons, currentLesson, schedule }: SettingsProps): ContextProps => ({
 
-    username: user != null ? user.username : null,
-    userRoles: user.roles,
-    allLessons: lessons,
-    currentLesson,
-    schedule,
-});
+        username: user != null ? user.username : null,
+        userRoles: user.roles,
+        allLessons: lessons,
+        currentLesson,
+        schedule,
+    });
 
-const TimetablePage = connectContext(mapContextToProps)(TimetablePageComponent);
+    public const TimetablePage = connectContext(mapContextToProps)(TimetablePageComponent);
 
 export { TimetablePage };

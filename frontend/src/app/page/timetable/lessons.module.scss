@@ -18,11 +18,6 @@
   // flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-between;
-  .dayClass:nth-child(1) {
-    .dayHeader {
-      margin-left: 45px;
-    }
-  }
 }
 
 .weekInfo {
@@ -70,7 +65,7 @@
 // ONE DAY LESSONS LIST <div>
 .dayClass {
   display: flex;
-  width: 16%;
+  width: 18%;
   // min-width: fit-content;
   flex-direction: column;
 }
@@ -146,9 +141,9 @@
     & h1 {
       color: #000000;
       font-size: $lg;
-      margin: 0 30px;
+      margin: 0 0 0 30px;
       font-weight: $light;
-      width: 50%;
+      max-width: 50%;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
