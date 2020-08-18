@@ -2,7 +2,6 @@ package com.tietoevry.moon.lesson;
 
 import com.tietoevry.moon.authorization.SecurityContextService;
 import com.tietoevry.moon.classroom.ClassroomService;
-import com.tietoevry.moon.classroom.model.Classroom;
 import com.tietoevry.moon.lesson.model.Lesson;
 import com.tietoevry.moon.lesson.model.LessonDto.LessonDto;
 import com.tietoevry.moon.user.UserService;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,7 +28,8 @@ public class LessonService {
     }
 
     public Lesson getLesson(Long id) {
-    return lessonRepository.findById(id).orElseThrow();}
+        return lessonRepository.findById(id).orElseThrow();
+    }
 
 
     public List<LessonDto> getTeacherLessons() {
@@ -38,7 +37,8 @@ public class LessonService {
     }
 
     public List<LessonDto> getStudentLessons() {
-        return lessonRepository.findAllByClassroom(classroomService.getClassroomFromUser(userService.getUserFromSession())).stream().map(LessonMapper::mapLessonTo).collect(Collectors.toList());
+       List<LessonDto> lessons = lessonRepository.findAllByClassroom(classroomService.getClassroomFromUser(userService.getUserFromSession())).stream().map(LessonMapper::mapLessonTo).collect(Collectors.toList());
+        return lessons;
     }
 
     public List<LessonDto> getChatLessons() {

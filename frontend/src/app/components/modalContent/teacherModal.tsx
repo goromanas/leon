@@ -30,7 +30,7 @@ const TeacherModal: React.FC<{ lessonId: number, onClose: () => void, date: stri
         // .then(() => navigationService.redirectToUserListPage())
         // .catch(() => message.error('Failure saving user'));
     };
-
+    console.log(props.date);
     return (
         <div className={styles.teacherModal}>
             <h1>Edit lesson info</h1>

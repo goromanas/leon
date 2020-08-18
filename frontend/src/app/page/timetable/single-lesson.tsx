@@ -56,13 +56,17 @@ const SingleLesson: React.FC<Props> = (props) => {
             showModal(index);
         }
     };
+    // console.log(date);
+    // console.log(thisLesson);
     const handleOk = () => {
         setModalVisible(!modalVisible);
     };
-
+// console.log(thisLesson.lessonInformation[0]?.date);
+    // console.log(thisLesson.lessonInformation[0] && thisLesson.lessonInformation[0]);
+    // console.log(thisLesson.lessonInformation[0] && thisLesson.lessonInformation[0].date)
+    // console.log(date);
     return (
         <>
-
             <Modal
                 visible={modalVisible}
                 footer={null}
@@ -70,21 +74,21 @@ const SingleLesson: React.FC<Props> = (props) => {
                 okButtonProps={{
                     children: 'Custom OK',
                 }}
-
             >
                 {checkUserRoleForModal() ?
                     (<StudentModal
                         subject={thisLesson.subject}
                         onClose={handleOk}
-                        lessonInformation={thisLesson}
+                        lessonInformation={
+                            thisLesson.lessonInformation
+                                .filter((lesson:Api.LessonInformationDto) => lesson.date === date)}
                         classId={thisLesson.id}
+                        date={date}
                     />) :
                     (<TeacherModal lessonId={thisLesson.id} onClose={handleOk} date={date}/>)}
             </Modal>
 
-            < li className={listClass} key={thisLesson.id} onClick={() => checkLessonInformation(thisLesson.id)}>
-
-
+            < li className={listClass} key={thisLesson.id} onClick={() => showModal(thisLesson.id)}>
                 <div
                     className={numberClass}
                 >
