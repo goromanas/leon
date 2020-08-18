@@ -3,13 +3,9 @@ import { Button, Modal } from 'antd';
 import classNames from 'classnames';
 
 import { TeacherModal } from 'app/components/modalContent/teacherModal';
-
-import moment from 'moment';
 import { StudentModal } from 'app/components/modalContent/studentModal';
 
-
 import styles from './lessons.module.scss';
-
 
 interface Props {
     currentLesson: number;
@@ -20,15 +16,15 @@ interface Props {
     date: string;
 }
 
-const { listItem, activeLesson, endedLesson, listNumber, listContent } = styles;
+const {listItem, activeLesson, endedLesson, listNumber, listContent} = styles;
 
 const SingleLesson: React.FC<Props> = (props) => {
 
-    const { currentLesson, thisLesson, handleOpenClassroom, schedule, userRole, date } = props;
+    const {currentLesson, thisLesson, handleOpenClassroom, schedule, userRole, date} = props;
     const [modalVisible, setModalVisible] = useState(false);
 
     // define classNames
-
+// console.log(thisLesson);
     const listClass = classNames(
         listItem,
         currentLesson === thisLesson.id && activeLesson,
@@ -48,11 +44,17 @@ const SingleLesson: React.FC<Props> = (props) => {
     // get thisLesson start as 8:00
     const lessonStart: string = schedule ? (schedule.startTime).substr(0, 5) : 'undef';
 
-    const modalButton = (): boolean =>
+    const checkUserRoleForModal = (): boolean =>
         userRole.includes('STUDENT') || userRole.includes('PARENT');
 
     const showModal = (index: number) => {
         setModalVisible(!modalVisible);
+    };
+
+    const checkLessonInformation = (index: number) => {
+        if (thisLesson.lessonInformation[0]) {
+            showModal(index);
+        }
     };
     const handleOk = () => {
         setModalVisible(!modalVisible);
@@ -70,17 +72,17 @@ const SingleLesson: React.FC<Props> = (props) => {
                 }}
 
             >
-                {modalButton() ?
+                {checkUserRoleForModal() ?
                     (<StudentModal
                         subject={thisLesson.subject}
                         onClose={handleOk}
-                        lessonInformation={thisLesson.lessonInformation.filter((lesson: any) => lesson.date == date)}
+                        lessonInformation={thisLesson}
                         classId={thisLesson.id}
                     />) :
                     (<TeacherModal lessonId={thisLesson.id} onClose={handleOk} date={date}/>)}
             </Modal>
 
-            < li className={listClass} key={thisLesson.id} onClick={() => showModal(thisLesson.id)}>
+            < li className={listClass} key={thisLesson.id} onClick={() => checkLessonInformation(thisLesson.id)}>
 
 
                 <div
@@ -93,7 +95,7 @@ const SingleLesson: React.FC<Props> = (props) => {
                     className={contentClass}
                 >
                     {thisLesson.subject}
-                    .  ID: {thisLesson.id}
+                    . ID: {thisLesson.id}
                     {thisLesson.id === currentLesson ? (
                         <Button
                             type="primary"

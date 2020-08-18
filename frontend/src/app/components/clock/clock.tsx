@@ -26,7 +26,7 @@ class Clock extends React.Component {
             month: 'numeric',
             day: 'numeric',
             hour: 'numeric',
-            minute: 'numeric',
+            minute: 'long',
             second: 'numeric',
         };
 
@@ -36,6 +36,7 @@ class Clock extends React.Component {
             + this.state.date.getFullYear() + '-'
             + this.state.date.getMonth() + '-'
             + this.state.date.getDate() + ' '
+            + this.state.date.getHours() + ':'
             + this.state.date.getMinutes() + ':'
             + this.state.date.getSeconds()
         );
