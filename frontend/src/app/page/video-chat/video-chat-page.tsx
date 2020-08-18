@@ -68,9 +68,7 @@ class HomePageComponent extends React.Component<Props, {}> {
 
         return (
             <Layout >
-                <Sider
-                    className={styles.sider}
-                >
+                <Sider className={styles.sider}>
                     <div>
                         <VideoButton />
                     </div>
@@ -117,6 +115,7 @@ class HomePageComponent extends React.Component<Props, {}> {
                         {/*<Whiteboard/>*/}
                     </PageContent>
                 </Content>
+
             </Layout>
         );
     }
