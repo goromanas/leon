@@ -9,7 +9,7 @@ const VideoButton: React.FC = () =>(
     <div>
         <div className={styles.videobtn} ><Button type='primary' style={{borderRadius: '100%', height: '45px'}}><TeamOutlined /></Button> Participants</div>
         <div className={styles.videobtn}><Button type='primary'  style={{borderRadius: '100%', height: '45px'}}><MessageOutlined /></Button> Question Form</div>
-        <div className={styles.videobtn}><Button type='primary'  style={{borderRadius: '100%', height: '45px'}}><span><Wand /></span></Button> Whiteboard</div>
+        <div className={styles.videobtn}><Button type='primary'  style={{borderRadius: '100%', height: '45px'}}><span style={{ width: '15px', display:'flex' }}><Wand /></span></Button> Whiteboard</div>
     </div>
 )
 
