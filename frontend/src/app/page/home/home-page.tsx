@@ -50,32 +50,35 @@ class HomePageComponent extends React.Component<Props, State> {
         } = this.props;
 
         return (
-            <Layout>
-                <Content>
-                    <PageContent>
-                        <div className={styles.welcomeHeader}>
-                            Welcome back, {this.props.firstName},
-                            {currentLesson}
-                        </div>
-                        {userRoles.includes('ADMIN') ? (
-                            <Button type="primary" onClick={this.handleClickToUserList}>
-                                To user list
-                            </Button>
-                        ) : (
-                                <DayLessonsList
-                                    userRole={this.props.userRoles}
-                                    currentLesson={currentLesson}
-                                    allLessons={allLessons || []}
-                                    date={moment().format('YYYY-MM-DD')}
-                                    day={this.state.dayOfWeek}
-                                    schedule={schedule}
-                                    homepage={true}
-                                />
-                            )}
-
-                    </PageContent>
-                </Content>
-            </Layout>
+            // <Layout>
+            //     <Content>
+            //         <PageContent>
+            <div>
+                <div className={styles.welcomeHeader}>
+                    Welcome back, {this.props.firstName},
+                {currentLesson}
+                </div>
+                {
+                    userRoles.includes('ADMIN') ? (
+                        <Button type="primary" onClick={this.handleClickToUserList}>
+                            To user list
+                        </Button>
+                    ) : (
+                            <DayLessonsList
+                                userRole={this.props.userRoles}
+                                currentLesson={currentLesson}
+                                allLessons={allLessons || []}
+                                date={moment().format('YYYY-MM-DD')}
+                                day={this.state.dayOfWeek}
+                                schedule={schedule}
+                                homepage={true}
+                            />
+                        )
+                }
+            </div>
+            //         </PageContent>
+            //     </Content>
+            // </Layout>
         );
     }
 

@@ -43,6 +43,7 @@ class ScheduleCalc {
 
             return schedule && breakEndMinutes - breakStartMinutes;
         }
+        // console.log(schedule);
         return 0;
     };
 

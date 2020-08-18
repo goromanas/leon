@@ -2,6 +2,8 @@ import React from 'react';
 import { Button, Col, Row, Layout } from 'antd';
 import moment from 'moment';
 
+import { AsyncContent } from 'app/components/layout';
+import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-loading-spinner';
 import { PageContent } from 'app/components/layout';
 import { connectContext, SettingsProps } from 'app/context';
 import { DayLessonsList } from 'app/page/timetable/day-timetable';
@@ -45,11 +47,11 @@ class TimetablePageComponent extends React.Component<Props, State> {
         const now = new Date().getDay();
 
         return (
-            <Layout>
-                <Content>
-                    <PageContent>
-                        <div className={styles.week}>
-                            {/* <div className={styles.weekButtons}>
+            <AsyncContent loading={schedule.length === 0} loader={<PageLoadingSpinner />}>
+                <div className={styles.weekPage}>
+                    <div>  <p>Lesson duration: {scheduleCalc.getLessonLength(schedule)}min</p></div>
+                    <div className={styles.week}>
+                        {/* <div className={styles.weekButtons}>
                     <Button
                         type="primary"
                         onClick={() => this.handleButtonClick(false)}
@@ -61,37 +63,34 @@ class TimetablePageComponent extends React.Component<Props, State> {
                     >Next Week
                     </Button>
                 </div> */}
-                            <h1>Classname Schedule</h1>
-                            <p>Lesson duration: {scheduleCalc.getLessonLength(schedule)}min</p>
-                            {/* <Row> */}
-                            <div className={styles.weekList}>
-                                {Array(5).fill(now + this.state.move).map((x, y) => x + y).map((item) => (
-                                    item === 0 ? item = 5 : null,
-                                    item < 0 ? item = 0 - item : null,
-                                    (item % 5) !== 0 ? null : item = 5,
-                                    (item % 5) !== 0 ? item = item % 5 : null,
+                        {/* <Row> */}
+                        <div className={styles.weekList}>
+                            {Array(5).fill(1 + this.state.move).map((x, y) => x + y).map((item) => (
+                                item === 0 ? item = 5 : null,
+                                item < 0 ? item = 0 - item : null,
+                                (item % 5) !== 0 ? null : item = 5,
+                                (item % 5) !== 0 ? item = item % 5 : null,
 
-                                    // < Col xs={{ span: 5, offset: 1 }} lg={{ span: 3, offset: 1 }} key={item}>
+                                // < Col xs={{ span: 5, offset: 1 }} lg={{ span: 3, offset: 1 }} key={item}>
 
-                                    < DayLessonsList
-                                        userRole={this.props.userRoles}
-                                        allLessons={this.filterByDay(allLessons, item) || []}
-                                        currentLesson={this.props.currentLesson}
-                                        day={item}
-                                        date={this.getDate(item, now)}
-                                        schedule={this.props.schedule}
-                                    // title={false}
-                                    />
-                                    // </Col>
-                                ))}
-                            </div>
-                            {/* </Row> */}
+                                < DayLessonsList
+                                    userRole={this.props.userRoles}
+                                    allLessons={this.filterByDay(allLessons, item) || []}
+                                    currentLesson={this.props.currentLesson}
+                                    day={item}
+                                    date={this.getDate(item, now)}
+                                    schedule={this.props.schedule}
+                                // title={false}
+                                />
+                                // </Col>
+                            ))}
+                        </div>
+                        {/* </Row> */}
 
-                        </div >
-                    </PageContent>
-                </Content>
-            </Layout>
+                    </div >
+                </div>
 
+            </AsyncContent>
         );
     }
 

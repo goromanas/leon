@@ -19,7 +19,7 @@ interface Props {
     homepage?: boolean;
 }
 
-const { lesson, activeLesson, endedLesson, lessonBarContent, lessonBarTime, lessonBar } = styles;
+const { lesson, activeLesson, endedLesson, lessonBarContent, lessonBarTime, lessonBar, lessonBarWithBreak } = styles;
 
 const SingleLesson: React.FC<Props> = (props) => {
     const { currentLesson, thisLesson, handleOpenClassroom, schedule, userRole, date, homepage } = props;
@@ -33,7 +33,7 @@ const SingleLesson: React.FC<Props> = (props) => {
     );
 
     // get thisLesson start as 8:00
-    const lessonStart: string = schedule ? (schedule.startTime).substr(0, 5) : 'undef';
+    const lessonStart: string = schedule.length !== 0 ? (schedule[thisLesson.time - 1].startTime).substr(0, 5) : 'undef';
 
     const modalButton = (): boolean =>
         userRole.includes('STUDENT') || userRole.includes('PARENT');
@@ -72,32 +72,35 @@ const SingleLesson: React.FC<Props> = (props) => {
                     {(homepage || thisLesson.day === 1) && (
                         <div
                             className={lessonBarTime}
+                            style={{ marginBottom: scheduleCalc.getBreakTime(schedule, thisLesson.time) }}
                         >
                             <span>{schedule && lessonStart}</span>
                             <span>{thisLesson.time}</span>
                         </div>
                     )}
-                    <div
-                        className={lessonBarContent}
-                    >
-                        {thisLesson.subject}
-                        {thisLesson.id === currentLesson ? (
-                            <Button
-                                type="primary"
-                                className={styles.toVideoButton}
-                                onClick={() => handleOpenClassroom(thisLesson.id)}
-                            >
-                                Live
-                            </Button>
-                        ) : null}
+                    <div className={lessonBarWithBreak}>
+                        <div
+                            className={lessonBarContent}
+                        >
+                            <h1>{thisLesson.subject}</h1>
+                            {thisLesson.id === currentLesson ? (
+                                <Button
+                                    type="primary"
+                                    className={styles.toVideoButton}
+                                    onClick={() => handleOpenClassroom(thisLesson.id)}
+                                >
+                                    Live
+                                </Button>
+                            ) : null}
+                        </div>
+                        < span
+                            data-tip="Break"
+                            style={{ height: scheduleCalc.getBreakTime(schedule, thisLesson.time) }}
+                            className={styles.breakSpan}
+                        />
+                        <ReactTooltip />
                     </div>
                 </div>
-                < span
-                    data-tip="Break"
-                    // style={{ height: scheduleCalc.getBreakTime(schedule, thisLesson.time) }}
-                    className={styles.breakSpan}
-                />
-                <ReactTooltip />
             </div>
         </ >
 

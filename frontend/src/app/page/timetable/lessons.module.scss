@@ -1,21 +1,34 @@
+@import '~app/style/style';
+// WEEK page
+.weekPage {
+  padding: $container-padding;
+}
+
 // WEEK <div>
 .week {
-  margin: 0;
+  background: $background;
+  box-shadow: $containerShadow;
+  border-radius: $conteinerRadius;
+  height: 100%;
+  padding: 50px 46px;
 }
 .weekList {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
+  justify-content: space-between;
 }
 
 // ONE DAY LESSONS LIST <div>
 .day {
   display: flex;
-  width: 20%;
+  width: 19%;
+  min-width: fit-content;
   flex-direction: column;
+
 }
 .dayHeader {
-  font-size: 18px;
+  font-size:$md;
   display: flex;
   justify-content: space-between;
 }
@@ -25,6 +38,9 @@
     .lesson:nth-last-child(1) {
       .breakSpan {
         display: none;
+      }
+      .lessonBarTime {
+        margin-bottom: 0 !important;
       }
     }
 }
@@ -36,22 +52,22 @@
 
   .lessonBar {
     cursor: pointer;
-    color: #000000;
-    height: 45px;
-    font-size: 1.1rem;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
 
   }
-
-  .lessonBarContent {
-    background-color:   #FAFAFA;
-    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 3px;
+  .lessonBarWithBreak {
     width: 100%;
-    height: 100%;
+  }
+  .lessonBarContent {
+    position: relative;
+    background-color:   #FAFAFA;
+    box-shadow: $lessonShadow;
+    border-radius: $elementRadius;
+    width: 100%;
+    height: 45px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -61,22 +77,36 @@
         transition: all 0.3s ease-out;
         box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.31);
       }
+    &::after {
+      border-radius: $elementRadius 0px 0px $elementRadius;
+      position: absolute;
+      content: '';
+      width: 14px;
+      height: 100%;
+      background-color: $primary;
+    }
+    & h1 {
+      color: #000000;
+      font-size: $lg;
+      margin: 0 30px;
+      font-weight: $normal;
+    }
   }
 
   .lessonBarTime {
-    background-color:   #929292;
     display: flex;
     flex-direction: column;
     margin-right: 10px;
     align-items: center;
      span:nth-child(1) {
       font-weight: 300;
-      font-size: 12px;
+      font-size: $xs;
       line-height: 16px;
     }
       span:nth-child(2) {
-        font-size: 22px;
+        font-size: $sm;
         line-height: 28px;
+        font-weight: $semiBold;
       }
   }
 
@@ -84,9 +114,9 @@
     .lessonBarContent {
       background-color: #b6ab79;
       color: #000000;
+      box-shadow: $activeLessonShadow;
     }
     .lessonBarTime {
-      background-color: #b6ab79;
       color: #000000;
     }
   }
@@ -104,7 +134,7 @@
   .breakSpan {
     height: 10px;
     display: block;
-    margin: 0.1em 0;
+    // margin: 0.1em 0;
     // background: repeating-linear-gradient(-45deg, #fff, #fff 5px, rgba(#DBDBDB, 0.3) 5px, rgba(#DBDBDB, 0.3) 6px);
     background-color: #F3F3F3;
   }
@@ -123,7 +153,7 @@
   }
 }
 .timeLine {
-  // position: relative;
+  position: relative;
   // div {
   //   position: absolute;
   //   transform: translateY(-50%);
