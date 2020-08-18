@@ -1,3 +1,4 @@
+
 {
   "swagger": "2.0",
   "info": {
@@ -501,13 +502,43 @@
         "deprecated": false
       }
     },
-    "/subjectByStudent": {
+    "/subjectByTeacher": {
       "get": {
         "tags": [
           "subject-controller"
         ],
-        "summary": "getSubjectByStudent",
-        "operationId": "getSubjectByStudentUsingGET",
+        "summary": "getSubjectByTeacher",
+        "operationId": "getSubjectByTeacherUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Optional«SubjectDto»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/subjectByUser": {
+      "get": {
+        "tags": [
+          "subject-controller"
+        ],
+        "summary": "getSubjectByUser",
+        "operationId": "getSubjectByUserUsingGET",
         "produces": [
           "*/*"
         ],
@@ -971,6 +1002,18 @@
         }
       },
       "title": "LoginData"
+    },
+    "Optional«SubjectDto»": {
+      "type": "object",
+      "properties": {
+        "empty": {
+          "type": "boolean"
+        },
+        "present": {
+          "type": "boolean"
+        }
+      },
+      "title": "Optional«SubjectDto»"
     },
     "Role": {
       "type": "object",
