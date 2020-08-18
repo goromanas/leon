@@ -16,7 +16,7 @@ interface ContextProps {
     username: string | null;
     firstName: string | null;
     userRoles: string[] | null;
-    allLessons: Api.Lesson[];
+    allLessons: Api.LessonDto[];
     currentLesson: number;
     schedule: Api.ScheduleDto[];
 }
