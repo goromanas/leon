@@ -11,8 +11,8 @@ class LessonInformationService {
     }
 
     public readonly postLessonInformation =
-        (lessonInformation: Api.LessonInformationDto): Promise<Api.LessonInformationDto> =>
-            this.restService.post<Api.LessonInformationDto>(LessonInformationService.LESSON_INFORMATION_PATH, {
+        (lessonInformation: Api.LessonDtoInformationDto): Promise<Api.LessonDtoInformationDto> =>
+            this.restService.post<Api.LessonDtoInformationDto>(LessonInformationService.LESSON_INFORMATION_PATH, {
                 ...lessonInformation,
             });
 }

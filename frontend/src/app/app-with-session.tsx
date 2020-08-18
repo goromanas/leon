@@ -10,7 +10,7 @@ import { lessonsService } from 'app/api/service/lessons-service';
 
 interface State {
     content: React.ReactNode;
-    lessons: Api.Lesson[];
+    lessons: Api.LessonDto[];
     schedule: Api.ScheduleDto[];
 }
 
@@ -18,7 +18,7 @@ interface OwnProps { }
 
 interface ContextProps {
     updateSession: (session: ContextSession) => void;
-    updateLessons: (lessons: Api.Lesson[]) => void;
+    updateLessons: (lessons: Api.LessonDto[]) => void;
     updateCurrentLesson: (currentLesson: number) => void;
     updateSchedule: (schedule: Api.ScheduleDto[]) => void;
 }
@@ -81,7 +81,7 @@ class AppWithSessionComponent extends React.Component<Props, State> {
         this.setState({ ...this.state, content: <IndexPage /> });
     };
 
-    private readonly handleLessonsResponse = (lessons: Api.Lesson[]): void => {
+    private readonly handleLessonsResponse = (lessons: Api.LessonDto[]): void => {
         const { updateLessons } = this.props;
 
         this.setState({ ...this.state, lessons });

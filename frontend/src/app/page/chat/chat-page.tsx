@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Layout } from 'antd';
+import { Layout, message } from 'antd';
 import { FormikHelpers } from 'formik';
 import Sider from 'antd/lib/layout/Sider';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -16,7 +16,7 @@ const { Content } = Layout;
 
 interface ContextProps {
     username: string | null;
-    teacherLessons: Api.Lesson[];
+    teacherLessons: Api.LessonDto[];
     userRoles: string[] | null;
 }
 
@@ -31,6 +31,7 @@ interface Message {
     classroom?: string;
     subject?: number;
     channel?: number;
+    role?: string[];
 }
 
 interface State {
@@ -41,6 +42,7 @@ interface State {
     channels: Api.Subject[];
     classRooms: Api.ClassroomDto[];
     currentChannel: number | null;
+    currentClassroom: string | null;
 }
 
 class ChatComponent extends React.Component<Props, State> {
@@ -66,6 +68,7 @@ class ChatComponent extends React.Component<Props, State> {
         channels: [],
         classRooms: [],
         currentChannel: 1,
+        currentClassroom: '',
     };
     public static MESSAGE_INITIAL_VALUES: MessageValue = { message: '' };
 
@@ -75,22 +78,23 @@ class ChatComponent extends React.Component<Props, State> {
         const { teacherLessons, userRoles } = this.props;
         const currentChannel: number = 1;
 
-        console.log(teacherLessons);
-    // this.ws.onopen = () => {
-    //     console.log('connected');
-    // };
-        if (this.state.channels.length < 1 && userRoles.includes('STUDENT')) {
+        if (this.state.channels.length < 1) {
             chatService
         .getSubjects()
         .then(channels => this.setState({ channels }))
         .catch(() => console.log('Error getting subjects'));
         }
 
+
         if (this.state.channels.length < 1 && userRoles.includes('TEACHER')) {
             chatService
       .getClassrooms()
       .then(classRooms => this.setState({ classRooms }))
       .catch(() => console.log('Error getting subjects'));
+        }
+
+        if (this.state.channels.length > 0) {
+            this.setState({ currentChannel: this.state.channels[0].id });
         }
 
         this.ws.onmessage = e => {
@@ -110,23 +114,6 @@ class ChatComponent extends React.Component<Props, State> {
         const { messages, channels, classRooms } = this.state;
         const { teacherLessons } = this.props;
 
-    // if (teacherLessons) {
-    //   console.log(teacherLessons);
-    //   const removedDuplicates = (teacherLessons: Api.Lesson[]) => {
-    //     const result = teacherLessons.reduce((acc, current) => {
-    //       const x = acc.find(item => item.subject === current.subject);
-    //       console.log(x);
-    //       if (!x) {
-    //         return acc.concat([current]);
-    //       } else {
-    //         return acc;
-    //       }
-    //     }, []);
-    //     return result;
-    //   };
-    //   // console.log(removedDuplicates)
-    // }
-
         return (
       <Layout>
         <Sider>
@@ -135,11 +122,15 @@ class ChatComponent extends React.Component<Props, State> {
             classRooms={classRooms}
             currentChannel={this.state.currentChannel}
             onChannelChange={this.onChannelChange}
+            onClassChange={this.onClassChange}
           />
         </Sider>
         <Content>
           <PageContent>
-         <ChatList messages={messages} currentChannel={this.state.currentChannel} />
+         <ChatList
+            messages={messages}
+            currentChannel={this.state.currentChannel}
+         />
             <ChatForm
               initialValues={ChatComponent.MESSAGE_INITIAL_VALUES}
               onSubmit={this.handleSubmit}
@@ -180,23 +171,18 @@ class ChatComponent extends React.Component<Props, State> {
         const time = new Date();
         const hours = time.getHours().toString();
         const minutes = time.getMinutes().toString();
-    // console.log(Object.keys(this.props.teacherLessons[0]));
-    // console.log(this.props.teacherLessons[0]["className"]);
-
-    // @ts-ignore
         const className: string = this.props.teacherLessons[0].className;
 
-    // console.log(teacherLessons);
-    // const id: number = this.props.teacherLessons
-    // console.log(values.message, messages[0].channel);
         if (values.message.trim() !== '') {
             this.setState({
-                messages: [{
+                messages: [...messages, {
                     text: values.message,
                     author: this.props.username,
                     date: hours + ':' + minutes,
-                    channel: currentChannel }],
-                className,
+                    channel: currentChannel,
+                    classroom: className,
+                    role: userRoles,
+                }],
             });
             this.sendMessage({
                 text: values.message,
@@ -204,7 +190,7 @@ class ChatComponent extends React.Component<Props, State> {
                 date: hours + ':' + minutes,
                 classroom: className,
                 channel: currentChannel,
-        // id:
+                role: userRoles,
             });
         }
         resetForm();
@@ -216,6 +202,13 @@ class ChatComponent extends React.Component<Props, State> {
             currentChannel: id,
         });
         console.log(this.state.currentChannel);
+    };
+
+    private readonly onClassChange = (name: string): void => {
+        this.setState({
+            currentClassroom: name,
+        });
+        console.log(this.state.currentClassroom);
     };
 }
 

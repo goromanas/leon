@@ -21,7 +21,7 @@ interface Values {
 
 const TeacherModal: React.FC<{ lessonId: number, onClose: () => void, date: string }> = (props) => {
 
-    const saveLessonInformation = (lessonInformation: Api.LessonInformationDto): void => {
+    const saveLessonInformation = (lessonInformation: Api.LessonDtoInformationDto): void => {
         lessonInformationService
             .postLessonInformation(lessonInformation)
             .then(() => console.log(lessonInformation));
@@ -44,7 +44,7 @@ const TeacherModal: React.FC<{ lessonId: number, onClose: () => void, date: stri
                     date: props.date,
                 }}
                 onSubmit={(
-                    values: Api.LessonInformationDto,
+                    values: Api.LessonDtoInformationDto,
                     {setSubmitting}: FormikHelpers<Values>
                 ) => {
                     console.log(values);

@@ -22,9 +22,9 @@ public class SubjectController {
         return subjectService.getAllSubjects();
     }
 
-    @RequestMapping(path = "/subjectByStudent", method = RequestMethod.GET)
-    public List<SubjectDto> getSubjectByStudent() {
-        return subjectService.getSubjectByStudent();
+    @RequestMapping(path = "/subjectByUser", method = RequestMethod.GET)
+    public List<SubjectDto> getSubjectByUser() {
+        return subjectService.getSubjectByUser();
     }
 
 }

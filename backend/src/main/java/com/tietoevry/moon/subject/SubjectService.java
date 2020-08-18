@@ -33,7 +33,7 @@ public class SubjectService {
         return subjectRepository.findAll();
     }
 
-    public List<SubjectDto> getSubjectByStudent()
+    public List<SubjectDto> getSubjectByUser()
     {
         return lessonService.getStudentLessonsForChat().stream().map(Lesson::getSubject).map(SubjectMapper::mapSubjectDto).distinct().collect(Collectors.toList());
     }

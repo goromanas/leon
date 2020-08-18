@@ -9,7 +9,7 @@ export interface Session {
 
 export interface Actions {
     updateSession: (session: Session) => void;
-    updateLessons: (lessons: Api.Lesson[]) => void;
+    updateLessons: (lessons: Api.LessonDto[]) => void;
     updateCurrentLesson: (currentLesson: number) => void;
     updateSchedule: (schedule: Api.ScheduleDto[]) => void;
 }
@@ -17,7 +17,7 @@ export interface Actions {
 export interface SettingsProps {
     actions: Actions;
     session: Session;
-    lessons: Api.Lesson[];
+    lessons: Api.LessonDto[];
     currentLesson: number;
     schedule: Api.ScheduleDto[];
 }
@@ -28,7 +28,7 @@ const INITIAL_SESSION: Session = {
 };
 const INITIAL_CURRENT_LESSON: number = 0;
 
-const INITIAL_LESSONS: Api.Lesson[] = [];
+const INITIAL_LESSONS: Api.LessonDto[] = [];
 
 const INITIAL_SCHEDULE: Api.ScheduleDto[] = [];
 
