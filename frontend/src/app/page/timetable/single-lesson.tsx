@@ -81,6 +81,9 @@ const SingleLesson: React.FC<Props> = (props) => {
                     <div className={lessonBarWithBreak}>
                         <div
                             className={lessonBarContent}
+                            style={{
+                                height: scheduleCalc.getLessonLength(schedule),
+                            }}
                         >
                             <h1>{thisLesson.subject}</h1>
                             {

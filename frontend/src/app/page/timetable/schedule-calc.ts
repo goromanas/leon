@@ -34,7 +34,7 @@ class ScheduleCalc {
     // return breakTime in minutes from schedule times and break position
     public getBreakTime = (schedule?: Api.ScheduleDto[], currentBreak?: number): any => {
 
-        if (schedule.length !== 0) {
+        if (schedule.length !== 0 && currentBreak !== 0 && currentBreak < schedule.length) {
             const starts = schedule[currentBreak - 1].endTime;
             const ends = schedule[currentBreak].startTime;
 
