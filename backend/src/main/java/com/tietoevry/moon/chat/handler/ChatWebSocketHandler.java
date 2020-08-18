@@ -32,7 +32,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 
         Map messageContent = new Gson().fromJson(message.getPayload(), Map.class);
 
-        System.out.println(messageContent.get("classroom"));
+      //  System.out.println(messageContent.get("classroom"));
 
         lessonIdFromMessage = String.valueOf(messageContent.get("classroom"));
 
@@ -66,7 +66,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         webSocketSessions.add(session);
-        System.out.println(session.getPrincipal().getName());
+        //System.out.println(session.getPrincipal().getName());
         System.out.println("Someone connected to chat");
     }
 }

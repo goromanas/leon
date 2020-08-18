@@ -27,6 +27,10 @@ public class ClassroomService {
     public Optional<Classroom> getClassroomFromUser(Optional<User> user){
         return classroomRepository.findClassroomByUser(user);
     }
+    public Classroom findClassroomByName(String className)
+    {
+        return classroomRepository.findByClassName(className);
+    }
 
 //    public ClassroomDto createClassroom(ClassroomDto classroom) {
 //        return saveClassroom(classroom);

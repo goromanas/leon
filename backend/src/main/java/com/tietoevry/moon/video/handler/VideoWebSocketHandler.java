@@ -1,6 +1,8 @@
 package com.tietoevry.moon.video.handler;
 
 import com.google.gson.Gson;
+import com.tietoevry.moon.classroom.ClassroomService;
+import com.tietoevry.moon.classroom.model.Classroom;
 import com.tietoevry.moon.lesson.LessonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,46 +18,37 @@ import java.util.Map;
 
 @Component
 public class VideoWebSocketHandler extends TextWebSocketHandler {
-
+    @Autowired
+    ClassroomService classroomService;
     private static final List<WebSocketSession> webSocketSessions = new ArrayList<>();
 
     private String username;
     private Map messageContent;
-    private String lessonIdFromMessage;
-
-    @Autowired
-    LessonRepository lessonRepository;
+    private String classroomName;
 
     public void handleTextMessage(WebSocketSession session, TextMessage message)
         throws InterruptedException, IOException {
-System.out.println("hello");
-System.out.println(message.getPayload().toString());
+        Map messageContent = new Gson().fromJson(message.getPayload(), Map.class);
+        classroomName = String.valueOf(messageContent.get("classroom"));
+        username = session.getPrincipal().getName();
+
+        System.out.println(username);
+        Classroom classroom = classroomService.findClassroomByName(classroomName);
+        System.out.println(classroom.getClassName());
+        for (WebSocketSession webSocketSession : webSocketSessions) {
 
 
-//        Map messageContent = new Gson().fromJson(message.getPayload(), Map.class);
-//
-//        System.out.println(messageContent.get("classroom"));
-//
-//        lessonIdFromMessage = String.valueOf(messageContent.get("classroom"));
-//
-//        for (WebSocketSession webSocketSession : webSocketSessions) {
-//
-//            username = session.getPrincipal().getName();
-//
-//
-//            if (webSocketSession != session) {
-//////               Lesson lesson = lessonRepository.findById((long) 1)
-////                    .orElseThrow(()-> new Error());
-////               lesson.getClassroom().getUser().stream().filter(student ->
-////               {
-////                   if (student.getUsername().equals("ddd")){
-////                       //
-////                   }
-////
-////               });
-//                webSocketSession.sendMessage(message);
-//            }
-//        }
+            //  if (webSocketSession != session) {
+            if (classroom
+                .getUser()
+                .stream()
+                .anyMatch(student -> student
+                    .getUsername()
+                    .contains(username))) {
+                webSocketSession.sendMessage(message);
+                //}
+            }
+        }
     }
 
 

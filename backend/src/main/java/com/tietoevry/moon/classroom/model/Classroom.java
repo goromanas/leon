@@ -15,6 +15,6 @@ public class Classroom {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String className;
-    @OneToMany
+    @OneToMany(fetch=FetchType.EAGER)
     private List<User> user;
 }

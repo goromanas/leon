@@ -44,12 +44,12 @@ public componentDidMount() {
     };
     this.ws.onmessage = e => {
         const message = JSON.parse(e.data);
-        console.log('Chat page receives ', message.classroom);
+        console.log('Video page receives ', message);
 
     }
 }
 public sendMessage=():void=> {
-    this.ws.send('"Classroom":"6A", "TeacherId":"??", "Question": "Is this legit?", "Options": [{"Id":"1""Name":"2"},{"Id":"1""Name":"2"}]}');
+    this.ws.send('{"classroom":"6A", "TeacherId":"??", "Question": "Is this legit?", "Options": [{"Id":"1", "Name":"2"},{"Id":"1", "Name":"2"}]}');
 }
     public render(): React.ReactNode {
         const {
