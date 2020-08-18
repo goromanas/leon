@@ -32,6 +32,7 @@ interface Message {
     subject?: number;
     channel?: number;
     role?: string[];
+    teacherSubjectId?: number
 }
 
 interface State {
@@ -43,6 +44,7 @@ interface State {
     classRooms: Api.ClassroomDto[];
     currentChannel: number | null;
     currentClassroom: string | null;
+    teacherSubjectId: number;
 }
 
 class ChatComponent extends React.Component<Props, State> {
@@ -69,6 +71,7 @@ class ChatComponent extends React.Component<Props, State> {
         classRooms: [],
         currentChannel: 1,
         currentClassroom: '',
+        teacherSubjectId: 1,
     };
     public static MESSAGE_INITIAL_VALUES: MessageValue = { message: '' };
 
@@ -89,13 +92,24 @@ class ChatComponent extends React.Component<Props, State> {
         if (this.state.channels.length < 1 && userRoles.includes('TEACHER')) {
             chatService
       .getClassrooms()
-      .then(classRooms => this.setState({ classRooms }))
+      .then(classRooms => this.setState({ classRooms, currentClassroom: classRooms[0].classroomName }))
       .catch(() => console.log('Error getting subjects'));
         }
 
         if (this.state.channels.length > 0) {
             this.setState({ currentChannel: this.state.channels[0].id });
         }
+
+       chatService.getTeacherSubject()
+           .then(teacherSubject => {
+               // console.log(teacherSubject);
+               // console.log(teacherSubject.id);
+               // console.log(Object.keys(teacherSubject))
+               this.setState({teacherSubjectId: teacherSubject.id})
+           })
+           .catch(() => console.log('Error getting teacher subject'))
+
+        // console.log(this.state.teacherSubject)
 
         this.ws.onmessage = e => {
             const message = JSON.parse(e.data);
@@ -113,7 +127,7 @@ class ChatComponent extends React.Component<Props, State> {
     public render(): React.ReactNode {
         const { messages, channels, classRooms } = this.state;
         const { teacherLessons } = this.props;
-
+        console.log(this.state.currentClassroom);
         return (
       <Layout>
         <Sider>
@@ -130,6 +144,7 @@ class ChatComponent extends React.Component<Props, State> {
          <ChatList
             messages={messages}
             currentChannel={this.state.currentChannel}
+            currentClassroom={this.state.currentClassroom}
          />
             <ChatForm
               initialValues={ChatComponent.MESSAGE_INITIAL_VALUES}
@@ -182,6 +197,7 @@ class ChatComponent extends React.Component<Props, State> {
                     channel: currentChannel,
                     classroom: className,
                     role: userRoles,
+                    teacherSubjectId: this.state.teacherSubjectId,
                 }],
             });
             this.sendMessage({
@@ -191,6 +207,7 @@ class ChatComponent extends React.Component<Props, State> {
                 classroom: className,
                 channel: currentChannel,
                 role: userRoles,
+                teacherSubjectId: this.state.teacherSubjectId,
             });
         }
         resetForm();
