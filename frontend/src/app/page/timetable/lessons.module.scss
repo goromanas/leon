@@ -17,22 +17,30 @@
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-between;
+  .day:nth-child(1) {
+    .dayHeader {
+      margin-left: 45px;
+    }
+  }
 }
 
 // ONE DAY LESSONS LIST <div>
-.day {
+.dayClass {
   display: flex;
-  width: 19%;
+  width: 18%;
   min-width: fit-content;
   flex-direction: column;
-
 }
 .dayHeader {
   font-size:$md;
   display: flex;
   justify-content: space-between;
 }
-
+.activeDay {
+  .dayHeader {
+    font-weight: $bold;
+  }
+}
 .dayLessonsList {
     width: 100%;
     .lesson:nth-last-child(1) {
@@ -73,8 +81,8 @@
     align-items: center;
     justify-content: space-between;
     &:hover {
-        background-color: rgba(#bfbfbf, 0.8);
-        transition: all 0.3s ease-out;
+        background-color: rgba(#eeeeee, 0.8);
+        transition: all 0.2s ease-in-out;
         box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.31);
       }
     &::after {
@@ -112,9 +120,12 @@
 
   .activeLesson {
     .lessonBarContent {
-      background-color: #b6ab79;
-      color: #000000;
-      box-shadow: $activeLessonShadow;
+      background-color: $grey2;
+      // box-shadow: $activeLessonShadow;
+      & h1 {
+        font-weight: $bold;
+        color: #000000;
+      }
     }
     .lessonBarTime {
       color: #000000;
@@ -124,10 +135,12 @@
     .lessonBarContent {
       background-color: #F3F3F3;;
       color: #727272;
-    }
-    .lessonBarTime {
-      background-color: #F3F3F3;;
-      color: #727272;
+      & h1 {
+        color: $grey5;
+      }
+      &::after {
+        background-color: $grey3;
+      }
     }
   }
 
@@ -135,8 +148,8 @@
     height: 10px;
     display: block;
     // margin: 0.1em 0;
-    // background: repeating-linear-gradient(-45deg, #fff, #fff 5px, rgba(#DBDBDB, 0.3) 5px, rgba(#DBDBDB, 0.3) 6px);
-    background-color: #F3F3F3;
+    background: repeating-linear-gradient(-45deg, #fff, #fff 5px, rgba(#DBDBDB, 0.3) 5px, rgba(#DBDBDB, 0.3) 6px);
+    // background-color: #F3F3F3;
   }
 
 

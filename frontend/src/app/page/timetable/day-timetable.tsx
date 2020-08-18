@@ -21,6 +21,7 @@ interface Props {
 
 const DayLessonsList: React.FC<Props> = ({ allLessons, userRole, day, date, currentLesson, schedule, homepage }) => {
 
+    const { dayHeader, dayClass, dayLessonsList, activeDay } = styles;
     // filter this { day } lessons from allLessons
     const dayLessons = allLessons && allLessons.filter((lesson: Api.Lesson) =>
         lesson.day === day);
@@ -29,6 +30,11 @@ const DayLessonsList: React.FC<Props> = ({ allLessons, userRole, day, date, curr
     const handleOpenClassroom = (id: number): void => {
         navigationService.redirectToVideoChat(id);
     };
+
+    const dayClasses = classNames(
+        dayClass,
+        moment().format('MM-DD') === date && activeDay,
+    );
 
     const lessonsList = dayLessons.map((item: any) => (
 
@@ -45,18 +51,18 @@ const DayLessonsList: React.FC<Props> = ({ allLessons, userRole, day, date, curr
     ));
 
     return (
-        <div className={styles.day}>
-            <h1 className={styles.dayHeader}>
+        <div className={dayClasses}>
+            <h1 className={dayHeader}>
                 <span>
-                    {(scheduleCalc.getDayFromInt(day).toUpperCase())} {moment().format('MM-DD') === date ? `(TODAY)` : ''}
+                    {(scheduleCalc.getDayFromInt(day).toUpperCase())}
                 </span>
                 <span>{date}</span>
             </h1>
             {date === moment().format('MM-DD') && homepage ?
-                <h1 className={styles.dayHeader}>Today's lecture ({dayLessons.length})</h1>
+                <h1 className={dayHeader}>Today's lecture ({dayLessons.length})</h1>
                 : null
             }
-            <div className={styles.dayLessonsList}>{lessonsList}</div>
+            <div className={dayLessonsList}>{lessonsList}</div>
         </div>
     );
 };
