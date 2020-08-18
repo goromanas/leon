@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import { IndexPage } from 'app/index-page';
 import { sessionService } from 'app/api/service/session-service';
 import { connectContext, Session as ContextSession, SettingsProps } from 'app/context';
@@ -54,6 +55,7 @@ class AppWithSessionComponent extends React.Component<Props, State> {
     }
     public render(): React.ReactNode {
         const { content, lessons } = this.state;
+
         return (
             <AsyncContent loading={!content} loader={<PageLoadingSpinner />}>
                 {content}
@@ -62,11 +64,13 @@ class AppWithSessionComponent extends React.Component<Props, State> {
     }
     private readonly handleResponse = ({ user }: Api.Session): void => {
         const { updateSession } = this.props;
+
         updateSession(this.createSession(user));
         this.setState({ ...this.state, content: <IndexPage /> });
     };
     private readonly handleLessonsResponse = (lessons: Api.LessonDto[]): void => {
         const { updateLessons } = this.props;
+
         this.setState({ ...this.state, lessons });
         updateLessons(lessons);
     };
@@ -74,6 +78,7 @@ class AppWithSessionComponent extends React.Component<Props, State> {
         const {
             updateSchedule,
         } = this.props;
+
         this.setState({ ...this.state, schedule });
         updateSchedule(schedule);
     };
@@ -81,6 +86,7 @@ class AppWithSessionComponent extends React.Component<Props, State> {
         const { updateCurrentLesson } = this.props;
         // connect to websocket to get currentLesson
         const ws: any = new WebSocket(lessonsService.getSocketUrl());
+
         ws.onopen = () => {
             // tslint:disable-next-line: no-console
             console.log('connected');
@@ -88,9 +94,11 @@ class AppWithSessionComponent extends React.Component<Props, State> {
         ws.onmessage = (evt: any) => {
             const currentLesson = evt.data;
             // set first property to currentLesson to get currentLessonID of this day.
+
             if (currentLesson === 0) {
                 updateCurrentLesson(this.getCurrentLessonID(0));
             } else {
+                // updateCurrentLesson(this.getCurrentLessonID(currentLesson));
                 updateCurrentLesson(this.getCurrentLessonID(currentLesson));
             }
         };
@@ -104,7 +112,9 @@ class AppWithSessionComponent extends React.Component<Props, State> {
         const date = new Date();
         const currentDay = date.getDay();
         // console.log(this.state.lessons);
+
         if (!this.state.lessons || currentDay === 0 || currentDay === 6) {
+            console.log('none');
             return 0;
         }
         return this.state.lessons.find(
@@ -115,12 +125,13 @@ class AppWithSessionComponent extends React.Component<Props, State> {
     private readonly createSession = (user: Api.SessionUser): ContextSession => ({ user, authenticated: !!user });
 }
 const mapContextToProps = ({
-                               actions: { updateSession, updateLessons, updateCurrentLesson, updateSchedule } }: SettingsProps)
+    actions: { updateSession, updateLessons, updateCurrentLesson, updateSchedule } }: SettingsProps)
     : ContextProps => ({
-    updateSession,
-    updateLessons,
-    updateCurrentLesson,
-    updateSchedule,
-});
+        updateSession,
+        updateLessons,
+        updateCurrentLesson,
+        updateSchedule,
+    });
 const AppWithSession = connectContext(mapContextToProps)(AppWithSessionComponent);
+
 export { AppWithSession };

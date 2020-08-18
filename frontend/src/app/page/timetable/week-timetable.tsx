@@ -1,11 +1,17 @@
 import React from 'react';
-import { Button, Col, Row } from 'antd';
+import { Button, Col, Row, Layout } from 'antd';
 import moment from 'moment';
 
+import { AsyncContent } from 'app/components/layout';
+import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-loading-spinner';
 import { connectContext, SettingsProps } from 'app/context';
 import { DayLessonsList } from 'app/page/timetable/day-timetable';
-
+import { SideTimebar } from 'app/page/timetable/side-timebar';
 import styles from 'app/page/timetable/lessons.module.scss';
+
+import { scheduleCalc } from './schedule-calc';
+
+const { Content } = Layout;
 
 interface ContextProps {
     username: string | null;
@@ -28,6 +34,7 @@ class TimetablePageComponent extends React.Component<Props, State> {
         };
 
     private sortedLesson: Api.LessonDto[];
+    public allDaysList: string = '';
 
     public render(): React.ReactNode {
 
@@ -41,43 +48,50 @@ class TimetablePageComponent extends React.Component<Props, State> {
         const now = new Date().getDay();
 
         return (
-            <div>
-                <div className={styles.weekButtons}>
-                    <Button
-                        type="primary"
-                        onClick={() => this.handleButtonClick(false)}
-                    >Previous Week
-                    </Button>
-                    <Button
-                        type="primary"
-                        onClick={() => this.handleButtonClick(true)}
-                    >Next Week
-                    </Button>
+            <AsyncContent loading={schedule.length === 0} loader={<PageLoadingSpinner />}>
+                <div className={styles.weekPage}>
+                    <div className={styles.weekInfo}>
+                        <div className={styles.weekNavigation}>
+                            <span className={styles.weekNavigationText}>This Week</span>
+                            <span className={styles.weekNavigationDate}>
+                                <img
+                                    alt="week navigation"
+                                    src={'icons/arrow.svg'}
+                                    onClick={() => this.handleButtonClick(false)}
+                                />
+                                <span>{this.getDays(5, now)}</span>
+                                <img
+                                    alt="week navigation"
+                                    src={'icons/arrow.svg'}
+                                    onClick={() => this.handleButtonClick(true)}
+                                />
+                            </span>
+                        </div>
+                        <p>Lesson duration: {scheduleCalc.getLessonLength(schedule)}min</p>
+                    </div>
+
+                    <div className={styles.week}>
+                        <div className={styles.weekList}>
+                            <SideTimebar schedule={this.props.schedule} />
+                            {Array(5).fill(1 + this.state.move).map((x, y) => x + y).map((item) => (
+                                item === 0 ? item = 5 : null,
+                                item < 0 ? item = 0 - item : null,
+                                (item % 5) !== 0 ? null : item = 5,
+                                (item % 5) !== 0 ? item = item % 5 : null,
+                                < DayLessonsList
+                                    userRole={this.props.userRoles}
+                                    allLessons={this.filterByDay(allLessons, item) || []}
+                                    currentLesson={this.props.currentLesson}
+                                    day={item}
+                                    date={this.getDate(item, now)}
+                                    schedule={this.props.schedule}
+                                />
+                            ))}
+                        </div>
+                    </div >
                 </div>
-                <Row>
 
-                    {Array(5).fill(now + this.state.move).map((x, y) => x + y).map((item) => (
-                        item === 0 ? item = 5 : null,
-                        item < 0 ? item = 0 - item : null,
-                        (item % 5) !== 0 ? null : item = 5,
-                        (item % 5) !== 0 ? item = item % 5 : null,
-
-                        < Col xs={{ span: 5, offset: 1 }} lg={{ span: 6, offset: 1 }} key={item}>
-
-                            < DayLessonsList
-                                userRole={this.props.userRoles}
-                                allLessons={this.filterByDay(allLessons, item) || []}
-                                currentLesson={this.props.currentLesson}
-                                day={item}
-                                date={this.getDate(item, now)}
-                                schedule={this.props.schedule}
-                            />
-                        </Col>
-                    ))}
-
-                </Row>
-
-            </div >
+            </AsyncContent >
         );
     }
 
@@ -88,27 +102,41 @@ class TimetablePageComponent extends React.Component<Props, State> {
             return this.sortedLesson.filter(lesson => lesson.day === day ? lesson : null);
 
         }
+
     }
 
     public getDate = (item: number, now: number): string => {
         const today = new Date();
         let t;
 
-        if (now > item) {
+        if (1 > item) {
             t = (item) + 7;
         } else {
             t = item;
         }
-        const day = moment().add(this.state.move / 5 * 7 - now + t, 'd').format('YYYY-MM-DD');
+        // const day = moment().add(this.state.move / 5 * 7 - now + t, 'd').format('YYYY-MM-DD');
+        const day = moment().add(this.state.move / 5 * 7 - now + t, 'd').format('MMM DD');
 
         return day;
     };
-    private handleButtonClick = (forward: boolean): void => {
 
+    public getDays = (item: number, now: number): string => {
+        let t;
+
+        if (1 > item) {
+            t = (item) + 7;
+        } else {
+            t = item;
+        }
+        const day = moment().add(this.state.move / 5 * 7 - now + t, 'd').format('D MMM');
+
+        return parseInt(day, 10) - 4 + ' - ' + day;
+    };
+
+    private handleButtonClick = (forward: boolean): void => {
         forward ?
             this.setState({ move: this.state.move + 5 }) :
             this.setState({ move: this.state.move - 5 });
-
     };
 }
 
