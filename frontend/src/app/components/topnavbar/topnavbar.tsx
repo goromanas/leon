@@ -15,7 +15,7 @@ const { Header } = Layout;
 interface OwnProps {}
 
 interface ContextProps {
-  teacherLessons: Api.Lesson[];
+  teacherLessons: Api.LessonDto[];
   username: string | null;
   userRoles: string[] | null;
   currentLesson: number;
@@ -55,7 +55,7 @@ class TopNavBarComponent extends React.Component<Props> {
           </SubMenu>
 
           <Menu.Item style={{ display: "block", float: "right" }}>
-            {teacherLessons && userRoles.includes("STUDENT") ? teacherLessons[0].classroom : ""}
+            {teacherLessons && userRoles.includes("STUDENT") ? teacherLessons[0].className : ""}
             {teacherLessons && userRoles.includes("TEACHER") ? firstName : ""}
           </Menu.Item>
           <Menu.Item style={{ display: "block", float: "right" }}>
