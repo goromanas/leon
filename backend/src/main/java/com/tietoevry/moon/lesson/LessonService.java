@@ -41,13 +41,11 @@ public class LessonService {
         return lessons;
     }
 
-    public List<LessonDto> getChatLessons() {
-        return lessonRepository.findAllByClassroom(classroomService.getClassroomFromUser(userService.getUserFromSession())).stream().map(LessonMapper::mapLessonTo).collect(Collectors.toList());
+    public List<Lesson> getTeacherLessonsForChat() {
+        return lessonRepository.findAllByTeacher(userService.getUserFromSession());
     }
 
-    //public void changeLessonState(LessonDto lessonDto) {
-    //     Lesson lesson = lessonRepository.getOne(lessonDto.getId());
-    //     lesson.setStatus(lesson.getStatus());
-    //     lessonRepository.save(lesson);
-    //   }
+    public List<Lesson> getStudentLessonsForChat() {
+        return lessonRepository.findAllByClassroom(classroomService.getClassroomFromUser(userService.getUserFromSession()));
+    }
 }

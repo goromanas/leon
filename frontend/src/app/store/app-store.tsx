@@ -4,7 +4,7 @@ import { Actions, INITIAL_SESSION, INITIAL_CURRENT_LESSON, INITIAL_SCHEDULE, Ses
 
 interface State {
     session: Session;
-    lessons: Api.Lesson[];
+    lessons: Api.LessonDto[];
     currentLesson: number;
     schedule: Api.ScheduleDto[];
 }
@@ -48,7 +48,7 @@ class AppStore extends React.Component<{}, State> {
         this.setState({ session });
     };
 
-    private readonly updateLessons = (lessons: Api.Lesson[]): void => {
+    private readonly updateLessons = (lessons: Api.LessonDto[]): void => {
         this.setState({ lessons });
     };
 
