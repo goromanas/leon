@@ -68,13 +68,16 @@ class HomePageComponent extends React.Component<Props, {}> {
             endTime = currentLessonTimeObj.endTime
         }
 
+        // @ts-ignore
         return (
             <Layout >
-                <Sider className={styles.sider} >
+                <Sider
+                    // className={styles.sider}
+                >
                     <div>
                         <Button type='primary'><TeamOutlined />Participants</Button>
                         <Button type='primary'><MessageOutlined /> Question Form</Button>
-                        <Button type='primary'><span className={styles.wandI}><Wand /></span> Whiteboard</Button>
+                        <Button type='primary'><span><Wand /></span> Whiteboard</Button>
                     </div>
                 </Sider>
                 <Content style={{ margin: 'auto', width: '70%' }}>
