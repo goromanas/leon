@@ -54,6 +54,12 @@ class ScheduleCalc {
         return 0;
     };
 
+    public getDayStart = (schedule: Api.ScheduleDto[]) =>
+        this.convertTimeToMinutes(schedule[0].startTime);
+
+    public getDayEnd = (schedule: Api.ScheduleDto[]) =>
+        this.convertTimeToMinutes(schedule[schedule.length - 1].endTime);
+
 }
 
 const scheduleCalc = new ScheduleCalc();

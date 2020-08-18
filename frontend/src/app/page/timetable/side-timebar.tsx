@@ -30,7 +30,7 @@ const SideTimebar: React.FC<Props> = ({ schedule }) => {
     return (
         <div className={styles.lessonSideBar}>
             {allTimes}
-            <TimeLine />
+            <TimeLine schedule={schedule} />
         </div>
     );
 };
