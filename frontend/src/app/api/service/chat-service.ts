@@ -1,7 +1,7 @@
 import { CancelSource, RestService } from 'app/api/common';
 
 class ChatService {
-    private static readonly CHAT_LESSON_PATH: string = '/subjectByStudent';
+    private static readonly CHAT_LESSON_PATH: string = '/subjectByUser';
     private static readonly CHAT_SUBJECT_PATH: string = '/classroomByTeacher';
 
     private readonly restService: RestService;

@@ -1,14 +1,14 @@
-import React from "react";
+import React from 'react';
+import Avatar from 'antd/lib/avatar/avatar';
+import { UserOutlined } from '@ant-design/icons';
 
-import styles from "./chat-list.module.scss";
-import Avatar from "antd/lib/avatar/avatar";
-import { UserOutlined } from "@ant-design/icons";
+import styles from './chat-list.module.scss';
 
 interface Props {
-  text: string;
-  author: string;
-  date: string;
-  channel: number;
+    text: string;
+    author: string;
+    date: string;
+    channel: number;
 }
 
 const Message: React.FC<Props> = ({ text, author, date, channel }) => (
