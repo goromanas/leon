@@ -15,19 +15,11 @@ const { Header } = Layout;
 interface OwnProps {}
 
 interface ContextProps {
-<<<<<<< frontend/src/app/components/topnavbar/topnavbar.tsx
-    teacherLessons: Api.LessonDto[];
-    username: string | null;
-    userRoles: string[] | null;
-    currentLesson: number;
-=======
-  teacherLessons: Api.LessonDto
-  [];
+  teacherLessons: Api.LessonDto[];
   username: string | null;
   userRoles: string[] | null;
   currentLesson: number;
   firstName: string | null;
->>>>>>> frontend/src/app/components/topnavbar/topnavbar.tsx
 }
 
 type Props = OwnProps & ContextProps;
