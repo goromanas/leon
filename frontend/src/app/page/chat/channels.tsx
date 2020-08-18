@@ -6,19 +6,19 @@ interface Props {
     channels: Api.Subject[];
     currentChannel: number;
     onChannelChange: any;
+    onClassChange: any;
     classRooms: Api.ClassroomDto[];
 }
 
 class Channels extends React.Component<Props> {
-    public componentDidMount() {
-    // const { currentChannel } = this.state;
-    }
-
     public render(): React.ReactNode {
         const { channels, currentChannel, onChannelChange, classRooms } = this.props;
 
         return (
-      <Menu defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']} mode="inline">
+      <Menu
+        defaultSelectedKeys={['1']}
+        defaultOpenKeys={['sub1']}
+        mode="inline">
         <SubMenu key="sub1" title="Channels">
           {this.props.channels &&
             this.props.channels.map(channel => (
@@ -27,14 +27,17 @@ class Channels extends React.Component<Props> {
               </Menu.Item>
             ))}
             {this.props.classRooms &&
-            this.props.classRooms.map(channel => (
-              <Menu.Item onClick={() => this.props.onChannelChange(channel.id)} key={channel.id}>
-                {channel.classroomName}
+            this.props.classRooms.map(classroom => (
+              <Menu.Item
+                onClick={() => this.props.onClassChange(classroom.classroomName)}
+                key={classroom.classroomName}
+              >
+                {classroom.classroomName}
               </Menu.Item>
             ))}
         </SubMenu>
       </Menu>
-      );
+        );
     }
 }
 
