@@ -1,15 +1,20 @@
-import { CancelSource, RestService } from "app/api/common";
+import { CancelSource, RestService } from 'app/api/common';
 
 class ChatService {
-  private static readonly CHAT_LESSON_PATH: string = "/allSubjects";
+    private static readonly CHAT_LESSON_PATH: string = '/subjectByStudent';
+    private static readonly CHAT_SUBJECT_PATH: string = '/classroomByTeacher';
 
-  private readonly restService: RestService;
+    private readonly restService: RestService;
 
-  constructor(cancelSource: CancelSource = new CancelSource()) {
-    this.restService = cancelSource.service;
-  }
+    constructor(cancelSource: CancelSource = new CancelSource()) {
+        this.restService = cancelSource.service;
+    }
 
-  public readonly getSubjects = (): Promise<Api.Subject[]> => this.restService.get<Api.Subject[]>(`${ChatService.CHAT_LESSON_PATH}`);
+    public readonly getSubjects = (): Promise<Api.Subject[]> =>
+  this.restService.get<Api.Subject[]>(`${ChatService.CHAT_LESSON_PATH}`);
+
+  public readonly getClassrooms = (): Promise<Api.ClassroomDto[]> =>
+  this.restService.get<Api.ClassroomDto[]>(`${ChatService.CHAT_SUBJECT_PATH}`);
 
   // public readonly getSocketUrl = (): string => {
   //   const loc = window.location;
