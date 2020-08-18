@@ -32,4 +32,14 @@ public class LessonInformationService {
             .save(LessonInformationMapper.mapLessonInformationEntity(lessonInformation, assignmentsByName, lesson));
         return LessonInformationMapper.lessonInformationToDto(savedLessonInformation);
     }
+
+    public LessonInformationDto updateLessonInformation(LessonInformationDto lessonInformation) {
+        Lesson lesson = lessonService.getLesson(lessonInformation.getLessonId());
+        Map<String, Assignment> assignmentsByName = assignmentRepository.findAll()
+            .stream()
+            .collect(Collectors.toMap(Assignment::getName, Function.identity()));
+        LessonInformation savedLessonInformation = lessonInformationRepository
+            .save(LessonInformationMapper.mapLessonInformationEntity(lessonInformation, assignmentsByName, lesson));
+        return LessonInformationMapper.lessonInformationToDto(savedLessonInformation);
+    }
 }

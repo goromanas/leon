@@ -81,11 +81,14 @@ const SingleLesson: React.FC<Props> = (props) => {
                         onClose={handleOk}
                         lessonInformation={
                             thisLesson.lessonInformation
-                                .filter((lesson:Api.LessonInformationDto) => lesson.date === date)}
+                                .filter((lesson: Api.LessonInformationDto) => lesson.date === date)}
                         classId={thisLesson.id}
                         date={date}
                     />) :
-                    (<TeacherModal lessonId={thisLesson.id} onClose={handleOk} date={date}/>)}
+                    (<TeacherModal subject={thisLesson.subject} lessonId={thisLesson.id} onClose={handleOk} date={date}
+                                   lessonInformation={
+                                       thisLesson.lessonInformation
+                                           .filter((lesson: Api.LessonInformationDto) => lesson.date === date)}/>)}
             </Modal>
 
             < li className={listClass} key={thisLesson.id} onClick={() => showModal(thisLesson.id)}>

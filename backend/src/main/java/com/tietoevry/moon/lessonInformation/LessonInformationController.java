@@ -18,5 +18,11 @@ public class LessonInformationController {
         System.out.println(lessonInformation);
         return lessonInformationService.createLessonInformation(lessonInformation);
     }
+    @RequestMapping(path = "/lessonInformation", method = RequestMethod.PUT)
+    public LessonInformationDto updateLessonInformation(@RequestBody LessonInformationDto lessonInformation) {
+        System.out.println(lessonInformation);
+        return lessonInformationService.updateLessonInformation(lessonInformation);
+    }
 
 }
+

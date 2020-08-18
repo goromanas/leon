@@ -44,4 +44,5 @@ public class LessonInformationMapper {
             )
             .lesson(lesson).build();
     }
+
 }
