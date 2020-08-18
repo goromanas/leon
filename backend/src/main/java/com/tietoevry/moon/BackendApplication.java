@@ -16,7 +16,7 @@ public class BackendApplication {
 
     @PostConstruct
     public void init() {
-        TimeZone.setDefault(TimeZone.getTimeZone("EET"));   // It will set UTC timezone
+        TimeZone.setDefault(TimeZone.getTimeZone("GMT"));   // It will set UTC timezone
     }
 
     public static void main(String[] args) {
