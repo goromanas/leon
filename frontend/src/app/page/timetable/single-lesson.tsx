@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import ReactTooltip from 'react-tooltip';
 
 import { TeacherModal } from 'app/components/modalContent/teacherModal';
+import { StudentModal } from 'app/components/modalContent/studentModal';
 
 import { scheduleCalc } from './schedule-calc';
 
@@ -35,37 +36,45 @@ const SingleLesson: React.FC<Props> = (props) => {
     // get thisLesson start as 8:00
     const lessonStart: string = schedule.length !== 0 ? (schedule[thisLesson.time - 1].startTime).substr(0, 5) : 'undef';
 
-    const modalButton = (): boolean =>
+    const checkUserRoleForModal = (): boolean =>
         userRole.includes('STUDENT') || userRole.includes('PARENT');
 
     const showModal = (index: number) => {
         setModalVisible(!modalVisible);
     };
+
+    const checkLessonInformation = (index: number) => {
+        if (thisLesson.lessonInformation[0]) {
+            showModal(index);
+        }
+    };
+
     const handleOk = () => {
         setModalVisible(!modalVisible);
     };
 
     return (
         <>
-            {modalButton() ?
-                (
-                    <></>
-
-                ) :
-                (
-                    <Modal
-                        key={thisLesson.id}
-                        title={thisLesson.subject}
-                        visible={modalVisible}
-                        footer={null}
-                        onCancel={handleOk}
-                        okButtonProps={{
-                            children: 'Custom OK',
-                        }}
-                    >
-                        <TeacherModal lessonId={thisLesson.id} onClose={handleOk} date={date} />
-                    </Modal>
-                )}
+            <Modal
+                visible={modalVisible}
+                footer={null}
+                onCancel={handleOk}
+                okButtonProps={{
+                    children: 'Custom OK',
+                }}
+            >
+                {checkUserRoleForModal() ?
+                    (<StudentModal
+                        subject={thisLesson.subject}
+                        onClose={handleOk}
+                        lessonInformation={
+                            thisLesson.lessonInformation
+                                .filter((lesson: Api.LessonInformationDto) => lesson.date === date)}
+                        classId={thisLesson.id}
+                        date={date}
+                    />) :
+                    (<TeacherModal lessonId={thisLesson.id} onClose={handleOk} date={date} />)}
+            </Modal>
             <div className={lessonClass} key={thisLesson.id}>
                 <div onClick={() => showModal(thisLesson.id)} className={lessonBar}>
 

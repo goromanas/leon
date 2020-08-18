@@ -4,7 +4,6 @@ import moment from 'moment';
 
 import { navigationService } from 'app/service/navigation-service';
 import { connectContext, SettingsProps } from 'app/context';
-import { PageContent } from 'app/components/layout';
 
 import { DayLessonsList } from 'app/page/timetable/day-timetable';
 
@@ -16,7 +15,7 @@ interface ContextProps {
     username: string | null;
     firstName: string | null;
     userRoles: string[] | null;
-    allLessons: Api.Lesson[];
+    allLessons: Api.LessonDto[];
     currentLesson: number;
     schedule: Api.ScheduleDto[];
 }
@@ -50,9 +49,6 @@ class HomePageComponent extends React.Component<Props, State> {
         } = this.props;
 
         return (
-            // <Layout>
-            //     <Content>
-            //         <PageContent>
             <div>
                 <div className={styles.welcomeHeader}>
                     Welcome back, {this.props.firstName},
@@ -76,9 +72,6 @@ class HomePageComponent extends React.Component<Props, State> {
                         )
                 }
             </div>
-            //         </PageContent>
-            //     </Content>
-            // </Layout>
         );
     }
 

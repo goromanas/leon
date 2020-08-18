@@ -10,7 +10,7 @@ import { SingleLesson } from './single-lesson';
 import styles from './lessons.module.scss';
 
 interface Props {
-    allLessons: Api.Lesson[];
+    allLessons: Api.LessonDto[];
     schedule: Api.ScheduleDto[];
     currentLesson: number;
     userRole: string[];
@@ -23,7 +23,7 @@ const DayLessonsList: React.FC<Props> = ({ allLessons, userRole, day, date, curr
 
     const { dayHeader, dayClass, dayLessonsList, activeDay } = styles;
     // filter this { day } lessons from allLessons
-    const dayLessons = allLessons && allLessons.filter((lesson: Api.Lesson) =>
+    const dayLessons = allLessons && allLessons.filter((lesson: Api.LessonDto) =>
         lesson.day === day);
 
     // navigate to video chat by class number id. Passed function in SingleLesson

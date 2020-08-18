@@ -16,7 +16,7 @@ const { Content } = Layout;
 interface ContextProps {
     username: string | null;
     userRoles: string[] | null;
-    allLessons: Api.Lesson[];
+    allLessons: Api.LessonDto[];
     currentLesson: number;
     schedule: Api.ScheduleDto[];
 }
@@ -33,7 +33,7 @@ class TimetablePageComponent extends React.Component<Props, State> {
             move: 0,
         };
 
-    private sortedLesson: Api.Lesson[];
+    private sortedLesson: Api.LessonDto[];
 
     public render(): React.ReactNode {
 
@@ -94,7 +94,7 @@ class TimetablePageComponent extends React.Component<Props, State> {
         );
     }
 
-    public filterByDay(teacherLessons: Api.Lesson[], day: number): Api.Lesson[] {
+    public filterByDay(teacherLessons: Api.LessonDto[], day: number): Api.LessonDto[] {
 
         if (teacherLessons != null) {
             this.sortedLesson = teacherLessons.sort((n1, n2) => n1.time - n2.time);

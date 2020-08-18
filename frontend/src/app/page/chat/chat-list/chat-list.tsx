@@ -16,7 +16,7 @@ interface Message {
 }
 
 interface ContextProps {
-    teacherLessons: Api.Lesson[];
+    teacherLessons: Api.LessonDto[];
 }
 
 interface OwnProps {

@@ -38,8 +38,4 @@ public class LessonController {
         return lessonService.getStudentLessons();
     }
 
-    @RequestMapping(path = "/chatLessons", method = RequestMethod.GET)
-    public List<LessonDto> getChatLessons() {
-        return lessonService.getChatLessons();
-    }
 }

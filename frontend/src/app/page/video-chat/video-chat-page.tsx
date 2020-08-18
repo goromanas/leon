@@ -1,19 +1,27 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
 
-import { Layout } from 'antd';
+import { Layout} from 'antd';
 import Jitsi from 'react-jitsi';
 
 import { connectContext, SettingsProps } from 'app/context';
 import { PageContent } from 'app/components/layout';
 import { navigationService } from 'app/service/navigation-service';
 
-const { Content } = Layout;
+// @ts-ignore
+import {Top} from './top/top'
+
+import styles from './video-chat-page.module.scss'
+import { VideoButton } from 'app/page/video-chat/video-buttons/video-button';
+
+const { Content, Sider } = Layout;
 
 interface ContextProps {
     username: string | null;
-    teacherLessons: Api.Lesson[];
+    firstName: string | null;
+    teacherLessons: Api.LessonDto[];
     userRoles: string[] | null;
+    schedule: Api.ScheduleDto[];
 }
 
 type OwnProps = RouteComponentProps<Params>;
@@ -29,8 +37,10 @@ class HomePageComponent extends React.Component<Props, {}> {
     public render(): React.ReactNode {
         const {
             username,
+            firstName,
             teacherLessons,
             userRoles,
+            schedule,
             match: {
                 params: { id },
             },
@@ -45,16 +55,38 @@ class HomePageComponent extends React.Component<Props, {}> {
             navigationService.redirectToDefaultPage();
         }
         const videoChatName: string = currentLesson && currentLesson[0].video.toString();
+        const currentLessonTimeObj = currentLesson && schedule[currentLesson[0].time-1];
+
+        let lessonTitle: string;
+        let startTime: string;
+        let endTime: string;
+        if (currentLessonTimeObj) {
+            lessonTitle = currentLesson[0].className + ' ' + currentLesson[0].subject;
+            startTime = currentLessonTimeObj.startTime
+            endTime = currentLessonTimeObj.endTime
+        }
 
         return (
-            <Layout>
+            <Layout >
+                <Sider
+                    className={styles.sider}
+                >
+                    <div>
+                        <VideoButton />
+                    </div>
+                </Sider>
                 <Content style={{ margin: 'auto', width: '70%' }}>
                     <PageContent>
+                        <Top lessonTitle={lessonTitle}
+                             teacher={currentLesson && currentLesson[0].teacher}
+                             startTime={startTime}
+                             endTime={endTime}
+                        />
+
                         {videoChatName && (
                             <Jitsi
 
-                                frameStyle={{ display: 'block', width: '150%', height: '150%' }}
-
+                                frameStyle={{ display: 'block', width: '1200px', height: '65vh' }}
                                 jwt="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250ZXh0Ijp7InVzZXIiOnsiYXZhdGFyIjoiaHR0cHM6Ly9hdmF0YXJzLmRpY2ViZWFyLmNvbS9hcGkvbWFsZS9tZW51by1zdS1pdC5zdmciLCJuYW1lIjoiTcSXbnVvIHN1IElUIn19LCJhdWQiOiJtZW51b19zdV9pdCIsImlzcyI6Im1lbnVvX3N1X2l0Iiwic3ViIjoibWVldC5qaXRzaSIsInJvb20iOiIqIn0.6CKZU_JWLhtj9eKJ-VdFGQZyRzvTZz29fn7--_dp-jw"
                                 roomName={videoChatName}
                                 domain="video-menuo-su-it.northeurope.cloudapp.azure.com:443"
@@ -108,11 +140,13 @@ const handleCallEnd = (api: any) => {
     });
 };
 
-const mapContextToProps = ({ session: { user }, lessons }: SettingsProps): ContextProps => ({
+const mapContextToProps = ({ session: { user }, lessons, schedule }: SettingsProps): ContextProps => ({
     username: user != null ? user.username : null,
+    firstName: user != null ? user.firstName : null,
     userRoles: user.roles,
     teacherLessons: lessons,
     // studentLessons: lessons,
+    schedule,
 });
 
 const VideoChatPage = connectContext(mapContextToProps)(HomePageComponent);
