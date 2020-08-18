@@ -1,20 +1,19 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
 
-import { Layout, Button } from 'antd';
+import { Layout} from 'antd';
 import Sider from "antd/lib/layout/Sider";
-import { TeamOutlined, MessageOutlined } from "@ant-design/icons";
 import Jitsi from 'react-jitsi';
 
 import { connectContext, SettingsProps } from 'app/context';
 import { PageContent } from 'app/components/layout';
 import { navigationService } from 'app/service/navigation-service';
 
-import {Wand} from "./wand"
-
+// @ts-ignore
 import {Top} from './top/top'
 
 import styles from './video-chat-page.module.scss'
+import { VideoButton } from 'app/page/video-chat/video-button';
 
 const { Content } = Layout;
 
@@ -71,12 +70,10 @@ class HomePageComponent extends React.Component<Props, {}> {
         return (
             <Layout >
                 <Sider
-                    // className={styles.sider}
+                    className={styles.sider}
                 >
                     <div>
-                        <Button type='primary'><TeamOutlined />Participants</Button>
-                        <Button type='primary'><MessageOutlined /> Question Form</Button>
-                        <Button type='primary'><span><Wand /></span> Whiteboard</Button>
+                        <VideoButton />
                     </div>
                 </Sider>
                 <Content style={{ margin: 'auto', width: '70%' }}>
