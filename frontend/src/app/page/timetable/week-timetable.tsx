@@ -6,6 +6,7 @@ import { AsyncContent } from 'app/components/layout';
 import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-loading-spinner';
 import { connectContext, SettingsProps } from 'app/context';
 import { DayLessonsList } from 'app/page/timetable/day-timetable';
+import { SideTimebar } from 'app/page/timetable/side-timebar';
 import styles from 'app/page/timetable/lessons.module.scss';
 
 import { scheduleCalc } from './schedule-calc';
@@ -68,9 +69,10 @@ class TimetablePageComponent extends React.Component<Props, State> {
                         </div>
                         <p>Lesson duration: {scheduleCalc.getLessonLength(schedule)}min</p>
                     </div>
+
                     <div className={styles.week}>
                         <div className={styles.weekList}>
-                            {this.timesBar}
+                            <SideTimebar schedule={this.props.schedule} />
                             {Array(5).fill(1 + this.state.move).map((x, y) => x + y).map((item) => (
                                 item === 0 ? item = 5 : null,
                                 item < 0 ? item = 0 - item : null,
@@ -89,9 +91,9 @@ class TimetablePageComponent extends React.Component<Props, State> {
                     </div >
                 </div>
 
-            </AsyncContent>
+            </AsyncContent >
         );
-
+    }
 
     public filterByDay(teacherLessons: Api.LessonDto[], day: number): Api.LessonDto[] {
 
@@ -136,16 +138,17 @@ class TimetablePageComponent extends React.Component<Props, State> {
             this.setState({ move: this.state.move + 5 }) :
             this.setState({ move: this.state.move - 5 });
     };
+}
 
-    public const mapContextToProps = ({ session: { user }, lessons, currentLesson, schedule }: SettingsProps): ContextProps => ({
+const mapContextToProps = ({ session: { user }, lessons, currentLesson, schedule }: SettingsProps): ContextProps => ({
 
-        username: user != null ? user.username : null,
-        userRoles: user.roles,
-        allLessons: lessons,
-        currentLesson,
-        schedule,
-    });
+    username: user != null ? user.username : null,
+    userRoles: user.roles,
+    allLessons: lessons,
+    currentLesson,
+    schedule,
+});
 
-    public const TimetablePage = connectContext(mapContextToProps)(TimetablePageComponent);
+const TimetablePage = connectContext(mapContextToProps)(TimetablePageComponent);
 
 export { TimetablePage };
