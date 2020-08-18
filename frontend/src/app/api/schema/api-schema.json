@@ -102,6 +102,39 @@
         "deprecated": false
       }
     },
+    "/chatLessons": {
+      "get": {
+        "tags": [
+          "lesson-controller"
+        ],
+        "summary": "getChatLessons",
+        "operationId": "getChatLessonsUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/LessonDto"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
     "/classroom": {
       "get": {
         "tags": [

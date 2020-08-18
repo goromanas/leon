@@ -13,12 +13,12 @@ import styles from "./home.module.scss";
 const { Content } = Layout;
 
 interface ContextProps {
-  username: string | null;
-  firstName: string | null;
-  userRoles: string[] | null;
-  allLessons: Api.LessonDto[];
-  currentLesson: number;
-  schedule: Api.ScheduleDto[];
+    username: string | null;
+    firstName: string | null;
+    userRoles: string[] | null;
+    allLessons: Api.LessonDto[];
+    currentLesson: number;
+    schedule: Api.ScheduleDto[];
 }
 
 type Props = ContextProps;

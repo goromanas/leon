@@ -19,7 +19,7 @@ interface Props {
     date: string;
 }
 
-const DayLessonsList: React.FC<Props> = ({ allLessons, userRole, day, date, currentLesson, schedule }) => {
+const DayLessonsList: React.FC<Props> = ({allLessons, userRole, day, date, currentLesson, schedule}) => {
 
     // filter this { day } lessons from allLessons
     const dayLessons = allLessons && allLessons.filter((lesson: Api.LessonDto) =>
@@ -29,7 +29,7 @@ const DayLessonsList: React.FC<Props> = ({ allLessons, userRole, day, date, curr
     const handleOpenClassroom = (id: number): void => {
         navigationService.redirectToVideoChat(id);
     };
-
+    // console.log(dayLessons);
     const lessonsList = dayLessons.map((item: any) => (
         <div key={item.id}>
             <SingleLesson
@@ -42,10 +42,10 @@ const DayLessonsList: React.FC<Props> = ({ allLessons, userRole, day, date, curr
             />
             < span
                 data-tip="Break"
-                style={{ height: scheduleCalc.getBreakTime(schedule, item.time) }}
+                style={{height: scheduleCalc.getBreakTime(schedule, item.time)}}
                 className={styles.breakSpan}
             />
-            <ReactTooltip />
+            <ReactTooltip/>
 
         </div>
     ));
