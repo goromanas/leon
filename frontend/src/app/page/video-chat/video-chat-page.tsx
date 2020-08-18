@@ -1,22 +1,20 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
 
-import { Layout, Button } from 'antd';
-import Sider from "antd/lib/layout/Sider";
-import { TeamOutlined, MessageOutlined } from "@ant-design/icons";
+import { Layout} from 'antd';
 import Jitsi from 'react-jitsi';
 
 import { connectContext, SettingsProps } from 'app/context';
 import { PageContent } from 'app/components/layout';
 import { navigationService } from 'app/service/navigation-service';
 
-import {Wand} from "./wand"
-
+// @ts-ignore
 import {Top} from './top/top'
 
 import styles from './video-chat-page.module.scss'
+import { VideoButton } from 'app/page/video-chat/video-buttons/video-button';
 
-const { Content } = Layout;
+const { Content, Sider } = Layout;
 
 interface ContextProps {
     username: string | null;
@@ -71,12 +69,10 @@ class HomePageComponent extends React.Component<Props, {}> {
         return (
             <Layout >
                 <Sider
-                    // className={styles.sider}
+                    className={styles.sider}
                 >
                     <div>
-                        <Button type='primary'><TeamOutlined />Participants</Button>
-                        <Button type='primary'><MessageOutlined /> Question Form</Button>
-                        <Button type='primary'><span><Wand /></span> Whiteboard</Button>
+                        <VideoButton />
                     </div>
                 </Sider>
                 <Content style={{ margin: 'auto', width: '70%' }}>
@@ -90,7 +86,7 @@ class HomePageComponent extends React.Component<Props, {}> {
                         {videoChatName && (
                             <Jitsi
 
-                                frameStyle={{ display: 'block', width: '1200px', height: '150%' }}
+                                frameStyle={{ display: 'block', width: '1200px', height: '65vh' }}
                                 jwt="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250ZXh0Ijp7InVzZXIiOnsiYXZhdGFyIjoiaHR0cHM6Ly9hdmF0YXJzLmRpY2ViZWFyLmNvbS9hcGkvbWFsZS9tZW51by1zdS1pdC5zdmciLCJuYW1lIjoiTcSXbnVvIHN1IElUIn19LCJhdWQiOiJtZW51b19zdV9pdCIsImlzcyI6Im1lbnVvX3N1X2l0Iiwic3ViIjoibWVldC5qaXRzaSIsInJvb20iOiIqIn0.6CKZU_JWLhtj9eKJ-VdFGQZyRzvTZz29fn7--_dp-jw"
                                 roomName={videoChatName}
                                 domain="video-menuo-su-it.northeurope.cloudapp.azure.com:443"
