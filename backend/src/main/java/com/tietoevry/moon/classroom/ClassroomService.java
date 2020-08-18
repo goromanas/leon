@@ -34,6 +34,12 @@ public class ClassroomService {
         return classroomRepository.findById(id).map(ClassroomMapper::mapClassroomDto);
     }
 
+    public Classroom findClassroomByName(String className)
+    {
+        return classroomRepository.findByClassName(className);
+    }
+
+
     public Optional<Classroom> getClassroomFromUser(Optional<User> user){
         return classroomRepository.findClassroomByUser(user);
     }

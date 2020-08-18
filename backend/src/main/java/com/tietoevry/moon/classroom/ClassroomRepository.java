@@ -9,7 +9,7 @@ import java.util.Optional;
 @Repository
 public interface ClassroomRepository extends JpaRepository<Classroom,Long> {
     Optional<Classroom> findClassroomByUser(Optional<User> user);
-
+    Classroom findByClassName(String className);
 }
 
 
