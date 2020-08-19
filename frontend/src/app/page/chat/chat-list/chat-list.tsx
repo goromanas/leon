@@ -1,10 +1,11 @@
 import React from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { message } from 'antd';
 
 import { connectContext, SettingsProps } from 'app/context';
 
 import { Message } from './message';
+
+import styles from './chat-list.module.scss'
 
 interface Message {
     text: string;
@@ -28,16 +29,16 @@ type Props = ContextProps & OwnProps;
 
 const ChatListComponent: React.FC<Props> = ({ messages, currentChannel, currentClassroom }) =>
     (
-        < div >
-        < ul >
-        < TransitionGroup
-            className="chat-messages"
-            appear={true}
-        >
-        {
-            messages
-            .filter(message => message.channel === currentChannel && message.classroom === currentClassroom)
-                .map((msg, i) => (
+        < div className={styles.container}>
+            < ul >
+                < TransitionGroup
+                     className="chat-messages"
+                     appear={true}
+                >
+                {
+                    messages
+                    .filter(message => message.channel === currentChannel && message.classroom === currentClassroom)
+                     .map((msg, i) => (
                     <CSSTransition key={i} timeout={300} classNames="fade" appear={true}>
                         <Message
                             key={i}
@@ -50,9 +51,9 @@ const ChatListComponent: React.FC<Props> = ({ messages, currentChannel, currentC
 
                     </CSSTransition>
                 ))
-        }
-</TransitionGroup>
-</ul>
+             }
+              </TransitionGroup>
+        </ul>
 </div>
     );
 

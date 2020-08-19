@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Layout, message } from 'antd';
 import { FormikHelpers } from 'formik';
-import Sider from 'antd/lib/layout/Sider';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import { PageContent } from 'app/components/layout';
@@ -14,7 +13,9 @@ import { ChatForm, MessageValue } from './form/chat-form';
 import { ChatList } from './chat-list/chat-list';
 import { Channels } from './channels';
 
-const { Content } = Layout;
+import styles from './chat-page.module.scss'
+
+const { Content, Sider } = Layout;
 
 interface ContextProps {
     username: string | null;
@@ -169,7 +170,7 @@ class ChatComponent extends React.Component<Props, State> {
         loader={<PageLoadingSpinner />}
      >
       <Layout>
-        <Sider>
+        <Sider theme='light' className={styles.sider}>
           <Channels
             channels={channels}
             classRooms={classRooms}

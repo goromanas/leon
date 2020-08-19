@@ -55,7 +55,8 @@ class TopNavBarComponent extends React.Component<Props> {
             <UserOutlined
             className={styles.userIcon}
             style={{ fontSize: '25px' }} />}
-            style={{ color: 'grey', float: 'right' }}/></li>
+            style={{ color: 'grey', float: 'right' }}/>
+          </li>
 
           <li style={{ display: 'block', float: 'right', paddingLeft: '1em' }}>
             {teacherLessons && userRoles.includes('STUDENT') ? teacherLessons[0].className : ''}

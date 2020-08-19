@@ -18,8 +18,12 @@ class Channels extends React.Component<Props> {
       <Menu
         defaultSelectedKeys={['1']}
         defaultOpenKeys={['sub1']}
-        mode="inline">
-        <SubMenu key="sub1" title="Channels">
+        mode="inline"
+
+      >
+        {/*<SubMenu key="sub1" title="Subjects">*/}
+        <Menu.Item style={{fontSize: '20px', marginTop: '47px'}}>Subjects</Menu.Item>
+
           {this.props.channels &&
             this.props.channels
             .sort((a, b) => (a.name > b.name) ? 1 : -1)
@@ -39,7 +43,7 @@ class Channels extends React.Component<Props> {
                 {classroom.classroomName}
               </Menu.Item>
             ))}
-        </SubMenu>
+        {/*</SubMenu>*/}
       </Menu>
         );
     }
