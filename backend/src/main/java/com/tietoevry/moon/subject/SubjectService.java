@@ -4,7 +4,6 @@ import com.tietoevry.moon.classroom.ClassroomService;
 import com.tietoevry.moon.lesson.LessonRepository;
 import com.tietoevry.moon.lesson.LessonService;
 import com.tietoevry.moon.lesson.model.Lesson;
-import com.tietoevry.moon.lesson.model.LessonDto.LessonDto;
 import com.tietoevry.moon.subject.model.Subject;
 import com.tietoevry.moon.subject.model.dto.SubjectDto;
 import com.tietoevry.moon.user.UserService;
@@ -33,8 +32,13 @@ public class SubjectService {
         return subjectRepository.findAll();
     }
 
-    public List<SubjectDto> getSubjectByStudent()
+    public List<SubjectDto> getSubjectByUser()
     {
         return lessonService.getStudentLessonsForChat().stream().map(Lesson::getSubject).map(SubjectMapper::mapSubjectDto).distinct().collect(Collectors.toList());
+    }
+
+    public Optional<SubjectDto> getSubjectByTeacher()
+    {
+        return lessonService.getTeacherLessonsForChat().stream().map(Lesson::getSubject).map(SubjectMapper::mapSubjectDto).findFirst();
     }
 }

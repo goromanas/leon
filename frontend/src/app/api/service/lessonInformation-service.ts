@@ -15,6 +15,12 @@ class LessonInformationService {
             this.restService.post<Api.LessonInformationDto>(LessonInformationService.LESSON_INFORMATION_PATH, {
                 ...lessonInformation,
             });
+
+    public readonly updateLessonInformation =
+        (lessonInformation: Api.LessonInformationDto): Promise<Api.LessonInformationDto> =>
+            this.restService.put<Api.LessonInformationDto>(LessonInformationService.LESSON_INFORMATION_PATH, {
+                ...lessonInformation,
+            });
 }
 
 const lessonInformationService = new LessonInformationService();
