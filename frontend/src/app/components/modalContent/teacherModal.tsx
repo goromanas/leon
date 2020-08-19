@@ -28,9 +28,10 @@ const TeacherModal: React.FC<{ lessonId: number, onClose: () => void, date: stri
     };
 
     const updateLessonInformation = (lessonInformation: Api.LessonInformationDto): void => {
+        console.log('update funkcija');
         lessonInformationService
             .updateLessonInformation(lessonInformation)
-            .then(() => console.log("updeitas"))
+            .then(() => console.log('updeitas'))
             .then(() => console.log(lessonInformation));
     };
 
@@ -99,7 +100,8 @@ const TeacherModal: React.FC<{ lessonId: number, onClose: () => void, date: stri
                                 <Option value="Homework">Homework</Option>
                             </Field>
                         </div>
-                        <FormButton component={SubmitButton}>{props.lessonInformation[0] ? 'Update' : 'Save'}</FormButton>
+                        <FormButton
+                            component={SubmitButton}>{props.lessonInformation[0] ? 'Update' : 'Save'}</FormButton>
                     </Form>)}
             </Formik>
         </div>
