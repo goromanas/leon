@@ -56,7 +56,7 @@ const AnswerQuiz: React.FC<Props> = (props) => {
     return (
         <>
 
-            <h1>{props.message.Question}</h1>
+            <h1>{props.message.question}</h1>
 
             <Radio.Group onChange={onChange}>
 

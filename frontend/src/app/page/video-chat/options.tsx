@@ -4,14 +4,23 @@ import { Formik, Form, Field, FieldArray } from 'formik';
 // Here is an example of a form with an editable list.
 // Next to each input are buttons for insert and remove.
 // If the list is empty, there is a button to add an item.
-const OptionList = () => (
-    <div>
+
+interface Props{
+    updateQuiz:any;
+}
+
+const OptionList: React.FC<Props>= (props) => {
+
+
+    return (<div>
         <h1>Option List</h1>
         <Formik
-            initialValues={{question:"aaa",options: ["value"]}}
+            initialValues={{question: "aaa", options: ["value"]}}
             onSubmit={(values, {setSubmitting}) => {
                 setTimeout(() => {
-                    alert(JSON.stringify(values, null, 2));
+
+                    props.updateQuiz(values);
+                 //   alert(JSON.stringify(values, null, 2));
                 }, 400);
             }}
             render={({values}) => (
@@ -35,7 +44,7 @@ const OptionList = () => (
                                             </button>
                                             <button
                                                 type="button"
-                                                onClick={() => arrayHelpers.insert(index+1, '')}
+                                                onClick={() => arrayHelpers.insert(index + 1, '')}
                                             >
                                                 +
                                             </button>
@@ -55,7 +64,7 @@ const OptionList = () => (
                 </Form>
             )}
         />
-    </div>
-);
+    </div>)
+};
 
 export default OptionList;

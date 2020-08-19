@@ -8,7 +8,7 @@ import OptionList from './options';
 const {Content} = Layout;
 
 interface Props {
-    answers: any;
+    updateQuiz:any
 }
 
 const QuizCreate: React.FC<Props> = (props) => {
@@ -28,7 +28,7 @@ const QuizCreate: React.FC<Props> = (props) => {
 
     return (
         <>
-            <OptionList/>
+            <OptionList updateQuiz={props.updateQuiz}/>
         </>
     );
 };
