@@ -28,7 +28,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String email;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Role> role;
 
