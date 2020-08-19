@@ -39,6 +39,9 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
     UserRepository userRepository;
 
     @Autowired
+    UserService userService;
+
+    @Autowired
     RoleRepository roleRepository;
 
     public ChatWebSocketHandler() {
@@ -53,11 +56,17 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 
         if (String.valueOf(messageContent.get("role")).contains("STUDENT")) {
             Classroom classroom = classroomService.findClassroomByName(classroomFromMessage);
-         
+
+
+
         for (WebSocketSession webSocketSession : webSocketSessions) {
             username = webSocketSession.getPrincipal().getName();
 
             if (webSocketSession != session) {
+
+                if (userService.findByUsername(username).getRole().contains("TEACHER")) {
+                    webSocketSession.sendMessage(message);
+                }
 
                 List<User> users = classroom.getUser();
                 Boolean sendMessage = users.stream().anyMatch(student -> student.getUsername().equals(username));

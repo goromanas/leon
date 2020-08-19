@@ -21,13 +21,17 @@ class Channels extends React.Component<Props> {
         mode="inline">
         <SubMenu key="sub1" title="Channels">
           {this.props.channels &&
-            this.props.channels.map(channel => (
+            this.props.channels
+            .sort((a, b) => (a.name > b.name) ? 1 : -1)
+            .map(channel => (
               <Menu.Item onClick={() => this.props.onChannelChange(channel.id)} key={channel.id}>
                 {channel.name}
               </Menu.Item>
             ))}
             {this.props.classRooms &&
-            this.props.classRooms.map(classroom => (
+            this.props.classRooms
+            .sort((a, b) => (a.classroomName > b.classroomName) ? 1 : -1)
+            .map(classroom => (
               <Menu.Item
                 onClick={() => this.props.onClassChange(classroom.classroomName)}
                 key={classroom.classroomName}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+  <changeSet id="08" author="romanas">
+    <sql >
+      create table chat_messages
+      (
+      ID BIGINT not null primary key,
+      CHAT_ID VARCHAR(255),
+      USERNAME VARCHAR(255),
+      CONTENT VARCHAR(255),
+      DATE date null
+      );
+
+    </sql>
+
+  </changeSet>
+</databaseChangeLog>
