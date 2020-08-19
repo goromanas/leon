@@ -24,13 +24,7 @@ const ChatForm: React.FC<Props> = (props: Props) => {
 
     return (
         <div className={styles.container}>
-            <Avatar className={styles.avatar}
-                    size="large" icon={
-                <UserOutlined
-                    className={styles.userIcon}
-                    style={{ fontSize: '25px' }} />}
-                    style={{ color: 'grey'}}
-            />
+            <Avatar style={{opacity: '0'}} />
         <div className={styles.sendMessage}>
             <Formik initialValues={initialValues} onSubmit={onSubmit}>
                 {() => (

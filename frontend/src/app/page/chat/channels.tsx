@@ -21,8 +21,7 @@ class Channels extends React.Component<Props> {
         mode="inline"
 
       >
-        {/*<SubMenu key="sub1" title="Subjects">*/}
-        <Menu.Item style={{fontSize: '20px', marginTop: '47px'}}>Subjects</Menu.Item>
+        <Menu.Item style={{fontSize: '20px', marginTop: '27px'}}>Subjects</Menu.Item>
 
           {this.props.channels &&
             this.props.channels

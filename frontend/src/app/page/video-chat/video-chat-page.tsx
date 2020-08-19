@@ -68,7 +68,7 @@ class HomePageComponent extends React.Component<Props, {}> {
 
         return (
             <Layout >
-                <Content style={{ margin: 'auto', width: '70%' }}>
+                <Content style={{ margin: 'auto', width: '70%', background: 'white' }}>
                     <PageContent>
 
                         <Top lessonTitle={lessonTitle}

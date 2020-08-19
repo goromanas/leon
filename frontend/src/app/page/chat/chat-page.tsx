@@ -169,7 +169,7 @@ class ChatComponent extends React.Component<Props, State> {
         loading={!teacherLessons}
         loader={<PageLoadingSpinner />}
      >
-      <Layout>
+      <Layout >
         <Sider theme='light' className={styles.sider}>
           <Channels
             channels={channels}
@@ -179,8 +179,8 @@ class ChatComponent extends React.Component<Props, State> {
             onClassChange={this.onClassChange}
           />
         </Sider>
-        <Content>
-          <PageContent>
+        <Content style={{background: 'white'}}>
+          <PageContent >
          <ChatList
             messages={messages}
             currentChannel={this.state.currentChannel}

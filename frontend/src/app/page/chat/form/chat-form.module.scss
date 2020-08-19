@@ -6,7 +6,6 @@ input:focus{outline-color: red;}
 .container{
   display: flex;
   align-items: center;
-  //margin-left: 50px;
 }
 
 .sendMessage{
@@ -43,10 +42,3 @@ input:focus{outline-color: red;}
   }
 }
 
-.avatar {
-  border: 1px solid #012365;
-  margin: 10px;
-}
-.userIcon {
-  color: #012365;
-}

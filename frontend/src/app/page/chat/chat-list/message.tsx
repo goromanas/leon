@@ -10,23 +10,25 @@ interface Props {
     date: string;
     channel: number;
     classroom: string;
+    toRight: boolean
 }
 
-const Message: React.FC<Props> = ({ text, author, date, channel, classroom }) => (
-  <div className={styles.container} >
-      <div className={styles.avatarBox}>
+const Message: React.FC<Props> = (
+    { text, author, date, channel, classroom, toRight }) => (
+  <div className={toRight ? styles.containerR : styles.containerL} >
+      {!toRight  && <div className={styles.avatarBox}>
           <Avatar
               className={styles.avatar}
-                  size="large" icon={
+              size="large" icon={
               <UserOutlined
                   className={styles.userIcon}
-                  style={{ fontSize: '25px' }} />}
-                  style={{ color: 'white'}}
+                  style={{fontSize: '25px'}}/>}
+              style={{color: 'white'}}
           />
-      </div>
+      </div>}
 
     <div>
-      <span className={styles.author}>{author}</span>
+        {!toRight && <span className={styles.author}>{author}</span>}
         <div className={styles.message}>
             <p>{text}</p>
             <p className={styles.timestamp}>{date}</p>

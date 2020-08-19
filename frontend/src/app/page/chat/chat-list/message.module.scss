@@ -1,8 +1,33 @@
 @import '~app/style/variables';
 
-.container{
+.containerR{
   display: flex;
   margin-bottom: 1rem;
+  justify-content: flex-end;
+  .message{
+    background: $primary;
+    border-radius: 10px;
+    min-width: 94px;
+    max-width: 801px;
+    p{
+      color: $grey2;
+    }
+  }
+//background: $primary;
+}
+
+.containerL{
+  display: flex;
+  margin-bottom: 1rem;
+
+  .message{
+    min-width: 94px;
+    max-width: 701px;
+    padding: 8px 20px;
+    background: $grey2;
+    border-radius: 10px;
+  }
+  //background: $grey2;
 }
 
 .avatarBox{
@@ -21,12 +46,15 @@
 
 .author {
   padding-left: .5em;
-  font-weight: bold;
+  //Font Family: Poppins
+font-size: 14px
 }
 
 .timestamp {
   color: #696969;
   font-size: .7rem;
+  text-align: end;
+  line-height: 0rem;
 }
 
 .top span {

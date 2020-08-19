@@ -18,6 +18,8 @@ interface Message {
 
 interface ContextProps {
     teacherLessons: Api.LessonDto[];
+    firstName: string | null;
+
 }
 
 interface OwnProps {
@@ -27,9 +29,11 @@ interface OwnProps {
 }
 type Props = ContextProps & OwnProps;
 
-const ChatListComponent: React.FC<Props> = ({ messages, currentChannel, currentClassroom }) =>
+const ChatListComponent: React.FC<Props> = (
+    {messages, currentChannel, currentClassroom, firstName }) =>
     (
         < div className={styles.container}>
+
             < ul >
                 < TransitionGroup
                      className="chat-messages"
@@ -47,6 +51,7 @@ const ChatListComponent: React.FC<Props> = ({ messages, currentChannel, currentC
                             date={msg.date}
                             channel={msg.channel}
                             classroom={msg.classroom}
+                            toRight={msg.author === firstName}
                         />
 
                     </CSSTransition>
@@ -57,8 +62,9 @@ const ChatListComponent: React.FC<Props> = ({ messages, currentChannel, currentC
 </div>
     );
 
-const mapContextToProps = ({ lessons }: SettingsProps): ContextProps => ({
+const mapContextToProps = ({ session: { user }, lessons }: SettingsProps): ContextProps => ({
     teacherLessons: lessons,
+    firstName: user != null ? user.firstName : null,
 });
 
 const ChatList = connectContext(mapContextToProps)(ChatListComponent);
