@@ -1,7 +1,8 @@
 @import '~app/style/style';
 
 .submit-button {
-  @media(max-width: $grid-sm) {
+  // @media(max-width: $grid-sm) {
     width: 100%;
-  }
+    border-radius: 4px;
+  // }
 }

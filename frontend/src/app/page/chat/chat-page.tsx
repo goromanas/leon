@@ -165,7 +165,7 @@ class ChatComponent extends React.Component<Props, State> {
         return (
 
      <AsyncContent
-        loading={!teacherLessons}
+        loading={(this.state.channels.length) < 0 || (this.state.classRooms.length < 0)}
         loader={<PageLoadingSpinner />}
      >
       <Layout>
