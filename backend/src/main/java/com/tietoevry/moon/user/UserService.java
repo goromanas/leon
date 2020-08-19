@@ -59,11 +59,6 @@ public class UserService {
         return saveUser(user);
     }
 
-
-    public UserDto findByUsername(String user){
-        return userRepository.findByUsername(user).map(UserMapper::mapUserDto).orElseThrow();
-    }
-
     private UserDto saveUser(UserDto user) {
         Map<String, Role> rolesByName = roleRepository.findAll()
             .stream()
