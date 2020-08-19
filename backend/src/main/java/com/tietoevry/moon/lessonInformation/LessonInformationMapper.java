@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 
 public class LessonInformationMapper {
     public static LessonInformationDto lessonInformationToDto(LessonInformation lessonInformation) {
-        System.out.println("test");
         LessonInformationDto lessonInformationDto = new LessonInformationDto();
         lessonInformationDto.setTopic(lessonInformation.getTopic());
         lessonInformationDto.setDate(lessonInformation.getDate());
