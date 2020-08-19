@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 
 import { scheduleCalc } from './schedule-calc';
 
 import styles from './lessons.module.scss';
+
 interface Props {
     schedule: Api.ScheduleDto[];
 }
@@ -24,7 +25,6 @@ const TimeLine: React.FC<Props> = (props) => {
             setTop(
                 scheduleCalc.convertTimeToMinutes(time) - scheduleCalc.getDayStart(schedule),
             );
-            console.log(top);
         }, 1000);
         return () => {
             clearInterval(interval);
@@ -40,9 +40,11 @@ const TimeLine: React.FC<Props> = (props) => {
                 style={{ top }}
             >
                 <div>{date.format('HH:mm')}<span /></div>
-            </span >
+            </span>
         );
-    } else { return <></>; }
+    } else {
+        return <></>;
+    }
 };
 
 export { TimeLine };

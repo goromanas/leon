@@ -21,6 +21,7 @@ public class SessionService {
     @Autowired
     public UserService userService;
 
+
     public Session getSession() {
         MoonUserDetails userDetails = securityContextService.getCurrentUser();
 
