@@ -4,8 +4,6 @@ import styles from './studentModal.module.scss';
 
 const StudentModal: React.FC<{ onClose: () => void, lessonInformation?: any, classId: number, subject: string, date: string }> =
     (props) => {
-        console.log(props.lessonInformation);
-        // console.log(props.date);
         return (
             <div className={styles.studentModal}>
                 <div className={styles.circle}>
@@ -23,13 +21,13 @@ const StudentModal: React.FC<{ onClose: () => void, lessonInformation?: any, cla
                 </div>
                 <div className={styles.homeworkField}>
                     {
-                        props.lessonInformation[0]  ? props.lessonInformation[0].information : 'No homework or information'
+                        props.lessonInformation[0] ? props.lessonInformation[0].information : 'No homework or information'
                     }
                 </div>
                 <div>
                     <h4>Due assignments:</h4>
                     {
-                        props.lessonInformation[0]  ? props.lessonInformation[0].assignment.join(' ') : 'No due assignments'
+                        props.lessonInformation[0] ? props.lessonInformation[0].assignment.join(' ') : 'No due assignments'
                     }
                 </div>
             </div>
