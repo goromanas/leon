@@ -7,19 +7,25 @@ import { AsyncContent } from 'app/components/layout';
 import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-loading-spinner';
 import { loggerService } from 'app/service/logger-service';
 import { lessonsService } from 'app/api/service/lessons-service';
+
 interface State {
     content: React.ReactNode;
     lessons: Api.LessonDto[];
     schedule: Api.ScheduleDto[];
 }
-interface OwnProps { }
+
+interface OwnProps {
+}
+
 interface ContextProps {
     updateSession: (session: ContextSession) => void;
     updateLessons: (lessons: Api.LessonDto[]) => void;
     updateCurrentLesson: (currentLesson: number) => void;
     updateSchedule: (schedule: Api.ScheduleDto[]) => void;
 }
+
 type Props = OwnProps & ContextProps;
+
 class AppWithSessionComponent extends React.Component<Props, State> {
     public readonly state: State = {
         content: null,
@@ -54,25 +60,27 @@ class AppWithSessionComponent extends React.Component<Props, State> {
             });
         this.handleSocketResponse();
     }
+
     public render(): React.ReactNode {
-        const { content, lessons } = this.state;
+        const {content, lessons} = this.state;
 
         return (
-            <AsyncContent loading={!content} loader={<PageLoadingSpinner />}>
+            <AsyncContent loading={!content} loader={<PageLoadingSpinner/>}>
                 {content}
             </AsyncContent>
         );
     }
-    private readonly handleResponse = ({ user }: Api.Session): void => {
-        const { updateSession } = this.props;
+
+    private readonly handleResponse = ({user}: Api.Session): void => {
+        const {updateSession} = this.props;
 
         updateSession(this.createSession(user));
-        this.setState({ ...this.state, content: <IndexPage /> });
+        this.setState({...this.state, content: <IndexPage/>});
     };
     private readonly handleLessonsResponse = (lessons: Api.LessonDto[]): void => {
-        const { updateLessons } = this.props;
+        const {updateLessons} = this.props;
 
-        this.setState({ ...this.state, lessons });
+        this.setState({...this.state, lessons});
         updateLessons(lessons);
     };
     private readonly handleScheduleResponse = (schedule: Api.ScheduleDto[]): void => {
@@ -80,11 +88,11 @@ class AppWithSessionComponent extends React.Component<Props, State> {
             updateSchedule,
         } = this.props;
 
-        this.setState({ ...this.state, schedule });
+        this.setState({...this.state, schedule});
         updateSchedule(schedule);
     };
     private readonly handleSocketResponse = (): void => {
-        const { updateCurrentLesson } = this.props;
+        const {updateCurrentLesson} = this.props;
         // connect to websocket to get currentLesson
         const ws: any = new WebSocket(lessonsService.getSocketUrl());
 
@@ -112,10 +120,8 @@ class AppWithSessionComponent extends React.Component<Props, State> {
     private readonly getCurrentLessonID = (currentLesson: number): number => {
         const date = new Date();
         const currentDay = date.getDay();
-        // console.log(this.state.lessons);
 
         if (!this.state.lessons || currentDay === 0 || currentDay === 6) {
-            // console.log('none');
             return 0;
         }
         return this.state.lessons.find(
@@ -123,16 +129,18 @@ class AppWithSessionComponent extends React.Component<Props, State> {
                 _lesson.day && _lesson.day === currentDay && _lesson.time == currentLesson,
         )?.id || 0;
     };
-    private readonly createSession = (user: Api.SessionUser): ContextSession => ({ user, authenticated: !!user });
+    private readonly createSession = (user: Api.SessionUser): ContextSession => ({user, authenticated: !!user});
 }
+
 const mapContextToProps = ({
-    actions: { updateSession, updateLessons, updateCurrentLesson, updateSchedule } }: SettingsProps)
+                               actions: {updateSession, updateLessons, updateCurrentLesson, updateSchedule}
+                           }: SettingsProps)
     : ContextProps => ({
-        updateSession,
-        updateLessons,
-        updateCurrentLesson,
-        updateSchedule,
-    });
+    updateSession,
+    updateLessons,
+    updateCurrentLesson,
+    updateSchedule,
+});
 const AppWithSession = connectContext(mapContextToProps)(AppWithSessionComponent);
 
 export { AppWithSession };

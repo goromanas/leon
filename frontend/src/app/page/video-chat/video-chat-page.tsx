@@ -75,7 +75,6 @@ class HomePageComponent extends React.Component<Props, State> {
     };
 
     public handleOk = () => {
-        console.log();
         this.setState({
             visible: false,
         });

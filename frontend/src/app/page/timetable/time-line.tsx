@@ -47,4 +47,5 @@ const TimeLine: React.FC<Props> = (props) => {
     }
 };
 
+// @ts-ignore
 export { TimeLine };
