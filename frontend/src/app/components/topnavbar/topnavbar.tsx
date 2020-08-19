@@ -1,6 +1,6 @@
 import React from 'react';
 import { Avatar, Button, Layout, Menu } from 'antd';
-import { CodeSandboxOutlined, VideoCameraOutlined, UserOutlined } from '@ant-design/icons';
+import { CodeSandboxOutlined, VideoCameraOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons';
 
 import { navigationService } from 'app/service/navigation-service';
 import { connectContext, SettingsProps } from 'app/context';
@@ -8,6 +8,7 @@ import { Clock } from 'app/components/clock/clock';
 import { Logo } from 'app/components/logo/logo';
 
 import styles from './topnavbar.module.scss';
+import ReactTooltip from 'react-tooltip';
 
 const { SubMenu } = Menu;
 const { Header } = Layout;
@@ -15,11 +16,11 @@ const { Header } = Layout;
 interface OwnProps {}
 
 interface ContextProps {
-  teacherLessons: Api.LessonDto[];
-  username: string | null;
-  userRoles: string[] | null;
-  currentLesson: number;
-  firstName: string | null;
+    teacherLessons: Api.LessonDto[];
+    username: string | null;
+    userRoles: string[] | null;
+    currentLesson: number;
+    firstName: string | null;
 }
 
 type Props = OwnProps & ContextProps;
@@ -44,26 +45,23 @@ class TopNavBarComponent extends React.Component<Props> {
             Chat Room
           </Menu.Item>
 
-          <SubMenu
-            icon={<Avatar className={styles.avatar}
-            size="large" icon={<UserOutlined
-            className={styles.userIcon}
-            style={{ fontSize: '25px' }} />} />}
-            style={{ color: 'grey', float: 'right' }}>
-            <Menu.ItemGroup>
-              <Menu.Item key="logout" style={{ margin: 'auto' }}>
-                <Button type="primary" onClick={this.handleClickLogout}>
-                  Log out
-                </Button>
-              </Menu.Item>
-            </Menu.ItemGroup>
-          </SubMenu>
-
-          <Menu.Item style={{ display: "block", float: "right" }}>
-            {teacherLessons && userRoles.includes("STUDENT") ? teacherLessons[0].className : ""}
-            {teacherLessons && userRoles.includes("TEACHER") ? firstName : ""}
-          </Menu.Item>
           <Menu.Item style={{ display: 'block', float: 'right' }}>
+            <LogoutOutlined data-tip="Logout" onClick={this.handleClickLogout} style={{ fontSize: '1rem' }} />
+          </Menu.Item>
+
+          <li style={{ display: 'block', float: 'right', paddingLeft: '1em', paddingTop: '.6em' }}>
+           <Avatar className={styles.avatar}
+            size="large" icon={
+            <UserOutlined
+            className={styles.userIcon}
+            style={{ fontSize: '25px' }} />}
+            style={{ color: 'grey', float: 'right' }}/></li>
+
+          <li style={{ display: 'block', float: 'right', paddingLeft: '1em' }}>
+            {teacherLessons && userRoles.includes('STUDENT') ? teacherLessons[0].className : ''}
+            {teacherLessons && userRoles.includes('TEACHER') ? firstName : ''}
+          </li>
+          <li style={{ display: 'block', float: 'right' }}>
             <Button
                 disabled={currentLesson === 0 ? true : false}
                 shape="round"
@@ -71,8 +69,8 @@ class TopNavBarComponent extends React.Component<Props> {
                 onClick={() => this.handleOpenClassroom(currentLesson)}>
               Join a Class
             </Button>
-          </Menu.Item>
-          <Menu.Item style={{ display: 'block', float: 'right' }}>
+          </li>
+          <Menu.Item style={{ display: 'block', float: 'right', paddingTop: '5px' }}>
             <Button
                 size="large"
                 type="link"
@@ -82,11 +80,11 @@ class TopNavBarComponent extends React.Component<Props> {
                 style={{ fontSize: '25px', color: '#000' }} />}
                 disabled={currentLesson === 0 ? true : false}
                 onClick={() => this.handleOpenClassroom(currentLesson)} />
-            <div className={styles.cameraStatus} />
+            <div className={currentLesson === 0 ? styles.cameraStatusDisabled : styles.cameraStatus} />
           </Menu.Item>
-          <Menu.Item className={styles.modifiedItem}>
+          <li className={styles.modifiedItem}>
             <Clock />
-          </Menu.Item>
+          </li>
         </Menu>
       </Header>
         );
