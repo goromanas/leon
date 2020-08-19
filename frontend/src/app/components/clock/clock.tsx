@@ -3,6 +3,8 @@ import moment from 'moment';
 
 import { scheduleCalc } from 'app/page/timetable/schedule-calc';
 
+import styles from './clock.module.scss';
+
 class Clock extends React.Component {
 
     public state = { date: moment() };
@@ -23,7 +25,10 @@ class Clock extends React.Component {
     public render(): React.ReactNode {
 
         return (
-            this.state.date.format('dddd YYYY MM D HH:mm')
+            <>
+                <span className={styles.date}>{this.state.date.format('dddd YYYY M D')}</span>
+                {this.state.date.format('HH:mm')}
+            </>
         );
     }
 }

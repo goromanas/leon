@@ -70,8 +70,6 @@ class AppWithSessionComponent extends React.Component<Props, State> {
         this.setState({ ...this.state, content: <IndexPage /> });
     };
     private readonly handleLessonsResponse = (lessons: Api.LessonDto[]): void => {
-        console.log('app-wit');
-        console.log(lessons);
         const { updateLessons } = this.props;
 
         this.setState({ ...this.state, lessons });
@@ -117,7 +115,7 @@ class AppWithSessionComponent extends React.Component<Props, State> {
         // console.log(this.state.lessons);
 
         if (!this.state.lessons || currentDay === 0 || currentDay === 6) {
-            console.log('none');
+            // console.log('none');
             return 0;
         }
         return this.state.lessons.find(

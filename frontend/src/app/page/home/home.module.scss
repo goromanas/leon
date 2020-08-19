@@ -1,7 +1,5 @@
 @import '~app/style/style';
 
-@import 'app/page/timetable/lessons.module.scss';
-
 .welcomeHeader {
   font-size: 24px;
   color: #000000;
@@ -24,10 +22,6 @@
     height: 100%;
     padding: 50px 46px;
     margin-top:12px;
-  }
-  .scheduleInHome {
-    // display: flex;
-    // flex-direction: row;
   }
 
 }

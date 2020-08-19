@@ -121,8 +121,8 @@ class TimetablePageComponent extends React.Component<Props, State> {
         } else {
             t = item;
         }
-        // const day = moment().add(this.state.move / 5 * 7 - now + t, 'd').format('YYYY-MM-DD');
-        const day = moment().add(this.state.move / 5 * 7 - now + t, 'd').format('MMM DD');
+        const day = moment().add(this.state.move / 5 * 7 - now + t, 'd').format('YYYY-MM-DD');
+        // const day = moment().add(this.state.move / 5 * 7 - now + t, 'd').format('MMM DD');
 
         return day;
     };

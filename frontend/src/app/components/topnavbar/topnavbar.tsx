@@ -1,6 +1,7 @@
 import React from 'react';
 import { Avatar, Button, Layout, Menu } from 'antd';
-import { CodeSandboxOutlined, VideoCameraOutlined, UserOutlined } from '@ant-design/icons';
+import { CodeSandboxOutlined, VideoCameraOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons';
+import ReactTooltip from 'react-tooltip';
 import { Link } from 'react-router-dom';
 
 import { navigationService } from 'app/service/navigation-service';
@@ -28,81 +29,77 @@ type Props = OwnProps & ContextProps;
 class TopNavBarComponent extends React.Component<Props> {
     public render(): React.ReactNode {
         const { currentLesson, username, userRoles, teacherLessons, firstName } = this.props;
-        // defaultSelectedKeys = { ['home']}
 
         return (
             <Header className={styles.header}>
-                <Menu mode="horizontal" className={styles.menu} >
-                    <Menu.Item key="logo" onClick={() => this.handleClickToDefaultPage()}>
-                        <Link to={navigationService.redirectToDefaultPage()} >
+                <Menu mode="horizontal" className={styles.menu}>
+                    <Menu.Item key="logo" >
+                        <Link to={navigationService.redirectToDefaultPage} >
                             <Logo />
                         </Link>
                     </Menu.Item>
                     <Menu.Item key="home" style={{ fontWeight: 'bold' }}>
-                        <Link to={navigationService.redirectToDefaultPage()} >
+                        <Link to={navigationService.redirectToDefaultPage} >
                             Home
+                          </Link>
+                    </Menu.Item>
+                    <Menu.Item key="timetable" onClick={this.handleClickToCalendarPage}>
+                        <Link to={navigationService.redirectToCalendarPage} >
+                            Schedule
                         </Link>
                     </Menu.Item>
-
-                    <Menu.Item key="timetable" >
-                        <Link to={navigationService.redirectToCalendarPage()} >
-                            Schedule
-                            </Link >
-                    </Menu.Item>
-
-                    <Menu.Item key="forum" >
-                        <Link to={navigationService.redirectToChatRoom()} >
+                    <Menu.Item key="forum" onClick={this.handleOpenChatRoom}>
+                        <Link to={navigationService.redirectToChatRoom} >
                             Chat Room
                         </Link>
                     </Menu.Item>
 
-                    <SubMenu
-                        icon={<Avatar className={styles.avatar}
-                            size="large" icon={<UserOutlined
-                                className={styles.userIcon}
-                                style={{ fontSize: '25px' }} />} />}
-                        style={{ color: 'grey', float: 'right' }}>
-                        <Menu.ItemGroup>
-                            <Menu.Item key="logout" style={{ margin: 'auto' }}>
-                                <Button type="primary" onClick={this.handleClickLogout}>
-                                    Log out
-                </Button>
-                            </Menu.Item>
-                        </Menu.ItemGroup>
-                    </SubMenu>
-
                     <Menu.Item style={{ display: 'block', float: 'right' }}>
+                        <LogoutOutlined data-tip="Logout" onClick={this.handleClickLogout} style={{ fontSize: '1rem' }} />
+                    </Menu.Item>
+
+                    <li style={{ display: 'block', float: 'right', paddingLeft: '1em', paddingTop: '.6em' }}>
+                        <Avatar className={styles.avatar}
+                            size="large" icon={
+                                <UserOutlined
+                                    className={styles.userIcon}
+                                    style={{ fontSize: '25px' }} />}
+                            style={{ color: 'grey', float: 'right' }} /></li>
+
+                    <li style={{ display: 'block', float: 'right', paddingLeft: '1em' }}>
                         {teacherLessons && userRoles.includes('STUDENT') ? teacherLessons[0].className : ''}
                         {teacherLessons && userRoles.includes('TEACHER') ? firstName : ''}
-                    </Menu.Item>
-                    <Menu.Item style={{ display: 'block', float: 'right' }}>
-                        <Link to={navigationService.redirectToVideoChat(currentLesson)}>
+                    </li>
+                    <li style={{ display: 'block', float: 'right' }}>
+                        <Link to={navigationService.redirectToVideoChat(currentLesson)} >
                             <Button
                                 disabled={currentLesson === 0 ? true : false}
                                 shape="round"
                                 type="primary"
                             >
                                 Join a Class
-                            </Button>
+                       </Button>
+                        </Link>
+                    </li>
+                    <Menu.Item style={{ display: 'block', float: 'right', paddingTop: '5px' }}>
+                        <Link to={navigationService.redirectToVideoChat(currentLesson)} >
+                            <Button
+                                size="large"
+                                type="link"
+                                className={styles.cameraButton}
+                                shape="circle"
+                                icon={<VideoCameraOutlined
+                                    style={{ fontSize: '25px', color: '#000' }} />}
+                                disabled={currentLesson === 0 ? true : false}
+                                onClick={() => this.handleOpenClassroom(currentLesson)} />
+                            <div className={currentLesson === 0 ? styles.cameraStatusDisabled : styles.cameraStatus} />
                         </Link>
                     </Menu.Item>
-                    <Menu.Item style={{ display: 'block', float: 'right' }}>
-                        <Button
-                            size="large"
-                            type="link"
-                            className={styles.cameraButton}
-                            shape="circle"
-                            icon={<VideoCameraOutlined
-                                style={{ fontSize: '25px', color: '#000' }} />}
-                            disabled={currentLesson === 0 ? true : false}
-                            onClick={() => this.handleOpenClassroom(currentLesson)} />
-                        <div className={styles.cameraStatus} />
-                    </Menu.Item>
-                    <Menu.Item className={styles.modifiedItem}>
+                    <li className={styles.modifiedItem}>
                         <Clock />
-                    </Menu.Item>
+                    </li>
                 </Menu>
-            </Header>
+            </Header >
         );
     }
     private readonly handleClickLogout = (): void => {

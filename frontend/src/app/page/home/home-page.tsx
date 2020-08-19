@@ -65,7 +65,7 @@ class HomePageComponent extends React.Component<Props, State> {
                             ) : (
                                     <>
 
-                                        <Row className={styles.scheduleInHome}>
+                                        <Row >
                                             <Col lg={2} md={2} sm={2} >
                                                 <SideTimebar schedule={schedule} homepage={true} />
                                             </Col>

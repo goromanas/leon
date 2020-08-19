@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.List;
@@ -27,6 +29,7 @@ public class User {
     private String lastName;
     private String email;
     @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Role> role;
 
 }
