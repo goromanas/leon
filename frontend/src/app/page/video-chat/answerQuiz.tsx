@@ -24,6 +24,7 @@ const AnswerQuiz: React.FC<Props> = (props) => {
     const onChange = (e: any) => {
         // console.log('radio checked', e.target.value);
         props.changeValue(e.target.value);
+        setValid(true);
 
     };
     const onTimer = (counter: number) => {
@@ -33,6 +34,7 @@ const AnswerQuiz: React.FC<Props> = (props) => {
         }
     };
 
+    const [valid, setValid] = React.useState(false);
     const [counter, setCounter] = React.useState(props.message.timer);
 
     React.useEffect(() => {
@@ -65,11 +67,20 @@ const AnswerQuiz: React.FC<Props> = (props) => {
                         </Radio>
                     )
                 )}
+
                 <Button
+                    disabled={!valid}
                     onClick={() => props.onSuccess()}>
-                    yayks
+                    Submit
                 </Button>
+
             </Radio.Group>
+
+            {!valid ?
+                <h4 style={{color: 'red'}}>Please select an option</h4> :
+                null
+            }
+
             <div>Countdown: {counter}</div>
 
         </>
