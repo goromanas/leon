@@ -10,12 +10,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter @Setter
 public class LessonInformationDto {
     private Long id;
-    private Date date;
+    private LocalDate date;
     private String topic;
     private String information;
     private List<String> assignment;

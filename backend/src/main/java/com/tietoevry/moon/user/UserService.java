@@ -1,18 +1,17 @@
 package com.tietoevry.moon.user;
 
+import com.tietoevry.moon.session.SessionService;
+import com.tietoevry.moon.user.model.Role;
+import com.tietoevry.moon.user.model.User;
+import com.tietoevry.moon.user.model.dto.UserDto;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
-import com.tietoevry.moon.session.SessionService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.tietoevry.moon.user.model.Role;
-import com.tietoevry.moon.user.model.User;
-import com.tietoevry.moon.user.model.dto.UserDto;
 
 @Service
 public class UserService {
@@ -35,7 +34,7 @@ public class UserService {
     }
 
     public String getUsersByUsername(String username) {
-       return userRepository.findByUsername(username).orElseThrow().getFirstName();
+        return userRepository.findByUsername(username).orElseThrow().getFirstName();
     }
 
     public Optional<User> getUserFromSession() {

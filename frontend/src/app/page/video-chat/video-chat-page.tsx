@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { RouteComponentProps } from 'react-router';
+
 import { Layout } from 'antd';
 import Jitsi from 'react-jitsi';
 import { Button, Modal } from 'antd';
@@ -12,12 +13,20 @@ import { AnswerQuiz } from 'app/page/video-chat/answerQuiz';
 import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-loading-spinner';
 import { QuizResult } from 'app/page/video-chat/quizResult';
 
-const {Content} = Layout;
+// @ts-ignore
+import { Top } from './top/top';
+
+import styles from './video-chat-page.module.scss';
+import { VideoButton } from 'app/page/video-chat/video-buttons/video-button';
+
+const {Content, Sider} = Layout;
 
 interface ContextProps {
     username: string | null;
-    teacherLessons: Api.Lesson[];
+    firstName: string | null;
+    teacherLessons: Api.LessonDto[];
     userRoles: string[] | null;
+    schedule: Api.ScheduleDto[];
 }
 
 interface quizMessageForStudent {
@@ -103,11 +112,12 @@ class HomePageComponent extends React.Component<Props, State> {
             // tslint:disable-next-line: no-console
         };
         this.ws.onmessage = e => {
+            this.setState({quizMessageForStudent:null});
             const message = JSON.parse(e.data);
             this.setState({type: message.type});
             if (message.type === 'question') {
                 this.showModal();
-                this.setState({quizMessageForStudent: message, answers: []});
+                this.setState({quizMessageForStudent: message});
             } else {
                 this.showModal();
                 const copyAnswers = [...this.state.answers];
@@ -122,14 +132,16 @@ class HomePageComponent extends React.Component<Props, State> {
     }
 
     public sendMessage = (): void => {
-        this.ws.send('{"type":"question","classroom":"6A", "teacherUsername":"tecmokytojas", "question": "Is this legit?", "options": [{"id":"1", "name":"Option 1"},{"id":"2", "name":"Option 2"}],"correct":"1","timer":"15"}');
+        this.ws.send('{"type":"question","classroom":"6A", "teacherUsername":"tecmokytojas", "question": "Is this legit?", "options": [{"id":"1", "name":"Option 1"},{"id":"2", "name":"Option 2"}],"correct":"1","timer":"5"}');
     };
 
     public render(): React.ReactNode {
         const {
             username,
+            firstName,
             teacherLessons,
             userRoles,
+            schedule,
             match: {
                 params: {id},
             },
@@ -144,9 +156,18 @@ class HomePageComponent extends React.Component<Props, State> {
             navigationService.redirectToDefaultPage();
         }
         const videoChatName: string = currentLesson && currentLesson[0].video.toString();
+        const currentLessonTimeObj = currentLesson && schedule[currentLesson[0].time - 1];
+
+        let lessonTitle: string;
+        let startTime: string;
+        let endTime: string;
+        if (currentLessonTimeObj) {
+            lessonTitle = currentLesson[0].className + ' ' + currentLesson[0].subject;
+            startTime = currentLessonTimeObj.startTime;
+            endTime = currentLessonTimeObj.endTime;
+        }
 
         return (
-
             <Layout>
 
                 <Modal
@@ -173,18 +194,24 @@ class HomePageComponent extends React.Component<Props, State> {
                     }
                 </Modal>
 
+                <Sider className={styles.sider}>
+                    <div>
+                        <VideoButton send={this.sendMessage}/>
+                    </div>
+                </Sider>
                 <Content style={{margin: 'auto', width: '70%'}}>
                     <PageContent>
+                        <Top lessonTitle={lessonTitle}
+                             teacher={currentLesson && currentLesson[0].teacher}
+                             startTime={startTime}
+                             endTime={endTime}
+                        />
 
-                        <Button
-                            onClick={this.sendMessage}
-                        >
-                            "hello"
-                        </Button>
+
                         {videoChatName && (
                             <Jitsi
 
-                                frameStyle={{display: 'block', width: '150%', height: '150%'}}
+                                frameStyle={{display: 'block', width: '1200px', height: '65vh'}}
 
                                 jwt="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250ZXh0Ijp7InVzZXIiOnsiYXZhdGFyIjoiaHR0cHM6Ly9hdmF0YXJzLmRpY2ViZWFyLmNvbS9hcGkvbWFsZS9tZW51by1zdS1pdC5zdmciLCJuYW1lIjoiTcSXbnVvIHN1IElUIn19LCJhdWQiOiJtZW51b19zdV9pdCIsImlzcyI6Im1lbnVvX3N1X2l0Iiwic3ViIjoibWVldC5qaXRzaSIsInJvb20iOiIqIn0.6CKZU_JWLhtj9eKJ-VdFGQZyRzvTZz29fn7--_dp-jw"
                                 roomName={videoChatName}
@@ -216,6 +243,7 @@ class HomePageComponent extends React.Component<Props, State> {
                         {/*<Whiteboard/>*/}
                     </PageContent>
                 </Content>
+
             </Layout>
         );
     }
@@ -243,11 +271,13 @@ const handleCallEnd = (api: any) => {
     });
 };
 
-const mapContextToProps = ({session: {user}, lessons}: SettingsProps): ContextProps => ({
+const mapContextToProps = ({session: {user}, lessons, schedule}: SettingsProps): ContextProps => ({
     username: user != null ? user.username : null,
+    firstName: user != null ? user.firstName : null,
     userRoles: user.roles,
     teacherLessons: lessons,
     // studentLessons: lessons,
+    schedule,
 });
 
 const VideoChatPage = connectContext(mapContextToProps)(HomePageComponent);

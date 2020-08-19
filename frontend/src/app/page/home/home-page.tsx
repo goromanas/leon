@@ -4,19 +4,16 @@ import moment from 'moment';
 
 import { navigationService } from 'app/service/navigation-service';
 import { connectContext, SettingsProps } from 'app/context';
-import { PageContent } from 'app/components/layout';
 
 import { DayLessonsList } from 'app/page/timetable/day-timetable';
 
 import styles from './home.module.scss';
 
-const { Content } = Layout;
-
 interface ContextProps {
     username: string | null;
     firstName: string | null;
     userRoles: string[] | null;
-    allLessons: Api.Lesson[];
+    allLessons: Api.LessonDto[];
     currentLesson: number;
     schedule: Api.ScheduleDto[];
 }
@@ -50,31 +47,29 @@ class HomePageComponent extends React.Component<Props, State> {
         } = this.props;
 
         return (
-            <Layout>
-                <Content>
-                    <PageContent>
-                        <div className={styles.welcomeHeader}>
-                            Welcome back, {this.props.firstName},
-                            {currentLesson}
-                        </div>
-                        {userRoles.includes('ADMIN') ? (
-                            <Button type="primary" onClick={this.handleClickToUserList}>
-                                To user list
-                            </Button>
-                        ) : (
-                                <DayLessonsList
-                                    userRole={this.props.userRoles}
-                                    currentLesson={currentLesson}
-                                    allLessons={allLessons || []}
-                                    date={moment().format('YYYY-MM-DD')}
-                                    day={this.state.dayOfWeek}
-                                    schedule={schedule}
-                                />
-                            )}
-
-                    </PageContent>
-                </Content>
-            </Layout>
+            <div>
+                <div className={styles.welcomeHeader}>
+                    Welcome back, {this.props.firstName},
+                {currentLesson}
+                </div>
+                {
+                    userRoles.includes('ADMIN') ? (
+                        <Button type="primary" onClick={this.handleClickToUserList}>
+                            To user list
+                        </Button>
+                    ) : (
+                            <DayLessonsList
+                                userRole={this.props.userRoles}
+                                currentLesson={currentLesson}
+                                allLessons={allLessons || []}
+                                date={moment().format('YYYY-MM-DD')}
+                                day={this.state.dayOfWeek}
+                                schedule={schedule}
+                                homepage={true}
+                            />
+                        )
+                }
+            </div>
         );
     }
 

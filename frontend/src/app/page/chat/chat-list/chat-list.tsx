@@ -16,30 +16,45 @@ interface Message {
 }
 
 interface ContextProps {
-    teacherLessons: Api.Lesson[];
+    teacherLessons: Api.LessonDto[];
 }
 
 interface OwnProps {
     messages: Message[];
     currentChannel: number;
+    currentClassroom: string;
 }
 type Props = ContextProps & OwnProps;
 
-const ChatListComponent: React.FC<Props> = ({ messages, currentChannel }) => (
-  <div>
-    <ul>
-      <TransitionGroup className="chat-messages" appear={true}>
-        {messages
-          .filter(message => message.channel === currentChannel)
-          .map((msg, i) => (
-            <CSSTransition key={i} timeout={300} classNames="fade" appear={true}>
-              <Message key={i} text={msg.text} author={msg.author} date={msg.date} channel={msg.channel} />
-            </CSSTransition>
-          ))}
-      </TransitionGroup>
-    </ul>
-  </div>
-);
+const ChatListComponent: React.FC<Props> = ({ messages, currentChannel, currentClassroom }) =>
+    (
+        < div >
+        < ul >
+        < TransitionGroup
+            className="chat-messages"
+            appear={true}
+        >
+        {
+            messages
+            .filter(message => message.channel === currentChannel && message.classroom === currentClassroom)
+                .map((msg, i) => (
+                    <CSSTransition key={i} timeout={300} classNames="fade" appear={true}>
+                        <Message
+                            key={i}
+                            text={msg.text}
+                            author={msg.author}
+                            date={msg.date}
+                            channel={msg.channel}
+                            classroom={msg.classroom}
+                        />
+
+                    </CSSTransition>
+                ))
+        }
+</TransitionGroup>
+</ul>
+</div>
+    );
 
 const mapContextToProps = ({ lessons }: SettingsProps): ContextProps => ({
     teacherLessons: lessons,

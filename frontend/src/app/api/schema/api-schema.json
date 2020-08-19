@@ -1,3 +1,4 @@
+
 {
   "swagger": "2.0",
   "info": {
@@ -210,6 +211,39 @@
         "deprecated": false
       }
     },
+    "/classroomByTeacher": {
+      "get": {
+        "tags": [
+          "classroom-controller"
+        ],
+        "summary": "getClassroomByTeacher",
+        "operationId": "getClassroomByTeacherUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ClassroomDto"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
     "/lessonInformation": {
       "post": {
         "tags": [
@@ -217,6 +251,51 @@
         ],
         "summary": "createLessonInformation",
         "operationId": "createLessonInformationUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "lessonInformation",
+            "description": "lessonInformation",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LessonInformationDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/LessonInformationDto"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "lesson-information-controller"
+        ],
+        "summary": "updateLessonInformation",
+        "operationId": "updateLessonInformationUsingPUT",
         "consumes": [
           "application/json"
         ],
@@ -407,6 +486,69 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/LessonDto"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/subjectByTeacher": {
+      "get": {
+        "tags": [
+          "subject-controller"
+        ],
+        "summary": "getSubjectByTeacher",
+        "operationId": "getSubjectByTeacherUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Optional«SubjectDto»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/subjectByUser": {
+      "get": {
+        "tags": [
+          "subject-controller"
+        ],
+        "summary": "getSubjectByUser",
+        "operationId": "getSubjectByUserUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SubjectDto"
               }
             }
           },
@@ -861,6 +1003,18 @@
       },
       "title": "LoginData"
     },
+    "Optional«SubjectDto»": {
+      "type": "object",
+      "properties": {
+        "empty": {
+          "type": "boolean"
+        },
+        "present": {
+          "type": "boolean"
+        }
+      },
+      "title": "Optional«SubjectDto»"
+    },
     "Role": {
       "type": "object",
       "properties": {
@@ -932,6 +1086,22 @@
         }
       },
       "title": "Subject"
+    },
+    "SubjectDto": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "SubjectDto"
     },
     "User": {
       "type": "object",

@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { Button, Modal } from 'antd';
 import classNames from 'classnames';
+import ReactTooltip from 'react-tooltip';
 
 import { TeacherModal } from 'app/components/modalContent/teacherModal';
+import { StudentModal } from 'app/components/modalContent/studentModal';
+
+import { scheduleCalc } from './schedule-calc';
 
 import styles from './lessons.module.scss';
 
@@ -13,101 +17,120 @@ interface Props {
     schedule: any | null;
     userRole: string[];
     date: string;
+    homepage?: boolean;
 }
 
-const { listItem, activeLesson, endedLesson, listNumber, listContent } = styles;
+const { lesson, activeLesson, endedLesson, lessonBarContent, lessonBar, lessonBarWithBreak, activeInSchedules } = styles;
 
 const SingleLesson: React.FC<Props> = (props) => {
-    const { currentLesson, thisLesson, handleOpenClassroom, schedule, userRole, date } = props;
+    const { currentLesson, thisLesson, handleOpenClassroom, schedule, userRole, date, homepage } = props;
     const [modalVisible, setModalVisible] = useState(false);
 
     // define classNames
-    const listClass = classNames(
-        listItem,
+    const lessonClass = classNames(
+        lesson,
         currentLesson === thisLesson.id && activeLesson,
         currentLesson > thisLesson.id && endedLesson,
-    );
-    const numberClass = classNames(
-        listNumber,
-        currentLesson === thisLesson.id && activeLesson,
-        currentLesson > thisLesson.id && endedLesson,
-    );
-    const contentClass = classNames(
-        listContent,
-        currentLesson === thisLesson.id && activeLesson,
-        currentLesson > thisLesson.id && endedLesson,
+        !homepage && activeInSchedules,
     );
 
-    // get thisLesson start as 8:00
-    const lessonStart: string = schedule ? (schedule.startTime).substr(0, 5) : 'undef';
-
-    const modalButton = (): boolean =>
+    const checkUserRoleForModal = (): boolean =>
         userRole.includes('STUDENT') || userRole.includes('PARENT');
 
     const showModal = (index: number) => {
         setModalVisible(!modalVisible);
     };
+
+    const checkLessonInformation = (index: number) => {
+        if (thisLesson.lessonInformation[0]) {
+            showModal(index);
+        }
+    };
+
     const handleOk = () => {
         setModalVisible(!modalVisible);
     };
 
     return (
         <>
-            {modalButton() ?
-                (
-                    <></>
-                    // <Modal
-                    //     key={thisLesson.id}
-                    //     title={thisLesson.subject}
-                    //     visible={modalVisible}
-                    //     onOk={() => handleOk()}
-                    //     onCancel={() => handleOk()}
-                    //     footer={null}
-                    //     okButtonProps={{
-                    //         children: 'Custom OK',
-                    //     }}
-                    // >
-                    //
-                    // </Modal>
-                ) :
-                (
-                    <Modal
-                        key={thisLesson.id}
-                        title={thisLesson.subject}
-                        visible={modalVisible}
-                        footer={null}
-                        onCancel={handleOk}
-                        okButtonProps={{
-                            children: 'Custom OK',
-                        }}
-                    >
-                        <TeacherModal lessonId={thisLesson.id} onClose={handleOk} date={date} />
-                    </Modal>
-                )}
-            < li className={listClass} key={thisLesson.id} onClick={() => showModal(thisLesson.id)}>
-
-                <div
-                    className={numberClass}
-                >
-                    <span>{schedule && lessonStart}</span>
-                    <span>{thisLesson.time}</span>
-                </div>
-                <div
-                    className={contentClass}
-                >
-                    {thisLesson.subject}
-                    .  ID: {thisLesson.id}
-                    {thisLesson.id === currentLesson ? (
-                        <Button
-                            type="primary"
-                            className={styles.toVideoButton}
-                            onClick={() => handleOpenClassroom(thisLesson.id)}
+            <Modal
+                visible={modalVisible}
+                footer={null}
+                onCancel={handleOk}
+                okButtonProps={{
+                    children: 'Custom OK',
+                }}
+            >
+                {checkUserRoleForModal() ?
+                    (<StudentModal
+                        subject={thisLesson.subject}
+                        onClose={handleOk}
+                        lessonInformation={
+                            thisLesson.lessonInformation
+                                .filter((lesson: Api.LessonInformationDto) => lesson.date === date)}
+                        classId={thisLesson.id}
+                        date={date}
+                    />) :
+                    (<TeacherModal subject={thisLesson.subject} lessonId={thisLesson.id} onClose={handleOk} date={date}
+                                   lessonInformation={
+                                       thisLesson.lessonInformation
+                                           .filter((lesson: Api.LessonInformationDto) => lesson.date === date)}/>)}
+            </Modal>
+            <div className={lessonClass} key={thisLesson.id}>
+                <div onClick={() => showModal(thisLesson.id)} className={lessonBar}>
+                    <div className={lessonBarWithBreak}>
+                        <div
+                            className={lessonBarContent}
+                            style={{
+                                height: scheduleCalc.getLessonLength(schedule),
+                            }}
                         >
-                            Live
-                        </Button>
-                    ) : null}
+                            <h1>{thisLesson.subject}</h1>
+                            {
+                                thisLesson.lessonInformation[0] !== undefined &&
+                                <h1>1</h1>
+                            }
+                            {thisLesson.id === currentLesson ?
+
+                                homepage ?
+
+                                    (
+                                        <>
+                                            <img
+                                                alt="Lesson camera icon"
+                                                src={'icons/camera.svg'}
+                                            />
+                                            <Button
+                                                type="primary"
+                                                shape="round"
+                                                className={styles.toVideoButton}
+                                                onClick={() => handleOpenClassroom(thisLesson.id)}
+                                            >
+                                                Join a Class
+                                            </Button>
+                                        </>
+                                    )
+
+                                    : (
+                                        <div onClick={() => handleOpenClassroom(thisLesson.id)}>
+                                            <img
+                                                alt="Lesson modal icon"
+                                                src={'icons/camera.svg'}
+                                            /> <span>live</span>
+                                        </div>
+                                    )
+
+                                : null}
+                        </div>
+                        < span
+                            data-tip="Break"
+                            style={{ height: scheduleCalc.getBreakTime(schedule, thisLesson.time) }}
+                            className={styles.breakSpan}
+                        />
+                        <ReactTooltip />
+                    </div>
                 </div>
-            </li>
+            </div>
         </ >
 
     );

@@ -1,5 +1,6 @@
-module.exports = function() {
+module.exports = function () {
     return {
-        // Ant Design theme configuration goes here
+        // Ant Design theme configuration goes heres
+        // '@primary-color': '#FFFF'
     };
 };
