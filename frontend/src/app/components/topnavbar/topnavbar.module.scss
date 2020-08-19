@@ -1,3 +1,5 @@
+@import '~app/style/variables';
+
 .ModifiedItem {
   float: right;
 }
@@ -11,7 +13,8 @@
   margin-bottom: 10px;
   margin-left: 0;
   margin-right: 0;
-  line-height: 60px;
+  line-height: 58px;
+  justify-items: center;
 }
 
 .menu {
@@ -22,18 +25,28 @@
 .cameraButton {
   background: #fff;
   border: none;
-
 }
 
 .cameraStatus {
   position: absolute;
-  top: 18%;
+  top: 22%;
   left: -5%;
   background: #f1002e;
   width: 15px;
   height: 15px;
   border-radius: 7px;
   border: 2px solid #fff;
+
+  &--disabled {
+    position: absolute;
+    top: 22%;
+    left: -5%;
+    background: $grey6;
+    width: 15px;
+    height: 15px;
+    border-radius: 7px;
+    border: 2px solid #fff;
+  }
 }
 
 .avatar {

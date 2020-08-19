@@ -47,6 +47,10 @@ public class UserService {
             .map(UserMapper::mapUserDto);
     }
 
+    public UserDto findByUsername(String user){
+        return userRepository.findByUsername(user).map(UserMapper::mapUserDto).orElseThrow();
+    }
+
     public UserDto createUser(UserDto user) {
         return saveUser(user);
     }
