@@ -24,7 +24,6 @@ const TimeLine: React.FC<Props> = (props) => {
             setTop(
                 scheduleCalc.convertTimeToMinutes(time) - scheduleCalc.getDayStart(schedule),
             );
-            console.log(top);
         }, 1000);
         return () => {
             clearInterval(interval);

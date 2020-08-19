@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { Button, Modal } from 'antd';
 import classNames from 'classnames';
 import ReactTooltip from 'react-tooltip';
+import { Link } from 'react-router-dom';
 
 import { TeacherModal } from 'app/components/modalContent/teacherModal';
 import { StudentModal } from 'app/components/modalContent/studentModal';
+import { navigationService } from 'app/service/navigation-service';
 
 import { scheduleCalc } from './schedule-calc';
 
@@ -72,9 +74,9 @@ const SingleLesson: React.FC<Props> = (props) => {
                         date={date}
                     />) :
                     (<TeacherModal subject={thisLesson.subject} lessonId={thisLesson.id} onClose={handleOk} date={date}
-                                   lessonInformation={
-                                       thisLesson.lessonInformation
-                                           .filter((lesson: Api.LessonInformationDto) => lesson.date === date)}/>)}
+                        lessonInformation={
+                            thisLesson.lessonInformation
+                                .filter((lesson: Api.LessonInformationDto) => lesson.date === date)} />)}
             </Modal>
             <div className={lessonClass} key={thisLesson.id}>
                 <div onClick={() => showModal(thisLesson.id)} className={lessonBar}>
@@ -91,42 +93,48 @@ const SingleLesson: React.FC<Props> = (props) => {
                                 <h1>1</h1>
                             }
                             {thisLesson.id === currentLesson ?
+                                (<Link to={navigationService.redirectToVideoChat(currentLesson)}>
+                                    {homepage ?
 
-                                homepage ?
+                                        (
+                                            <>
+                                                <img
+                                                    alt="Lesson camera icon"
+                                                    src={'icons/camera.svg'}
+                                                />
+                                                <Button
+                                                    type="primary"
+                                                    shape="round"
+                                                    className={styles.toVideoButton}
+                                                >
+                                                    Join a Class
+                                        </Button>
+                                            </>
+                                        )
 
-                                    (
-                                        <>
-                                            <img
-                                                alt="Lesson camera icon"
-                                                src={'icons/camera.svg'}
-                                            />
-                                            <Button
-                                                type="primary"
-                                                shape="round"
-                                                className={styles.toVideoButton}
-                                                onClick={() => handleOpenClassroom(thisLesson.id)}
-                                            >
-                                                Join a Class
-                                            </Button>
-                                        </>
-                                    )
+                                        : (
+                                            <div >
+                                                <img
+                                                    alt="Lesson modal icon"
+                                                    src={'icons/camera.svg'}
+                                                /> <span>live</span>
+                                            </div>
 
-                                    : (
-                                        <div onClick={() => handleOpenClassroom(thisLesson.id)}>
-                                            <img
-                                                alt="Lesson modal icon"
-                                                src={'icons/camera.svg'}
-                                            /> <span>live</span>
-                                        </div>
-                                    )
-
+                                        )}
+                                </Link>)
                                 : null}
                         </div>
-                        < span
+                        <span
                             data-tip="Break"
                             style={{ height: scheduleCalc.getBreakTime(schedule, thisLesson.time) }}
                             className={styles.breakSpan}
-                        />
+                        >   {
+                                scheduleCalc.getBreakTime(schedule, thisLesson.time) > 20 ?
+                                    (
+                                        <span className={styles.longBreak}>Long break</span>
+                                    ) : null
+                            }
+                        </span>
                         <ReactTooltip />
                     </div>
                 </div>

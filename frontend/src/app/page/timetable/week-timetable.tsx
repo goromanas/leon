@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout } from 'antd';
+import { Layout, Row, Col } from 'antd';
 import moment from 'moment';
 
 import { AsyncContent } from 'app/components/layout';
@@ -75,21 +75,25 @@ class TimetablePageComponent extends React.Component<Props, State> {
                     <div className={styles.week}>
                         <div className={styles.weekList} >
                             <SideTimebar schedule={this.props.schedule} />
-                            {Array(5).fill(1 + this.state.move).map((x, y) => x + y).map((item) => (
-                                item === 0 ? item = 5 : null,
-                                item < 0 ? item = 0 - item : null,
-                                (item % 5) !== 0 ? null : item = 5,
-                                (item % 5) !== 0 ? item = item % 5 : null,
-                                < DayLessonsList
-                                    key={item}
-                                    userRole={this.props.userRoles}
-                                    allLessons={this.filterByDay(allLessons, item) || []}
-                                    currentLesson={this.props.currentLesson}
-                                    day={item}
-                                    date={this.getDate(item, now)}
-                                    schedule={this.props.schedule}
-                                />
-                            ))}
+                            <Row className={styles.daysRow}>
+                                {Array(5).fill(1 + this.state.move).map((x, y) => x + y).map((item) => (
+                                    item === 0 ? item = 5 : null,
+                                    item < 0 ? item = 0 - item : null,
+                                    (item % 5) !== 0 ? null : item = 5,
+                                    (item % 5) !== 0 ? item = item % 5 : null,
+                                    <Col lg={8} md={20} sm={40} className={styles.dayClassCol}>
+                                        < DayLessonsList
+                                            key={item}
+                                            userRole={this.props.userRoles}
+                                            allLessons={this.filterByDay(allLessons, item) || []}
+                                            currentLesson={this.props.currentLesson}
+                                            day={item}
+                                            date={this.getDate(item, now)}
+                                            schedule={this.props.schedule}
+                                        />
+                                    </Col>
+                                ))}
+                            </Row>
                         </div>
                     </div >
                 </div>

@@ -70,7 +70,7 @@ class AppWithSessionComponent extends React.Component<Props, State> {
         this.setState({ ...this.state, content: <IndexPage /> });
     };
     private readonly handleLessonsResponse = (lessons: Api.LessonDto[]): void => {
-        console.log("app-wit");
+        console.log('app-wit');
         console.log(lessons);
         const { updateLessons } = this.props;
 
@@ -102,7 +102,7 @@ class AppWithSessionComponent extends React.Component<Props, State> {
                 updateCurrentLesson(this.getCurrentLessonID(0));
             } else {
                 // updateCurrentLesson(this.getCurrentLessonID(currentLesson));
-                updateCurrentLesson(this.getCurrentLessonID(currentLesson));
+                updateCurrentLesson(this.getCurrentLessonID(4));
             }
         };
         ws.onclose = () => {

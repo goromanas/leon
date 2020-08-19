@@ -23,7 +23,7 @@ class Clock extends React.Component {
     public render(): React.ReactNode {
 
         return (
-            this.state.date.format('dddd YYYY M D HH:mm')
+            this.state.date.format('dddd YYYY MM D HH:mm')
         );
     }
 }

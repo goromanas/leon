@@ -16,8 +16,9 @@ class PrivatePage extends React.Component<{}, {}> {
     public render(): React.ReactNode {
         return (
             <>
-                <TopNavBar />
+
                 <Router>
+                    <TopNavBar />
                     <Switch>
                         <Route path={NavigationService.HOME_PATH} component={HomePage} exact={true} />
                         <Route path={NavigationService.VIDEO_CHAT_PATH} component={VideoChatPage} exact={true} />
