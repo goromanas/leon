@@ -5,7 +5,7 @@ import Sider from 'antd/lib/layout/Sider';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import { PageContent } from 'app/components/layout';
-import { connectContext, SettingsProps, INITIAL_CURRENT_LESSON } from 'app/context';
+import { connectContext, SettingsProps } from 'app/context';
 import { chatService } from 'app/api/service/chat-service';
 import { AsyncContent } from 'app/components/layout';
 import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-loading-spinner';
@@ -71,12 +71,23 @@ class ChatComponent extends React.Component<Props, State> {
         lessonId: null,
         channels: [],
         classRooms: [],
-        currentChannel: 0,
+        currentChannel: 1,
         currentClassroom:  '',
         teacherSubjectId: 1,
     };
 
     public static MESSAGE_INITIAL_VALUES: MessageValue = { message: '' };
+
+    // public componentDidUpdate(prevProps: Props): void {
+    //     console.log("update");
+    //     const { teacherLessons } = this.props;
+
+    //     if (teacherLessons && teacherLessons.length > 0) {
+    //         // this.setState({ currentClassroom: teacherLessons[0].className });
+    //         console.log('Student classname' + teacherLessons)
+    //     }
+    // }
+
 
     public componentDidUpdate(prev: Props, prevState: State) {
         const { userRoles } = this.props;
@@ -89,6 +100,7 @@ class ChatComponent extends React.Component<Props, State> {
             }
         }
     }
+
   // tslint:disable-next-line:typedef
     public componentDidMount() {
         const { messages } = this.state;
@@ -104,47 +116,56 @@ class ChatComponent extends React.Component<Props, State> {
         })
         .catch(() => console.log('Error getting subjects'));
 
-            if (this.state.channels.length < 1 && userRoles.includes('TEACHER')) {
-                chatService
+        // console.log(teacherLessons);
+        //     if (teacherLessons && teacherLessons.length > 0) {
+        //         this.setState({ currentClassroom: teacherLessons[0].className });
+        //         console.log.log('Student classname' + this.state.className)
+        //     }
+        }
+
+        if (this.state.channels.length < 1 && userRoles.includes('TEACHER')) {
+            chatService
       .getClassrooms()
       .then(classRooms => {
-          this.setState({ classRooms, currentClassroom: classRooms[0].classroomName });
+        this.setState({ classRooms, currentClassroom: classRooms[0].classroomName });
+    })
 
-      })
       .catch(() => console.log('Error getting subjects'));
 
-                chatService.getTeacherSubject()
+            chatService.getTeacherSubject()
       .then(teacherSubject => {
           this.setState({ currentChannel: teacherSubject.id });
       })
       .catch(() => console.log('Error getting teacher subject'));
 
-            }
+        }
 
-            if (this.state.channels.length > 0) {
-                this.setState({ currentChannel: this.state.channels[0].id });
-            }
+        if (this.state.channels.length > 0) {
+            this.setState({ currentChannel: this.state.channels[0].id });
+        }
 
-            this.ws.onmessage = e => {
-                const message = JSON.parse(e.data);
+        this.ws.onmessage = e => {
+            const message = JSON.parse(e.data);
+      // console.log('Chat page receives ',message.classroom);
 
-                const copyMsg = [...this.state.messages];
-                const newMsg = [...copyMsg, message];
+            const copyMsg = [...this.state.messages];
+            const newMsg = [...copyMsg, message];
 
-                this.setState({
-                    messages: newMsg,
-                });
-            };
-        }}
+            this.setState({
+                messages: newMsg,
+            });
+        };
+    }
 
     public render(): React.ReactNode {
         const { messages, channels, classRooms } = this.state;
         const { teacherLessons } = this.props;
 
+        console.log(this.state.currentClassroom);
         return (
 
      <AsyncContent
-        loading={!teacherLessons && this.state.channels[0] === 0}
+        loading={!teacherLessons}
         loader={<PageLoadingSpinner />}
      >
       <Layout>
@@ -172,7 +193,7 @@ class ChatComponent extends React.Component<Props, State> {
           </PageContent>
         </Content>
       </Layout>
-     </AsyncContent>
+      </AsyncContent>
         );
     }
 
@@ -189,6 +210,10 @@ class ChatComponent extends React.Component<Props, State> {
             console.log(error); // catch error
         }
     };
+
+  // if (teacherLessons) {
+  //   console.log(teacherLessons);
+  // }
 
   // public addFile = (file: any) => {
   //     this.setState({ file: file });
@@ -232,12 +257,14 @@ class ChatComponent extends React.Component<Props, State> {
         this.setState({
             currentChannel: id,
         });
+        console.log(this.state.currentChannel);
     };
 
     private readonly onClassChange = (name: string): void => {
         this.setState({
             currentClassroom: name,
         });
+        console.log(this.state.currentClassroom);
     };
 }
 

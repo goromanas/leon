@@ -70,8 +70,6 @@ class AppWithSessionComponent extends React.Component<Props, State> {
         this.setState({ ...this.state, content: <IndexPage /> });
     };
     private readonly handleLessonsResponse = (lessons: Api.LessonDto[]): void => {
-        console.log("app-wit");
-        console.log(lessons);
         const { updateLessons } = this.props;
 
         this.setState({ ...this.state, lessons });
