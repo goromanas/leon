@@ -3,13 +3,7 @@ import { RouteComponentProps } from 'react-router';
 import { Field, Form, Formik, useFormik } from 'formik';
 
 import { Layout, Radio, } from 'antd';
-import Jitsi from 'react-jitsi';
-
-import { connectContext, SettingsProps } from 'app/context';
-import { PageContent } from 'app/components/layout';
-import { navigationService } from 'app/service/navigation-service';
-import { Button, Modal } from 'antd';
-import { lessonsService } from 'app/api/service/lessons-service';
+import OptionList from './options';
 
 const {Content} = Layout;
 
@@ -34,17 +28,7 @@ const QuizCreate: React.FC<Props> = (props) => {
 
     return (
         <>
-            <form onSubmit={formik.handleSubmit}>
-                <label htmlFor="question">Question</label>
-                <input
-                    id="question"
-                    name="question"
-                    type="question"
-                    onChange={formik.handleChange}
-                    value={formik.values.question}
-                />
-                <button type="submit">Submit</button>
-            </form>
+            <OptionList/>
         </>
     );
 };
