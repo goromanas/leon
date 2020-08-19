@@ -42,7 +42,7 @@ const AnswerQuiz: React.FC<Props> = (props) => {
             counter >= 0) {
             setTimeout(() => setCounter(counter - 1), 1000);
             if (counter == 0) {
-                props.onCancel();
+                props.onSuccess();
             }
         }
     }, [counter]);

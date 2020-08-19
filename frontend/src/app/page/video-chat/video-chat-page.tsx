@@ -64,7 +64,7 @@ class HomePageComponent extends React.Component<Props, State> {
         type: null,
         quizMessageForStudent: null,
         visible: false,
-        value: 1,
+        value: 0,
         answers: [],
     };
 
@@ -132,7 +132,7 @@ class HomePageComponent extends React.Component<Props, State> {
     }
 
     public sendMessage = (): void => {
-        this.ws.send('{"type":"question","classroom":"6A", "teacherUsername":"tecmokytojas", "question": "Is this legit?", "options": [{"id":"1", "name":"Option 1"},{"id":"2", "name":"Option 2"}],"correct":"1","timer":"5"}');
+        this.ws.send('{"type":"question","classroom":"6A", "teacherUsername":"istmokytojas", "question": "Is this legit?", "options": [{"id":"1", "name":"Option 1"},{"id":"2", "name":"Option 2"}],"correct":"1","timer":"5"}');
     };
 
     public render(): React.ReactNode {
