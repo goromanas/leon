@@ -5,7 +5,6 @@ import ReactTooltip from 'react-tooltip';
 
 import { TeacherModal } from 'app/components/modalContent/teacherModal';
 import { StudentModal } from 'app/components/modalContent/studentModal';
-
 import { scheduleCalc } from './schedule-calc';
 
 import styles from './lessons.module.scss';
@@ -20,10 +19,10 @@ interface Props {
     homepage?: boolean;
 }
 
-const { lesson, activeLesson, endedLesson, lessonBarContent, lessonBar, lessonBarWithBreak, activeInSchedules } = styles;
+const {lesson, activeLesson, endedLesson, lessonBarContent, lessonBar, lessonBarWithBreak, activeInSchedules} = styles;
 
 const SingleLesson: React.FC<Props> = (props) => {
-    const { currentLesson, thisLesson, handleOpenClassroom, schedule, userRole, date, homepage } = props;
+    const {currentLesson, thisLesson, handleOpenClassroom, schedule, userRole, date, homepage} = props;
     const [modalVisible, setModalVisible] = useState(false);
 
     // define classNames
@@ -124,10 +123,10 @@ const SingleLesson: React.FC<Props> = (props) => {
                         </div>
                         < span
                             data-tip="Break"
-                            style={{ height: scheduleCalc.getBreakTime(schedule, thisLesson.time) }}
+                            style={{height: scheduleCalc.getBreakTime(schedule, thisLesson.time)}}
                             className={styles.breakSpan}
                         />
-                        <ReactTooltip />
+                        <ReactTooltip/>
                     </div>
                 </div>
             </div>
