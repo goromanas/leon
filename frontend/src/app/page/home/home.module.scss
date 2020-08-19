@@ -23,6 +23,39 @@
     padding: 50px 46px;
     margin-top:12px;
   }
+  .homeSide {
+    padding: 0 65px;
+    position: relative;
+  }
 
+  .homeImage {
+    position: absolute;
+    width: 100%;
+    padding: 0 60px;
+    img {
+      width: 100%;
+    }
+  }
+  .homeModal {
+    padding: 33px 27px 20px 27px;
+    background: $background;
+    box-shadow: $containerShadow;
+    border-radius: $conteinerRadius;
+    position: absolute;
+    bottom: 55px;
+    max-width: 70%;
+    h1 {
+      font-size: $lg;
+    }
+    div {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+    img {
+      height: 100px;
+      margin-right: 12px;
+    }
+  }
 }
 

@@ -69,7 +69,7 @@ class HomePageComponent extends React.Component<Props, State> {
                                             <Col lg={2} md={2} sm={2} >
                                                 <SideTimebar schedule={schedule} homepage={true} />
                                             </Col>
-                                            <Col lg={20} md={38} sm={38} >
+                                            <Col lg={18} md={38} sm={38} >
                                                 <DayLessonsList
                                                     userRole={this.props.userRoles}
                                                     currentLesson={currentLesson}
@@ -79,6 +79,25 @@ class HomePageComponent extends React.Component<Props, State> {
                                                     schedule={schedule}
                                                     homepage={true}
                                                 />
+                                            </Col>
+                                            <Col lg={20} md={40} sm={40} className={styles.homeSide}>
+                                                <div className={styles.homeImage}>
+                                                    <img
+                                                        alt="Homepage"
+                                                        src={'images/homeart.svg'}
+                                                    />
+                                                </div>
+                                                <div className={styles.homeModal}>
+                                                    <h1>Teacher’s Recomendation</h1>
+                                                    <div>
+                                                        <img
+                                                            alt="Homepage User"
+                                                            src={'icons/homeuser.svg'}
+                                                        />
+                                                        <p>If people only knew how hard I’ve worked to gain my mastery, it wouldn’t seem so wonderful at all.</p>
+                                                    </div>
+
+                                                </div>
                                             </Col>
                                         </Row>
                                     </>
