@@ -40,16 +40,17 @@ const SingleLesson: React.FC<Props> = (props) => {
         setModalVisible(!modalVisible);
     };
 
-    const checkLessonInformation = (index: number) => {
-        if (thisLesson.lessonInformation[0]) {
-            showModal(index);
-        }
+    const checkLessonInformation = (): void => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+        checkUserRoleForModal() ? showModal(thisLesson.id) : null;
     };
 
     const handleOk = () => {
         setModalVisible(!modalVisible);
     };
-
+    const currentLessonInfo = thisLesson.lessonInformation
+        .filter((lesson: Api.LessonInformationDto) => lesson.date === date)[0];
+    console.log(currentLessonInfo);
     return (
         <>
             <Modal
@@ -64,19 +65,18 @@ const SingleLesson: React.FC<Props> = (props) => {
                     (<StudentModal
                         subject={thisLesson.subject}
                         onClose={handleOk}
-                        lessonInformation={
-                            thisLesson.lessonInformation
-                                .filter((lesson: Api.LessonInformationDto) => lesson.date === date)}
+                        lessonInformation={thisLesson.lessonInformation
+                            .filter((lesson: Api.LessonInformationDto) => lesson.date === date)}
                         classId={thisLesson.id}
                         date={date}
                     />) :
                     (<TeacherModal subject={thisLesson.subject} lessonId={thisLesson.id} onClose={handleOk} date={date}
-                                   lessonInformation={
-                                       thisLesson.lessonInformation
-                                           .filter((lesson: Api.LessonInformationDto) => lesson.date === date)}/>)}
+                                   lessonInformation={thisLesson.lessonInformation
+                                       .filter((lesson: Api.LessonInformationDto) => lesson.date === date)}/>)}
             </Modal>
             <div className={lessonClass} key={thisLesson.id}>
-                <div onClick={() => showModal(thisLesson.id)} className={lessonBar}>
+                <div className={lessonBar + ' ' + (checkUserRoleForModal() ? styles.pointer : null)}
+                     onClick={checkLessonInformation}>
                     <div className={lessonBarWithBreak}>
                         <div
                             className={lessonBarContent}
@@ -85,10 +85,21 @@ const SingleLesson: React.FC<Props> = (props) => {
                             }}
                         >
                             <h1>{thisLesson.subject}</h1>
-                            {
-                                thisLesson.lessonInformation[0] !== undefined &&
-                                <h1>1</h1>
-                            }
+                            <div className={styles.assignments}>
+                                {
+                                    currentLessonInfo?.assignment?.includes('Homework') &&
+
+                                    <i style={{color: 'white'}} className="far fa-file-alt "/>}
+                                {currentLessonInfo?.assignment?.includes('Test') &&
+                                <i className="far fa-file-alt"/>
+
+                                }
+                            </div>
+
+                            {checkUserRoleForModal() ? null
+                                : <div onClick={() => showModal(thisLesson.id)} className={styles.editModal}>
+                                    <i className="fas  fa-lg fa-plus-circle"/>
+                                </div>}
                             {thisLesson.id === currentLesson ?
 
                                 homepage ?

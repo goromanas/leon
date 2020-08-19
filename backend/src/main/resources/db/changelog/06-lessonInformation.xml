@@ -44,10 +44,6 @@
       insert into assignment values(5,'Project');
 
 
-      insert into lesson_information values (1,'2020-08-13','test','Some Information',40);
-      insert into lesson_information values (2,'2020-08-14','another test','Some Information2',45);
-      insert into lesson_information_assignment values (1,2);
-      insert into lesson_information_assignment values (2,3);
 
 <!--      create table lesson_lesson_information-->
 <!--      (-->
