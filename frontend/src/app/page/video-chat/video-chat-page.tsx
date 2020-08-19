@@ -45,7 +45,7 @@ class HomePageComponent extends React.Component<Props, {}> {
                 params: { id },
             },
         } = this.props;
-
+        console.log(userRoles)
         const currentLesson = teacherLessons && teacherLessons.filter((lesson) => lesson.id === parseInt(id, 10));
 
         const isUserInWrongVideoRoom = teacherLessons &&
@@ -68,13 +68,9 @@ class HomePageComponent extends React.Component<Props, {}> {
 
         return (
             <Layout >
-                <Sider className={styles.sider}>
-                    <div>
-                        <VideoButton />
-                    </div>
-                </Sider>
                 <Content style={{ margin: 'auto', width: '70%' }}>
                     <PageContent>
+
                         <Top lessonTitle={lessonTitle}
                              teacher={currentLesson && currentLesson[0].teacher}
                              startTime={startTime}
@@ -83,8 +79,8 @@ class HomePageComponent extends React.Component<Props, {}> {
 
                         {videoChatName && (
                             <Jitsi
-
-                                frameStyle={{ display: 'block', width: '1200px', height: '65vh' }}
+                                containerStyle={{ marginLeft: '61px'}}
+                                frameStyle={{ display: 'block', width: '1012px', height: '443px' }}
                                 jwt="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250ZXh0Ijp7InVzZXIiOnsiYXZhdGFyIjoiaHR0cHM6Ly9hdmF0YXJzLmRpY2ViZWFyLmNvbS9hcGkvbWFsZS9tZW51by1zdS1pdC5zdmciLCJuYW1lIjoiTcSXbnVvIHN1IElUIn19LCJhdWQiOiJtZW51b19zdV9pdCIsImlzcyI6Im1lbnVvX3N1X2l0Iiwic3ViIjoibWVldC5qaXRzaSIsInJvb20iOiIqIn0.6CKZU_JWLhtj9eKJ-VdFGQZyRzvTZz29fn7--_dp-jw"
                                 roomName={videoChatName}
                                 domain="video-menuo-su-it.northeurope.cloudapp.azure.com:443"
@@ -112,10 +108,15 @@ class HomePageComponent extends React.Component<Props, {}> {
                                 }
                             />
                         )}
+
                         {/*<Whiteboard/>*/}
                     </PageContent>
                 </Content>
+                <Sider width='282px' className={styles.sider}>
 
+                        <VideoButton role={userRoles} />
+
+                </Sider>
             </Layout>
         );
     }
