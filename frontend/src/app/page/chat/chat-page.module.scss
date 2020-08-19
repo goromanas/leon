@@ -1,4 +1,8 @@
 .sider{
   overflow: auto;
   height: 90vh;
+  overflow-y: hidden;
+  &:hover{
+    overflow-y: scroll;
+  }
 }
