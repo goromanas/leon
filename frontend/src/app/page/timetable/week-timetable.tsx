@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Col, Row, Layout } from 'antd';
+import { Layout } from 'antd';
 import moment from 'moment';
 
 import { AsyncContent } from 'app/components/layout';
@@ -10,8 +10,6 @@ import { SideTimebar } from 'app/page/timetable/side-timebar';
 import styles from 'app/page/timetable/lessons.module.scss';
 
 import { scheduleCalc } from './schedule-calc';
-
-const { Content } = Layout;
 
 interface ContextProps {
     username: string | null;
@@ -28,6 +26,10 @@ interface State {
 type Props = ContextProps;
 
 class TimetablePageComponent extends React.Component<Props, State> {
+    constructor(props: Props) {
+        super(props);
+        // this.weekListRef = React.createRef();
+    }
     public state: State =
         {
             move: 0,
@@ -71,7 +73,7 @@ class TimetablePageComponent extends React.Component<Props, State> {
                     </div>
 
                     <div className={styles.week}>
-                        <div className={styles.weekList}>
+                        <div className={styles.weekList} >
                             <SideTimebar schedule={this.props.schedule} />
                             {Array(5).fill(1 + this.state.move).map((x, y) => x + y).map((item) => (
                                 item === 0 ? item = 5 : null,
@@ -79,6 +81,7 @@ class TimetablePageComponent extends React.Component<Props, State> {
                                 (item % 5) !== 0 ? null : item = 5,
                                 (item % 5) !== 0 ? item = item % 5 : null,
                                 < DayLessonsList
+                                    key={item}
                                     userRole={this.props.userRoles}
                                     allLessons={this.filterByDay(allLessons, item) || []}
                                     currentLesson={this.props.currentLesson}
