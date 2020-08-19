@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select } from 'antd';
+import { Select, Input } from 'antd';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 
 import { SelectField } from 'app/components/inputs';
