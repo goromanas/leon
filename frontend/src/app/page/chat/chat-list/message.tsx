@@ -13,16 +13,23 @@ interface Props {
 }
 
 const Message: React.FC<Props> = ({ text, author, date, channel, classroom }) => (
-  <div >
-      <div>
-          <Avatar size="small" icon={<UserOutlined />} />
+  <div className={styles.container} >
+      <div className={styles.avatarBox}>
+          <Avatar
+              className={styles.avatar}
+                  size="large" icon={
+              <UserOutlined
+                  className={styles.userIcon}
+                  style={{ fontSize: '25px' }} />}
+                  style={{ color: 'white'}}
+          />
       </div>
 
     <div>
       <span className={styles.author}>{author}</span>
         <div className={styles.message}>
-            {text}
-            <span className={styles.timestamp}>{date}</span>
+            <p>{text}</p>
+            <p className={styles.timestamp}>{date}</p>
         </div>
 
     {/*<p>channel: {channel}</p>*/}

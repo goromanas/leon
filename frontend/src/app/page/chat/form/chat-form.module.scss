@@ -33,6 +33,13 @@ input:focus{outline-color: red;}
     background-color: $gold6;
     border-radius: 46px;
     margin: 10px;
+    color: #000000;
+    outline: none;
+    &:hover{
+      background: $gold7;
+      color: #000000;
+      border: none;
+    }
   }
 }
 

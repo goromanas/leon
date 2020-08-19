@@ -1,9 +1,22 @@
+@import '~app/style/variables';
+
+.container{
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.avatarBox{
+  display: flex;
+  align-items: flex-end;
+}
+
 .message {
   background-color: #e4e6ec;
   margin: 20px;
   padding: .5em;
   display: table-cell;
   max-width: 758px;
+  //min-width: 100px;
 }
 
 .author {
@@ -18,4 +31,11 @@
 
 .top span {
   font-weight: bold;
+}
+.avatar {
+  margin: 10px;
+  background: $blue4;
+}
+.userIcon {
+  color: white;
 }
