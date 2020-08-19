@@ -1,11 +1,14 @@
 import React from 'react';
-import { Button, Layout } from 'antd';
+import { Button, Layout, Row, Col } from 'antd';
 import moment from 'moment';
 
 import { navigationService } from 'app/service/navigation-service';
 import { connectContext, SettingsProps } from 'app/context';
+import { AsyncContent } from 'app/components/layout';
+import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-loading-spinner';
 
 import { DayLessonsList } from 'app/page/timetable/day-timetable';
+import { SideTimebar } from 'app/page/timetable/side-timebar';
 
 import styles from './home.module.scss';
 
@@ -47,29 +50,43 @@ class HomePageComponent extends React.Component<Props, State> {
         } = this.props;
 
         return (
-            <div>
-                <div className={styles.welcomeHeader}>
-                    Welcome back, {this.props.firstName},
+            <AsyncContent loading={this.props.schedule.length === 0} loader={<PageLoadingSpinner />}>
+                <div className={styles.homePage}>
+                    <div className={styles.home}>
+                        {/* <div className={styles.welcomeHeader}>
+                            Welcome back, {this.props.firstName},
                 {currentLesson}
+                        </div> */}
+                        {
+                            userRoles.includes('ADMIN') ? (
+                                <Button type="primary" onClick={this.handleClickToUserList}>
+                                    To user list
+                                </Button>
+                            ) : (
+                                    <>
+
+                                        <Row >
+                                            <Col lg={2} md={2} sm={2} >
+                                                <SideTimebar schedule={schedule} homepage={true} />
+                                            </Col>
+                                            <Col lg={20} md={38} sm={38} >
+                                                <DayLessonsList
+                                                    userRole={this.props.userRoles}
+                                                    currentLesson={currentLesson}
+                                                    allLessons={allLessons || []}
+                                                    date={moment().format('YYYY-MM-DD')}
+                                                    day={this.state.dayOfWeek}
+                                                    schedule={schedule}
+                                                    homepage={true}
+                                                />
+                                            </Col>
+                                        </Row>
+                                    </>
+                                )
+                        }
+                    </div>
                 </div>
-                {
-                    userRoles.includes('ADMIN') ? (
-                        <Button type="primary" onClick={this.handleClickToUserList}>
-                            To user list
-                        </Button>
-                    ) : (
-                            <DayLessonsList
-                                userRole={this.props.userRoles}
-                                currentLesson={currentLesson}
-                                allLessons={allLessons || []}
-                                date={moment().format('YYYY-MM-DD')}
-                                day={this.state.dayOfWeek}
-                                schedule={schedule}
-                                homepage={true}
-                            />
-                        )
-                }
-            </div>
+            </AsyncContent >
         );
     }
 

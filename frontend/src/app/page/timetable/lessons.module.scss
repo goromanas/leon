@@ -19,6 +19,7 @@
   // flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-between;
+
 }
 
 .weekInfo {
@@ -72,10 +73,19 @@
 
 // ONE DAY LESSONS LIST <div>
 .dayClass {
-  display: flex;
-  width: 18%;
-  // min-width: fit-content;
-  flex-direction: column;
+  color: black;
+  padding: 0 10px;
+
+}
+.dayClassCol:first-child {
+  .longBreak {
+    display: block;
+  }
+
+}
+
+.daysRow {
+  width: 100%;
 }
 
 .dayHeader {
@@ -89,7 +99,12 @@
     font-weight: $normal;
   }
 }
+.dayHeaderInHome {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 
+}
 .activeDay {
   .dayHeader {
     span:nth-child(1) {
@@ -251,6 +266,15 @@
   // background-color: #F3F3F3;
 }
 
+  .longBreak {
+    display: none;
+    font-size: $xs;
+    color: $grey6;
+    left: -80px;
+    position: relative;
+    font-weight: $light;
+  }
+
 
 .toVideoButton {
   margin: 0 16px;
@@ -266,29 +290,81 @@
   }
 }
 
-.timeLine {
-  position: absolute;
+// SHCEDULE SIDEBAR WITH TIME-LINE
+.lessonSideBarTimeInHome {
 
-  div {
-    position: absolute;
-    transform: translateY(-50%);
-    left: -40px;
-    font-weight: $normal;
-    font-size: $xs;
-    line-height: 16px;
-    color: $dustRed;
-
-    span {
-      border-bottom: 1px solid $dustRed;
-      width: 88vw;
-      position: absolute;
-      bottom: 50%;
-      margin-bottom: 0px;
-      margin-left: 6px;
+  .timeLine {
+    width: calc(50vw - 20px) !important;
+    @media only screen and (max-width: 990px) {
+      width: calc(100vw - 160px) !important;
     }
   }
 }
+.lessonSideBar {
+  margin-top: 37px;
+  position: relative;
+  z-index: 99;
+  .lessonSideBarTime {
+    display: flex;
+    flex-direction: column;
+    // margin-right: 10px;
+    justify-content: center;
+    align-items: center;
+     span:nth-child(1) {
+      font-weight: 300;
+      font-size: $xs;
+      line-height: 16px;
+    }
+      span:nth-child(2) {
+        font-size: $sm;
+        line-height: 28px;
+        font-weight: $semiBold;
+      }
+  }
 
+  .timeLine {
+    position: absolute;
+    width: calc(100vw - 160px);
+    div {
+      position: absolute;
+      transform: translateY(-50%);
+      left: -40px;
+      font-weight: $normal;
+      font-size: $xs;
+      line-height: 16px;
+      color: $dustRed;
+      width: 100%;
+      span {
+        border-bottom: 1px solid $dustRed;
+        // width: 88vw;
+        position: absolute;
+        width: 100%;
+        bottom: 50%;
+        margin-bottom: 0px;
+        margin-left: 6px;
+        &::after {
+          position: absolute;
+          content: '';
+          width: 7px;
+          height: 7px;
+          transform: translateY(-3px);
+          border-radius: 50%;
+          background-color: $dustRed;
+        }
+        &::before {
+          position: absolute;
+          content: '';
+          width: 7px;
+          height: 7px;
+          right: 0;
+          transform: translateY(-3px);
+          border-radius: 50%;
+          background-color: $dustRed;
+        }
+      }
+    }
+  }
+}
 .editModal {
   //display: none;
   margin: 0 1em 0 0;
@@ -317,5 +393,4 @@
     float: left;
     background-color: #FBA536;
   }
-
 }

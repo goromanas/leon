@@ -1,3 +1,5 @@
+@import '~app/style/style';
+
 .welcomeHeader {
   font-size: 24px;
   color: #000000;
@@ -7,3 +9,20 @@
 .layout {
   background: #fff;
 }
+
+// day schedule in home
+
+
+.homePage {
+  padding: $container-padding;
+  .home {
+    background: $background;
+    box-shadow: $containerShadow;
+    border-radius: $conteinerRadius;
+    height: 100%;
+    padding: 50px 46px;
+    margin-top:12px;
+  }
+
+}
+

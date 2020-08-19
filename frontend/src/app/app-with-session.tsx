@@ -99,8 +99,8 @@ class AppWithSessionComponent extends React.Component<Props, State> {
             if (currentLesson === 0) {
                 updateCurrentLesson(this.getCurrentLessonID(0));
             } else {
-                // updateCurrentLesson(this.getCurrentLessonID(currentLesson));
                 updateCurrentLesson(this.getCurrentLessonID(currentLesson));
+                // updateCurrentLesson(this.getCurrentLessonID(4));
             }
         };
         ws.onclose = () => {
@@ -115,7 +115,7 @@ class AppWithSessionComponent extends React.Component<Props, State> {
         // console.log(this.state.lessons);
 
         if (!this.state.lessons || currentDay === 0 || currentDay === 6) {
-            console.log('none');
+            // console.log('none');
             return 0;
         }
         return this.state.lessons.find(

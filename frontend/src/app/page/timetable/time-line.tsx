@@ -10,7 +10,7 @@ interface Props {
 }
 
 const TimeLine: React.FC<Props> = (props) => {
-    const {schedule} = props;
+    const { schedule } = props;
 
     let date = moment();
     const [top, setTop] = useState(0);
@@ -25,7 +25,6 @@ const TimeLine: React.FC<Props> = (props) => {
             setTop(
                 scheduleCalc.convertTimeToMinutes(time) - scheduleCalc.getDayStart(schedule),
             );
-
         }, 1000);
         return () => {
             clearInterval(interval);
@@ -38,9 +37,9 @@ const TimeLine: React.FC<Props> = (props) => {
         return (
             <span
                 className={styles.timeLine}
-                style={{top}}
+                style={{ top }}
             >
-                <div>{date.format('HH:mm')}<span/></div>
+                <div>{date.format('HH:mm')}<span /></div>
             </span>
         );
     } else {
