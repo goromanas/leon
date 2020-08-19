@@ -34,7 +34,7 @@ class ScheduleCalc {
     // return breakTime in minutes from schedule times and break position
     public getBreakTime = (schedule?: Api.ScheduleDto[], currentBreak?: number): any => {
 
-        if (schedule.length !== 0) {
+        if (schedule.length !== 0 && currentBreak !== 0 && currentBreak < schedule.length) {
             const starts = schedule[currentBreak - 1].endTime;
             const ends = schedule[currentBreak].startTime;
 
@@ -53,6 +53,12 @@ class ScheduleCalc {
         }
         return 0;
     };
+
+    public getDayStart = (schedule: Api.ScheduleDto[]) =>
+        this.convertTimeToMinutes(schedule[0].startTime);
+
+    public getDayEnd = (schedule: Api.ScheduleDto[]) =>
+        this.convertTimeToMinutes(schedule[schedule.length - 1].endTime);
 
 }
 

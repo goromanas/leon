@@ -20,7 +20,7 @@ interface Props {
     homepage?: boolean;
 }
 
-const { lesson, activeLesson, endedLesson, lessonBarContent, lessonBarTime, lessonBar, lessonBarWithBreak, activeInSchedules } = styles;
+const { lesson, activeLesson, endedLesson, lessonBarContent, lessonBar, lessonBarWithBreak, activeInSchedules } = styles;
 
 const SingleLesson: React.FC<Props> = (props) => {
     const { currentLesson, thisLesson, handleOpenClassroom, schedule, userRole, date, homepage } = props;
@@ -33,9 +33,6 @@ const SingleLesson: React.FC<Props> = (props) => {
         currentLesson > thisLesson.id && endedLesson,
         !homepage && activeInSchedules,
     );
-
-    // get thisLesson start as 8:00
-    const lessonStart: string = schedule.length !== 0 ? (schedule[thisLesson.time - 1].startTime).substr(0, 5) : 'undef';
 
     const checkUserRoleForModal = (): boolean =>
         userRole.includes('STUDENT') || userRole.includes('PARENT');
@@ -84,6 +81,9 @@ const SingleLesson: React.FC<Props> = (props) => {
                     <div className={lessonBarWithBreak}>
                         <div
                             className={lessonBarContent}
+                            style={{
+                                height: scheduleCalc.getLessonLength(schedule),
+                            }}
                         >
                             <h1>{thisLesson.subject}</h1>
                             {

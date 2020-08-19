@@ -9,8 +9,6 @@ import { DayLessonsList } from 'app/page/timetable/day-timetable';
 
 import styles from './home.module.scss';
 
-const { Content } = Layout;
-
 interface ContextProps {
     username: string | null;
     firstName: string | null;

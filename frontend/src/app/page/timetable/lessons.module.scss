@@ -120,7 +120,6 @@
     box-shadow: $lessonShadow;
     border-radius: $elementRadius;
     width: 100%;
-    height: 45px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -140,7 +139,7 @@
     }
     & h1 {
       color: #000000;
-      font-size: $lg;
+      font-size: $md;
       margin: 0 0 0 30px;
       font-weight: $light;
       max-width: 50%;
@@ -149,11 +148,16 @@
       white-space: nowrap;
     }
   }
-
-  .lessonBarTime {
+  .lessonSideBar {
+    margin-top: 37px;
+    position: relative;
+    z-index: 99;
+  }
+  .lessonSideBarTime {
     display: flex;
     flex-direction: column;
-    margin-right: 10px;
+    // margin-right: 10px;
+    justify-content: center;
     align-items: center;
      span:nth-child(1) {
       font-weight: 300;
@@ -231,18 +235,24 @@
   }
 }
 .timeLine {
-  position: relative;
-  // div {
-  //   position: absolute;
-  //   transform: translateY(-50%);
-  //   span {
-  //     border-bottom: 1px solid black;
-  //   width: 340px;
-  //   position: absolute;
-  //   bottom: 50%;
-  //   margin-bottom: 0px;
-  //   }
-  // }
+  position: absolute;
+  div {
+    position: absolute;
+    transform: translateY(-50%);
+    left: -40px;
+    font-weight: $normal;
+    font-size: $xs;
+    line-height: 16px;
+    color: $dustRed;
+    span {
+      border-bottom: 1px solid $dustRed;
+      width: 88vw;
+      position: absolute;
+      bottom: 50%;
+      margin-bottom: 0px;
+      margin-left: 6px;
+    }
+  }
 }
 
 
