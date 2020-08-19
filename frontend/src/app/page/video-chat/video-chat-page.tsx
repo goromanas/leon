@@ -25,6 +25,8 @@ interface quizMessageForStudent {
     teacherUsername: number;
     question: string;
     options: { id: number, name: string }[];
+    correct: number;
+    timer: number;
 }
 
 interface quizAnswer {
@@ -53,7 +55,7 @@ class HomePageComponent extends React.Component<Props, State> {
         type: null,
         quizMessageForStudent: null,
         visible: false,
-        value: -1,
+        value: 1,
         answers: [],
     };
 
@@ -105,7 +107,7 @@ class HomePageComponent extends React.Component<Props, State> {
             this.setState({type: message.type});
             if (message.type === 'question') {
                 this.showModal();
-                this.setState({quizMessageForStudent: message});
+                this.setState({quizMessageForStudent: message, answers: []});
             } else {
                 this.showModal();
                 const copyAnswers = [...this.state.answers];
@@ -120,7 +122,7 @@ class HomePageComponent extends React.Component<Props, State> {
     }
 
     public sendMessage = (): void => {
-        this.ws.send('{"type":"question","classroom":"6A", "teacherUsername":"tecmokytojas", "question": "Is this legit?", "options": [{"id":"1", "name":"Option 1"},{"id":"2", "name":"Option 2"}]}');
+        this.ws.send('{"type":"question","classroom":"6A", "teacherUsername":"tecmokytojas", "question": "Is this legit?", "options": [{"id":"1", "name":"Option 1"},{"id":"2", "name":"Option 2"}],"correct":"1","timer":"15"}');
     };
 
     public render(): React.ReactNode {
@@ -155,18 +157,20 @@ class HomePageComponent extends React.Component<Props, State> {
                     footer={false}
                 >
                     {this.state.type === 'question' ?
-                    <AsyncContent loading={!this.state.quizMessageForStudent} loader={<PageLoadingSpinner/>}>
+                        <AsyncContent loading={!this.state.quizMessageForStudent} loader={<PageLoadingSpinner/>}>
                             <AnswerQuiz message={this.state.quizMessageForStudent}
                                         changeValue={this.changeValue}
-                                        onClose={() => this.handleOk()}
+                                        onSuccess={() => this.handleOk()}
+                                        onCancel={() => this.handleCancel()}
+                                        visible={this.state.visible}
                             /> </AsyncContent>
-                            :
-                    <AsyncContent loading={!this.state.answers} loader={<PageLoadingSpinner/>}>
+                        :
+                        <AsyncContent loading={!this.state.answers} loader={<PageLoadingSpinner/>}>
                             <QuizResult answers={this.state.answers}
                             />
 
-                    </AsyncContent>
-                            }
+                        </AsyncContent>
+                    }
                 </Modal>
 
                 <Content style={{margin: 'auto', width: '70%'}}>

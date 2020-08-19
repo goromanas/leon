@@ -20,11 +20,11 @@ const QuizResult: React.FC<Props> = (props) => {
 
     return (
         <>
-                {props.answers.map((item: any) =>
-                    (
-                        <h1 key={item.index}>vote</h1>
-                    )
-                )}
+            {props.answers.map((item: any) =>
+                (
+                    <h1 key={item.index}>vote</h1>
+                )
+            )}
 
         </>
     );

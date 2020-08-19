@@ -15,15 +15,36 @@ const {Content} = Layout;
 interface Props {
     message: any;
     changeValue: (number: number) => void;
-    onClose: () => void;
+    onSuccess: () => void;
+    onCancel: () => void;
+    visible: boolean;
 }
 
 const AnswerQuiz: React.FC<Props> = (props) => {
-    const onChange = (e) => {
+    const onChange = (e: any) => {
         // console.log('radio checked', e.target.value);
         props.changeValue(e.target.value);
 
     };
+    const onTimer = (counter: number) => {
+        if (counter == 0) {
+            props.onCancel();
+            console.log('test');
+        }
+    };
+
+    const [counter, setCounter] = React.useState(props.message.timer);
+
+    React.useEffect(() => {
+        if (
+            counter >= 0) {
+            setTimeout(() => setCounter(counter - 1), 1000);
+            if (counter == 0) {
+                props.onCancel();
+            }
+        }
+    }, [counter]);
+
     const radioStyle = {
         display: 'block',
         height: '30px',
@@ -45,10 +66,11 @@ const AnswerQuiz: React.FC<Props> = (props) => {
                     )
                 )}
                 <Button
-                    onClick={()=>props.onClose()}>
+                    onClick={() => props.onSuccess()}>
                     yayks
                 </Button>
             </Radio.Group>
+            <div>Countdown: {counter}</div>
 
         </>
     );
