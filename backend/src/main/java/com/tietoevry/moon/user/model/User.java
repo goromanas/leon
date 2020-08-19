@@ -29,6 +29,7 @@ public class User {
     private String lastName;
     private String email;
     @ManyToMany(fetch = FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Role> role;
 
 }
