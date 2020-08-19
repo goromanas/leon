@@ -10,7 +10,7 @@ import java.util.Date;
 public class ChatMessagesDto {
     private long id;
     private String chatId;
-    private String author;
+    private String username;
     private String content;
     private LocalDate date;
 

@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Getter
@@ -20,7 +19,7 @@ public class ChatMessages {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     String chatId;
-    String author;
+    String username;
     String content;
     LocalDate date;
 }

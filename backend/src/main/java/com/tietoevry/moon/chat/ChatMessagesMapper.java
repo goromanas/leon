@@ -6,7 +6,7 @@ import com.tietoevry.moon.chat.model.Dto.ChatMessagesDto;
 public class ChatMessagesMapper {
     public static ChatMessagesDto chatMessagesDto (ChatMessages chatMessages) {
         ChatMessagesDto chatMessagesDto = new ChatMessagesDto();
-        chatMessagesDto.setAuthor(chatMessages.getAuthor());
+        chatMessagesDto.setUsername(chatMessages.getUsername());
         chatMessagesDto.setContent(chatMessages.getContent());
         chatMessagesDto.setDate(chatMessages.getDate());
 return chatMessagesDto;

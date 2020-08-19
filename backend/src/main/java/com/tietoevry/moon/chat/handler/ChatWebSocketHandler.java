@@ -1,6 +1,8 @@
 package com.tietoevry.moon.chat.handler;
 
 import com.google.gson.Gson;
+import com.tietoevry.moon.chat.ChatService;
+import com.tietoevry.moon.chat.model.ChatMessages;
 import com.tietoevry.moon.classroom.ClassroomService;
 import com.tietoevry.moon.classroom.model.Classroom;
 import com.tietoevry.moon.lesson.LessonRepository;
@@ -15,7 +17,10 @@ import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
+
+import javax.transaction.Transactional;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +49,9 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
     @Autowired
     RoleRepository roleRepository;
 
+    @Autowired
+    ChatService chatService;
+
     public ChatWebSocketHandler() {
     }
 
@@ -54,10 +62,15 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
         Map messageContent = new Gson().fromJson(message.getPayload(), Map.class);
         classroomFromMessage = String.valueOf(messageContent.get("classroom"));
 
+
+        chatService.saveChatMessage(chatMessageToSave(
+            classroomFromMessage + String.valueOf(messageContent.get("channel")),
+            String.valueOf(messageContent.get("author")),
+            String.valueOf(messageContent.get("text"))
+        ));
+
         if (String.valueOf(messageContent.get("role")).contains("STUDENT")) {
             Classroom classroom = classroomService.findClassroomByName(classroomFromMessage);
-
-
 
         for (WebSocketSession webSocketSession : webSocketSessions) {
             username = webSocketSession.getPrincipal().getName();
@@ -96,6 +109,15 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         webSocketSessions.add(session);
+    }
+
+    private ChatMessages chatMessageToSave(String chatId, String author, String content) {
+        return ChatMessages.builder()
+            .chatId(chatId)
+            .username(author)
+            .content(content)
+            .date(LocalDate.now())
+            .build();
     }
 }
 
