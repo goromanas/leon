@@ -53,7 +53,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 
         if (String.valueOf(messageContent.get("role")).contains("STUDENT")) {
             Classroom classroom = classroomService.findClassroomByName(classroomFromMessage);
-
+         
         for (WebSocketSession webSocketSession : webSocketSessions) {
             username = webSocketSession.getPrincipal().getName();
 
@@ -78,7 +78,6 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
             }
         }
     }
-
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
