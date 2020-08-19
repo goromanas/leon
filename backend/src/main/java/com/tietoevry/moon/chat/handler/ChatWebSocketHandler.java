@@ -59,8 +59,6 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 
             if (webSocketSession != session) {
 
-                System.out.println("User info" + userRepository.findByUsername(username).stream().map(UserMapper::mapUserDto).getRole);
-
                 List<User> users = classroom.getUser();
                 Boolean sendMessage = users.stream().anyMatch(student -> student.getUsername().equals(username));
                 if (sendMessage) {
