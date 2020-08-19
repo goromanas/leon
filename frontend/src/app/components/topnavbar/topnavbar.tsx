@@ -43,12 +43,12 @@ class TopNavBarComponent extends React.Component<Props> {
                             Home
                           </Link>
                     </Menu.Item>
-                    <Menu.Item key="timetable" onClick={this.handleClickToCalendarPage}>
+                    <Menu.Item key="timetable" >
                         <Link to={navigationService.redirectToCalendarPage} >
                             Schedule
                         </Link>
                     </Menu.Item>
-                    <Menu.Item key="forum" onClick={this.handleOpenChatRoom}>
+                    <Menu.Item key="forum">
                         <Link to={navigationService.redirectToChatRoom} >
                             Chat Room
                         </Link>
@@ -91,7 +91,7 @@ class TopNavBarComponent extends React.Component<Props> {
                                 icon={<VideoCameraOutlined
                                     style={{ fontSize: '25px', color: '#000' }} />}
                                 disabled={currentLesson === 0 ? true : false}
-                                onClick={() => this.handleOpenClassroom(currentLesson)} />
+                            />
                             <div className={currentLesson === 0 ? styles.cameraStatusDisabled : styles.cameraStatus} />
                         </Link>
                     </Menu.Item>
