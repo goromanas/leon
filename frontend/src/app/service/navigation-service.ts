@@ -35,6 +35,10 @@ class NavigationService {
   // };
   public readonly redirectToVideoChat = (id?: number): string => generatePath(NavigationService.VIDEO_CHAT_PATH, { id });
 
+  public readonly redirectToHomePage = (): void => {
+      window.location.href = NavigationService.HOME_PATH;
+  };
+
   public readonly redirectToLoginPage = (): void => {
     window.location.href = NavigationService.LOGIN_PATH;
   };

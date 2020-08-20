@@ -313,13 +313,13 @@ class HomePageComponent extends React.Component<Props, State> {
 }
 
 const handleCallEnd = (api: any) => {
-    api.executeCommand('startRecording', {
-        mode: 'file',
-        shouldShare: true,
-    });
+    // api.executeCommand('startRecording', {
+    //     mode: 'file',
+    //     shouldShare: true,
+    // });
 
     api.addEventListener('readyToClose', () => {
-        navigationService.redirectToDefaultPage();
+        navigationService.redirectToHomePage();
     });
 };
 
