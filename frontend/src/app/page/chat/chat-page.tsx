@@ -28,10 +28,10 @@ interface OwnProps {}
 type Props = ContextProps & OwnProps;
 
 interface Message {
-    text: string;
-    author: string;
+    content: string;
+    username: string;
     date: string;
-    classroom?: string;
+    classname?: string;
     subject?: number;
     channel?: number;
     role?: string[];
@@ -79,15 +79,6 @@ class ChatComponent extends React.Component<Props, State> {
 
     public static MESSAGE_INITIAL_VALUES: MessageValue = { message: '' };
 
-    // public componentDidUpdate(prevProps: Props): void {
-    //     console.log("update");
-    //     const { teacherLessons } = this.props;
-
-    //     if (teacherLessons && teacherLessons.length > 0) {
-    //         // this.setState({ currentClassroom: teacherLessons[0].className });
-    //         console.log('Student classname' + teacherLessons)
-    //     }
-    // }
 
     public componentDidUpdate(prev: Props, prevState: State) {
         const { userRoles } = this.props;
@@ -99,6 +90,7 @@ class ChatComponent extends React.Component<Props, State> {
                 this.setState({ currentClassroom: teacherLessons[0].className });
             }
         }
+
     }
 
   // tslint:disable-next-line:typedef
@@ -106,6 +98,15 @@ class ChatComponent extends React.Component<Props, State> {
         const { messages } = this.state;
         const { teacherLessons, userRoles } = this.props;
         const currentChannel: number = 1;
+
+        chatService.getChatMessages()
+            .then((data: any) => {
+                // console.log(data[0]);
+                this.setState({
+                    messages: [...data],
+                });
+            })
+            .catch(() => console.log('Error getting subjects'));
 
         if (this.state.channels.length < 1 && userRoles.includes('STUDENT')) {
             chatService
@@ -162,45 +163,44 @@ class ChatComponent extends React.Component<Props, State> {
         const { messages, channels, classRooms } = this.state;
         const { teacherLessons } = this.props;
 
-        console.log(this.state.currentClassroom);
+        // console.log(messages);
+        // console.log(this.state.currentClassroom);
+        // console.log(this.state.currentChannel);
         return (
 
      <AsyncContent
         loading={!teacherLessons}
         loader={<PageLoadingSpinner />}
      >
-      <Layout >
-        <Sider theme="light" className={styles.sider} width="250px">
-          <Channels
-            channels={channels}
-            classRooms={classRooms}
-            currentChannel={this.state.currentChannel}
-            onChannelChange={this.onChannelChange}
-            onClassChange={this.onClassChange}
-          />
-        </Sider>
-        <Content style={{ background: 'white' }} >
-          <PageContent >
-         <ChatList
-            messages={messages}
-            currentChannel={this.state.currentChannel}
-            currentClassroom={this.state.currentClassroom}
-         />
-            <ChatForm
-              initialValues={ChatComponent.MESSAGE_INITIAL_VALUES}
-              onSubmit={this.handleSubmit}
-            />
-          </PageContent>
-        </Content>
-      </Layout>
+
+         <Layout >
+            <Sider theme="light" className={styles.sider} width="250px">
+              <Channels
+                channels={channels}
+                classRooms={classRooms}
+                currentChannel={this.state.currentChannel}
+                onChannelChange={this.onChannelChange}
+                onClassChange={this.onClassChange}
+              />
+           </Sider>
+            <Content style={{ background: 'white' }} >
+             <PageContent >
+            <ChatList
+                messages={messages}
+                currentChannel={this.state.currentChannel}
+                currentClassroom={this.state.currentClassroom}
+             />
+             <ChatForm
+                  initialValues={ChatComponent.MESSAGE_INITIAL_VALUES}
+                  onSubmit={this.handleSubmit}
+             />
+             </PageContent>
+            </Content>
+        </Layout>
+
       </AsyncContent>
         );
     }
-
-  // public addFile = (file: any) => {
-  //     this.setState({ file: file });
-  //     console.log(file);
-  // }
 
     public sendMessage = (message: Message) => {
         try {
@@ -213,28 +213,29 @@ class ChatComponent extends React.Component<Props, State> {
 
     private readonly handleSubmit = (values: MessageValue, { resetForm }: FormikHelpers<MessageValue>): void => {
         const { messages, currentChannel, currentClassroom } = this.state;
-        const { teacherLessons, userRoles } = this.props;
+        const { userRoles } = this.props;
         const time = new Date();
         const hours = time.getHours().toString();
         const minutes = time.getMinutes().toString();
 
         if (values.message.trim() !== '') {
+            console.log(this.props.username)
             this.setState({
                 messages: [...messages, {
-                    text: values.message,
-                    author: this.props.username,
+                    content: values.message,
+                    username: this.props.username,
                     date: hours + ':' + minutes,
                     channel: currentChannel,
-                    classroom: currentClassroom,
+                    classname: currentClassroom,
                     role: userRoles,
                     teacherSubjectId: this.state.teacherSubjectId,
                 }],
             });
             this.sendMessage({
-                text: values.message,
-                author: this.props.username,
+                content: values.message,
+                username: this.props.username,
                 date: hours + ':' + minutes,
-                classroom: currentClassroom,
+                classname: currentClassroom,
                 channel: currentChannel,
                 role: userRoles,
                 teacherSubjectId: this.state.teacherSubjectId,
@@ -248,14 +249,14 @@ class ChatComponent extends React.Component<Props, State> {
         this.setState({
             currentChannel: id,
         });
-        console.log(this.state.currentChannel);
+        // console.log(this.state.currentChannel);
     };
 
     private readonly onClassChange = (name: string): void => {
         this.setState({
             currentClassroom: name,
         });
-        console.log(this.state.currentClassroom);
+        // console.log(this.state.currentClassroom);
     };
 }
 

@@ -67,8 +67,8 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
         chatService.saveChatMessage(chatMessageToSave(
             channelFromMessage,
             classroomFromMessage,
-            String.valueOf(messageContent.get("author")),
-            String.valueOf(messageContent.get("text"))
+            String.valueOf(messageContent.get("username")),
+            String.valueOf(messageContent.get("content"))
         ));
 
         if (String.valueOf(messageContent.get("role")).contains("STUDENT")) {
