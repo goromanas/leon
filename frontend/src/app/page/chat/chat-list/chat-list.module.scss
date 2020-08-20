@@ -5,10 +5,10 @@
   width: 75vw;
   box-sizing: border-box;
  margin: 10px;
+  display: flex;
+  flex-direction: column-reverse;
   overflow-y: scroll;
-  &:hover{
-    overflow-y: scroll;
-  }
+
   /* width */
   &::-webkit-scrollbar {
     margin-left: 10px;
