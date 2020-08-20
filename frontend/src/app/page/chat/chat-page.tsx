@@ -79,17 +79,6 @@ class ChatComponent extends React.Component<Props, State> {
 
     public static MESSAGE_INITIAL_VALUES: MessageValue = { message: '' };
 
-    // public componentDidUpdate(prevProps: Props): void {
-    //     console.log("update");
-    //     const { teacherLessons } = this.props;
-
-    //     if (teacherLessons && teacherLessons.length > 0) {
-    //         // this.setState({ currentClassroom: teacherLessons[0].className });
-    //         console.log('Student classname' + teacherLessons)
-    //     }
-    // }
-
-
     public componentDidUpdate(prev: Props, prevState: State) {
         const { userRoles } = this.props;
 
@@ -100,6 +89,9 @@ class ChatComponent extends React.Component<Props, State> {
                 this.setState({ currentClassroom: teacherLessons[0].className });
             }
         }
+        chatService.getChatMessages()
+            .then(data => console.log(data))
+            .catch(() => console.log('Error getting subjects'));
     }
 
   // tslint:disable-next-line:typedef
@@ -163,6 +155,7 @@ class ChatComponent extends React.Component<Props, State> {
         const { teacherLessons } = this.props;
 
         console.log(this.state.currentClassroom);
+        console.log(this.state.currentChannel);
         return (
 
      <AsyncContent
@@ -170,7 +163,7 @@ class ChatComponent extends React.Component<Props, State> {
         loader={<PageLoadingSpinner />}
      >
       <Layout >
-        <Sider theme='light' className={styles.sider} width='250px'>
+        <Sider theme="light" className={styles.sider} width="250px">
           <Channels
             channels={channels}
             classRooms={classRooms}
@@ -179,7 +172,7 @@ class ChatComponent extends React.Component<Props, State> {
             onClassChange={this.onClassChange}
           />
         </Sider>
-        <Content style={{background: 'white'}} >
+        <Content style={{ background: 'white' }} >
           <PageContent >
          <ChatList
             messages={messages}
@@ -196,11 +189,6 @@ class ChatComponent extends React.Component<Props, State> {
       </AsyncContent>
         );
     }
-
-  // public addFile = (file: any) => {
-  //     this.setState({ file: file });
-  //     console.log(file);
-  // }
 
     public sendMessage = (message: Message) => {
         try {
