@@ -33,6 +33,7 @@ const getTimeLeft = (endTime: string) => {
 const Top: React.FC<Props> = ({ lessonTitle, teacher, startTime, endTime }) => {
     const timeLeft = getTimeLeft(endTime);
 
+
     return (
         <div className={styles.container}>
             <div>
