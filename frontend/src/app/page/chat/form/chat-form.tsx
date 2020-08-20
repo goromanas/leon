@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Field, Form, Formik, FormikConfig, FormikHelpers } from 'formik';
 import { Button, Avatar } from 'antd';
 import { UserOutlined, RightOutlined } from '@ant-design/icons';
@@ -22,15 +22,18 @@ export type ChatErrors = FormErrors<MessageValue>;
 type Props = FormikConfig<MessageValue> & OwnProps;
 
 const ChatForm: React.FC<Props> = (props: Props) => {
-    const { initialValues, onSubmit } = props;
+    const { initialValues, onSubmit,  } = props;
+
+
 // console.log(initialValues)
 //     const isDisabled = initialValues.message === ''? true: false
     return (
         <div className={styles.container}>
-            <Avatar className={styles.avatar} size="large" icon={<UserOutlined className={styles.userIcon} style={{ fontSize: "25px" }} />} style={{ color: "grey", float: "right" }} />
+            <Avatar className={styles.avatar} size="large" icon={<UserOutlined className={styles.userIcon} style={{ fontSize: '25px' }} />} style={{ color: 'grey', float: 'right' }} />
         <div className={styles.sendMessage}>
-            <Formik initialValues={initialValues} onSubmit={onSubmit}>
-                {() => (
+            <Formik initialValues={initialValues} onSubmit={onSubmit} >
+
+                {({dirty}) => (
                     <Form>
                         <Field
                             name="message"
@@ -38,7 +41,10 @@ const ChatForm: React.FC<Props> = (props: Props) => {
                             className={styles.chatInput}
                             autoComplete="off"
                         />
-                        <Button  htmlType="submit">
+                        <Button
+                            htmlType="submit"
+                            disabled={!dirty}
+                        >
                             Send <RightOutlined />
                         </Button>
                     </Form>
