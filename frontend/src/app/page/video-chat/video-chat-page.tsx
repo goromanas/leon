@@ -17,7 +17,7 @@ import { Top } from './top/top';
 import styles from './video-chat-page.module.scss';
 import { VideoButton } from 'app/page/video-chat/video-buttons/video-button';
 import { Whiteboard } from 'app/components/whiteboard/whiteboard';
-
+import { QuizCreate } from 'app/page/video-chat/quizCreate';
 const {Content, Sider} = Layout;
 
 interface ContextProps {
@@ -55,6 +55,7 @@ interface State {
     value: number;
     answers: quizAnswer[];
     whiteboardVisible: boolean;
+    correct:number;
 }
 
 type Props = OwnProps & ContextProps;
@@ -67,6 +68,7 @@ class HomePageComponent extends React.Component<Props, State> {
         value: 0,
         answers: [],
         whiteboardVisible: false,
+        correct:1,
     };
 
     public showModal = () => {
