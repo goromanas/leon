@@ -18,10 +18,9 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.*;
 
 import static java.lang.Math.round;
 
@@ -115,7 +114,9 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 
     private ChatMessages chatMessageToSave(int channel, String classname, String username, String content) {
         SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = new Date(System.currentTimeMillis());
+        LocalDateTime localDateTime = LocalDateTime.now();
+
+        Date date = Date.from( localDateTime.atZone( ZoneId.systemDefault()).toInstant());
         return ChatMessages.builder()
             .channel(channel)
             .classname(classname)
