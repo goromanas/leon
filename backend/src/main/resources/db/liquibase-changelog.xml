@@ -10,6 +10,5 @@
     <include file="changelog/04-data.xml" relativeToChangelogFile="true"/>
     <include file="changelog/05-schedule.xml" relativeToChangelogFile="true"/>
     <include file="changelog/06-lessonInformation.xml" relativeToChangelogFile="true"/>
-    <include file="changelog/07-dataForDemo.xml" relativeToChangelogFile="true"/>
     <include file="changelog/08-chat-table.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
