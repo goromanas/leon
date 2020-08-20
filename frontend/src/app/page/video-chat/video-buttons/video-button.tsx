@@ -7,7 +7,7 @@ import styles from './video-buttons.module.scss'
 
 interface Props {
     role: string[];
-    send: any;
+    openQuiz: any;
 }
 
 const VideoButton: React.FC<Props> = (props) =>(
@@ -17,7 +17,7 @@ const VideoButton: React.FC<Props> = (props) =>(
             (props.role[0] === "STUDENT") ? console.log('student') :
             (
                 <>
-                    <div onClick={props.send} className={styles.videobtn}><Button type='primary'  style={{borderRadius: '100%', height: '50px', fontSize: '20px'}}><MessageOutlined /></Button>Create a Question</div>
+                    <div onClick={props.openQuiz} className={styles.videobtn}><Button type='primary'  style={{borderRadius: '100%', height: '50px', fontSize: '20px'}}><MessageOutlined /></Button>Create a Question</div>
                     <div className={styles.videobtn}><Button type='primary'  style={{borderRadius: '100%', height: '50px'}}><span style={{ width: '20px', display:'flex' }}><Wand /></span></Button> Whiteboard</div>
                 </>
             )
