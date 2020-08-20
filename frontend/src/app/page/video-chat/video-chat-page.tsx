@@ -160,7 +160,7 @@ class HomePageComponent extends React.Component<Props, State> {
         console.log(question);
         this.ws.send(JSON.stringify(question));
 
-     //   this.ws.send('{"type":"question","classroom":"6A", "teacherUsername":"tecmokytojas", "question": "Is this legit?", "options": [{"id":"1", "name":"Option 1"},{"id":"2", "name":"Option 2"}],"correct":"1","timer":"1"}');
+        //   this.ws.send('{"type":"question","classroom":"6A", "teacherUsername":"tecmokytojas", "question": "Is this legit?", "options": [{"id":"1", "name":"Option 1"},{"id":"2", "name":"Option 2"}],"correct":"1","timer":"1"}');
     };
 
     public openQuiz = (values: any): void => {
@@ -191,6 +191,7 @@ class HomePageComponent extends React.Component<Props, State> {
         const videoChatName: string = currentLesson && currentLesson[0].video.toString();
         const currentLessonTimeObj = currentLesson && schedule[currentLesson[0].time - 1];
 
+
         let lessonTitle: string;
         let startTime: string;
         let endTime: string;
@@ -220,15 +221,15 @@ class HomePageComponent extends React.Component<Props, State> {
                     {this.state.type === 'question' ?
                         <AsyncContent loading={!this.state.quizMessageForStudent} loader={<PageLoadingSpinner />}>
                             <AnswerQuiz message={this.state.quizMessageForStudent}
-                                        changeValue={this.changeValue}
-                                        onSuccess={() => this.handleOk()}
-                                        onCancel={() => this.handleCancel()}
-                                        visible={this.state.visible}
+                                changeValue={this.changeValue}
+                                onSuccess={() => this.handleOk()}
+                                onCancel={() => this.handleCancel()}
+                                visible={this.state.visible}
                             /> </AsyncContent>
                         : this.state.type === 'answer' ?
                             <AsyncContent loading={!this.state.answers} loader={<PageLoadingSpinner />}>
                                 <QuizResult answers={this.state.answers}
-                                            correct={this.state.correct}
+                                    correct={this.state.correct}
                                 />
 
                             </AsyncContent>
@@ -241,9 +242,9 @@ class HomePageComponent extends React.Component<Props, State> {
                     <PageContent>
 
                         <Top lessonTitle={lessonTitle}
-                             teacher={currentLesson && currentLesson[0].teacher}
-                             startTime={startTime}
-                             endTime={endTime}
+                            teacher={currentLesson && currentLesson[0].teacher}
+                            startTime={startTime}
+                            endTime={endTime}
                         />
 
                         {videoChatName && (
@@ -289,12 +290,12 @@ class HomePageComponent extends React.Component<Props, State> {
                     </PageContent>
 
                 </Content>
+                {/* {userRoles.includes('TEACHER') ? */}
                 <Sider width={this.state.whiteboardVisible ? '100%' : '282px'} className={styles.sider}>
                     <VideoButton handleWhiteboard={() => this.handleWhiteboard()} role={userRoles} openQuiz={this.openQuiz}
                                  send={this.sendMessage} />
                     {this.state.whiteboardVisible ? <Whiteboard /> : null}
 
-                </Sider>
 
             </Layout>
         );
