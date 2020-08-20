@@ -8,8 +8,8 @@ import { Message } from './message';
 import styles from './chat-list.module.scss'
 
 interface Message {
-    text: string;
-    author: string;
+    content: string;
+    username: string;
     date: string;
     classroom?: string;
     subject?: number;
@@ -30,37 +30,44 @@ interface OwnProps {
 type Props = ContextProps & OwnProps;
 
 const ChatListComponent: React.FC<Props> = (
-    {messages, currentChannel, currentClassroom, firstName }) =>
-    (
+    {messages, currentChannel, currentClassroom, firstName }) => {
+    console.log(messages)
+    console.log(messages[0])
+    console.log(messages && typeof messages[0])
+    // console.log(messages && Object.keys(messages[0]))
+    return(
         < div className={styles.container}>
 
-            < ul >
+            < ul>
                 < TransitionGroup
-                     className="chat-messages"
-                     appear={true}
+                    className="chat-messages"
+                    appear={true}
                 >
-                {
-                    messages
-                    .filter(message => message.channel === currentChannel && message.classroom === currentClassroom)
-                     .map((msg, i) => (
-                    <CSSTransition key={i} timeout={300} classNames="fade" appear={true}>
-                        <Message
-                            key={i}
-                            text={msg.text}
-                            author={msg.author}
-                            date={msg.date}
-                            channel={msg.channel}
-                            classroom={msg.classroom}
-                            toRight={msg.author === firstName}
-                        />
+                    {
+                        messages
+                            .filter(message => message.channel === currentChannel
+                                // && message.classroom === currentClassroom
+                            )
+                            .map((msg, i) => (
+                                <CSSTransition key={i} timeout={300} classNames="fade" appear={true}>
+                                    <Message
+                                        key={i}
+                                        text={msg.content}
+                                        author={msg.username}
+                                        date={msg.date}
+                                        channel={msg.channel}
+                                        classroom={msg.classroom}
+                                        toRight={msg.username === firstName}
+                                    />
 
-                    </CSSTransition>
-                ))
-             }
-              </TransitionGroup>
-        </ul>
-</div>
+                                </CSSTransition>
+                            ))
+                    }
+                </TransitionGroup>
+            </ul>
+        </div>
     );
+}
 
 const mapContextToProps = ({ session: { user }, lessons }: SettingsProps): ContextProps => ({
     teacherLessons: lessons,
