@@ -33,10 +33,11 @@ const SingleLesson: React.FC<Props> = (props) => {
     // define classNames
     const lessonClass = classNames(
         lesson,
-        currentLesson === thisLesson.id && moment().format('W') === moment(date).format('W') && activeLesson,
+        currentLesson === thisLesson.id && moment().format('DDD') === moment(date).format('DDD') && activeLesson,
 
-        currentLesson > thisLesson.id && moment().format('W') === moment(date).format('W') && endedLesson,
-        moment().format('D') > moment(date).format('D') && endedLesson,
+        parseInt(moment().format('DDD'), 10) > parseInt(moment(date).format('DDD'), 10) && endedLesson,
+        currentLesson > thisLesson.id && moment().format('DDD') === moment(date).format('DDD') && endedLesson,
+        // moment().format('D') > moment(date).format('D') && endedLesson,
         ifDayEnded && date === moment().format('YYYY-MM-DD') && endedLesson,
         !homepage && activeInSchedules,
     );
@@ -46,6 +47,7 @@ const SingleLesson: React.FC<Props> = (props) => {
     const showModal = (index: number) => {
         setModalVisible(!modalVisible);
     };
+    // console.log(parseInt(moment(date).format('DDD'), 10))
 
     const checkLessonInformation = (): void => {
         // eslint-disable-next-line @typescript-eslint/no-unused-expressions
