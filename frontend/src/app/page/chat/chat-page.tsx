@@ -190,8 +190,6 @@ class ChatComponent extends React.Component<Props, State> {
             <ChatForm
               initialValues={ChatComponent.MESSAGE_INITIAL_VALUES}
               onSubmit={this.handleSubmit}
-              value={message}
-              checkIfEmpty={checkIfEmpty}
             />
           </PageContent>
         </Content>

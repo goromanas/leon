@@ -22,7 +22,7 @@ export type ChatErrors = FormErrors<MessageValue>;
 type Props = FormikConfig<MessageValue> & OwnProps;
 
 const ChatForm: React.FC<Props> = (props: Props) => {
-    const { initialValues, onSubmit, message, checkIfEmpty } = props;
+    const { initialValues, onSubmit } = props;
 // console.log(initialValues)
 //     const isDisabled = initialValues.message === ''? true: false
     return (
@@ -37,8 +37,6 @@ const ChatForm: React.FC<Props> = (props: Props) => {
                             placeholder="Message..."
                             className={styles.chatInput}
                             autoComplete="off"
-                            value={message}
-                            onChange={checkIfEmpty}
                         />
                         <Button  htmlType="submit">
                             Send <RightOutlined />
