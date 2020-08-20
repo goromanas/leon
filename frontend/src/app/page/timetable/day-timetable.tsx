@@ -9,6 +9,7 @@ import { scheduleCalc } from './schedule-calc';
 import { SingleLesson } from './single-lesson';
 
 import styles from './lessons.module.scss';
+import { Link } from 'react-router-dom';
 
 interface Props {
     allLessons: Api.LessonDto[];
@@ -34,9 +35,9 @@ const DayLessonsList: React.FC<Props> = ({ allLessons, userRole, day, date, curr
 
     const dayClasses = classNames(
         dayClass,
-        moment().format('MMM DD') === date && activeDay,
+        moment().format('YYYY-MM-DD') === date && activeDay,
     );
-
+    console.log(date);
     const lessonsList = dayLessons.map((item: any) => (
 
         <SingleLesson
@@ -57,7 +58,9 @@ const DayLessonsList: React.FC<Props> = ({ allLessons, userRole, day, date, curr
                 (
                     <div className={dayHeaderInHome}>
                         <h1 className={dayHeader}>Today's lecture ({dayLessons.length})</h1>
-                        <a onClick={navigationService.redirectToCalendarPage}>View All</a>
+                        <Link to={navigationService.redirectToCalendarPage}>
+                            <a >View All</a>
+                        </Link>
                     </div>
                 )
                 : (
@@ -65,7 +68,7 @@ const DayLessonsList: React.FC<Props> = ({ allLessons, userRole, day, date, curr
                         <span>
                             {(scheduleCalc.getDayFromInt(day).toUpperCase())}
                         </span>
-                        <span>{date}</span>
+                        <span>{moment(date).format('DD MMM')}</span>
                     </h1>
                 )
             }

@@ -45,10 +45,21 @@
 }
 
 .weekNavigationText {
-  font-weight: $semiBold;
-  font-size: $lg;
+  font-weight: $normal;
+  font-size: $md;
   color: $grey9;
   margin-right: 25px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0);
+  transform: translateY(1px);
+  transition: 0.2s ease-out;
+}
+.weekNavigationBackText {
+  @extend .weekNavigationText;
+  color: $primary;
+  cursor: pointer;
+  &:hover {
+    border-bottom: 2px solid $primary;
+  }
 }
 
 .weekNavigationDate {
@@ -259,6 +270,8 @@
 }
 
 .breakSpan {
+  pointer-events: none;
+  cursor: default;
   height: 10px;
   display: block;
   // margin: 0.1em 0;
@@ -292,7 +305,8 @@
 
 // SHCEDULE SIDEBAR WITH TIME-LINE
 .lessonSideBarTimeInHome {
-
+  pointer-events: none;
+  cursor: default;
   .timeLine {
     width: calc(50vw - 20px) !important;
     @media only screen and (max-width: 990px) {
@@ -301,6 +315,8 @@
   }
 }
 .lessonSideBar {
+  pointer-events: none;
+  cursor: default;
   margin-top: 37px;
   position: relative;
   z-index: 99;

@@ -22,10 +22,10 @@ interface Props {
     homepage?: boolean;
 }
 
-const {lesson, activeLesson, endedLesson, lessonBarContent, lessonBar, lessonBarWithBreak, activeInSchedules} = styles;
+const { lesson, activeLesson, endedLesson, lessonBarContent, lessonBar, lessonBarWithBreak, activeInSchedules } = styles;
 
 const SingleLesson: React.FC<Props> = (props) => {
-    const {currentLesson, thisLesson, handleOpenClassroom, schedule, userRole, date, homepage} = props;
+    const { currentLesson, thisLesson, handleOpenClassroom, schedule, userRole, date, homepage } = props;
     const [modalVisible, setModalVisible] = useState(false);
 
     // define classNames
@@ -73,15 +73,15 @@ const SingleLesson: React.FC<Props> = (props) => {
                         date={date}
                     />) :
                     (<TeacherModal subject={thisLesson.subject} lessonId={thisLesson.id} onClose={handleOk} date={date}
-                                   lessonInformation={thisLesson.lessonInformation
-                                       .filter((lesson: Api.LessonInformationDto) => lesson.date === date)}/>)}
+                        lessonInformation={thisLesson.lessonInformation
+                            .filter((lesson: Api.LessonInformationDto) => lesson.date === date)} />)}
             </Modal>
             <div className={lessonClass} key={thisLesson.id}>
-                <div className={lessonBar + ' ' + (checkUserRoleForModal() ? styles.pointer : null)}
-                     onClick={checkLessonInformation}>
+                <div className={lessonBar}>
                     <div className={lessonBarWithBreak}>
                         <div
-                            className={lessonBarContent}
+                            className={lessonBarContent + ' ' + (checkUserRoleForModal() ? styles.pointer : null)}
+                            onClick={checkLessonInformation}
                             style={{
                                 height: scheduleCalc.getLessonLength(schedule),
                             }}
@@ -91,16 +91,16 @@ const SingleLesson: React.FC<Props> = (props) => {
                                 {
                                     currentLessonInfo?.assignment?.includes('Homework') &&
 
-                                    <i style={{color: 'white'}} className="far fa-file-alt "/>}
+                                    <i style={{ color: 'white' }} className="far fa-file-alt " />}
                                 {currentLessonInfo?.assignment?.includes('Test') &&
-                                <i className="far fa-file-alt"/>
+                                    <i className="far fa-file-alt" />
 
                                 }
                             </div>
 
                             {checkUserRoleForModal() ? null
                                 : <div onClick={() => showModal(thisLesson.id)} className={styles.editModal}>
-                                    <i className="fas  fa-lg fa-plus-circle"/>
+                                    <i className="fas  fa-lg fa-plus-circle" />
                                 </div>}
                             {thisLesson.id === currentLesson ?
                                 (<Link to={navigationService.redirectToVideoChat(currentLesson)}>
@@ -136,16 +136,16 @@ const SingleLesson: React.FC<Props> = (props) => {
                         </div>
                         <span
                             data-tip="Break"
-                            style={{height: scheduleCalc.getBreakTime(schedule, thisLesson.time)}}
+                            style={{ height: scheduleCalc.getBreakTime(schedule, thisLesson.time) }}
                             className={styles.breakSpan}
                         >   {
-                            scheduleCalc.getBreakTime(schedule, thisLesson.time) > 20 ?
-                                (
-                                    <span className={styles.longBreak}>Long break</span>
-                                ) : null
-                        }
+                                scheduleCalc.getBreakTime(schedule, thisLesson.time) > 20 ?
+                                    (
+                                        <span className={styles.longBreak}>Long break</span>
+                                    ) : null
+                            }
                         </span>
-                        <ReactTooltip/>
+                        <ReactTooltip />
                     </div>
                 </div>
             </div>

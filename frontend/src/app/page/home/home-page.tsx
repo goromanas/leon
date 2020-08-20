@@ -11,6 +11,7 @@ import { DayLessonsList } from 'app/page/timetable/day-timetable';
 import { SideTimebar } from 'app/page/timetable/side-timebar';
 
 import styles from './home.module.scss';
+import { scheduleCalc } from '../timetable/schedule-calc';
 
 interface ContextProps {
     username: string | null;
@@ -53,10 +54,6 @@ class HomePageComponent extends React.Component<Props, State> {
             <AsyncContent loading={this.props.schedule.length === 0} loader={<PageLoadingSpinner />}>
                 <div className={styles.homePage}>
                     <div className={styles.home}>
-                        {/* <div className={styles.welcomeHeader}>
-                            Welcome back, {this.props.firstName},
-                {currentLesson}
-                        </div> */}
                         {
                             userRoles.includes('ADMIN') ? (
                                 <Button type="primary" onClick={this.handleClickToUserList}>
@@ -67,7 +64,7 @@ class HomePageComponent extends React.Component<Props, State> {
 
                                         <Row >
                                             <Col lg={2} md={2} sm={2} >
-                                                <SideTimebar schedule={schedule} homepage={true} />
+                                                <SideTimebar schedule={schedule} homepage={true} itemsInList={scheduleCalc.thisDayLength(allLessons, this.state.dayOfWeek)} />
                                             </Col>
                                             <Col lg={18} md={38} sm={38} >
                                                 <DayLessonsList

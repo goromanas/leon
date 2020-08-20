@@ -1,3 +1,4 @@
+
 class ScheduleCalc {
 
     public clock: Date = new Date();
@@ -59,6 +60,15 @@ class ScheduleCalc {
 
     public getDayEnd = (schedule: Api.ScheduleDto[]) =>
         this.convertTimeToMinutes(schedule[schedule.length - 1].endTime);
+
+    // public longestWeekDay = (lessons: Api.ScheduleDto[]) {
+
+    // }
+
+    public thisDayLength = (lessons: Api.LessonDto[], day: number): number => {
+        const filtered = lessons !== null && lessons.filter((item) => item.day === day);
+        return filtered.length;
+    }
 
 }
 
