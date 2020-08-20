@@ -2,6 +2,7 @@
 // WEEK page
 .weekPage {
   // padding: 80px;
+  padding: 0 50px;
   margin: auto;
 }
 
@@ -45,6 +46,7 @@
   border-radius: $conteinerRadius;
   padding: 7px 42px;
   display: flex;
+  flex-wrap: nowrap;
   flex-direction: row;
 }
 

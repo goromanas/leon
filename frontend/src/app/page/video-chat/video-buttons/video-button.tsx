@@ -13,13 +13,13 @@ interface Props {
 }
 
 const VideoButton: React.FC<Props> = (props) => (
-    <div style={{marginTop: '20px', marginLeft: '5px'}}>
-        <div className={styles.videobtn} style={{cursor: 'pointer'}}><Button type='primary' style={{
+    <div style={{ marginTop: '20px', marginLeft: '5px' }}>
+        {/* <div className={styles.videobtn} style={{cursor: 'pointer'}}><Button type='primary' style={{
             borderRadius: '100%',
             height: '50px',
             fontSize: '20px'
         }}><TeamOutlined/></Button> Participants
-        </div>
+        </div> */}
         {
             (props.role[0] === 'STUDENT') ? console.log('student') :
                 (
@@ -29,14 +29,14 @@ const VideoButton: React.FC<Props> = (props) => (
                             borderRadius: '100%',
                             height: '50px',
                             fontSize: '20px'
-                        }}><MessageOutlined/></Button>Create a Question
+                        }}><MessageOutlined /></Button>Create a Question
                         </div>
                         <div onClick={props.handleWhiteboard} className={styles.videobtn}><Button type='primary'
-                                                                                                  style={{
-                                                                                                      borderRadius: '100%',
-                                                                                                      height: '50px'
-                                                                                                  }}><span
-                            style={{width: '20px', display: 'flex'}}><Wand/></span></Button>
+                            style={{
+                                borderRadius: '100%',
+                                height: '50px'
+                            }}><span
+                                style={{ width: '20px', display: 'flex' }}><Wand /></span></Button>
                             Whiteboard
                         </div>
                     </>
