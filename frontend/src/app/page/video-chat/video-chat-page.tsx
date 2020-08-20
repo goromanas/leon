@@ -232,7 +232,7 @@ class HomePageComponent extends React.Component<Props, State> {
                                 }
                             />
                         )}
-                        {/*<Whiteboard/>*/}
+
                     </PageContent>
                 </Content>
                 <Sider width='282px' className={styles.sider}>
