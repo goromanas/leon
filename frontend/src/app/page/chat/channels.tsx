@@ -8,20 +8,19 @@ interface Props {
     onChannelChange: any;
     onClassChange: any;
     classRooms: Api.ClassroomDto[];
+    role: string
 }
 
 class Channels extends React.Component<Props> {
     public render(): React.ReactNode {
-        const { channels, currentChannel, onChannelChange, classRooms } = this.props;
-console.log(currentChannel)
-        const ChannelNum = [currentChannel.toString()];
-console.log(ChannelNum)
+        const { channels, currentChannel, onChannelChange, classRooms, role } = this.props;
+
         return (
       <Menu
           selectedKeys={[currentChannel.toString()]}
           mode="inline"
       >
-        <Menu.Item style={{ fontSize: '20px', marginTop: '27px' }}>Subjects</Menu.Item>
+        <Menu.Item style={{ fontSize: '20px', marginTop: '27px' }}>{role === 'STUDENT'? 'Subjects': 'Classes'}</Menu.Item>
 
           {this.props.channels &&
             this.props.channels
