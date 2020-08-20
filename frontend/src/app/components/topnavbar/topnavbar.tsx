@@ -67,7 +67,7 @@ class TopNavBarComponent extends React.Component<Props> {
                             </Button>
                         </Link>
                     </li>
-                    <Menu.Item style={{ display: 'block', float: 'right', paddingTop: '5px' }} key="15">
+                    <Menu.Item style={{ display: 'block', float: 'right', paddingTop: '5px' }} key="15" disabled={currentLesson === 0 ? true : false}>
                         <Link to={navigationService.redirectToVideoChat(currentLesson)} key="16">
                             <Button size="large" type="link" className={styles.cameraButton} shape="circle" icon={<VideoCameraOutlined style={{ fontSize: '25px', color: '#000' }} />} disabled={currentLesson === 0 ? true : false} />
                         </Link>

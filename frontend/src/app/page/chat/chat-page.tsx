@@ -169,7 +169,7 @@ class ChatComponent extends React.Component<Props, State> {
         return (
 
      <AsyncContent
-        loading={!teacherLessons}
+        loading={!teacherLessons && !this.state.channels}
         loader={<PageLoadingSpinner />}
      >
 
