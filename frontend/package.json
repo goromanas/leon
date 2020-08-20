@@ -5,6 +5,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.2.1",
     "@types/react-canvas-draw": "^1.1.0",
+    "@types/react-color": "^3.0.4",
     "@types/react-transition-group": "^4.4.0",
     "antd": "^4.5.1",
     "axios": "^0.19.2",
@@ -15,6 +16,7 @@
     "moment": "^2.27.0",
     "react": "^16.13.1",
     "react-canvas-draw": "^1.1.1",
+    "react-color": "^2.18.1",
     "react-dom": "^16.13.1",
     "react-jitsi": "^1.0.4",
     "react-router": "^5.2.0",
