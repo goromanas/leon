@@ -258,7 +258,7 @@ class HomePageComponent extends React.Component<Props, State> {
 
                 </Content>
                 <Sider width={this.state.whiteboardVisible ? '100%' : '282px'} className={styles.sider}>
-                    <VideoButton handleWhiteboard={() => this.handleWhiteboard()} role={userRoles}
+                    <VideoButton handleWhiteboard={() => this.handleWhiteboard()} role={userRoles} openQuiz={this.openQuiz}
                                  send={this.sendMessage}/>
                     {this.state.whiteboardVisible ? <Whiteboard/> : null}
 
