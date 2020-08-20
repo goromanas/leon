@@ -64,7 +64,8 @@ class ScheduleCalc {
     };
 
     public getDayEnd = (schedule: Api.ScheduleDto[], lastItem: number) => {
-        if (schedule.length !== 0 && schedule.length >= lastItem) {
+        if (schedule.length !== 0 && schedule.length >= lastItem && lastItem !== 0) {
+            // console.log(lastItem);
             return this.convertTimeToMinutes(schedule[lastItem - 1].endTime);
         }
         return 0;
@@ -73,7 +74,6 @@ class ScheduleCalc {
     public getLongestDay = (lessons: Api.LessonDto[]) => {
         let mf = 1;
         let m = 0;
-
         for (let i = 0; i < lessons.length; i++) {
             for (let j = i; j < lessons.length; j++) {
                 if (lessons[i].day == lessons[j].day)
@@ -84,7 +84,10 @@ class ScheduleCalc {
             }
             m = 0;
         }
-        return mf
+        if (lessons.length !== 0) {
+            return mf;
+        }
+        return 0;
     };
 
     public thisDayLength = (lessons: Api.LessonDto[], day: number): number => {
