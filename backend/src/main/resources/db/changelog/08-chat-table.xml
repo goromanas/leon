@@ -10,10 +10,11 @@
       <column  name="ID"  type="bigint" autoIncrement="true">
         <constraints primaryKey="true"/>
       </column>
-      <column  name="CHAT_ID"  type="varchar(255)"/>
+      <column  name="CHANNEL"  type="int"/>
+      <column  name="classname"  type="varchar(255)"/>
       <column  name="USERNAME"  type="varchar(255)"/>
       <column  name="CONTENT"  type="varchar(255)"/>
-      <column  name="DATE"  type="date"/>
+      <column  name="DATE"  type="datetime"/>
     </createTable>
 
   </changeSet>
