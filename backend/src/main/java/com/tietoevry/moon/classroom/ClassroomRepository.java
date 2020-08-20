@@ -10,6 +10,7 @@ import java.util.Optional;
 public interface ClassroomRepository extends JpaRepository<Classroom,Long> {
     Optional<Classroom> findClassroomByUser(Optional<User> user);
     Classroom findByClassName(String className);
+
 }
 
 

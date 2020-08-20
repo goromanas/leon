@@ -6,17 +6,16 @@
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
   <changeSet id="08" author="romanas">
-    <sql >
-      create table chat_messages
-      (
-      ID BIGINT not null primary key,
-      CHAT_ID VARCHAR(255),
-      USERNAME VARCHAR(255),
-      CONTENT VARCHAR(255),
-      DATE date null
-      );
-
-    </sql>
+    <createTable tableName="chat_messages">
+      <column  name="ID"  type="bigint" autoIncrement="true">
+        <constraints primaryKey="true"/>
+      </column>
+      <column  name="CHANNEL"  type="int"/>
+      <column  name="classname"  type="varchar(255)"/>
+      <column  name="USERNAME"  type="varchar(255)"/>
+      <column  name="CONTENT"  type="varchar(255)"/>
+      <column  name="DATE"  type="datetime"/>
+    </createTable>
 
   </changeSet>
 </databaseChangeLog>

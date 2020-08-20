@@ -19,8 +19,9 @@ public class ChatMessages {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    String chatId;
-    String author;
+    int channel;
+    String classname;
+    String username;
     String content;
-    LocalDate date;
+    Date date;
 }

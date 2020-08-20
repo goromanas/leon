@@ -9,6 +9,7 @@ import { connectContext, SettingsProps } from 'app/context';
 import { navigationService } from 'app/service/navigation-service';
 import { sessionService } from 'app/api/service/session-service';
 import { loggerService } from 'app/service/logger-service';
+import { Logo } from 'app/components/logo/logo';
 
 import { LoginErrors, LoginForm, LoginValues } from './form/login-form';
 
@@ -20,37 +21,34 @@ interface ContextProps {
     authenticated: boolean;
 }
 
-interface OwnProps {
-}
+interface OwnProps {}
 
 message.config({
     duration: 2,
     maxCount: 1,
+    getContainer: () => document.body,
 });
 
 type Props = OwnProps & ContextProps;
 
 class LoginPageComponent extends React.Component<Props, {}> {
-
-    private static readonly LOGIN_INITIAL_VALUES: LoginValues = { username: '', password: '', checkbox:false};
+    private static readonly LOGIN_INITIAL_VALUES: LoginValues = { username: '', password: '', checkbox: false };
 
     private static readonly validate = (values: LoginValues): LoginErrors => {
         const errors: LoginErrors = {};
 
         if (!values.username) {
-            errors.username = 'Prisijungimo vardas yra privalomas';
+            errors.username = 'You need to enter a usename';
         }
         if (!values.password) {
-            errors.password = 'Slaptažodis yra privalomas';
+            errors.password = 'You need to enter a password';
         }
 
         return errors;
     };
 
     public render(): React.ReactNode {
-        const {
-            authenticated,
-        } = this.props;
+        const { authenticated } = this.props;
 
         if (authenticated) {
             navigationService.redirectToDefaultPage();
@@ -58,49 +56,47 @@ class LoginPageComponent extends React.Component<Props, {}> {
         }
 
         return (
-            <Layout>
-                <Content>
-                    <PageContent>
-                        <Row className={styles.loginContainer}>
-                            <Col xl={10} lg={8} md={7} sm={6} xs={0} />
-                            <Col xl={4} lg={8} md={10} sm={12} xs={24}>
-                                <LoginForm
-                                    initialValues={LoginPageComponent.LOGIN_INITIAL_VALUES}
-                                    onSubmit={this.handleSubmit}
-                                    validate={LoginPageComponent.validate}
-                                />
-                            </Col>
-                            <Col xl={10} lg={8} md={7} sm={6} xs={0} />
-                        </Row>
-                    </PageContent>
-                </Content>
-            </Layout>
+      <Layout className={styles.loginLayout}>
+        <Content>
+          <PageContent>
+            <Row className={styles.loginContainer}>
+              <div className={styles.loginHeading}>
+                <Logo fontSize={'2.5rem'} />
+                <span className={styles.loginSubheading}>Learning Online</span>
+              </div>
+              <div className={styles.loginMessagewrapper} />
+              <LoginForm
+                initialValues={LoginPageComponent.LOGIN_INITIAL_VALUES}
+                onSubmit={this.handleSubmit}
+                validate={LoginPageComponent.validate}
+              />
+            </Row>
+            <img alt="Login User" src={'images/login-user.svg'} className={styles.loginImage} />
+          </PageContent>
+        </Content>
+      </Layout>
         );
     }
 
     private readonly handleSubmit = (values: LoginValues, { resetForm }: FormikHelpers<LoginValues>): void => {
-        sessionService.login(values.username, values.password, values.checkbox)
-            .then(() => { navigationService.redirectToDefaultPage(); })
-            .catch(error => this.handleError(error, resetForm,values));
+        sessionService
+      .login(values.username, values.password, values.checkbox)
+      .then(() => {
+          navigationService.redirectToDefaultPageAfterLogin();
+      })
+      .catch(error => this.handleError(error, resetForm, values));
     };
 
-    private readonly handleError = (
-        error: any,
-        resetForm: (nextValues?: Partial<FormikState<LoginValues>>) => void,
-        values: LoginValues,
-    ): void => {
-        values.password=LoginPageComponent.LOGIN_INITIAL_VALUES.password;
-        resetForm({ values});
+    private readonly handleError = (error: any, resetForm: (nextValues?: Partial<FormikState<LoginValues>>) => void, values: LoginValues): void => {
+        values.password = LoginPageComponent.LOGIN_INITIAL_VALUES.password;
+        resetForm({ values });
 
-        const errorMessage: string = error.status === 403
-            ? 'Neteisingas prisijungimo vardas arba slaptažodis'
-            : error.data.message;
+        const errorMessage: string = error.status === 403 ? 'Incorrect username or password' : error.data.message;
 
         message.error(errorMessage, 3);
 
         loggerService.error(errorMessage, error);
     };
-
 }
 
 const mapContextToProps = ({ session: { authenticated } }: SettingsProps): ContextProps => ({

@@ -9,9 +9,10 @@ import java.util.Date;
 @Getter @Setter
 public class ChatMessagesDto {
     private long id;
-    private String chatId;
-    private String author;
+    private int channel;
+    private String classname;
+    private String username;
     private String content;
-    private LocalDate date;
+    private Date date;
 
 }

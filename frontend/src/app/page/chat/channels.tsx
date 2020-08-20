@@ -16,7 +16,7 @@ class Channels extends React.Component<Props> {
 
         return (
       <Menu
-        defaultSelectedKeys={['1']}
+        defaultSelectedKeys={[currentChannel.toString()]}
         defaultOpenKeys={['sub1']}
         mode="inline"
 

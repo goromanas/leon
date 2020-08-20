@@ -17,7 +17,7 @@ interface OwnProps {
 
 export type ChatErrors = FormErrors<MessageValue>;
 
-type Props = FormikConfig<MessageValue> & OwnProps & FormikHelpers<MessageValue>;
+type Props = FormikConfig<MessageValue> & OwnProps;
 
 const ChatForm: React.FC<Props> = (props: Props) => {
     const { initialValues, onSubmit } = props;

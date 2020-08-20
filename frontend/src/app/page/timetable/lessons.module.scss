@@ -11,22 +11,25 @@
   border-radius: $conteinerRadius;
   height: 100%;
   padding: 50px 46px;
-  margin-top:12px;
+  margin-top: 12px;
 }
+
 .weekList {
   display: flex;
   // flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-between;
+
 }
 
 .weekInfo {
-  display:flex;
+  display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   margin-right: 35px;
   margin-top: 40px;
+
   p {
     color: $grey7;
     margin: 0;
@@ -40,23 +43,29 @@
   display: flex;
   flex-direction: row;
 }
+
 .weekNavigationText {
   font-weight: $semiBold;
   font-size: $lg;
   color: $grey9;
   margin-right: 25px;
 }
+
 .weekNavigationDate {
   font-weight: $normal;
   font-size: $sm;
   display: flex;
   align-items: center;
+
   img {
+
     cursor: pointer;
   }
+
   img:nth-child(3) {
     transform: rotate(180deg);
   }
+
   span {
     margin: 0 15px;
   }
@@ -64,20 +73,37 @@
 
 // ONE DAY LESSONS LIST <div>
 .dayClass {
-  display: flex;
-  width: 18%;
-  // min-width: fit-content;
-  flex-direction: column;
+  color: black;
+  padding: 0 10px;
+
 }
+.dayClassCol:first-child {
+  .longBreak {
+    display: block;
+  }
+
+}
+
+.daysRow {
+  width: 100%;
+}
+
 .dayHeader {
-  font-size:$md;
+  font-size: $md;
   display: flex;
   justify-content: space-between;
+
   span:nth-child(2) {
     color: $grey6;
     font-size: 14px;
     font-weight: $normal;
   }
+}
+.dayHeaderInHome {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
 }
 .activeDay {
   .dayHeader {
@@ -86,73 +112,198 @@
     }
   }
 }
+
 .dayLessonsList {
-    width: 100%;
-    .lesson:nth-last-child(1) {
-      .breakSpan {
-        display: none;
-      }
-      .lessonBarTime {
-        margin-bottom: 0 !important;
-      }
+  width: 100%;
+
+  .lesson:nth-last-child(1) {
+    .breakSpan {
+      display: none;
     }
+
+    .lessonBarTime {
+      margin-bottom: 0 !important;
+    }
+  }
 }
 
 // SINGLE LESSON <div>  WITH BREAK(<span>) INSIDE
-  .lesson {
-    margin: none;
-    width: 100%;
+.lesson {
+  //margin: none;
+  width: 100%;
+}
+
+.lessonBar {
+  width: 100%;
+
+  display: flex;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.lessonBarWithBreak {
+  width: 100%;
+}
+
+.lessonBarContent {
+  position: relative;
+  background-color: #FAFAFA;
+  box-shadow: $lessonShadow;
+  border-radius: $elementRadius;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  &:hover {
+    background-color: rgba(#eeeeee, 0.8);
+    transition: all 0.2s ease-in-out;
+    box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.31);
   }
 
-  .lessonBar {
-    width: 100%;
-    cursor: pointer;
-    display: flex;
+  &::after {
+    border-radius: $elementRadius 0px 0px $elementRadius;
+    position: absolute;
+    content: '';
+    width: 14px;
+    height: 100%;
+    background-color: $primary;
   }
 
-  .lessonBarWithBreak {
-    width: 100%;
+  & h1 {
+    color: #000000;
+    font-size: $md;
+    margin: 0 0 0 30px;
+    font-weight: $light;
+    max-width: 50%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.lessonSideBar {
+  margin-top: 37px;
+  position: relative;
+  z-index: 99;
+}
+
+.lessonSideBarTime {
+  display: flex;
+  flex-direction: column;
+  // margin-right: 10px;
+  justify-content: center;
+  align-items: center;
+
+  span:nth-child(1) {
+    font-weight: 300;
+    font-size: $xs;
+    line-height: 16px;
   }
 
+  span:nth-child(2) {
+    font-size: $sm;
+    line-height: 28px;
+    font-weight: $semiBold;
+  }
+}
+
+.activeLesson {
   .lessonBarContent {
-    position: relative;
-    background-color:   #FAFAFA;
-    box-shadow: $lessonShadow;
-    border-radius: $elementRadius;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    &:hover {
-        background-color: rgba(#eeeeee, 0.8);
-        transition: all 0.2s ease-in-out;
-        box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.31);
-      }
-    &::after {
-      border-radius: $elementRadius 0px 0px $elementRadius;
-      position: absolute;
-      content: '';
-      width: 14px;
-      height: 100%;
-      background-color: $primary;
-    }
+    background-color: $grey2;
+    // box-shadow: $activeLessonShadow;
     & h1 {
+      font-weight: $semiBold;
       color: #000000;
-      font-size: $md;
-      margin: 0 0 0 30px;
-      font-weight: $light;
-      max-width: 50%;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
     }
   }
-  .lessonSideBar {
-    margin-top: 37px;
-    position: relative;
-    z-index: 99;
+
+  .lessonBarTime {
+    color: #000000;
   }
+}
+
+.activeInSchedules {
+  .lessonBarContent {
+    & img {
+      height: 16px;
+      bottom: 10px;
+      position: relative;
+    }
+
+    & span {
+      position: relative;
+      margin: 0 10px 0 5px;
+      bottom: 10px;
+      font-size: 10px;
+      font-style: italic;
+    }
+  }
+}
+
+.endedLesson {
+  .lessonBarContent {
+    color: #727272;
+
+    & h1 {
+      color: $grey5;
+    }
+
+    &::after {
+      background-color: $grey3;
+    }
+  }
+}
+
+.breakSpan {
+  height: 10px;
+  display: block;
+  // margin: 0.1em 0;
+  background: repeating-linear-gradient(-45deg, #fff, #fff 5px, rgba(#DBDBDB, 0.3) 5px, rgba(#DBDBDB, 0.3) 6px);
+  // background-color: #F3F3F3;
+}
+
+  .longBreak {
+    display: none;
+    font-size: $xs;
+    color: $grey6;
+    left: -80px;
+    position: relative;
+    font-weight: $light;
+  }
+
+
+.toVideoButton {
+  margin: 0 16px;
+}
+
+.weekButtons {
+  width: 100%;
+  text-align: center;
+  margin: 50px;
+
+  button {
+    margin: 0 20px;
+  }
+}
+
+// SHCEDULE SIDEBAR WITH TIME-LINE
+.lessonSideBarTimeInHome {
+
+  .timeLine {
+    width: calc(50vw - 20px) !important;
+    @media only screen and (max-width: 990px) {
+      width: calc(100vw - 160px) !important;
+    }
+  }
+}
+.lessonSideBar {
+  margin-top: 37px;
+  position: relative;
+  z-index: 99;
   .lessonSideBarTime {
     display: flex;
     flex-direction: column;
@@ -171,89 +322,75 @@
       }
   }
 
-  .activeLesson {
-    .lessonBarContent {
-      background-color: $grey2;
-      // box-shadow: $activeLessonShadow;
-      & h1 {
-        font-weight: $semiBold;
-        color: #000000;
-      }
-    }
-    .lessonBarTime {
-      color: #000000;
-    }
-  }
-  .activeInSchedules {
-    .lessonBarContent {
-      & img {
-        height: 16px;
-        bottom: 10px;
-        position: relative;
-      }
-      & span {
-        position: relative;
-        margin: 0 10px 0 5px;
-        bottom: 10px;
-        font-size: 10px;
-        font-style: italic;
-      }
-    }
-  }
-  .endedLesson {
-    .lessonBarContent {
-      color: #727272;
-      & h1 {
-        color: $grey5;
-      }
-      &::after {
-        background-color: $grey3;
-      }
-    }
-  }
-
-  .breakSpan {
-    height: 10px;
-    display: block;
-    // margin: 0.1em 0;
-    background: repeating-linear-gradient(-45deg, #fff, #fff 5px, rgba(#DBDBDB, 0.3) 5px, rgba(#DBDBDB, 0.3) 6px);
-    // background-color: #F3F3F3;
-  }
-
-
-.toVideoButton {
-    margin: 0 16px;
-}
-
-.weekButtons {
-  width: 100%;
-  text-align: center;
-  margin: 50px;
-
-  button {
-    margin: 0 20px;
-  }
-}
-.timeLine {
-  position: absolute;
-  div {
+  .timeLine {
     position: absolute;
-    transform: translateY(-50%);
-    left: -40px;
-    font-weight: $normal;
-    font-size: $xs;
-    line-height: 16px;
-    color: $dustRed;
-    span {
-      border-bottom: 1px solid $dustRed;
-      width: 88vw;
+    width: calc(100vw - 160px);
+    div {
       position: absolute;
-      bottom: 50%;
-      margin-bottom: 0px;
-      margin-left: 6px;
+      transform: translateY(-50%);
+      left: -40px;
+      font-weight: $normal;
+      font-size: $xs;
+      line-height: 16px;
+      color: $dustRed;
+      width: 100%;
+      span {
+        border-bottom: 1px solid $dustRed;
+        // width: 88vw;
+        position: absolute;
+        width: 100%;
+        bottom: 50%;
+        margin-bottom: 0px;
+        margin-left: 6px;
+        &::after {
+          position: absolute;
+          content: '';
+          width: 7px;
+          height: 7px;
+          transform: translateY(-3px);
+          border-radius: 50%;
+          background-color: $dustRed;
+        }
+        &::before {
+          position: absolute;
+          content: '';
+          width: 7px;
+          height: 7px;
+          right: 0;
+          transform: translateY(-3px);
+          border-radius: 50%;
+          background-color: $dustRed;
+        }
+      }
     }
   }
 }
+.editModal {
+  //display: none;
+  margin: 0 1em 0 0;
+  width: 20px;
+  opacity: 0;
+  cursor: pointer;
+}
 
+.lessonBarContent:hover {
 
+  .editModal {
+    display: block;
+    opacity: 1;
+    transition: all 1s;
+  }
+}
 
+.assignments {
+  margin-left: auto;
+
+  i {
+    margin: 5px;
+    display: block;
+    border-radius: 50%;
+    padding: 0.5em;
+    float: left;
+    background-color: #FBA536;
+  }
+}

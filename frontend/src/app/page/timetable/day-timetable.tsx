@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import moment from 'moment';
+import { Row } from 'antd';
 
 import { navigationService } from 'app/service/navigation-service';
 
@@ -21,7 +22,7 @@ interface Props {
 
 const DayLessonsList: React.FC<Props> = ({ allLessons, userRole, day, date, currentLesson, schedule, homepage }) => {
 
-    const { dayHeader, dayClass, dayLessonsList, activeDay } = styles;
+    const { dayHeader, dayClass, dayLessonsList, activeDay, dayHeaderInHome } = styles;
     // filter this { day } lessons from allLessons
     const dayLessons = allLessons && allLessons.filter((lesson: Api.LessonDto) =>
         lesson.day === day);
@@ -52,15 +53,21 @@ const DayLessonsList: React.FC<Props> = ({ allLessons, userRole, day, date, curr
 
     return (
         <div className={dayClasses}>
-            <h1 className={dayHeader}>
-                <span>
-                    {(scheduleCalc.getDayFromInt(day).toUpperCase())}
-                </span>
-                <span>{date}</span>
-            </h1>
-            {date === moment().format('MMM DD') && homepage ?
-                <h1 className={dayHeader}>Today's lecture ({dayLessons.length})</h1>
-                : null
+            {homepage ?
+                (
+                    <div className={dayHeaderInHome}>
+                        <h1 className={dayHeader}>Today's lecture ({dayLessons.length})</h1>
+                        <a onClick={navigationService.redirectToCalendarPage}>View All</a>
+                    </div>
+                )
+                : (
+                    <h1 className={dayHeader}>
+                        <span>
+                            {(scheduleCalc.getDayFromInt(day).toUpperCase())}
+                        </span>
+                        <span>{date}</span>
+                    </h1>
+                )
             }
             <div className={dayLessonsList}>{lessonsList}</div>
         </div>
