@@ -21,8 +21,8 @@ class ChatService {
     public readonly getTeacherSubject = (): Promise<Api.Subject> =>
       this.restService.get<Api.Subject>(`${ChatService.CHAT_TEACHER_SUBJECT}`);
 
-    public readonly getChatMessages = (): Promise<Api.ChatMessages> =>
-        this.restService.get<Api.ChatMessages>(`${ChatService.CHAT_MESSAGES}`);
+    public readonly getChatMessages = (): Promise<Api.ChatMessagesDto> =>
+        this.restService.get<Api.ChatMessagesDto>(`${ChatService.CHAT_MESSAGES}`);
   // public readonly getSocketUrl = (): string => {
   //   const loc = window.location;
 
