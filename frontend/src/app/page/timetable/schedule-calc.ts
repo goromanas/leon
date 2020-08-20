@@ -1,3 +1,4 @@
+import moment from 'moment';
 
 class ScheduleCalc {
 
@@ -83,6 +84,12 @@ class ScheduleCalc {
         return filtered.length;
     }
 
+    public ifDayEnded = (lessons: Api.LessonDto[], schedule: Api.ScheduleDto[], day: number): any => {
+        if (schedule !== null && this.convertTimeToMinutes(schedule[this.thisDayLength(lessons, day) - 1].endTime) <= this.convertTimeToMinutes(moment().format('HH:mm:ss'))) {
+            return true;
+        }
+        return false;
+    }
 }
 
 const scheduleCalc = new ScheduleCalc();

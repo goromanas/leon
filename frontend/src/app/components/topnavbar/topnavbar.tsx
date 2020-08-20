@@ -31,49 +31,49 @@ class TopNavBarComponent extends React.Component<Props> {
         const { currentLesson, username, userRoles, teacherLessons, firstName } = this.props;
 
         return (
-            <Header className={styles.header}>
-                <Menu mode="horizontal" className={styles.menu}>
-                    <Menu.Item key="logo">
-                        <Link to={navigationService.redirectToDefaultPage}>
+            <Header className={styles.header} >
+                <Menu mode="horizontal" className={styles.menu} defaultSelectedKeys={['1']}>
+                    <Menu.Item key="1">
+                        <Link to={navigationService.redirectToDefaultPage} key="2">
                             <Logo fontSize={'1.5rem'} />
                         </Link>
                     </Menu.Item>
-                    <Menu.Item key="home" style={{ fontWeight: 'bold' }}>
-                        <Link to={navigationService.redirectToDefaultPage}>Home</Link>
+                    <Menu.Item key="3" style={{ fontWeight: 'bold' }}>
+                        <Link to={navigationService.redirectToDefaultPage} key="4">Home</Link>
                     </Menu.Item>
-                    <Menu.Item key="timetable">
-                        <Link to={navigationService.redirectToCalendarPage}>Schedule</Link>
+                    <Menu.Item key="t5">
+                        <Link to={navigationService.redirectToCalendarPage} key="6">Schedule</Link>
                     </Menu.Item>
-                    <Menu.Item key="forum">
-                        <Link to={navigationService.redirectToChatRoom}>Chat Room</Link>
+                    <Menu.Item key="7">
+                        <Link to={navigationService.redirectToChatRoom} key="8">Chat Room</Link>
                     </Menu.Item>
 
-                    <Menu.Item style={{ display: 'block', float: 'right' }} key="logout">
+                    <Menu.Item style={{ display: 'block', float: 'right' }} key="9">
                         <LogoutOutlined data-tip="Logout" onClick={this.handleClickLogout} style={{ fontSize: '1rem' }} />
                     </Menu.Item>
 
-                    <li style={{ display: 'block', float: 'right', paddingLeft: '1em', paddingTop: '.6em' }} key="avatar">
+                    <li style={{ display: 'block', float: 'right', paddingLeft: '1em', paddingTop: '.6em' }} key="10">
                         <Avatar className={styles.avatar} size="large" icon={<UserOutlined className={styles.userIcon} style={{ fontSize: '25px' }} />} style={{ color: 'grey', float: 'right' }} />
                     </li>
 
-                    <li style={{ display: 'block', float: 'right', paddingLeft: '1em' }} key="role">
+                    <li style={{ display: 'block', float: 'right', paddingLeft: '1em' }} key="11">
                         {teacherLessons && userRoles.includes('STUDENT') ? teacherLessons[0].className : ''}
                         {teacherLessons && userRoles.includes('TEACHER') ? firstName : ''}
                     </li>
-                    <li style={{ display: 'block', float: 'right' }} key="video1">
-                        <Link to={navigationService.redirectToVideoChat(currentLesson)}>
-                            <Button disabled={currentLesson === 0 ? true : false} shape="round" type="primary">
+                    <li style={{ display: 'block', float: 'right' }} key="12">
+                        <Link to={navigationService.redirectToVideoChat(currentLesson)} key="13">
+                            <Button disabled={currentLesson === 0 ? true : false} shape="round" type="primary" key="14">
                                 Join a Class
                             </Button>
                         </Link>
                     </li>
-                    <Menu.Item style={{ display: 'block', float: 'right', paddingTop: '5px' }} key="video">
-                        <Link to={navigationService.redirectToVideoChat(currentLesson)}>
+                    <Menu.Item style={{ display: 'block', float: 'right', paddingTop: '5px' }} key="15">
+                        <Link to={navigationService.redirectToVideoChat(currentLesson)} key="16">
                             <Button size="large" type="link" className={styles.cameraButton} shape="circle" icon={<VideoCameraOutlined style={{ fontSize: '25px', color: '#000' }} />} disabled={currentLesson === 0 ? true : false} />
                         </Link>
-                        <div className={currentLesson === 0 ? styles.cameraStatusDisabled : styles.cameraStatus} />
+                        <div className={currentLesson === 0 ? styles.cameraStatusDisabled : styles.cameraStatus} key="17" />
                     </Menu.Item>
-                    <li className={styles.modifiedItem} key="clock">
+                    <li className={styles.modifiedItem} key="18">
                         <Clock />
                     </li>
                 </Menu>

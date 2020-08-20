@@ -37,10 +37,10 @@ const DayLessonsList: React.FC<Props> = ({ allLessons, userRole, day, date, curr
         dayClass,
         moment().format('YYYY-MM-DD') === date && activeDay,
     );
-    const lessonsList = dayLessons.map((item: any) => (
+    const lessonsList = dayLessons.map((item: any, index) => (
 
         <SingleLesson
-            key={item.id}
+            key={index}
             currentLesson={currentLesson}
             thisLesson={item}
             handleOpenClassroom={handleOpenClassroom}
@@ -48,6 +48,7 @@ const DayLessonsList: React.FC<Props> = ({ allLessons, userRole, day, date, curr
             userRole={userRole}
             date={date}
             homepage={homepage}
+            ifDayEnded={scheduleCalc.ifDayEnded(allLessons, schedule, day)}
         />
     ));
 

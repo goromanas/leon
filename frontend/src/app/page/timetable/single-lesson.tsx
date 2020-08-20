@@ -21,25 +21,25 @@ interface Props {
     userRole: string[];
     date: string;
     homepage?: boolean;
+    ifDayEnded: boolean;
 }
 
 const { lesson, activeLesson, endedLesson, lessonBarContent, lessonBar, lessonBarWithBreak, activeInSchedules } = styles;
 
 const SingleLesson: React.FC<Props> = (props) => {
-    const { currentLesson, thisLesson, handleOpenClassroom, schedule, userRole, date, homepage } = props;
+    const { currentLesson, thisLesson, handleOpenClassroom, schedule, userRole, date, homepage, ifDayEnded } = props;
     const [modalVisible, setModalVisible] = useState(false);
 
     // define classNames
     const lessonClass = classNames(
         lesson,
-        currentLesson === thisLesson.id
-        && moment().format('W') === moment(date).format('W') && activeLesson,
+        currentLesson === thisLesson.id && moment().format('W') === moment(date).format('W') && activeLesson,
 
         currentLesson > thisLesson.id && moment().format('W') === moment(date).format('W') && endedLesson,
-        moment().format('W') > moment(date).format('W') && endedLesson,
+        moment().format('D') > moment(date).format('D') && endedLesson,
+        ifDayEnded && date === moment().format('YYYY-MM-DD') && endedLesson,
         !homepage && activeInSchedules,
     );
-
     const checkUserRoleForModal = (): boolean =>
         userRole.includes('STUDENT') || userRole.includes('PARENT');
 

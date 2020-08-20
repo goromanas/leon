@@ -8,10 +8,10 @@ import { connectContext, SettingsProps } from 'app/context';
 import { DayLessonsList } from 'app/page/timetable/day-timetable';
 import { SideTimebar } from 'app/page/timetable/side-timebar';
 import styles from 'app/page/timetable/lessons.module.scss';
-
-import { scheduleCalc } from './schedule-calc';
 import { lessonsService } from 'app/api/service/lessons-service';
 import { lessonInformationService } from 'app/api/service/lessonInformation-service';
+
+import { scheduleCalc } from './schedule-calc';
 
 interface ContextProps {
     username: string | null;
@@ -41,15 +41,18 @@ const TimetablePageComponent: React.FC<Props> = (props) => {
         setWeekWorkDays([1 + week, 2 + week, 3 + week, 4 + week, 5 + week]);
     }, [week]);
 
+    // change week on arrow click
     const moveWeek = (direction: boolean) => {
         direction ? setWeek(week + 7)
             : setWeek(week - 7);
     };
+
+    //change back to current week
     const resetWeek = () => {
         setWeekWorkDays([1, 2, 3, 4, 5]);
-    }
+    };
 
-
+    //sort lessons by day of week
     const filterByDay = (teacherLessons: Api.LessonDto[], day: number): Api.LessonDto[] => {
         if (teacherLessons != null) {
             const sortedLesson = teacherLessons.sort((n1, n2) => n1.time - n2.time);
@@ -57,9 +60,9 @@ const TimetablePageComponent: React.FC<Props> = (props) => {
         }
     };
 
-    const allWeekDays = weekWorkDays.map((item) =>
+    const allWeekDays = weekWorkDays.map((item, index) =>
         (
-            < Col lg={8} md={20} sm={40} className={styles.dayClassCol} key={dayDate(item).day()} >
+            < Col lg={8} md={20} sm={40} className={styles.dayClassCol} key={index} >
                 < DayLessonsList
                     userRole={userRoles}
                     allLessons={filterByDay(allLessons, dayDate(item).day()) || []}

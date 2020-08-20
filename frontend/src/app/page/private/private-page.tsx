@@ -11,6 +11,7 @@ import { ChatPage } from 'app/page/chat/chat-page';
 import { UserList } from 'app/page/user-list/user-list';
 import { TimetablePage } from 'app/page/timetable/week-timetable';
 import { TopNavBar } from 'app/components/topnavbar/topnavbar';
+
 import styles from './container.module.scss';
 
 class PrivatePage extends React.Component<{}, {}> {

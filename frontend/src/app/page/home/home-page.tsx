@@ -6,12 +6,11 @@ import { navigationService } from 'app/service/navigation-service';
 import { connectContext, SettingsProps } from 'app/context';
 import { AsyncContent } from 'app/components/layout';
 import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-loading-spinner';
-
 import { DayLessonsList } from 'app/page/timetable/day-timetable';
 import { SideTimebar } from 'app/page/timetable/side-timebar';
+import { scheduleCalc } from 'app/page/timetable/schedule-calc';
 
 import styles from './home.module.scss';
-import { scheduleCalc } from '../timetable/schedule-calc';
 
 interface ContextProps {
     username: string | null;
