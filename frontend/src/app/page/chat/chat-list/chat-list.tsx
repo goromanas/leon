@@ -11,7 +11,7 @@ interface Message {
     content: string;
     username: string;
     date: string;
-    classroom?: string;
+    classname?: string;
     subject?: number;
     channel?: number;
 }
@@ -32,8 +32,8 @@ type Props = ContextProps & OwnProps;
 const ChatListComponent: React.FC<Props> = (
     {messages, currentChannel, currentClassroom, firstName }) => {
     console.log(messages)
-    console.log(messages[0])
-    console.log(messages && typeof messages[0])
+    console.log(messages && messages[0])
+    // console.log(messages && typeof messages[0])
     // console.log(messages && Object.keys(messages[0]))
     return(
         < div className={styles.container}>
@@ -46,19 +46,22 @@ const ChatListComponent: React.FC<Props> = (
                     {
                         messages
                             .filter(message => message.channel === currentChannel
-                                // && message.classroom === currentClassroom
+                                && message.classname === currentClassroom
                             )
                             .map((msg, i) => (
                                 <CSSTransition key={i} timeout={300} classNames="fade" appear={true}>
-                                    <Message
+                                    <><Message
                                         key={i}
                                         text={msg.content}
                                         author={msg.username}
                                         date={msg.date}
                                         channel={msg.channel}
-                                        classroom={msg.classroom}
+                                        classroom={msg.classname}
                                         toRight={msg.username === firstName}
                                     />
+                                    {msg.channel}
+                                    {msg.classname}
+                                    </>
 
                                 </CSSTransition>
                             ))
