@@ -52,8 +52,23 @@ class TopNavBarComponent extends React.Component<Props> {
             <LogoutOutlined data-tip="Logout" onClick={this.handleClickLogout} style={{ fontSize: "1rem" }} />
           </Menu.Item>
 
+{/*<<<<<<< HEAD*/}
+{/*          <li style={{ display: 'block', float: 'right', paddingLeft: '1em', paddingTop: '.6em' }}>*/}
+{/*           <Avatar className={styles.avatar}*/}
+{/*            size="large" icon={*/}
+{/*            <UserOutlined*/}
+{/*            className={styles.userIcon}*/}
+{/*            style={{ fontSize: '25px' }} />}*/}
+{/*            style={{ color: 'grey', float: 'right' }}/>*/}
+{/*          </li>*/}
+
+{/*          <li style={{ display: 'block', float: 'right', paddingLeft: '1em' }}>*/}
+{/*            {teacherLessons && userRoles.includes('STUDENT') ? teacherLessons[0].className : ''}*/}
+{/*            {teacherLessons && userRoles.includes('TEACHER') ? firstName : ''}*/}
+{/*=======*/}
           <li style={{ display: "block", float: "right", paddingLeft: "1em", paddingTop: ".6em" }}>
             <Avatar className={styles.avatar} size="large" icon={<UserOutlined className={styles.userIcon} style={{ fontSize: "25px" }} />} style={{ color: "grey", float: "right" }} />
+{/*>>>>>>> master*/}
           </li>
 
           <li style={{ display: "block", float: "right", paddingLeft: "1em" }}>

@@ -167,6 +167,10 @@ class HomePageComponent extends React.Component<Props, State> {
         }
 
         return (
+// <<<<<<< HEAD
+//             <Layout >
+//                 <Content style={{ margin: 'auto', width: '70%', background: 'white' }}>
+// =======
             <Layout>
 
                 <Modal
@@ -193,6 +197,7 @@ class HomePageComponent extends React.Component<Props, State> {
                     }
                 </Modal>
                 <Content style={{margin: 'auto', width: '70%'}}>
+{/*>>>>>>> master*/}
                     <PageContent>
 
                         <Top lessonTitle={lessonTitle}

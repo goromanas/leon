@@ -1,11 +1,10 @@
 @import '~app/style/variables';
 
-.container {
-  height: 72vh;
-  width: 75vw;
-  box-sizing: border-box;
- margin: 10px;
-  overflow-y: scroll;
+.sider{
+
+  height: 90vh;
+  width: 300px;
+  overflow: hidden;
   &:hover{
     overflow-y: scroll;
   }
@@ -34,5 +33,3 @@
     background: $grey2;
   }
 }
-
-
