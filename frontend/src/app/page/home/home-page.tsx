@@ -11,6 +11,7 @@ import { DayLessonsList } from 'app/page/timetable/day-timetable';
 import { SideTimebar } from 'app/page/timetable/side-timebar';
 
 import styles from './home.module.scss';
+import { Whiteboard } from 'app/components/whiteboard/whiteboard';
 
 interface ContextProps {
     username: string | null;
@@ -104,6 +105,7 @@ class HomePageComponent extends React.Component<Props, State> {
                                 )
                         }
                     </div>
+                    <Whiteboard/>
                 </div>
             </AsyncContent >
         );

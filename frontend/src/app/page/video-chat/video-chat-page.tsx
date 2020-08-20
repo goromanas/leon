@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { RouteComponentProps } from 'react-router';
 
-import { Layout } from 'antd';
+import { Layout, Modal } from 'antd';
 import Jitsi from 'react-jitsi';
-import { Button, Modal } from 'antd';
 
 import { connectContext, SettingsProps } from 'app/context';
 import { AsyncContent, PageContent } from 'app/components/layout';
 import { navigationService } from 'app/service/navigation-service';
-import { lessonsService } from 'app/api/service/lessons-service';
 import { AnswerQuiz } from 'app/page/video-chat/answerQuiz';
 import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-loading-spinner';
 import { QuizResult } from 'app/page/video-chat/quizResult';
@@ -18,8 +16,8 @@ import { Top } from './top/top';
 
 import styles from './video-chat-page.module.scss';
 import { VideoButton } from 'app/page/video-chat/video-buttons/video-button';
+import { Whiteboard } from 'app/components/whiteboard/whiteboard';
 import { QuizCreate } from 'app/page/video-chat/quizCreate';
-
 const {Content, Sider} = Layout;
 
 interface ContextProps {
@@ -56,6 +54,7 @@ interface State {
     visible: boolean;
     value: number;
     answers: quizAnswer[];
+    whiteboardVisible: boolean;
     correct:number;
 }
 
@@ -68,6 +67,7 @@ class HomePageComponent extends React.Component<Props, State> {
         visible: false,
         value: 0,
         answers: [],
+        whiteboardVisible: false,
         correct:1,
     };
 
@@ -75,6 +75,11 @@ class HomePageComponent extends React.Component<Props, State> {
         this.setState({
             visible: true,
         });
+    };
+
+    public handleWhiteboard = (): void => {
+        console.log('whiteboard handle');
+        this.setState({whiteboardVisible: !this.state.whiteboardVisible});
     };
 
     public handleOk = () => {
@@ -173,6 +178,7 @@ class HomePageComponent extends React.Component<Props, State> {
                 params: {id},
             },
         } = this.props;
+
         const currentLesson = teacherLessons && teacherLessons.filter((lesson) => lesson.id === parseInt(id, 10));
 
         const isUserInWrongVideoRoom = teacherLessons &&
@@ -227,7 +233,7 @@ class HomePageComponent extends React.Component<Props, State> {
                             />}
                 </Modal>
                 <Content style={{margin: 'auto', width: '70%'}}>
-{/*>>>>>>> master*/}
+                    {/*>>>>>>> master*/}
                     <PageContent>
 
                         <Top lessonTitle={lessonTitle}
@@ -239,7 +245,15 @@ class HomePageComponent extends React.Component<Props, State> {
                         {videoChatName && (
                             <Jitsi
                                 containerStyle={{marginLeft: '61px'}}
-                                frameStyle={{display: 'block', width: '1012px', height: '443px'}}
+                                frameStyle={{
+                                    display: 'block',
+                                    height: this.state.whiteboardVisible ? '180px' :'443px',
+                                    width: this.state.whiteboardVisible ? '450px' :'1012px',
+                                    zIndex: this.state.whiteboardVisible ? 2000 : 1,
+                                    position: this.state.whiteboardVisible ? 'absolute' :'inherit',
+                                    right: this.state.whiteboardVisible ? '20px' : null,
+                                    top: this.state.whiteboardVisible ? '10%' : null,
+                                }}
                                 jwt="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250ZXh0Ijp7InVzZXIiOnsiYXZhdGFyIjoiaHR0cHM6Ly9hdmF0YXJzLmRpY2ViZWFyLmNvbS9hcGkvbWFsZS9tZW51by1zdS1pdC5zdmciLCJuYW1lIjoiTcSXbnVvIHN1IElUIn19LCJhdWQiOiJtZW51b19zdV9pdCIsImlzcyI6Im1lbnVvX3N1X2l0Iiwic3ViIjoibWVldC5qaXRzaSIsInJvb20iOiIqIn0.6CKZU_JWLhtj9eKJ-VdFGQZyRzvTZz29fn7--_dp-jw"
                                 roomName={videoChatName}
                                 domain="video-menuo-su-it.northeurope.cloudapp.azure.com:443"
@@ -269,13 +283,15 @@ class HomePageComponent extends React.Component<Props, State> {
                         )}
 
                     </PageContent>
-                </Content>
-                <Sider width='282px' className={styles.sider}>
 
-                    <VideoButton role={userRoles}
-                                 openQuiz={this.openQuiz}/>
+                </Content>
+                <Sider width={this.state.whiteboardVisible ? '100%' : '282px'} className={styles.sider}>
+                    <VideoButton handleWhiteboard={() => this.handleWhiteboard()} role={userRoles} openQuiz={this.openQuiz}
+                                 send={this.sendMessage}/>
+                    {this.state.whiteboardVisible ? <Whiteboard/> : null}
 
                 </Sider>
+
             </Layout>
         );
     }
