@@ -62,7 +62,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 
         Map messageContent = new Gson().fromJson(message.getPayload(), Map.class);
         channelFromMessage = Integer.parseInt(String.valueOf(round(Float.parseFloat(String.valueOf(messageContent.get("channel"))))));
-        classroomFromMessage = String.valueOf(messageContent.get("classroom"));
+        classroomFromMessage = String.valueOf(messageContent.get("classname"));
 
         chatService.saveChatMessage(chatMessageToSave(
             channelFromMessage,
