@@ -39,14 +39,14 @@
       INSERT INTO `user` VALUES (34, 'Tom', 'Holland','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'tomhol','');
       INSERT INTO `user` VALUES (35, 'Simu ', 'Liu','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'simliu','');
 
+      INSERT INTO `classroom_user` VALUES (4, 29);
+      INSERT INTO `classroom_user` VALUES (4, 30);
+      INSERT INTO `classroom_user` VALUES (4, 31);
+      INSERT INTO `classroom_user` VALUES (4, 32);
+      INSERT INTO `classroom_user` VALUES (4, 33);
+      INSERT INTO `classroom_user` VALUES (4, 34);
+      INSERT INTO `classroom_user` VALUES (4, 35);
       INSERT INTO `classroom_user` VALUES (4, 10);
-      INSERT INTO `classroom_user` VALUES (4, 11);
-      INSERT INTO `classroom_user` VALUES (4, 12);
-      INSERT INTO `classroom_user` VALUES (4, 13);
-      INSERT INTO `classroom_user` VALUES (4, 14);
-      INSERT INTO `classroom_user` VALUES (4, 15);
-      INSERT INTO `classroom_user` VALUES (4, 16);
-      INSERT INTO `classroom_user` VALUES (4, 17);
 
 
 
