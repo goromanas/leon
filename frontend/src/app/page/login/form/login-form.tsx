@@ -39,10 +39,9 @@ const LoginForm: React.FC<Props> = (props: Props) => {
             component={PasswordInputField}
             name="password"
             placeholder="*********"
-            prefix={<InputIcon component={LockOutlined} />}
           />
           <div className={styles.loginFormrememberme}>
-            <Field type="checkbox" name="checkbox" prefix={<InputIcon component={LockOutlined} />} />
+            <Field type="checkbox" name="checkbox" />
             <label className={styles.loginFormlabel}>Remember me</label>
           </div>
           <FormButton

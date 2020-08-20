@@ -7,8 +7,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+import java.util.List;
+
+@RestController
 public class ChatController {
+
+    @Autowired
+    ChatService chatService;
+
+    @RequestMapping(path = "/chatMessages", method = RequestMethod.GET)
+    public List<ChatMessagesDto> getChatMessages () {
+        return chatService.getChatMessages();
+    }
+
+
+
 
 }

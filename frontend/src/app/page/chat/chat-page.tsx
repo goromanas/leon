@@ -165,7 +165,7 @@ class ChatComponent extends React.Component<Props, State> {
         return (
 
      <AsyncContent
-        loading={(this.state.channels.length) < 0 || (this.state.classRooms.length < 0)}
+        loading={!teacherLessons}
         loader={<PageLoadingSpinner />}
      >
       <Layout>
@@ -210,10 +210,6 @@ class ChatComponent extends React.Component<Props, State> {
             console.log(error); // catch error
         }
     };
-
-  // if (teacherLessons) {
-  //   console.log(teacherLessons);
-  // }
 
   // public addFile = (file: any) => {
   //     this.setState({ file: file });
