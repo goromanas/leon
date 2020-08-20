@@ -181,9 +181,10 @@ class ChatComponent extends React.Component<Props, State> {
                 currentChannel={this.state.currentChannel}
                 onChannelChange={this.onChannelChange}
                 onClassChange={this.onClassChange}
+                role={this.props.userRoles[0]}
               />
            </Sider>
-            <Content style={{ background: 'white' }} >
+            <Content style={{ background: 'white', overflow: 'hidden', height: '92vh' }} >
              <PageContent >
             <ChatList
                 messages={messages}
