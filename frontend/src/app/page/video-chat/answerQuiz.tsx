@@ -54,7 +54,7 @@ const AnswerQuiz: React.FC<Props> = (props) => {
                 {
                     props.message.options.map((item: any) =>
                         (<div className={styles.optionWrapper}>
-                            <Radio  key={item.id} value={item.id} className={styles.answerOption}>
+                            <Radio  key={item.id} value={item.id}>
                                 {item.name}
                             </Radio>
                         </div>
