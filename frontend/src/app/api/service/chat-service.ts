@@ -4,6 +4,7 @@ class ChatService {
     private static readonly CHAT_LESSON_PATH: string = '/subjectByUser';
     private static readonly CHAT_SUBJECT_PATH: string = '/classroomByTeacher';
     private static readonly CHAT_TEACHER_SUBJECT: string = '/subjectByTeacher';
+    private static readonly CHAT_MESSAGES: string = '/chatMessages';
 
     private readonly restService: RestService;
 
@@ -19,6 +20,9 @@ class ChatService {
 
     public readonly getTeacherSubject = (): Promise<Api.Subject> =>
       this.restService.get<Api.Subject>(`${ChatService.CHAT_TEACHER_SUBJECT}`);
+
+    public readonly getChatMessages = (): Promise<Api.ChatMessagesDto> =>
+        this.restService.get<Api.ChatMessagesDto>(`${ChatService.CHAT_MESSAGES}`);
   // public readonly getSocketUrl = (): string => {
   //   const loc = window.location;
 
