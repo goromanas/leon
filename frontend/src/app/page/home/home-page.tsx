@@ -105,7 +105,7 @@ class HomePageComponent extends React.Component<Props, State> {
                                 )
                         }
                     </div>
-                    <Whiteboard/>
+
                 </div>
             </AsyncContent >
         );
