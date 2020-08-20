@@ -60,7 +60,7 @@ const ChatListComponent: React.FC<Props> = (
                                         classroom={msg.classname}
                                         toRight={msg.username === firstName}
                                     />
-                            
+
                                     </>
 
                                 </CSSTransition>
