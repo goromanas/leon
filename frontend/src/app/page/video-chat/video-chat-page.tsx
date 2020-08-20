@@ -56,6 +56,7 @@ interface State {
     visible: boolean;
     value: number;
     answers: quizAnswer[];
+    correct:number;
 }
 
 type Props = OwnProps & ContextProps;
@@ -67,6 +68,7 @@ class HomePageComponent extends React.Component<Props, State> {
         visible: false,
         value: 0,
         answers: [],
+        correct:1,
     };
 
     public showModal = () => {
@@ -97,7 +99,8 @@ class HomePageComponent extends React.Component<Props, State> {
             visible: false,
         });
     };
-    public updateQuiz = (values: any) => {
+    public updateQuiz = (values: any,value:any) => {
+        this.setState({correct:value})
         this.sendMessage(values);
         this.handleCancel()
     };
@@ -215,6 +218,7 @@ class HomePageComponent extends React.Component<Props, State> {
                         : this.state.type === 'answer' ?
                             <AsyncContent loading={!this.state.answers} loader={<PageLoadingSpinner/>}>
                                 <QuizResult answers={this.state.answers}
+                                            correct={this.state.correct}
                                 />
 
                             </AsyncContent>
