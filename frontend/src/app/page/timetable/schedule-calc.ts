@@ -56,11 +56,19 @@ class ScheduleCalc {
         return 0;
     };
 
-    public getDayStart = (schedule: Api.ScheduleDto[]) =>
-        this.convertTimeToMinutes(schedule[0].startTime);
+    public getDayStart = (schedule: Api.ScheduleDto[]) => {
+        if (schedule.length !== 0) {
+            return this.convertTimeToMinutes(schedule[0].startTime);
+        }
+        return 0;
+    };
 
-    public getDayEnd = (schedule: Api.ScheduleDto[], lastItem: number) =>
-        this.convertTimeToMinutes(schedule[lastItem].endTime);
+    public getDayEnd = (schedule: Api.ScheduleDto[], lastItem: number) => {
+        if (schedule.length !== 0) {
+            return this.convertTimeToMinutes(schedule[lastItem].endTime);
+        }
+        return 0;
+    };
 
     public getLongestDay = (lessons: Api.LessonDto[]) => {
         let mf = 1;
@@ -85,7 +93,7 @@ class ScheduleCalc {
     }
 
     public ifDayEnded = (lessons: Api.LessonDto[], schedule: Api.ScheduleDto[], day: number): any => {
-        if (schedule !== null && this.convertTimeToMinutes(schedule[this.thisDayLength(lessons, day) - 1].endTime) <= this.convertTimeToMinutes(moment().format('HH:mm:ss'))) {
+        if (schedule.length !== 0 && this.convertTimeToMinutes(schedule[this.thisDayLength(lessons, day) - 1].endTime) <= this.convertTimeToMinutes(moment().format('HH:mm:ss'))) {
             return true;
         }
         return false;
