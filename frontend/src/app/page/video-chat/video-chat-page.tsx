@@ -1,6 +1,5 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
-
 import { Layout, Modal } from 'antd';
 import Jitsi from 'react-jitsi';
 
@@ -10,14 +9,14 @@ import { navigationService } from 'app/service/navigation-service';
 import { AnswerQuiz } from 'app/page/video-chat/answerQuiz';
 import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-loading-spinner';
 import { QuizResult } from 'app/page/video-chat/quizResult';
+import { VideoButton } from 'app/page/video-chat/video-buttons/video-button';
+import { Whiteboard } from 'app/components/whiteboard/whiteboard';
+import { QuizCreate } from 'app/page/video-chat/quizCreate';
 
 // @ts-ignore
 import { Top } from './top/top';
 
 import styles from './video-chat-page.module.scss';
-import { VideoButton } from 'app/page/video-chat/video-buttons/video-button';
-import { Whiteboard } from 'app/components/whiteboard/whiteboard';
-import { QuizCreate } from 'app/page/video-chat/quizCreate';
 const { Content, Sider } = Layout;
 
 interface ContextProps {
@@ -92,9 +91,10 @@ class HomePageComponent extends React.Component<Props, State> {
             teacherUsername: this.state.quizMessageForStudent.teacherUsername,
             studentName: this.props.username,
         };
+
         console.log('aaaaaaaaaaaa');
         this.ws.send(JSON.stringify(answer));
-        this.setState({ quizMessageForStudent: null })
+        this.setState({ quizMessageForStudent: null });
         console.log(this.state.value);
     };
 
@@ -105,9 +105,9 @@ class HomePageComponent extends React.Component<Props, State> {
         });
     };
     public updateQuiz = (values: any, value: any) => {
-        this.setState({ correct: value })
+        this.setState({ correct: value });
         this.sendMessage(values);
-        this.handleCancel()
+        this.handleCancel();
     };
 
     public readonly getSocketUrlQuiz = (): string => {
@@ -126,6 +126,7 @@ class HomePageComponent extends React.Component<Props, State> {
         this.ws.onmessage = e => {
             this.setState({ quizMessageForStudent: null });
             const message = JSON.parse(e.data);
+
             this.setState({ type: message.type });
             if (message.type === 'question') {
                 this.showModal();
@@ -144,18 +145,18 @@ class HomePageComponent extends React.Component<Props, State> {
     }
 
     public sendMessage = (values: any): void => {
-        const question =
-        {
-            type: 'question',
-            classroom: this.props.teacherLessons[0].className,
-            teacherUsername: this.props.username,
-            question: values.question,
-            options: values.options?.map((item: string) => ({
-                id: values.options.indexOf(item) + 1,
-                name: item,
-            })),
-            timer: values.timer
-        };
+        const question = {
+                type: 'question',
+                classroom: this.props.teacherLessons[0].className,
+                teacherUsername: this.props.username,
+                question: values.question,
+                options: values.options?.map((item: string) => ({
+                    id: values.options.indexOf(item) + 1,
+                    name: item,
+                })),
+                timer: values.timer,
+            };
+
         console.log(question);
         this.ws.send(JSON.stringify(question));
 
@@ -194,6 +195,7 @@ class HomePageComponent extends React.Component<Props, State> {
         let lessonTitle: string;
         let startTime: string;
         let endTime: string;
+
         if (currentLessonTimeObj) {
             lessonTitle = currentLesson[0].className + ' ' + currentLesson[0].subject;
             startTime = currentLessonTimeObj.startTime;
@@ -201,18 +203,20 @@ class HomePageComponent extends React.Component<Props, State> {
         }
 
         return (
-            // <<<<<<< HEAD
-            //             <Layout >
-            //                 <Content style={{ margin: 'auto', width: '70%', background: 'white' }}>
-            // =======
-            <Layout>
+// <<<<<<< HEAD
+//             <Layout >
+//                 <Content style={{ margin: 'auto', width: '70%', background: 'white' }}>
+// =======
+            <Layout className={styles.layout}>
 
                 <Modal
-                    title="Basic Modal"
+                    // title="Basic Modal"
                     visible={this.state.visible}
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
                     footer={false}
+                    width="600px"
+                    style={{borderRadius: '20px'}}
                 >
                     {this.state.type === 'question' ?
                         <AsyncContent loading={!this.state.quizMessageForStudent} loader={<PageLoadingSpinner />}>
@@ -269,13 +273,13 @@ class HomePageComponent extends React.Component<Props, State> {
                                     disableRemoteMute: userRoles[0] === 'STUDENT',
                                 }}
                                 interfaceConfig={userRoles[0] === 'STUDENT' &&
-                                {
-                                    TOOLBAR_BUTTONS: [
+                                    {
+                                        TOOLBAR_BUTTONS: [
                                         'microphone', 'camera', 'desktop', 'fullscreen', 'raisehand', 'hangup', 'chat',
                                         'tileview', 'download', 'videoquality', 'filmstrip', 'invite', 'feedback',
                                         'stats', 'shortcuts',
                                     ],
-                                } || {
+                                    } || {
 
                                     SHOW_WATERMARK_FOR_GUESTS: false, SHOW_JITSI_WATERMARK: false,
                                 }
@@ -289,12 +293,8 @@ class HomePageComponent extends React.Component<Props, State> {
                 {/* {userRoles.includes('TEACHER') ? */}
                 <Sider width={this.state.whiteboardVisible ? '100%' : '282px'} className={styles.sider}>
                     <VideoButton handleWhiteboard={() => this.handleWhiteboard()} role={userRoles} openQuiz={this.openQuiz}
-                        send={this.sendMessage} />
+                                 send={this.sendMessage} />
                     {this.state.whiteboardVisible ? <Whiteboard /> : null}
-
-                </Sider> :
-                {/* null
-                } */}
 
 
             </Layout>
@@ -314,13 +314,13 @@ class HomePageComponent extends React.Component<Props, State> {
 }
 
 const handleCallEnd = (api: any) => {
-    api.executeCommand('startRecording', {
-        mode: 'file',
-        shouldShare: true,
-    });
+    // api.executeCommand('startRecording', {
+    //     mode: 'file',
+    //     shouldShare: true,
+    // });
 
     api.addEventListener('readyToClose', () => {
-        navigationService.redirectToDefaultPage();
+        navigationService.redirectToHomePage();
     });
 };
 

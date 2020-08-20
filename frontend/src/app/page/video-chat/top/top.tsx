@@ -33,13 +33,14 @@ const getTimeLeft = (endTime: string) => {
 const Top: React.FC<Props> = ({ lessonTitle, teacher, startTime, endTime }) => {
     const timeLeft = getTimeLeft(endTime);
 
+
     return (
         <div className={styles.container}>
             <div>
                 <h1>
                     {lessonTitle}
                 </h1>
-                <p>{teacher}</p>
+                <p>With {teacher}</p>
             </div>
             <div className={styles.right}>
                 <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">

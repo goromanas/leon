@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field, FieldArray } from 'formik';
-import { Radio } from 'antd';
+import { Radio, Alert, Button } from 'antd';
+
+import styles from './options.module.scss';
 
 // Here is an example of a form with an editable list.
 // Next to each input are buttons for insert and remove.
@@ -12,6 +14,7 @@ interface Props {
 
 function validateQuestion(value: any) {
     let error;
+
     if (value == '') {
         error = 'You must write a question!';
     }
@@ -30,26 +33,26 @@ const OptionList: React.FC<Props> = (props) => {
     };
     const [value, setValue] = React.useState(0);
 
-    const [questionCount, setquestionCount] = useState(0);
+    const [questionCount, setquestionCount] = useState(1);
 
-
-    return (<div>
-        <h1>Option List</h1>
+    return ( <div>
         <Formik
-            initialValues={{question: '', options: [], timer: '15'}}
-            onSubmit={(values, {setSubmitting}) => {
+            initialValues={{ question: '', options: [], timer: '15' }}
+            onSubmit={(values, { setSubmitting }) => {
                 setTimeout(() => {
 
-                    props.updateQuiz(values,value);
+                    props.updateQuiz(values, value);
                     //   alert(JSON.stringify(values, null, 2));
                 }, 400);
             }}
-            render={({values, validateField, errors}) => (
-                <Form>
+            render={({ values, validateField, errors }) => (
+                <Form className={styles.quizForm}>
                     <Field name="question"
                            validate={validateQuestion}
-                    >
-                    </Field>
+                           className={styles.questionField}
+                           placeholder="Write your Question"
+                           autoComplete="off"
+                    />
                     <FieldArray
                         name="options"
                         render={arrayHelpers => (
@@ -61,50 +64,75 @@ const OptionList: React.FC<Props> = (props) => {
                                             values.options.map((option, index) => (
 
                                                 <div key={index}>
-                                                    <Radio key={index} value={index+1}>
+                                                    <Radio key={index} value={index + 1}>
 
-                                                        <Field name={`options.${index}`}/>
-                                                        <button
-                                                            type="button"
+                                                        <Field
+                                                            name={`options.${index}`}
+                                                            className={styles.answerField}
+                                                            placeholder="Option"
+                                                        />
+                                                        <Button
                                                             onClick={() => (arrayHelpers.remove(index), setquestionCount(questionCount - 1))}
+                                                            className={styles.changeOption}
+                                                            shape="circle"
                                                         >
                                                             -
-                                                        </button>
-                                                        <button
-                                                            type="button"
+                                                        </Button>
+                                                        <Button
                                                             onClick={() => (arrayHelpers.insert(index + 1, ''), setquestionCount(questionCount + 1))}
+                                                            className={styles.changeOption}
+                                                            shape="circle"
                                                         >
                                                             +
-                                                        </button>
+                                                        </Button>
                                                     </Radio>
                                                 </div>
 
                                             ))}
                                     </Radio.Group>) : (
                                     <button type="button"
-                                            onClick={() => (arrayHelpers.push(''), setquestionCount(questionCount + 1))}>
+                                            onClick={() => (arrayHelpers.push(''), setquestionCount(questionCount + 1))}
+                                            className={styles.optionButton}
+                                    >
                                         Add an option
                                     </button>
                                 )}
+
+                                {errors.question ? <div>{errors.question}</div> : null}
+                                {questionCount < 2 ?
+                                <Alert message="Please provide at least 2 options" type="warning" closable={true} />
+
+                               : null}
+                                {value === 0 ?
+                                <Alert message="Please select the corrent answer" type="warning" closable={true} />
+
+                                 : null}
+                                {checkForDuplicates(values.options) ?
+                                <Alert message="All answers must be different" type="warning" closable={true} />
+
+                                 : null}
+
+                                <div className={styles.submitContainer}>
                                 <div>
-                                    <Field name="timer" as="select" placeholder="Select a time">
+                                    {/* <Field name="timer" as="select" placeholder="Select a time">
                                         <option value="15">15s</option>
                                         <option value="30">30s</option>
                                         <option value="45">45s</option>
                                         <option value="60">1min</option>
-                                    </Field>
+                                    </Field> */}
+                                    <label className={styles.timerLabel}>Select the duration to answer</label>
+                                    <Radio.Group name="timer">
+                                        <Radio.Button value="15">15s</Radio.Button>
+                                        <Radio.Button value="30">30s</Radio.Button>
+                                        <Radio.Button value="40">45s</Radio.Button>
+                                        <Radio.Button value="60">1min</Radio.Button>
+                                    </Radio.Group>
                                 </div>
-
-                                {errors.question ? <div>{errors.question}</div> : null}
-                                {questionCount < 2 ? <div>please write at least 2 questions</div> : null}
-                                {value==0?<div>you must select the correct answer</div>:null}
-                                {checkForDuplicates(values.options) ? <div>All answers must be different</div> : null}
-
-                                <div>
                                     <button type="submit"
+                                            className={styles.submitButton}
                                             disabled={(errors.question || questionCount < 2 || checkForDuplicates(values.options)) ? true : false}
                                             onClick={() => validateField('question')}
-                                    >Submit
+                                    >Send your question
                                     </button>
                                 </div>
                             </div>

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Field, Form, Formik, useFormik } from 'formik';
+import { Layout, Radio } from 'antd';
 
-import { Layout, Radio, } from 'antd';
 import OptionList from './options';
 
-const {Content} = Layout;
+const { Content } = Layout;
 
 interface Props {
-    updateQuiz: any
+    updateQuiz: any;
 }
 
 const QuizCreate: React.FC<Props> = (props) => {
@@ -28,7 +28,7 @@ const QuizCreate: React.FC<Props> = (props) => {
 
     return (
         <>
-            <OptionList updateQuiz={props.updateQuiz}/>
+            <OptionList updateQuiz={props.updateQuiz} />
         </>
     );
 };
