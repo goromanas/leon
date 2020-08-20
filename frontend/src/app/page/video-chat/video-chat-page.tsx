@@ -88,7 +88,7 @@ class HomePageComponent extends React.Component<Props, State> {
         };
         console.log('aaaaaaaaaaaa');
         this.ws.send(JSON.stringify(answer));
-
+    this.setState({quizMessageForStudent:null})
         console.log(this.state.value);
     };
 
@@ -147,7 +147,7 @@ class HomePageComponent extends React.Component<Props, State> {
                     id: values.options.indexOf(item)+1,
                     name: item,
                 })),
-                timer: '15'
+                timer: values.timer
             };
         console.log(question);
         this.ws.send(JSON.stringify(question));

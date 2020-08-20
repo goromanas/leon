@@ -22,21 +22,16 @@ interface Props {
 
 const AnswerQuiz: React.FC<Props> = (props) => {
     const onChange = (e: any) => {
+        setValue(e.target.value);
         // console.log('radio checked', e.target.value);
         props.changeValue(e.target.value);
         setValid(true);
 
     };
-    const onTimer = (counter: number) => {
-        if (counter == 0) {
-            props.onCancel();
-            console.log('test');
-        }
-    };
 
     const [valid, setValid] = React.useState(false);
     const [counter, setCounter] = React.useState(props.message.timer);
-
+    const [value, setValue] = React.useState(0);
     React.useEffect(() => {
         if (
             counter >= 0) {
@@ -58,15 +53,16 @@ const AnswerQuiz: React.FC<Props> = (props) => {
 
             <h1>{props.message.question}</h1>
 
-            <Radio.Group onChange={onChange}>
+            <Radio.Group onChange={onChange} value={value}>
 
-                {props.message.options.map((item: any) =>
-                    (
-                        <Radio style={radioStyle} key={item.id} value={item.id}>
-                            {item.name}
-                        </Radio>
-                    )
-                )}
+                {
+                    props.message.options.map((item: any) =>
+                        (
+                            <Radio style={radioStyle} key={item.id} value={item.id}>
+                                {item.name}
+                            </Radio>
+                        )
+                    )}
 
                 <Button
                     disabled={!valid}
