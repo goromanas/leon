@@ -20,10 +20,10 @@
       INSERT INTO `user_role` VALUES (7, 1);
       INSERT INTO `user_role` VALUES (8, 2);
 
-      INSERT INTO `subject` VALUES (2,'Matematika','Matematikos pamoka');
-      INSERT INTO `subject` VALUES (3,'Geografija','Geografijos pamoka');
-      INSERT INTO `subject` VALUES (4,'Fizika','Fizikos pamoka');
-      INSERT INTO `subject` VALUES (5,'Informatika','Informatikos pamoka');
+      INSERT INTO `subject` VALUES (2,'Mathematics','Mathematics lesson');
+      INSERT INTO `subject` VALUES (3,'Geography','Geography lesson');
+      INSERT INTO `subject` VALUES (4,'Physics','Physics lesson');
+      INSERT INTO `subject` VALUES (5,'Information Technologies','Information Technologies lesson');
 
       INSERT INTO `classroom` VALUES (2, '10B');
       INSERT INTO `classroom` VALUES (3, '7C');

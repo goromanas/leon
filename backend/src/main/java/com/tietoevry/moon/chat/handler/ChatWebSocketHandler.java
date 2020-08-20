@@ -7,7 +7,6 @@ import com.tietoevry.moon.classroom.ClassroomService;
 import com.tietoevry.moon.classroom.model.Classroom;
 import com.tietoevry.moon.lesson.LessonRepository;
 import com.tietoevry.moon.user.RoleRepository;
-import com.tietoevry.moon.user.UserMapper;
 import com.tietoevry.moon.user.UserRepository;
 import com.tietoevry.moon.user.UserService;
 import com.tietoevry.moon.user.model.User;
@@ -17,13 +16,14 @@ import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-
-import javax.transaction.Transactional;
 import java.io.IOException;
-import java.time.LocalDate;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import static java.lang.Math.round;
 
 @Component
 public class ChatWebSocketHandler extends TextWebSocketHandler {
@@ -33,6 +33,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
     private String username;
     private Map messageContent;
     private String classroomFromMessage;
+    private int channelFromMessage;
 
     @Autowired
     LessonRepository lessonRepository;
@@ -60,13 +61,14 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
         throws InterruptedException, IOException {
 
         Map messageContent = new Gson().fromJson(message.getPayload(), Map.class);
-        classroomFromMessage = String.valueOf(messageContent.get("classroom"));
-
+        channelFromMessage = Integer.parseInt(String.valueOf(round(Float.parseFloat(String.valueOf(messageContent.get("channel"))))));
+        classroomFromMessage = String.valueOf(messageContent.get("classname"));
 
         chatService.saveChatMessage(chatMessageToSave(
-            classroomFromMessage + String.valueOf(messageContent.get("channel")),
-            String.valueOf(messageContent.get("author")),
-            String.valueOf(messageContent.get("text"))
+            channelFromMessage,
+            classroomFromMessage,
+            String.valueOf(messageContent.get("username")),
+            String.valueOf(messageContent.get("content"))
         ));
 
         if (String.valueOf(messageContent.get("role")).contains("STUDENT")) {
@@ -111,12 +113,15 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
         webSocketSessions.add(session);
     }
 
-    private ChatMessages chatMessageToSave(String chatId, String author, String content) {
+    private ChatMessages chatMessageToSave(int channel, String classname, String username, String content) {
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date(System.currentTimeMillis());
         return ChatMessages.builder()
-            .chatId(chatId)
-            .username(author)
+            .channel(channel)
+            .classname(classname)
+            .username(username)
             .content(content)
-            .date(LocalDate.now())
+            .date(date)
             .build();
     }
 }

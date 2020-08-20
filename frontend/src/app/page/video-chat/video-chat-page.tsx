@@ -1,25 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { RouteComponentProps } from 'react-router';
 
-import { Layout} from 'antd';
+import { Layout, Modal } from 'antd';
 import Jitsi from 'react-jitsi';
-import { Button, Modal } from 'antd';
 
 import { connectContext, SettingsProps } from 'app/context';
 import { AsyncContent, PageContent } from 'app/components/layout';
 import { navigationService } from 'app/service/navigation-service';
-import { lessonsService } from 'app/api/service/lessons-service';
 import { AnswerQuiz } from 'app/page/video-chat/answerQuiz';
 import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-loading-spinner';
 import { QuizResult } from 'app/page/video-chat/quizResult';
 
 // @ts-ignore
-import {Top} from './top/top'
+import { Top } from './top/top';
 
-import styles from './video-chat-page.module.scss'
+import styles from './video-chat-page.module.scss';
 import { VideoButton } from 'app/page/video-chat/video-buttons/video-button';
-
-const { Content, Sider } = Layout;
+import { Whiteboard } from 'app/components/whiteboard/whiteboard';
+import { QuizCreate } from 'app/page/video-chat/quizCreate';
+const {Content, Sider} = Layout;
 
 interface ContextProps {
     username: string | null;
@@ -55,6 +54,8 @@ interface State {
     visible: boolean;
     value: number;
     answers: quizAnswer[];
+    whiteboardVisible: boolean;
+    correct:number;
 }
 
 type Props = OwnProps & ContextProps;
@@ -66,12 +67,19 @@ class HomePageComponent extends React.Component<Props, State> {
         visible: false,
         value: 0,
         answers: [],
+        whiteboardVisible: false,
+        correct:1,
     };
 
     public showModal = () => {
         this.setState({
             visible: true,
         });
+    };
+
+    public handleWhiteboard = (): void => {
+        console.log('whiteboard handle');
+        this.setState({whiteboardVisible: !this.state.whiteboardVisible});
     };
 
     public handleOk = () => {
@@ -84,9 +92,9 @@ class HomePageComponent extends React.Component<Props, State> {
             teacherUsername: this.state.quizMessageForStudent.teacherUsername,
             studentName: this.props.username,
         };
-
+        console.log('aaaaaaaaaaaa');
         this.ws.send(JSON.stringify(answer));
-
+    this.setState({quizMessageForStudent:null})
         console.log(this.state.value);
     };
 
@@ -95,6 +103,11 @@ class HomePageComponent extends React.Component<Props, State> {
         this.setState({
             visible: false,
         });
+    };
+    public updateQuiz = (values: any,value:any) => {
+        this.setState({correct:value})
+        this.sendMessage(values);
+        this.handleCancel()
     };
 
     public readonly getSocketUrlQuiz = (): string => {
@@ -111,14 +124,13 @@ class HomePageComponent extends React.Component<Props, State> {
             // tslint:disable-next-line: no-console
         };
         this.ws.onmessage = e => {
-            this.setState({quizMessageForStudent:null});
+            this.setState({quizMessageForStudent: null});
             const message = JSON.parse(e.data);
             this.setState({type: message.type});
             if (message.type === 'question') {
                 this.showModal();
                 this.setState({quizMessageForStudent: message});
             } else {
-                this.showModal();
                 const copyAnswers = [...this.state.answers];
                 const newAnswers = [...copyAnswers, message];
 
@@ -126,12 +138,33 @@ class HomePageComponent extends React.Component<Props, State> {
                     answers: newAnswers,
                 });
                 console.log(this.state.answers);
+                this.showModal();
             }
         };
     }
 
-    public sendMessage = (): void => {
-        this.ws.send('{"type":"question","classroom":"6A", "teacherUsername":"istmokytojas", "question": "Is this legit?", "options": [{"id":"1", "name":"Option 1"},{"id":"2", "name":"Option 2"}],"correct":"1","timer":"5"}');
+    public sendMessage = (values: any): void => {
+        const question =
+            {
+                type: 'question',
+                classroom: this.props.teacherLessons[0].className,
+                teacherUsername: this.props.username,
+                question: values.question,
+                options: values.options?.map((item: string) => ({
+                    id: values.options.indexOf(item)+1,
+                    name: item,
+                })),
+                timer: values.timer
+            };
+        console.log(question);
+        this.ws.send(JSON.stringify(question));
+
+     //   this.ws.send('{"type":"question","classroom":"6A", "teacherUsername":"tecmokytojas", "question": "Is this legit?", "options": [{"id":"1", "name":"Option 1"},{"id":"2", "name":"Option 2"}],"correct":"1","timer":"1"}');
+    };
+
+    public openQuiz = (values: any): void => {
+        this.setState({type: 'create'});
+        this.showModal();
     };
 
     public render(): React.ReactNode {
@@ -142,10 +175,10 @@ class HomePageComponent extends React.Component<Props, State> {
             userRoles,
             schedule,
             match: {
-                params: { id },
+                params: {id},
             },
         } = this.props;
-        console.log(userRoles)
+
         const currentLesson = teacherLessons && teacherLessons.filter((lesson) => lesson.id === parseInt(id, 10));
 
         const isUserInWrongVideoRoom = teacherLessons &&
@@ -155,18 +188,22 @@ class HomePageComponent extends React.Component<Props, State> {
             navigationService.redirectToDefaultPage();
         }
         const videoChatName: string = currentLesson && currentLesson[0].video.toString();
-        const currentLessonTimeObj = currentLesson && schedule[currentLesson[0].time-1];
+        const currentLessonTimeObj = currentLesson && schedule[currentLesson[0].time - 1];
 
         let lessonTitle: string;
         let startTime: string;
         let endTime: string;
         if (currentLessonTimeObj) {
             lessonTitle = currentLesson[0].className + ' ' + currentLesson[0].subject;
-            startTime = currentLessonTimeObj.startTime
-            endTime = currentLessonTimeObj.endTime
+            startTime = currentLessonTimeObj.startTime;
+            endTime = currentLessonTimeObj.endTime;
         }
 
         return (
+// <<<<<<< HEAD
+//             <Layout >
+//                 <Content style={{ margin: 'auto', width: '70%', background: 'white' }}>
+// =======
             <Layout>
 
                 <Modal
@@ -184,15 +221,19 @@ class HomePageComponent extends React.Component<Props, State> {
                                         onCancel={() => this.handleCancel()}
                                         visible={this.state.visible}
                             /> </AsyncContent>
-                        :
-                        <AsyncContent loading={!this.state.answers} loader={<PageLoadingSpinner/>}>
-                            <QuizResult answers={this.state.answers}
-                            />
+                        : this.state.type === 'answer' ?
+                            <AsyncContent loading={!this.state.answers} loader={<PageLoadingSpinner/>}>
+                                <QuizResult answers={this.state.answers}
+                                            correct={this.state.correct}
+                                />
 
-                        </AsyncContent>
-                    }
+                            </AsyncContent>
+                            :
+                            <QuizCreate updateQuiz={this.updateQuiz}
+                            />}
                 </Modal>
                 <Content style={{margin: 'auto', width: '70%'}}>
+                    {/*>>>>>>> master*/}
                     <PageContent>
 
                         <Top lessonTitle={lessonTitle}
@@ -203,12 +244,20 @@ class HomePageComponent extends React.Component<Props, State> {
 
                         {videoChatName && (
                             <Jitsi
-                                containerStyle={{ marginLeft: '61px'}}
-                                frameStyle={{ display: 'block', width: '1012px', height: '443px' }}
+                                containerStyle={{marginLeft: '61px'}}
+                                frameStyle={{
+                                    display: 'block',
+                                    height: this.state.whiteboardVisible ? '180px' :'443px',
+                                    width: this.state.whiteboardVisible ? '450px' :'1012px',
+                                    zIndex: this.state.whiteboardVisible ? 2000 : 1,
+                                    position: this.state.whiteboardVisible ? 'absolute' :'inherit',
+                                    right: this.state.whiteboardVisible ? '20px' : null,
+                                    top: this.state.whiteboardVisible ? '10%' : null,
+                                }}
                                 jwt="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250ZXh0Ijp7InVzZXIiOnsiYXZhdGFyIjoiaHR0cHM6Ly9hdmF0YXJzLmRpY2ViZWFyLmNvbS9hcGkvbWFsZS9tZW51by1zdS1pdC5zdmciLCJuYW1lIjoiTcSXbnVvIHN1IElUIn19LCJhdWQiOiJtZW51b19zdV9pdCIsImlzcyI6Im1lbnVvX3N1X2l0Iiwic3ViIjoibWVldC5qaXRzaSIsInJvb20iOiIqIn0.6CKZU_JWLhtj9eKJ-VdFGQZyRzvTZz29fn7--_dp-jw"
                                 roomName={videoChatName}
                                 domain="video-menuo-su-it.northeurope.cloudapp.azure.com:443"
-                                userInfo={{ email: username }}
+                                userInfo={{email: username}}
                                 displayName={username}
                                 onAPILoad={handleCallEnd}
                                 config={{
@@ -219,28 +268,30 @@ class HomePageComponent extends React.Component<Props, State> {
                                     disableRemoteMute: userRoles[0] === 'STUDENT',
                                 }}
                                 interfaceConfig={userRoles[0] === 'STUDENT' &&
-                                    {
-                                        TOOLBAR_BUTTONS: [
-                                            'microphone', 'camera', 'desktop', 'fullscreen', 'raisehand', 'hangup', 'chat',
-                                            'tileview', 'download', 'videoquality', 'filmstrip', 'invite', 'feedback',
-                                            'stats', 'shortcuts',
-                                        ],
-                                    } || {
+                                {
+                                    TOOLBAR_BUTTONS: [
+                                        'microphone', 'camera', 'desktop', 'fullscreen', 'raisehand', 'hangup', 'chat',
+                                        'tileview', 'download', 'videoquality', 'filmstrip', 'invite', 'feedback',
+                                        'stats', 'shortcuts',
+                                    ],
+                                } || {
 
-                                        SHOW_WATERMARK_FOR_GUESTS: false, SHOW_JITSI_WATERMARK: false,
-                                    }
+                                    SHOW_WATERMARK_FOR_GUESTS: false, SHOW_JITSI_WATERMARK: false,
+                                }
                                 }
                             />
                         )}
-                        {/*<Whiteboard/>*/}
-                    </PageContent>
-                </Content>
-                <Sider width='282px' className={styles.sider}>
 
-                        <VideoButton role={userRoles}
-                                     send={this.sendMessage}/>
+                    </PageContent>
+
+                </Content>
+                <Sider width={this.state.whiteboardVisible ? '100%' : '282px'} className={styles.sider}>
+                    <VideoButton handleWhiteboard={() => this.handleWhiteboard()} role={userRoles} openQuiz={this.openQuiz}
+                                 send={this.sendMessage}/>
+                    {this.state.whiteboardVisible ? <Whiteboard/> : null}
 
                 </Sider>
+
             </Layout>
         );
     }
@@ -268,7 +319,7 @@ const handleCallEnd = (api: any) => {
     });
 };
 
-const mapContextToProps = ({ session: { user }, lessons, schedule }: SettingsProps): ContextProps => ({
+const mapContextToProps = ({session: {user}, lessons, schedule}: SettingsProps): ContextProps => ({
     username: user != null ? user.username : null,
     firstName: user != null ? user.firstName : null,
     userRoles: user.roles,

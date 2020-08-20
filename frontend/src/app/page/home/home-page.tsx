@@ -11,6 +11,7 @@ import { SideTimebar } from 'app/page/timetable/side-timebar';
 import { scheduleCalc } from 'app/page/timetable/schedule-calc';
 
 import styles from './home.module.scss';
+import { Whiteboard } from 'app/components/whiteboard/whiteboard';
 
 interface ContextProps {
     username: string | null;
@@ -101,6 +102,7 @@ class HomePageComponent extends React.Component<Props, State> {
                                 )
                         }
                     </div>
+
                 </div>
             </AsyncContent >
         );

@@ -10,23 +10,46 @@
 
       INSERT INTO `user` VALUES (10, 'Rytis', 'Cicinas','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'mokinys6a','');
 
-      INSERT INTO `user` VALUES (11, 'Geografijos', 'Mokytojas','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'geomokytojas','');
-      INSERT INTO `user` VALUES (12, 'Fizikos', 'Mokytojas','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'fizmokytojas','');
-      INSERT INTO `user` VALUES (13, 'Informatikos', 'Mokytojas','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'infmokytojas','');
-      INSERT INTO `user` VALUES (14, 'Kūno kultūros', 'Mokytojas','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'kunmokytojas','');
-      INSERT INTO `user` VALUES (15, 'Istorijos', 'Mokytojas','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'istmokytojas','');
-      INSERT INTO `user` VALUES (16, 'Anglų kalbos', 'Mokytojas','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'angmokytojas','');
-      INSERT INTO `user` VALUES (17, 'Antros užsienio k.', 'Mokytojas','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'antmokytojas','');
-      INSERT INTO `user` VALUES (18, 'Technologijų', 'Mokytojas','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'tecmokytojas','');
-      INSERT INTO `user` VALUES (19, 'Biologijos', 'Mokytojas','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'biomokytojas','');
-      INSERT INTO `user` VALUES (20, 'Chemijos', 'Mokytojas','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'chemokytojas','');
-      INSERT INTO `user` VALUES (21, 'Pilietinio ugd.', 'Mokytojas','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'pilmokytojas','');
-      INSERT INTO `user` VALUES (22, 'Matematikos', 'Mokytojas','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'matmokytojas','');
-      INSERT INTO `user` VALUES (23, 'Lietuvių k.', 'Mokytojas','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'liemokytojas','');
-      INSERT INTO `user` VALUES (24, 'Etikos', 'Mokytojas','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'etimokytojas','');
-      INSERT INTO `user` VALUES (25, 'Menų', 'Mokytojas','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'menmokytojas','');
+      INSERT INTO `user` VALUES (11, 'Daryl', 'Hannah','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'darhan','');
+
+      INSERT INTO `user` VALUES (12, 'Joel', 'Edgerton','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'joeedg','');
+      INSERT INTO `user` VALUES (13, 'Lena', 'Headey','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'lenhea','');
+      INSERT INTO `user` VALUES (14, 'Kathy', 'Bates','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'katbat','');
+      INSERT INTO `user` VALUES (15, 'Callan', 'Mulvey','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'calmul','');
+      INSERT INTO `user` VALUES (16, 'Julianne', 'Moore','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'julmoo','');
+      INSERT INTO `user` VALUES (17, 'Sala', 'Baker','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'salbak','');
+      INSERT INTO `user` VALUES (18, 'Rosamund', 'Pike','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'rospik','');
+      INSERT INTO `user` VALUES (19, 'Ann', 'Jursa','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'annjur','');
+      INSERT INTO `user` VALUES (20, 'Erika', 'Mackovskyte','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'erimac','');
+      INSERT INTO `user` VALUES (21, 'James', 'Rhodes','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'jamrho','');
+
+      INSERT INTO `user` VALUES (22, 'Helena', 'Carter','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'helcar','');
+      INSERT INTO `user` VALUES (23, 'Josh', 'Brolin','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'josbro','');
+      INSERT INTO `user` VALUES (24, 'Charlize', 'Theron','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'chathe','');
+      INSERT INTO `user` VALUES (25, 'Eva', 'Green','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'evagre','');
+      INSERT INTO `user` VALUES (26, 'Marion', 'Cotillard','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'marcot','');
+      INSERT INTO `user` VALUES (27, 'Famke', 'Janssen','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'famjan','');
+      INSERT INTO `user` VALUES (28, 'Sharon', 'Stone','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'shasto','');
+
+      INSERT INTO `user` VALUES (29, 'Chris', 'Evans','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'chreva','');
+      INSERT INTO `user` VALUES (30, 'Mark', 'Ruffalo','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'marruf','');
+      INSERT INTO `user` VALUES (31, 'Scarlett', 'Johansson','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'scajoh','');
+      INSERT INTO `user` VALUES (32, 'Jeremy', 'Renner','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'jerren','');
+      INSERT INTO `user` VALUES (33, 'Paul', 'Rudd','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'paurud','');
+      INSERT INTO `user` VALUES (34, 'Tom', 'Holland','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'tomhol','');
+      INSERT INTO `user` VALUES (35, 'Simu ', 'Liu','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'simliu','');
 
       INSERT INTO `classroom_user` VALUES (4, 10);
+      INSERT INTO `classroom_user` VALUES (4, 11);
+      INSERT INTO `classroom_user` VALUES (4, 12);
+      INSERT INTO `classroom_user` VALUES (4, 13);
+      INSERT INTO `classroom_user` VALUES (4, 14);
+      INSERT INTO `classroom_user` VALUES (4, 15);
+      INSERT INTO `classroom_user` VALUES (4, 16);
+      INSERT INTO `classroom_user` VALUES (4, 17);
+
+
+
 
       INSERT INTO `user_role` VALUES (10, 1);
 
@@ -45,57 +68,68 @@
       INSERT INTO `user_role` VALUES (23, 2);
       INSERT INTO `user_role` VALUES (24, 2);
       INSERT INTO `user_role` VALUES (25, 2);
+      INSERT INTO `user_role` VALUES (26, 2);
+      INSERT INTO `user_role` VALUES (27, 2);
+      INSERT INTO `user_role` VALUES (28, 2);
 
-      INSERT INTO `subject` VALUES (7,'Kūno kultūra','Kūno kultūros pamoka');
-      INSERT INTO `subject` VALUES (8,'Istorija','Istorijos pamoka');
-      INSERT INTO `subject` VALUES (9,'Menai','Menų pamoka');
-      INSERT INTO `subject` VALUES (10,'Anglų kalba','Anglų kalbos pamoka');
-      INSERT INTO `subject` VALUES (11,'Antra užsienio kalba','Antros užsienio kalbos pamoka');
-      INSERT INTO `subject` VALUES (12,'Technologijos','Technologijų pamoka');
-      INSERT INTO `subject` VALUES (13,'Etika','Etikos pamoka');
-      INSERT INTO `subject` VALUES (14,'Biologija','Biologijos pamoka');
-      INSERT INTO `subject` VALUES (15,'Chemija','Chemijos pamoka');
-      INSERT INTO `subject` VALUES (16,'Pilietinis ugdymas','Pilietinio ugdymo pamoka');
+      INSERT INTO `user_role` VALUES (29, 1);
+      INSERT INTO `user_role` VALUES (30, 1);
+      INSERT INTO `user_role` VALUES (31, 1);
+      INSERT INTO `user_role` VALUES (32, 1);
+      INSERT INTO `user_role` VALUES (33, 1);
+      INSERT INTO `user_role` VALUES (34, 1);
+      INSERT INTO `user_role` VALUES (35, 1);
+
+      INSERT INTO `subject` VALUES (7,'Physical Education','Physical Education lesson');
+      INSERT INTO `subject` VALUES (8,'History','History lesson');
+      INSERT INTO `subject` VALUES (9,'Arts','Arts lesson');
+      INSERT INTO `subject` VALUES (10,'English','English lesson');
+      INSERT INTO `subject` VALUES (11,'Foreign Languages','Foreign Language lesson');
+      INSERT INTO `subject` VALUES (12,'Information Technologies','Information Technologies lesson');
+      INSERT INTO `subject` VALUES (13,'Religion','Religion lesson');
+      INSERT INTO `subject` VALUES (14,'Biology','Biology lesson');
+      INSERT INTO `subject` VALUES (15,'Chemistry','Chemistry lesson');
+      INSERT INTO `subject` VALUES (16,'Pilietinis ugdymas','Pilietinio ugdymo lesson');
       INSERT INTO `subject` VALUES (17,'Klasės valandėlė','Klasės valandėlė');
 
-      INSERT INTO `lesson` VALUES(16,2,4,25,'Matematika 6A',1,1,0);
-      INSERT INTO `lesson` VALUES(17,1,4,23,'Lietuvių k. 6A',1,2,0);
-      INSERT INTO `lesson` VALUES(18,1,4,23,'Lietuvių k. 6A',1,3,0);
-      INSERT INTO `lesson` VALUES(19,7,4,14,'Kūno kultūra 6A',1,4,0);
-      INSERT INTO `lesson` VALUES(20,8,4,15,'Istorija 6A',1,5,0);
-      INSERT INTO `lesson` VALUES(21,9,4,25,'Menai 6A',1,6,0);
-      INSERT INTO `lesson` VALUES(22,10,4,16,'Anglų k. 6A',1,7,0);
+      INSERT INTO `lesson` VALUES(16,10,4,27,'English 6A',1,1,0);
+      INSERT INTO `lesson` VALUES(17,14,4,15,'Biology 6A',1,2,0);
+      INSERT INTO `lesson` VALUES(18,2,4,28,'Mathematics 6A',1,3,0);
+      INSERT INTO `lesson` VALUES(19,1,4,23,'Lithuanian 6A',1,4,0);
+      INSERT INTO `lesson` VALUES(20,8,4,25,'History 6A',1,5,0);
+      INSERT INTO `lesson` VALUES(21,12,4,18,'IT 6A',1,6,0);
+      INSERT INTO `lesson` VALUES(22,10,4,27,'English 6A',1,7,0);
 
-      INSERT INTO `lesson` VALUES(23,1,4,23,'Lietuvių k. 6A',2,1,0);
-      INSERT INTO `lesson` VALUES(24,2,4,25,'Matematika 6A',2,2,0);
-      INSERT INTO `lesson` VALUES(25,16,4,21,'Pilietinis ugd. 6A',2,3,0);
-      INSERT INTO `lesson` VALUES(26,11,4,17,'Antra užsienio k. 6A',2,4,0);
-      INSERT INTO `lesson` VALUES(27,3,4,11,'Geografija 6A',2,5,0);
-      INSERT INTO `lesson` VALUES(28,12,4,18,'Technologijos 6A',2,6,0);
-      INSERT INTO `lesson` VALUES(29,12,4,18,'Technologijos 6A',2,7,0);
+      INSERT INTO `lesson` VALUES(23,15,4,16,'Chemistry 6A',2,1,0);
+      INSERT INTO `lesson` VALUES(24,15,4,16,'Chemistry 6A',2,2,0);
+      INSERT INTO `lesson` VALUES(25,2,4,28,'Mathematics 6A',2,3,0);
+      INSERT INTO `lesson` VALUES(26,8,4,25,'History 6A',2,4,0);
+      INSERT INTO `lesson` VALUES(27,3,4,11,'Geography 6A',2,5,0);
+      INSERT INTO `lesson` VALUES(28,9,4,26,'Arts 6A',2,6,0);
+      INSERT INTO `lesson` VALUES(29,1,4,23,'Lithuanian 6A',2,7,0);
 
-      INSERT INTO `lesson` VALUES(30,10,4,16,'Anglų k. 6A',3,1,0);
-      INSERT INTO `lesson` VALUES(31,13,4,24,'Etika 6A',3,2,0);
-      INSERT INTO `lesson` VALUES(32,8,4,15,'Istorija 6A',3,3,0);
-      INSERT INTO `lesson` VALUES(33,4,4,12,'Fizika 6A',3,4,0);
-      INSERT INTO `lesson` VALUES(34,1,4,23,'Lietuvių k. 6A',3,5,0);
-      INSERT INTO `lesson` VALUES(35,2,4,22,'Matematika 6A',3,6,0);
-      INSERT INTO `lesson` VALUES(36,14,4,19,'Biologija 6A',3,7,0);
+      INSERT INTO `lesson` VALUES(30,10,4,27,'English 6A',3,1,0);
+      INSERT INTO `lesson` VALUES(31,13,4,17,'Religion 6A',3,2,0);
+      INSERT INTO `lesson` VALUES(32,8,4,25,'History 6A',3,3,0);
+      INSERT INTO `lesson` VALUES(33,4,4,14,'Physics 6A',3,4,0);
+      INSERT INTO `lesson` VALUES(34,1,4,23,'Lithuanian 6A',3,5,0);
+      INSERT INTO `lesson` VALUES(35,2,4,28,'Mathematics 6A',3,6,0);
+      INSERT INTO `lesson` VALUES(36,14,4,15,'Biology 6A',3,7,0);
 
-      INSERT INTO `lesson` VALUES(37,1,4,23,'Lietuvių k. 6A',4,1,0);
-      INSERT INTO `lesson` VALUES(38,7,4,14,'Kūno kultūra 6A',4,2,0);
-      INSERT INTO `lesson` VALUES(39,11,4,17,'Antra užsienio k. 6A',4,3,0);
-      INSERT INTO `lesson` VALUES(40,15,4,20,'Chemija 6A',4,4,0);
-      INSERT INTO `lesson` VALUES(41,9,4,25,'Menai 6A',4,5,0);
-      INSERT INTO `lesson` VALUES(42,5,4,13,'Informatika 6A',4,6,0);
-      INSERT INTO `lesson` VALUES(43,17,4,25,'Klasės valandėlė 6A',4,7,0);
+      INSERT INTO `lesson` VALUES(37,1,4,23,'Lithuanian 6A',4,1,0);
+      INSERT INTO `lesson` VALUES(38,7,4,7,'Physical Education 6A',4,2,0);
+      INSERT INTO `lesson` VALUES(39,12,4,12,'Foreign Languages 6A',4,3,0);
+      INSERT INTO `lesson` VALUES(40,15,4,16,'Chemistry 6A',4,4,0);
+      INSERT INTO `lesson` VALUES(41,9,4,26,'Arts 6A',4,5,0);
+      INSERT INTO `lesson` VALUES(42,1,4,23,'Lithuanian',4,6,0);
+      INSERT INTO `lesson` VALUES(43,14,4,15,'Biology 6A',4,7,0);
 
-      INSERT INTO `lesson` VALUES(44,14,4,19,'Biologija 6A',5,1,0);
-      INSERT INTO `lesson` VALUES(45,3,4,11,'Geografija 6A',5,2,0);
-      INSERT INTO `lesson` VALUES(46,2,4,22,'Matematika 6A',5,3,0);
-      INSERT INTO `lesson` VALUES(47,15,4,20,'Chemija 6A',5,4,0);
-      INSERT INTO `lesson` VALUES(48,10,4,16,'Anglų k. 6A',5,5,0);
-      INSERT INTO `lesson` VALUES(49,4,4,12,'Fizika 6A',5,6,0);
+      INSERT INTO `lesson` VALUES(44,14,4,15,'Biology 6A',5,1,0);
+      INSERT INTO `lesson` VALUES(45,3,4,11,'Geography 6A',5,2,0);
+      INSERT INTO `lesson` VALUES(46,2,4,28,'Mathematics 6A',5,3,0);
+      INSERT INTO `lesson` VALUES(47,15,4,16,'Chemistry 6A',5,4,0);
+      INSERT INTO `lesson` VALUES(48,1,4,23,'Lithuanian',5,5,0);
+      INSERT INTO `lesson` VALUES(49,1,4,23,'Lithuanian',5,6,0);
 
       create table schedule
       (

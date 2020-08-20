@@ -70,6 +70,7 @@ public class VideoWebSocketHandler extends TextWebSocketHandler {
                 .anyMatch(student -> student
                     .getUsername()
                     .contains(webSocketSession.getPrincipal().getName()))) {
+                System.out.println(webSocketSession.getPrincipal().getName());
                 webSocketSession.sendMessage(message);
                 //}
             }

@@ -1,8 +1,9 @@
 import React from 'react';
-import { Form ,Input } from 'antd';
+import { Form , Input } from 'antd';
 import { FieldProps as FormikFieldProps } from 'formik';
-
 import { InputProps } from 'antd/lib/input';
+
+import styles from './input.module.scss';
 
 interface OwnProps {
     label?: string;
@@ -17,7 +18,7 @@ class InputField extends React.Component<FieldWrapperProps> {
             label,
             field,
             field: { name },
-            form: { touched, errors },
+            form: { touched, errors, dirty },
             disabled,
             required,
             ...rest
@@ -35,12 +36,15 @@ class InputField extends React.Component<FieldWrapperProps> {
                 label={label}
                 validateStatus={validateStatus}
                 help={validateMessage}
+
             >
                 <Input
+                    className={styles.chatInput}
                     {...field}
                     {...rest}
-                    autoComplete='off'
+                    autoComplete="off"
                 />
+                {/*<Input.TextArea {...field} />*/}
             </Form.Item>
         );
     }
