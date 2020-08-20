@@ -13,13 +13,13 @@ interface Props {
 class Channels extends React.Component<Props> {
     public render(): React.ReactNode {
         const { channels, currentChannel, onChannelChange, classRooms } = this.props;
-
+console.log(currentChannel)
+        const ChannelNum = [currentChannel.toString()];
+console.log(ChannelNum)
         return (
       <Menu
-        defaultSelectedKeys={[currentChannel.toString()]}
-        defaultOpenKeys={['sub1']}
-        mode="inline"
-
+          selectedKeys={[currentChannel.toString()]}
+          mode="inline"
       >
         <Menu.Item style={{ fontSize: '20px', marginTop: '27px' }}>Subjects</Menu.Item>
 
