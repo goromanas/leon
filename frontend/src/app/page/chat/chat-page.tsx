@@ -170,7 +170,7 @@ class ChatComponent extends React.Component<Props, State> {
         loader={<PageLoadingSpinner />}
      >
       <Layout >
-        <Sider theme='light' className={styles.sider}>
+        <Sider theme='light' className={styles.sider} width='250px'>
           <Channels
             channels={channels}
             classRooms={classRooms}
@@ -179,7 +179,7 @@ class ChatComponent extends React.Component<Props, State> {
             onClassChange={this.onClassChange}
           />
         </Sider>
-        <Content style={{background: 'white'}}>
+        <Content style={{background: 'white'}} >
           <PageContent >
          <ChatList
             messages={messages}
@@ -189,7 +189,6 @@ class ChatComponent extends React.Component<Props, State> {
             <ChatForm
               initialValues={ChatComponent.MESSAGE_INITIAL_VALUES}
               onSubmit={this.handleSubmit}
-              // addFile={this.addFile}
             />
           </PageContent>
         </Content>
@@ -211,15 +210,6 @@ class ChatComponent extends React.Component<Props, State> {
             console.log(error); // catch error
         }
     };
-
-  // if (teacherLessons) {
-  //   console.log(teacherLessons);
-  // }
-
-  // public addFile = (file: any) => {
-  //     this.setState({ file: file });
-  //     console.log(file);
-  // }
 
     private readonly handleSubmit = (values: MessageValue, { resetForm }: FormikHelpers<MessageValue>): void => {
         const { messages, currentChannel, currentClassroom } = this.state;

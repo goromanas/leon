@@ -27,7 +27,11 @@ class Channels extends React.Component<Props> {
             this.props.channels
             .sort((a, b) => (a.name > b.name) ? 1 : -1)
             .map(channel => (
-              <Menu.Item onClick={() => this.props.onChannelChange(channel.id)} key={channel.id}>
+              <Menu.Item
+                  onClick={() => this.props.onChannelChange(channel.id)}
+                  key={channel.id}
+                  style={{ marginLeft: '20px' }}
+              >
                 {channel.name}
               </Menu.Item>
             ))}
@@ -38,6 +42,7 @@ class Channels extends React.Component<Props> {
               <Menu.Item
                 onClick={() => this.props.onClassChange(classroom.classroomName)}
                 key={classroom.classroomName}
+                style={{ marginLeft: '20px', width: '200px' }}
               >
                 {classroom.classroomName}
               </Menu.Item>

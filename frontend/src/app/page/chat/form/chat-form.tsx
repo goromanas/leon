@@ -1,5 +1,5 @@
 import React from 'react';
-import { Field, Form, Formik, FormikConfig } from 'formik';
+import { Field, Form, Formik, FormikConfig, FormikHelpers } from 'formik';
 import { Button, Avatar } from 'antd';
 import { UserOutlined, RightOutlined } from '@ant-design/icons';
 
@@ -17,20 +17,21 @@ interface OwnProps {
 
 export type ChatErrors = FormErrors<MessageValue>;
 
-type Props = FormikConfig<MessageValue> & OwnProps;
+type Props = FormikConfig<MessageValue> & OwnProps & FormikHelpers<MessageValue>;
 
 const ChatForm: React.FC<Props> = (props: Props) => {
     const { initialValues, onSubmit } = props;
-
+// console.log(initialValues)
+//     const isDisabled = initialValues.message === ''? true: false
     return (
         <div className={styles.container}>
-            <Avatar style={{opacity: '0'}} />
+            <Avatar style={{ opacity: '0' }} />
         <div className={styles.sendMessage}>
             <Formik initialValues={initialValues} onSubmit={onSubmit}>
                 {() => (
                     <Form>
                         <Field component={InputField} name="message" placeholder="Message..." />
-                        <Button htmlType="submit">
+                        <Button  htmlType="submit">
                             Send <RightOutlined />
                         </Button>
                     </Form>

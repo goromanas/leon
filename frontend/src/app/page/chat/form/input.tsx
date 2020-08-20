@@ -43,6 +43,7 @@ class InputField extends React.Component<FieldWrapperProps> {
                     {...rest}
                     autoComplete='off'
                 />
+                {/*<Input.TextArea {...field} />*/}
             </Form.Item>
         );
     }
