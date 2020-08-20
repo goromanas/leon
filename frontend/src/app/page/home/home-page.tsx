@@ -30,18 +30,6 @@ interface State {
 
 class HomePageComponent extends React.Component<Props, State> {
 
-    public readonly state: State = {
-        move: 0,
-        dayOfWeek: 0,
-    };
-
-    public componentDidMount(): void {
-        const date = new Date();
-        const today: number = date.getDay();
-
-        this.setState({ ...this.state, dayOfWeek: today });
-    }
-
     public render(): React.ReactNode {
         const {
             userRoles,
@@ -64,7 +52,7 @@ class HomePageComponent extends React.Component<Props, State> {
 
                                         <Row>
                                             <Col lg={2} md={2} sm={2} >
-                                                <SideTimebar schedule={schedule} homepage={true} itemsInList={scheduleCalc.thisDayLength(allLessons, this.state.dayOfWeek)} />
+                                                <SideTimebar schedule={schedule} homepage={true} itemsInList={scheduleCalc.thisDayLength(allLessons, parseInt(moment().format('d'), 10))} />
 
                                             </Col>
                                             <Col lg={16} md={38} sm={38} >
@@ -73,7 +61,7 @@ class HomePageComponent extends React.Component<Props, State> {
                                                     currentLesson={currentLesson}
                                                     allLessons={allLessons || []}
                                                     date={moment().format('YYYY-MM-DD')}
-                                                    day={this.state.dayOfWeek}
+                                                    day={parseInt(moment().format('d'), 10)}
                                                     schedule={schedule}
                                                     homepage={true}
                                                 />

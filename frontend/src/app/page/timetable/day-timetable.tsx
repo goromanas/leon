@@ -20,9 +20,9 @@ interface Props {
     homepage?: boolean;
 }
 
-const DayLessonsList: React.FC<Props> = ({allLessons, userRole, day, date, currentLesson, schedule, homepage}) => {
+const DayLessonsList: React.FC<Props> = ({ allLessons, userRole, day, date, currentLesson, schedule, homepage }) => {
 
-    const {dayHeader, dayClass, dayLessonsList, activeDay, dayHeaderInHome} = styles;
+    const { dayHeader, dayClass, dayLessonsList, activeDay, dayHeaderInHome } = styles;
     // filter this { day } lessons from allLessons
     const dayLessons = allLessons && allLessons.filter((lesson: Api.LessonDto) =>
         lesson.day === day);
