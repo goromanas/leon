@@ -8,7 +8,7 @@ interface Props {
 
 const Logo: React.FC<Props> = ({ fontSize }) => (
   <h1 className={styles.logo} style={{ fontSize: fontSize }}>
-    Moon
+    Leon
   </h1>
 );
 

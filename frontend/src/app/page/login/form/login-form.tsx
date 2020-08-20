@@ -32,7 +32,7 @@ const LoginForm: React.FC<Props> = (props: Props) => {
           <Field
             component={InputField}
             name="username"
-            placeholder="Your Name"
+            placeholder="Name123"
           />
           <label>Password</label>
           <Field
