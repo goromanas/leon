@@ -48,13 +48,14 @@
   font-weight: $normal;
   font-size: $md;
   color: $grey9;
-  margin-right: 25px;
+  margin-right: 40px;
   border-bottom: 2px solid rgba(255, 255, 255, 0);
   transform: translateY(1px);
   transition: 0.2s ease-out;
 }
 .weekNavigationBackText {
   @extend .weekNavigationText;
+  margin-right: 25px;
   color: $primary;
   cursor: pointer;
   &:hover {

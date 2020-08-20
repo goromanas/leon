@@ -3,6 +3,7 @@ import { Button, Modal } from 'antd';
 import classNames from 'classnames';
 import ReactTooltip from 'react-tooltip';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 import { TeacherModal } from 'app/components/modalContent/teacherModal';
 import { StudentModal } from 'app/components/modalContent/studentModal';
@@ -31,8 +32,11 @@ const SingleLesson: React.FC<Props> = (props) => {
     // define classNames
     const lessonClass = classNames(
         lesson,
-        currentLesson === thisLesson.id && activeLesson,
-        currentLesson > thisLesson.id && endedLesson,
+        currentLesson === thisLesson.id
+        && moment().format('W') === moment(date).format('W') && activeLesson,
+
+        currentLesson > thisLesson.id && moment().format('W') === moment(date).format('W') && endedLesson,
+        moment().format('W') > moment(date).format('W') && endedLesson,
         !homepage && activeInSchedules,
     );
 
@@ -102,7 +106,7 @@ const SingleLesson: React.FC<Props> = (props) => {
                                 : <div onClick={() => showModal(thisLesson.id)} className={styles.editModal}>
                                     <i className="fas  fa-lg fa-plus-circle" />
                                 </div>}
-                            {thisLesson.id === currentLesson ?
+                            {thisLesson.id === currentLesson && moment().format('W') === moment(date).format('W') ?
                                 (<Link to={navigationService.redirectToVideoChat(currentLesson)}>
                                     {homepage ?
 
