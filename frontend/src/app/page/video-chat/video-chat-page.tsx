@@ -92,9 +92,9 @@ class HomePageComponent extends React.Component<Props, State> {
             teacherUsername: this.state.quizMessageForStudent.teacherUsername,
             studentName: this.props.username,
         };
-
+        console.log('aaaaaaaaaaaa');
         this.ws.send(JSON.stringify(answer));
-
+    this.setState({quizMessageForStudent:null})
         console.log(this.state.value);
     };
 
@@ -103,6 +103,11 @@ class HomePageComponent extends React.Component<Props, State> {
         this.setState({
             visible: false,
         });
+    };
+    public updateQuiz = (values: any,value:any) => {
+        this.setState({correct:value})
+        this.sendMessage(values);
+        this.handleCancel()
     };
 
     public readonly getSocketUrlQuiz = (): string => {
@@ -126,7 +131,6 @@ class HomePageComponent extends React.Component<Props, State> {
                 this.showModal();
                 this.setState({quizMessageForStudent: message});
             } else {
-                this.showModal();
                 const copyAnswers = [...this.state.answers];
                 const newAnswers = [...copyAnswers, message];
 
@@ -134,12 +138,33 @@ class HomePageComponent extends React.Component<Props, State> {
                     answers: newAnswers,
                 });
                 console.log(this.state.answers);
+                this.showModal();
             }
         };
     }
 
-    public sendMessage = (): void => {
-        this.ws.send('{"type":"question","classroom":"6A", "teacherUsername":"istmokytojas", "question": "Is this legit?", "options": [{"id":"1", "name":"Option 1"},{"id":"2", "name":"Option 2"}],"correct":"1","timer":"5"}');
+    public sendMessage = (values: any): void => {
+        const question =
+            {
+                type: 'question',
+                classroom: this.props.teacherLessons[0].className,
+                teacherUsername: this.props.username,
+                question: values.question,
+                options: values.options?.map((item: string) => ({
+                    id: values.options.indexOf(item)+1,
+                    name: item,
+                })),
+                timer: values.timer
+            };
+        console.log(question);
+        this.ws.send(JSON.stringify(question));
+
+     //   this.ws.send('{"type":"question","classroom":"6A", "teacherUsername":"tecmokytojas", "question": "Is this legit?", "options": [{"id":"1", "name":"Option 1"},{"id":"2", "name":"Option 2"}],"correct":"1","timer":"1"}');
+    };
+
+    public openQuiz = (values: any): void => {
+        this.setState({type: 'create'});
+        this.showModal();
     };
 
     public render(): React.ReactNode {
@@ -196,13 +221,16 @@ class HomePageComponent extends React.Component<Props, State> {
                                         onCancel={() => this.handleCancel()}
                                         visible={this.state.visible}
                             /> </AsyncContent>
-                        :
-                        <AsyncContent loading={!this.state.answers} loader={<PageLoadingSpinner/>}>
-                            <QuizResult answers={this.state.answers}
-                            />
+                        : this.state.type === 'answer' ?
+                            <AsyncContent loading={!this.state.answers} loader={<PageLoadingSpinner/>}>
+                                <QuizResult answers={this.state.answers}
+                                            correct={this.state.correct}
+                                />
 
-                        </AsyncContent>
-                    }
+                            </AsyncContent>
+                            :
+                            <QuizCreate updateQuiz={this.updateQuiz}
+                            />}
                 </Modal>
                 <Content style={{margin: 'auto', width: '70%'}}>
                     {/*>>>>>>> master*/}

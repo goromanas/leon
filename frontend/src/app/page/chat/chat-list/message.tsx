@@ -32,10 +32,10 @@ const Message: React.FC<Props> = (
         <div className={styles.message}>
             <p>{text}</p>
             <p className={styles.timestamp}>{date}</p>
+            {'channel ' + channel}
+            {'classroom ' + classroom}
         </div>
 
-    {/*<p>channel: {channel}</p>*/}
-    {/*<p>Clasroom: {classroom}</p>*/}
     </div>
   </div>
 );
