@@ -64,8 +64,8 @@ class ScheduleCalc {
     };
 
     public getDayEnd = (schedule: Api.ScheduleDto[], lastItem: number) => {
-        if (schedule.length !== 0) {
-            return this.convertTimeToMinutes(schedule[lastItem].endTime);
+        if (schedule.length !== 0 && schedule.length >= lastItem) {
+            return this.convertTimeToMinutes(schedule[lastItem - 1].endTime);
         }
         return 0;
     };
