@@ -93,7 +93,7 @@ const SingleLesson: React.FC<Props> = (props) => {
                                     currentLessonInfo?.assignment?.includes('Homework') &&
 
                                     <i style={{color: 'white'}} className="far fa-file-alt "/>}
-                                {currentLessonInfo?.assignment?.includes('Test') &&
+                     bo           {currentLessonInfo?.assignment?.includes('Test') &&
                                 <i style={{backgroundColor:"red", color: "black"}} className="far fa-file-alt"/>
 
                                 }
