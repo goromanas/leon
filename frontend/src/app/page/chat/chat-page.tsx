@@ -79,6 +79,7 @@ class ChatComponent extends React.Component<Props, State> {
 
     public static MESSAGE_INITIAL_VALUES: MessageValue = { message: '' };
 
+
     public componentDidUpdate(prev: Props, prevState: State) {
         const { userRoles } = this.props;
 
@@ -171,6 +172,7 @@ class ChatComponent extends React.Component<Props, State> {
         loading={!teacherLessons}
         loader={<PageLoadingSpinner />}
      >
+
          <Layout >
             <Sider theme="light" className={styles.sider} width="250px">
               <Channels
@@ -195,6 +197,7 @@ class ChatComponent extends React.Component<Props, State> {
              </PageContent>
             </Content>
         </Layout>
+
       </AsyncContent>
         );
     }
