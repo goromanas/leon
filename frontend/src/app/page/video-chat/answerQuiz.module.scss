@@ -1,0 +1,27 @@
+@import '../../style/variables.scss';
+
+.question-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.option-wrapper {
+  padding: 0.5rem;
+  border: 1px solid $grey5;
+  border-radius: 10px;
+  width: 100%;
+  margin-bottom: 0.7rem;
+}
+
+.counter {
+  font-weight: 600;
+  color: #000;
+}
+
+.submit-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 2rem;
+}

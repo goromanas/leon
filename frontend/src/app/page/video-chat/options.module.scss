@@ -1,0 +1,61 @@
+@import '../../style/variables.scss';
+
+.quiz-form {
+  padding: 1rem 1.8rem;
+}
+.question-field {
+  margin: 2rem 0;
+  width: 100%;
+  padding: 0.2rem 0.5rem;
+  background: $grey2;
+  border: 1px solid $grey5;
+  border-radius: 2px;
+}
+
+.answer-field {
+  background: #fff;
+  border: 0px;
+  margin: 0 0.6rem 0.6rem 0;
+}
+
+.timer-label {
+  color: $grey5;
+  display: block;
+}
+
+.submit-container {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.submit-button {
+  background-color: $primary;
+  color: #fff;
+  border-radius: 3px;
+  border: 0px;
+  height: 30px;
+  font-size: 0.8rem;
+  font-weight: 300;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+}
+
+.option-button {
+  background-color: $secondary;
+  color: #fff;
+  border-radius: 3px;
+  border: 0px;
+  height: 30px;
+  font-size: 0.8rem;
+  font-weight: 300;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.change-option {
+  background: primary;
+}

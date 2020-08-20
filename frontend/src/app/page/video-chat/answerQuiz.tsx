@@ -1,16 +1,8 @@
-import React, { useState } from 'react';
-import { RouteComponentProps } from 'react-router';
+import React from 'react';
+import { Layout, Radio, Button } from 'antd';
 
-import { Layout, Radio, } from 'antd';
-import Jitsi from 'react-jitsi';
+import styles from './answerQuiz.module.scss';
 
-import { connectContext, SettingsProps } from 'app/context';
-import { PageContent } from 'app/components/layout';
-import { navigationService } from 'app/service/navigation-service';
-import { Button, Modal } from 'antd';
-import { lessonsService } from 'app/api/service/lessons-service';
-
-const {Content} = Layout;
 
 interface Props {
     message: any;
@@ -42,42 +34,54 @@ const AnswerQuiz: React.FC<Props> = (props) => {
         }
     }, [counter]);
 
-    const radioStyle = {
-        display: 'block',
-        height: '30px',
-        lineHeight: '30px',
-    };
+    // const radioStyle = {
+    //     display: 'block',
+    //     height: '30px',
+    //     lineHeight: '50px',
+    // };
 
     return (
         <>
 
-            <h1>{props.message.question}</h1>
+            <h1
+                className={styles.questionTitle}
+            >
+                {props.message.question}
+            </h1>
 
-            <Radio.Group onChange={onChange} value={value}>
+            <Radio.Group onChange={onChange} value={value} style={{width: "100%", marginTop: "2rem"}}>
 
                 {
                     props.message.options.map((item: any) =>
-                        (
-                            <Radio style={radioStyle} key={item.id} value={item.id}>
+                        (<div className={styles.optionWrapper}>
+                            <Radio  key={item.id} value={item.id}>
                                 {item.name}
                             </Radio>
-                        )
+                        </div>
+                        ),
                     )}
 
-                <Button
-                    disabled={!valid}
-                    onClick={() => props.onSuccess()}>
-                    Submit
-                </Button>
-
             </Radio.Group>
-
+{/*
             {!valid ?
                 <h4 style={{color: 'red'}}>Please select an option</h4> :
                 null
-            }
+            } */}
 
-            <div>Countdown: {counter}</div>
+            <div className={styles.submitContainer}>
+                <div>
+                Time left: {' '}
+                <span className={styles.counter}>
+                    {counter}s
+                    </span>
+                    </div>
+            <Button
+                    type="primary"
+                    disabled={!valid}
+                    onClick={() => props.onSuccess()}>
+                    Submit Your Answer
+            </Button>
+            </div>
 
         </>
     );
