@@ -1,10 +1,11 @@
 import React from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { message } from 'antd';
 
 import { connectContext, SettingsProps } from 'app/context';
 
 import { Message } from './message';
+
+import styles from './chat-list.module.scss'
 
 interface Message {
     text: string;
@@ -17,6 +18,8 @@ interface Message {
 
 interface ContextProps {
     teacherLessons: Api.LessonDto[];
+    firstName: string | null;
+
 }
 
 interface OwnProps {
@@ -26,18 +29,20 @@ interface OwnProps {
 }
 type Props = ContextProps & OwnProps;
 
-const ChatListComponent: React.FC<Props> = ({ messages, currentChannel, currentClassroom }) =>
+const ChatListComponent: React.FC<Props> = (
+    {messages, currentChannel, currentClassroom, firstName }) =>
     (
-        < div >
-        < ul >
-        < TransitionGroup
-            className="chat-messages"
-            appear={true}
-        >
-        {
-            messages
-            .filter(message => message.channel === currentChannel && message.classroom === currentClassroom)
-                .map((msg, i) => (
+        < div className={styles.container}>
+
+            < ul >
+                < TransitionGroup
+                     className="chat-messages"
+                     appear={true}
+                >
+                {
+                    messages
+                    .filter(message => message.channel === currentChannel && message.classroom === currentClassroom)
+                     .map((msg, i) => (
                     <CSSTransition key={i} timeout={300} classNames="fade" appear={true}>
                         <Message
                             key={i}
@@ -46,18 +51,20 @@ const ChatListComponent: React.FC<Props> = ({ messages, currentChannel, currentC
                             date={msg.date}
                             channel={msg.channel}
                             classroom={msg.classroom}
+                            toRight={msg.author === firstName}
                         />
 
                     </CSSTransition>
                 ))
-        }
-</TransitionGroup>
-</ul>
+             }
+              </TransitionGroup>
+        </ul>
 </div>
     );
 
-const mapContextToProps = ({ lessons }: SettingsProps): ContextProps => ({
+const mapContextToProps = ({ session: { user }, lessons }: SettingsProps): ContextProps => ({
     teacherLessons: lessons,
+    firstName: user != null ? user.firstName : null,
 });
 
 const ChatList = connectContext(mapContextToProps)(ChatListComponent);

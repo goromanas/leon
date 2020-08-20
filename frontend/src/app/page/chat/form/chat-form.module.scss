@@ -1,0 +1,44 @@
+@import '~app/style/variables';
+
+
+input:focus{outline-color: red;}
+
+.container{
+  display: flex;
+  align-items: center;
+}
+
+.sendMessage{
+  border: 1px solid #C1C4C7;
+  box-sizing: border-box;
+  border-radius: 76px;
+  width: 75vw;
+//form div div div div{
+//  outline: none
+//}
+  form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  input{
+    border: none;
+    background-color: transparent;
+    width: 66vw;
+    margin-top: 22px;
+
+  }
+  button {
+    background-color: $gold6;
+    border-radius: 46px;
+    margin: 10px;
+    color: #000000;
+    outline: none;
+    &:hover{
+      background: $gold7;
+      color: #000000;
+      border: none;
+    }
+  }
+}
+

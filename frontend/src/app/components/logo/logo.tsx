@@ -2,6 +2,14 @@ import React from "react";
 
 import styles from "./logo.module.scss";
 
-const Logo: React.FC = () => <h1 className={styles.logo}>Moon</h1>;
+interface Props {
+  fontSize: string;
+}
+
+const Logo: React.FC<Props> = ({ fontSize }) => (
+  <h1 className={styles.logo} style={{ fontSize: fontSize }}>
+    Leon
+  </h1>
+);
 
 export { Logo };

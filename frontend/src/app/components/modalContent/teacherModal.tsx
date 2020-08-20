@@ -23,28 +23,18 @@ const TeacherModal: React.FC<{ lessonId: number, onClose: () => void, date: stri
 
     const saveLessonInformation = (lessonInformation: Api.LessonInformationDto): void => {
         lessonInformationService
-            .postLessonInformation(lessonInformation)
-            .then(() => console.log(lessonInformation));
+            .postLessonInformation(lessonInformation);
     };
 
     const updateLessonInformation = (lessonInformation: Api.LessonInformationDto): void => {
-        console.log('update funkcija');
+
         lessonInformationService
-            .updateLessonInformation(lessonInformation)
-            .then(() => console.log('updeitas'))
-            .then(() => console.log(lessonInformation));
+            .updateLessonInformation(lessonInformation);
     };
 
     const saveInformation = (lessonInformation: Api.LessonInformationDto): void => {
-        // if (props.lessonInformation[0]) {
-        console.log('before update');
         updateLessonInformation(lessonInformation);
-        console.log('after update');
-        // } else {
-        //     saveLessonInformation(lessonInformation);
-        // }
     };
-    console.log(props.lessonInformation);
     return (
         <div>
             <Formik
@@ -60,7 +50,6 @@ const TeacherModal: React.FC<{ lessonId: number, onClose: () => void, date: stri
                     values: Api.LessonInformationDto,
                     {setSubmitting}: FormikHelpers<Values>
                 ) => {
-                    console.log(values);
                     saveInformation(values);
                     setTimeout(() => {
                         setSubmitting(false);

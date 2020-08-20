@@ -1,5 +1,51 @@
-.login-container {
-  display: flex;
-  height: 100%;
-  align-items: center;
+@import '~app/style/variables';
+
+.login {
+
+  &-container {
+    position: relative;
+    top: 5%;
+    display: flex;
+    left: 8%;
+    height: 90%;
+    align-items: center;
+    background: #fff;
+    width: 45%;
+    border-radius: 25px;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+
+  &-layout {
+    background: $primary;
+
+  }
+
+  &-image {
+    position: absolute;
+    z-index: 10;
+    right: 10%;
+    bottom: 15%;
+    width: 45%;
+    max-height: 500px;
+  }
+
+  &-logo {
+    font-size: 2rem;
+  }
+
+  &-heading {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: -9rem;
+  }
+
+  &-subheading {
+    font-weight: 600;
+  }
+
+  &-messagewrapper {
+    background: yellow;
+  }
 }

@@ -52,7 +52,8 @@
 }
 
 .selectorField {
-margin-top:1em;
+  margin-top: 1em;
+
   div {
     div {
       div {
@@ -64,6 +65,16 @@ margin-top:1em;
       }
     }
   }
+
+}
+
+.inputukas {
+
+outline: 0;
+}
+
+.inputukas:focus {
+  outline: 0;
 
 }
 

@@ -1,0 +1,22 @@
+.login-form {
+
+  &wrapper {
+    width: 40%;
+  }
+
+  &submitButton {
+    width: 100%;
+  }
+
+  &rememberme {
+    display: flex;
+    margin-bottom: 2rem;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  &label {
+    padding-left: 0.5rem;
+    font-size: 0.8rem;
+  }
+}
