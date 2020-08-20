@@ -49,7 +49,7 @@ class TopNavBarComponent extends React.Component<Props> {
                     </Menu.Item>
 
                     <Menu.Item style={{ display: 'block', float: 'right' }} key="9">
-                        <LogoutOutlined data-tip="Logout" onClick={this.handleClickLogout} style={{ fontSize: '1rem' }} />
+                        <LogoutOutlined data-tip="Log Out" onClick={this.handleClickLogout} style={{ fontSize: '1rem' }} />
                     </Menu.Item>
 
                     <li style={{ display: 'block', float: 'right', paddingLeft: '1em', paddingTop: '.6em' }} key="10">
