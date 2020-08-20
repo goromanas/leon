@@ -43,6 +43,7 @@ const ChatListComponent: React.FC<Props> = (
                     className="chat-messages"
                     appear={true}
                 >
+
                     {
                         messages
                             .filter(message => message.channel === currentChannel
@@ -59,8 +60,7 @@ const ChatListComponent: React.FC<Props> = (
                                         classroom={msg.classname}
                                         toRight={msg.username === firstName}
                                     />
-                                    {msg.channel}
-                                    {msg.classname}
+                            
                                     </>
 
                                 </CSSTransition>
