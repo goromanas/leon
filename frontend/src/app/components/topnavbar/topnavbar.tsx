@@ -38,7 +38,7 @@ class TopNavBarComponent extends React.Component<Props> {
                             <Logo fontSize={'1.5rem'} />
                         </Link>
                     </Menu.Item>
-                    <Menu.Item key="3" style={{ fontWeight: 'bold' }}>
+                    <Menu.Item key="3" >
                         <Link to={navigationService.redirectToDefaultPage} key="4">Home</Link>
                     </Menu.Item>
                     <Menu.Item key="t5">
@@ -67,9 +67,9 @@ class TopNavBarComponent extends React.Component<Props> {
                             </Button>
                         </Link>
                     </li>
-                    <Menu.Item style={{ display: 'block', float: 'right', paddingTop: '5px' }} key="15">
+                    <Menu.Item style={{ display: 'block', float: 'right', paddingTop: '5px' }} key="15" disabled={currentLesson === 0 ? true : false} >
                         <Link to={navigationService.redirectToVideoChat(currentLesson)} key="16">
-                            <Button size="large" type="link" className={styles.cameraButton} shape="circle" icon={<VideoCameraOutlined style={{ fontSize: '25px', color: '#000' }} />} disabled={currentLesson === 0 ? true : false} />
+                            <Button size="large" type="link" className={styles.cameraButton} shape="circle" icon={<VideoCameraOutlined style={{ fontSize: '25px', color: '#000' }} />} />
                         </Link>
                         <div className={currentLesson === 0 ? styles.cameraStatusDisabled : styles.cameraStatus} key="17" />
                     </Menu.Item>
