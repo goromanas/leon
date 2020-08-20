@@ -13,7 +13,7 @@ import { ChatForm, MessageValue } from './form/chat-form';
 import { ChatList } from './chat-list/chat-list';
 import { Channels } from './channels';
 
-import styles from './chat-page.module.scss'
+import styles from './chat-page.module.scss';
 
 const { Content, Sider } = Layout;
 
@@ -89,7 +89,6 @@ class ChatComponent extends React.Component<Props, State> {
     //     }
     // }
 
-
     public componentDidUpdate(prev: Props, prevState: State) {
         const { userRoles } = this.props;
 
@@ -114,7 +113,7 @@ class ChatComponent extends React.Component<Props, State> {
         .then(channels => {
             this.setState({ channels });
             this.setState({ currentChannel: channels[0].id });
-            this.setState({currentClassroom: teacherLessons[0].className});
+            this.setState({ currentClassroom: teacherLessons[0].className });
         })
         .catch(() => console.log('Error getting subjects'));
 
@@ -129,8 +128,8 @@ class ChatComponent extends React.Component<Props, State> {
             chatService
       .getClassrooms()
       .then(classRooms => {
-        this.setState({ classRooms, currentClassroom: classRooms[0].classroomName });
-    })
+          this.setState({ classRooms, currentClassroom: classRooms[0].classroomName });
+      })
 
       .catch(() => console.log('Error getting subjects'));
 
@@ -171,7 +170,7 @@ class ChatComponent extends React.Component<Props, State> {
         loader={<PageLoadingSpinner />}
      >
       <Layout >
-        <Sider theme='light' className={styles.sider} width='250px'>
+        <Sider theme="light" className={styles.sider} width="250px">
           <Channels
             channels={channels}
             classRooms={classRooms}
@@ -180,7 +179,7 @@ class ChatComponent extends React.Component<Props, State> {
             onClassChange={this.onClassChange}
           />
         </Sider>
-        <Content style={{background: 'white'}} >
+        <Content style={{ background: 'white' }} >
           <PageContent >
          <ChatList
             messages={messages}
