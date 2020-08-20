@@ -77,7 +77,7 @@ const SingleLesson: React.FC<Props> = (props) => {
                                        .filter((lesson: Api.LessonInformationDto) => lesson.date === date)}/>)}
             </Modal>
             <div className={lessonClass} key={thisLesson.id}>
-                <p>{thisLesson.id}</p>
+
                 <div className={lessonBar + ' ' + (checkUserRoleForModal() ? styles.pointer : null)}
                      onClick={checkLessonInformation}>
                     <div className={lessonBarWithBreak}>
