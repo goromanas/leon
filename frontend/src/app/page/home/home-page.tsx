@@ -6,9 +6,9 @@ import { navigationService } from 'app/service/navigation-service';
 import { connectContext, SettingsProps } from 'app/context';
 import { AsyncContent } from 'app/components/layout';
 import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-loading-spinner';
-
 import { DayLessonsList } from 'app/page/timetable/day-timetable';
 import { SideTimebar } from 'app/page/timetable/side-timebar';
+import { scheduleCalc } from 'app/page/timetable/schedule-calc';
 
 import styles from './home.module.scss';
 import { Whiteboard } from 'app/components/whiteboard/whiteboard';
@@ -54,10 +54,6 @@ class HomePageComponent extends React.Component<Props, State> {
             <AsyncContent loading={this.props.schedule.length === 0} loader={<PageLoadingSpinner />}>
                 <div className={styles.homePage}>
                     <div className={styles.home}>
-                        {/* <div className={styles.welcomeHeader}>
-                            Welcome back, {this.props.firstName},
-                {currentLesson}
-                        </div> */}
                         {
                             userRoles.includes('ADMIN') ? (
                                 <Button type="primary" onClick={this.handleClickToUserList}>
@@ -66,11 +62,12 @@ class HomePageComponent extends React.Component<Props, State> {
                             ) : (
                                     <>
 
-                                        <Row >
+                                        <Row>
                                             <Col lg={2} md={2} sm={2} >
-                                                <SideTimebar schedule={schedule} homepage={true} />
+                                                <SideTimebar schedule={schedule} homepage={true} itemsInList={scheduleCalc.thisDayLength(allLessons, this.state.dayOfWeek)} />
+
                                             </Col>
-                                            <Col lg={18} md={38} sm={38} >
+                                            <Col lg={16} md={38} sm={38} >
                                                 <DayLessonsList
                                                     userRole={this.props.userRoles}
                                                     currentLesson={currentLesson}
@@ -81,7 +78,7 @@ class HomePageComponent extends React.Component<Props, State> {
                                                     homepage={true}
                                                 />
                                             </Col>
-                                            <Col lg={20} md={40} sm={40} className={styles.homeSide}>
+                                            <Col lg={22} md={40} sm={40} className={styles.homeSide}>
                                                 <div className={styles.homeImage}>
                                                     <img
                                                         alt="Homepage"

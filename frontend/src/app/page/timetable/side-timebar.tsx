@@ -7,10 +7,11 @@ import styles from 'app/page/timetable/lessons.module.scss';
 
 interface Props {
     schedule?: Api.ScheduleDto[];
+    itemsInList: number | null;
     homepage?: boolean;
 }
 
-const SideTimebar: React.FC<Props> = ({ schedule, homepage }) => {
+const SideTimebar: React.FC<Props> = ({ schedule, homepage, itemsInList }) => {
     const { lessonSideBar, lessonSideBarTime, lessonSideBarTimeInHome } = styles;
     const lessonSideBarClass = classNames(
         lessonSideBar,
@@ -37,8 +38,8 @@ const SideTimebar: React.FC<Props> = ({ schedule, homepage }) => {
     );
     return (
         <div className={lessonSideBarClass}>
-            {allTimes}
-            <TimeLine schedule={schedule} />
+            {allTimes.slice(0, itemsInList)}
+            <TimeLine schedule={schedule} itemsInList={itemsInList} />
         </div>
     );
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Layout, Row, Col } from 'antd';
 import moment from 'moment';
 
@@ -8,6 +8,8 @@ import { connectContext, SettingsProps } from 'app/context';
 import { DayLessonsList } from 'app/page/timetable/day-timetable';
 import { SideTimebar } from 'app/page/timetable/side-timebar';
 import styles from 'app/page/timetable/lessons.module.scss';
+import { lessonsService } from 'app/api/service/lessons-service';
+import { lessonInformationService } from 'app/api/service/lessonInformation-service';
 
 import { scheduleCalc } from './schedule-calc';
 
@@ -19,133 +21,97 @@ interface ContextProps {
     schedule: Api.ScheduleDto[];
 }
 
-interface State {
-    move: number;
-}
-
 type Props = ContextProps;
 
-class TimetablePageComponent extends React.Component<Props, State> {
-    constructor(props: Props) {
-        super(props);
-        // this.weekListRef = React.createRef();
-    }
-    public state: State =
-        {
-            move: 0,
-        };
+const TimetablePageComponent: React.FC<Props> = (props) => {
 
-    private sortedLesson: Api.LessonDto[];
-    public allDaysList: string = '';
+    const {
+        username,
+        userRoles,
+        allLessons,
+        currentLesson,
+        schedule,
+    } = props;
 
-    public render(): React.ReactNode {
+    const [week, setWeek] = useState(0);
+    const [weekWorkDays, setWeekWorkDays] = useState([1, 2, 3, 4, 5]);
+    const dayDate = (item?: any) => moment().day(item || undefined);
 
-        const {
-            username,
-            userRoles,
-            allLessons,
-            currentLesson,
-            schedule,
-        } = this.props;
-        const now = new Date().getDay();
+    useEffect(() => {
+        setWeekWorkDays([1 + week, 2 + week, 3 + week, 4 + week, 5 + week]);
+    }, [week]);
 
-        return (
-            <AsyncContent loading={schedule.length === 0} loader={<PageLoadingSpinner />}>
-                <div className={styles.weekPage}>
-                    <div className={styles.weekInfo}>
-                        <div className={styles.weekNavigation}>
-                            <span className={styles.weekNavigationText}>This Week</span>
-                            <span className={styles.weekNavigationDate}>
-                                <img
-                                    alt="week navigation"
-                                    src={'icons/arrow.svg'}
-                                    onClick={() => this.handleButtonClick(false)}
-                                />
-                                <span>{this.getDays(5, now)}</span>
-                                <img
-                                    alt="week navigation"
-                                    src={'icons/arrow.svg'}
-                                    onClick={() => this.handleButtonClick(true)}
-                                />
-                            </span>
-                        </div>
-                        <p>Lesson duration: {scheduleCalc.getLessonLength(schedule)}min</p>
+    // change week on arrow click
+    const moveWeek = (direction: boolean) => {
+        direction ? setWeek(week + 7)
+            : setWeek(week - 7);
+    };
+
+    //change back to current week
+    const resetWeek = () => {
+        setWeekWorkDays([1, 2, 3, 4, 5]);
+    };
+
+    //sort lessons by day of week
+    const filterByDay = (teacherLessons: Api.LessonDto[], day: number): Api.LessonDto[] => {
+        if (teacherLessons != null) {
+            const sortedLesson = teacherLessons.sort((n1, n2) => n1.time - n2.time);
+            return sortedLesson.filter(lesson => lesson.day === day ? lesson : null);
+        }
+    };
+
+    const allWeekDays = weekWorkDays.map((item, index) =>
+        (
+            < Col lg={8} md={20} sm={40} className={styles.dayClassCol} key={index} >
+                < DayLessonsList
+                    userRole={userRoles}
+                    allLessons={filterByDay(allLessons, dayDate(item).day()) || []}
+                    currentLesson={currentLesson}
+                    day={dayDate(item).day()}
+                    date={dayDate(item).format('YYYY-MM-DD')}
+                    schedule={schedule}
+                />
+            </ Col >
+        ));
+
+    return (
+        <AsyncContent loading={schedule.length === 0} loader={<PageLoadingSpinner />}>
+            <div className={styles.weekPage}>
+                <div className={styles.weekInfo}>
+                    <div className={styles.weekNavigation}>
+                        {weekWorkDays.includes(1) ? <span className={styles.weekNavigationText}>This Week</span>
+                            : <span className={styles.weekNavigationBackText} onClick={() => resetWeek()}>Back to This Week</span>}
+                        <span className={styles.weekNavigationDate}>
+                            <img
+                                alt="week navigation"
+                                src={'icons/arrow.svg'}
+                                onClick={() => moveWeek(false)}
+                            />
+                            <span>{dayDate(weekWorkDays[0]).format('DD')} - {dayDate(weekWorkDays[4]).format('DD MMM')}</span>
+                            <img
+                                alt="week navigation"
+                                src={'icons/arrow.svg'}
+                                onClick={() => moveWeek(true)}
+                            />
+                        </span>
                     </div>
-
-                    <div className={styles.week}>
-                        <div className={styles.weekList} >
-                            <SideTimebar schedule={this.props.schedule} />
-                            <Row className={styles.daysRow}>
-                                {Array(5).fill(1 + this.state.move).map((x, y) => x + y).map((item) => (
-                                    item === 0 ? item = 5 : null,
-                                    item < 0 ? item = 0 - item : null,
-                                    (item % 5) !== 0 ? null : item = 5,
-                                    (item % 5) !== 0 ? item = item % 5 : null,
-                                    <Col lg={8} md={20} sm={40} className={styles.dayClassCol}>
-                                        < DayLessonsList
-                                            key={item}
-                                            userRole={this.props.userRoles}
-                                            allLessons={this.filterByDay(allLessons, item) || []}
-                                            currentLesson={this.props.currentLesson}
-                                            day={item}
-                                            date={this.getDate(item, now)}
-                                            schedule={this.props.schedule}
-                                        />
-                                    </Col>
-                                ))}
-                            </Row>
-                        </div>
-                    </div >
+                    <p>Lesson duration: {scheduleCalc.getLessonLength(schedule)}min</p>
                 </div>
 
-            </AsyncContent >
-        );
-    }
+                <div className={styles.week}>
+                    <div className={styles.weekList} >
+                        <SideTimebar schedule={schedule} itemsInList={allLessons && scheduleCalc.getLongestDay(allLessons)} />
+                        <Row className={styles.daysRow} gutter={[0, 40]}>
+                            {allWeekDays}
+                        </Row>
+                    </div>
+                </div >
+            </div>
 
-    public filterByDay(teacherLessons: Api.LessonDto[], day: number): Api.LessonDto[] {
+        </AsyncContent >
+    );
 
-        if (teacherLessons != null) {
-            this.sortedLesson = teacherLessons.sort((n1, n2) => n1.time - n2.time);
-            return this.sortedLesson.filter(lesson => lesson.day === day ? lesson : null);
-
-        }
-
-    }
-
-    public getDate = (item: number, now: number): string => {
-        const today = new Date();
-        let t;
-
-        if (1 > item) {
-            t = (item) + 7;
-        } else {
-            t = item;
-        }
-        const day = moment().add(this.state.move / 5 * 7 - now + t, 'd').format('YYYY-MM-DD');
-        // const day = moment().add(this.state.move / 5 * 7 - now + t, 'd').format('MMM DD');
-
-        return day;
-    };
-
-    public getDays = (item: number, now: number): string => {
-        let t;
-
-        if (1 > item) {
-            t = (item) + 7;
-        } else {
-            t = item;
-        }
-        const day = moment().add(this.state.move / 5 * 7 - now + t, 'd').format('D MMM');
-
-        return parseInt(day, 10) - 4 + ' - ' + day;
-    };
-
-    private handleButtonClick = (forward: boolean): void => {
-        forward ?
-            this.setState({ move: this.state.move + 5 }) :
-            this.setState({ move: this.state.move - 5 });
-    };
-}
+};
 
 const mapContextToProps = ({ session: { user }, lessons, currentLesson, schedule }: SettingsProps): ContextProps => ({
 

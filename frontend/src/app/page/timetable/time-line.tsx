@@ -7,15 +7,16 @@ import styles from './lessons.module.scss';
 
 interface Props {
     schedule: Api.ScheduleDto[];
+    itemsInList: number;
 }
 
 const TimeLine: React.FC<Props> = (props) => {
-    const { schedule } = props;
+    const { schedule, itemsInList } = props;
 
     let date = moment();
-    const [top, setTop] = useState(0);
+    const [top, setTop] = useState(scheduleCalc.convertTimeToMinutes(date.format('HH:mm')) - scheduleCalc.getDayStart(schedule));
     const startTimeInMins = scheduleCalc.getDayStart(schedule) - 10;
-    const endTimeInMins = scheduleCalc.getDayEnd(schedule) + 10;
+    const endTimeInMins = scheduleCalc.getDayEnd(schedule, itemsInList) + 10;
 
     useEffect(() => {
         const interval = setInterval(() => {

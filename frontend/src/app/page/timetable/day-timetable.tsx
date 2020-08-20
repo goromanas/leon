@@ -8,6 +8,7 @@ import { scheduleCalc } from './schedule-calc';
 import { SingleLesson } from './single-lesson';
 
 import styles from './lessons.module.scss';
+import { Link } from 'react-router-dom';
 
 interface Props {
     allLessons: Api.LessonDto[];
@@ -33,13 +34,12 @@ const DayLessonsList: React.FC<Props> = ({allLessons, userRole, day, date, curre
 
     const dayClasses = classNames(
         dayClass,
-        moment().format('MMM DD') === date && activeDay,
+        moment().format('YYYY-MM-DD') === date && activeDay,
     );
-
-    const lessonsList = dayLessons.map((item: any) => (
+    const lessonsList = dayLessons.map((item: any, index) => (
 
         <SingleLesson
-            key={item.id}
+            key={index}
             currentLesson={currentLesson}
             thisLesson={item}
             handleOpenClassroom={handleOpenClassroom}
@@ -47,6 +47,7 @@ const DayLessonsList: React.FC<Props> = ({allLessons, userRole, day, date, curre
             userRole={userRole}
             date={date}
             homepage={homepage}
+            ifDayEnded={scheduleCalc.ifDayEnded(allLessons, schedule, day)}
         />
     ));
     // console.log(currentLesson);
@@ -56,7 +57,9 @@ const DayLessonsList: React.FC<Props> = ({allLessons, userRole, day, date, curre
                 (
                     <div className={dayHeaderInHome}>
                         <h1 className={dayHeader}>Today's lecture ({dayLessons.length})</h1>
-                        <a onClick={navigationService.redirectToCalendarPage}>View All</a>
+                        <Link to={navigationService.redirectToCalendarPage}>
+                            <a >View All</a>
+                        </Link>
                     </div>
                 )
                 : (
@@ -64,7 +67,7 @@ const DayLessonsList: React.FC<Props> = ({allLessons, userRole, day, date, curre
                         <span>
                             {(scheduleCalc.getDayFromInt(day).toUpperCase())}
                         </span>
-                        <span>{date}</span>
+                        <span>{moment(date).format('DD MMM')}</span>
                     </h1>
                 )
             }

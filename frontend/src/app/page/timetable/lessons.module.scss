@@ -1,16 +1,20 @@
 @import '~app/style/style';
 // WEEK page
 .weekPage {
-  padding: $container-padding;
+  // padding: 80px;
+  margin: auto;
 }
 
 // WEEK <div>
 .week {
   background: $background;
   box-shadow: $containerShadow;
+  // border-radius: $conteinerRadius;
   border-radius: $conteinerRadius;
+    // height: calc(100vh - 129px);
   height: 100%;
-  padding: 50px 46px;
+  // height: 100%;
+  padding: 4%;
   margin-top: 12px;
 }
 
@@ -45,10 +49,22 @@
 }
 
 .weekNavigationText {
-  font-weight: $semiBold;
-  font-size: $lg;
+  font-weight: $normal;
+  font-size: $md;
   color: $grey9;
+  margin-right: 40px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0);
+  transform: translateY(1px);
+  transition: 0.2s ease-out;
+}
+.weekNavigationBackText {
+  @extend .weekNavigationText;
   margin-right: 25px;
+  color: $primary;
+  cursor: pointer;
+  &:hover {
+    border-bottom: 2px solid $primary;
+  }
 }
 
 .weekNavigationDate {
@@ -259,6 +275,8 @@
 }
 
 .breakSpan {
+  pointer-events: none;
+  cursor: default;
   height: 10px;
   display: block;
   // margin: 0.1em 0;
@@ -292,15 +310,18 @@
 
 // SHCEDULE SIDEBAR WITH TIME-LINE
 .lessonSideBarTimeInHome {
-
+  pointer-events: none;
+  cursor: default;
   .timeLine {
-    width: calc(50vw - 20px) !important;
+    width: calc(40vw) !important;
     @media only screen and (max-width: 990px) {
-      width: calc(100vw - 160px) !important;
+      width: calc(100vw - 130px) !important;
     }
   }
 }
 .lessonSideBar {
+  pointer-events: none;
+  cursor: default;
   margin-top: 37px;
   position: relative;
   z-index: 99;

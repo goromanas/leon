@@ -3,6 +3,7 @@ import { Button, Modal } from 'antd';
 import classNames from 'classnames';
 import ReactTooltip from 'react-tooltip';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 import { TeacherModal } from 'app/components/modalContent/teacherModal';
 import { StudentModal } from 'app/components/modalContent/studentModal';
@@ -20,22 +21,25 @@ interface Props {
     userRole: string[];
     date: string;
     homepage?: boolean;
+    ifDayEnded: boolean;
 }
 
-const {lesson, activeLesson, endedLesson, lessonBarContent, lessonBar, lessonBarWithBreak, activeInSchedules} = styles;
+const { lesson, activeLesson, endedLesson, lessonBarContent, lessonBar, lessonBarWithBreak, activeInSchedules } = styles;
 
 const SingleLesson: React.FC<Props> = (props) => {
-    const {currentLesson, thisLesson, handleOpenClassroom, schedule, userRole, date, homepage} = props;
+    const { currentLesson, thisLesson, handleOpenClassroom, schedule, userRole, date, homepage, ifDayEnded } = props;
     const [modalVisible, setModalVisible] = useState(false);
 
     // define classNames
     const lessonClass = classNames(
         lesson,
-        currentLesson === thisLesson.id && activeLesson,
-        currentLesson > thisLesson.id && endedLesson,
+        currentLesson === thisLesson.id && moment().format('W') === moment(date).format('W') && activeLesson,
+
+        currentLesson > thisLesson.id && moment().format('W') === moment(date).format('W') && endedLesson,
+        moment().format('D') > moment(date).format('D') && endedLesson,
+        ifDayEnded && date === moment().format('YYYY-MM-DD') && endedLesson,
         !homepage && activeInSchedules,
     );
-
     const checkUserRoleForModal = (): boolean =>
         userRole.includes('STUDENT') || userRole.includes('PARENT');
 
@@ -73,16 +77,15 @@ const SingleLesson: React.FC<Props> = (props) => {
                         date={date}
                     />) :
                     (<TeacherModal subject={thisLesson.subject} lessonId={thisLesson.id} onClose={handleOk} date={date}
-                                   lessonInformation={thisLesson.lessonInformation
-                                       .filter((lesson: Api.LessonInformationDto) => lesson.date === date)}/>)}
+                        lessonInformation={thisLesson.lessonInformation
+                            .filter((lesson: Api.LessonInformationDto) => lesson.date === date)} />)}
             </Modal>
             <div className={lessonClass} key={thisLesson.id}>
-
-                <div className={lessonBar + ' ' + (checkUserRoleForModal() ? styles.pointer : null)}
-                     onClick={checkLessonInformation}>
+                <div className={lessonBar}>
                     <div className={lessonBarWithBreak}>
                         <div
-                            className={lessonBarContent}
+                            className={lessonBarContent + ' ' + (checkUserRoleForModal() ? styles.pointer : null)}
+                            onClick={checkLessonInformation}
                             style={{
                                 height: scheduleCalc.getLessonLength(schedule),
                             }}
@@ -92,18 +95,18 @@ const SingleLesson: React.FC<Props> = (props) => {
                                 {
                                     currentLessonInfo?.assignment?.includes('Homework') &&
 
-                                    <i style={{color: 'white'}} className="far fa-file-alt "/>}
-                            {currentLessonInfo?.assignment?.includes('Test') &&
-                                <i style={{backgroundColor:"red", color: "black"}} className="far fa-file-alt"/>
+                                    <i style={{ color: 'white' }} className="far fa-file-alt " />}
+                                {currentLessonInfo?.assignment?.includes('Test') &&
+                                    <i className="far fa-file-alt" />
 
                                 }
                             </div>
 
                             {checkUserRoleForModal() ? null
                                 : <div onClick={() => showModal(thisLesson.id)} className={styles.editModal}>
-                                    <i className="fas  fa-lg fa-plus-circle"/>
+                                    <i className="fas  fa-lg fa-plus-circle" />
                                 </div>}
-                            {thisLesson.id === currentLesson ?
+                            {thisLesson.id === currentLesson && moment().format('W') === moment(date).format('W') ?
                                 (<Link to={navigationService.redirectToVideoChat(currentLesson)}>
                                     {homepage ?
 
@@ -137,16 +140,16 @@ const SingleLesson: React.FC<Props> = (props) => {
                         </div>
                         <span
                             data-tip="Break"
-                            style={{height: scheduleCalc.getBreakTime(schedule, thisLesson.time)}}
+                            style={{ height: scheduleCalc.getBreakTime(schedule, thisLesson.time) }}
                             className={styles.breakSpan}
                         >   {
-                            scheduleCalc.getBreakTime(schedule, thisLesson.time) > 20 ?
-                                (
-                                    <span className={styles.longBreak}>Long break</span>
-                                ) : null
-                        }
+                                scheduleCalc.getBreakTime(schedule, thisLesson.time) > 20 ?
+                                    (
+                                        <span className={styles.longBreak}>Long break</span>
+                                    ) : null
+                            }
                         </span>
-                        <ReactTooltip/>
+                        <ReactTooltip />
                     </div>
                 </div>
             </div>

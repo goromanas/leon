@@ -12,6 +12,8 @@ import { UserList } from 'app/page/user-list/user-list';
 import { TimetablePage } from 'app/page/timetable/week-timetable';
 import { TopNavBar } from 'app/components/topnavbar/topnavbar';
 
+import styles from './container.module.scss';
+
 class PrivatePage extends React.Component<{}, {}> {
     public render(): React.ReactNode {
         return (
@@ -19,16 +21,18 @@ class PrivatePage extends React.Component<{}, {}> {
 
                 <Router>
                     <TopNavBar />
-                    <Switch>
-                        <Route path={NavigationService.HOME_PATH} component={HomePage} exact={true} />
-                        <Route path={NavigationService.VIDEO_CHAT_PATH} component={VideoChatPage} exact={true} />
-                        <Route path={NavigationService.PAGE_NOT_FOUND_PATH} component={NotFoundPage} exact={true} />
-                        <Route path={NavigationService.USER_LIST_PATH} component={UserList} exact={true} />
-                        <Route path={NavigationService.USER_DETAILS_PATH} component={UserDetails} />
-                        <Route path={NavigationService.CHAT_ROOM_PATH} component={ChatPage} />
-                        <Route path={NavigationService.USER_TIMETABLE_PATH} component={TimetablePage} />
-                        <Redirect to={NavigationService.PAGE_NOT_FOUND_PATH} />
-                    </Switch>
+                    <div className={styles.mainContainer}>
+                        <Switch >
+                            <Route path={NavigationService.HOME_PATH} component={HomePage} exact={true} />
+                            <Route path={NavigationService.VIDEO_CHAT_PATH} component={VideoChatPage} exact={true} />
+                            <Route path={NavigationService.PAGE_NOT_FOUND_PATH} component={NotFoundPage} exact={true} />
+                            <Route path={NavigationService.USER_LIST_PATH} component={UserList} exact={true} />
+                            <Route path={NavigationService.USER_DETAILS_PATH} component={UserDetails} />
+                            <Route path={NavigationService.CHAT_ROOM_PATH} component={ChatPage} />
+                            <Route path={NavigationService.USER_TIMETABLE_PATH} component={TimetablePage} />
+                            <Redirect to={NavigationService.PAGE_NOT_FOUND_PATH} />
+                        </Switch>
+                    </div>
                 </Router>
 
             </>
