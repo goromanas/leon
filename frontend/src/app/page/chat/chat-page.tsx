@@ -106,6 +106,7 @@ class ChatComponent extends React.Component<Props, State> {
         .then(channels => {
             this.setState({ channels });
             this.setState({ currentChannel: channels[0].id });
+            this.setState({currentClassroom: teacherLessons[0].className});
         })
         .catch(() => console.log('Error getting subjects'));
 

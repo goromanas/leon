@@ -91,7 +91,7 @@ class LoginPageComponent extends React.Component<Props, {}> {
         values.password = LoginPageComponent.LOGIN_INITIAL_VALUES.password;
         resetForm({ values });
 
-        const errorMessage: string = error.status === 403 ? 'Incorrect username or password' : error.data.message;
+        const errorMessage: string = error.status === 403 ? 'Your login credentials are invalid. Please try again.' : error.data.message;
 
         message.error(errorMessage, 3);
 

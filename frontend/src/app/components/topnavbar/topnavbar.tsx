@@ -49,7 +49,7 @@ class TopNavBarComponent extends React.Component<Props> {
           </Menu.Item>
 
           <Menu.Item style={{ display: "block", float: "right" }}>
-            <LogoutOutlined data-tip="Logout" onClick={this.handleClickLogout} style={{ fontSize: "1rem" }} />
+            <LogoutOutlined data-tip="Log Out" onClick={this.handleClickLogout} style={{ fontSize: "1rem" }} />
           </Menu.Item>
 
 {/*<<<<<<< HEAD*/}
@@ -85,8 +85,8 @@ class TopNavBarComponent extends React.Component<Props> {
           <Menu.Item style={{ display: "block", float: "right", paddingTop: "5px" }}>
             <Link to={navigationService.redirectToVideoChat(currentLesson)}>
               <Button size="large" type="link" className={styles.cameraButton} shape="circle" icon={<VideoCameraOutlined style={{ fontSize: "25px", color: "#000" }} />} disabled={currentLesson === 0 ? true : false} />
-              <div className={currentLesson === 0 ? styles.cameraStatusDisabled : styles.cameraStatus} />
             </Link>
+            <div className={currentLesson === 0 ? styles.cameraStatusDisabled : styles.cameraStatus} />
           </Menu.Item>
           <li className={styles.modifiedItem}>
             <Clock />
