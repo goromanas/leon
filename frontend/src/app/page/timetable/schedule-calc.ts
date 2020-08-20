@@ -58,12 +58,25 @@ class ScheduleCalc {
     public getDayStart = (schedule: Api.ScheduleDto[]) =>
         this.convertTimeToMinutes(schedule[0].startTime);
 
-    public getDayEnd = (schedule: Api.ScheduleDto[]) =>
-        this.convertTimeToMinutes(schedule[schedule.length - 1].endTime);
+    public getDayEnd = (schedule: Api.ScheduleDto[], lastItem: number) =>
+        this.convertTimeToMinutes(schedule[lastItem].endTime);
 
-    // public longestWeekDay = (lessons: Api.ScheduleDto[]) {
+    public getLongestDay = (lessons: Api.LessonDto[]) => {
+        let mf = 1;
+        let m = 0;
 
-    // }
+        for (let i = 0; i < lessons.length; i++) {
+            for (let j = i; j < lessons.length; j++) {
+                if (lessons[i].day == lessons[j].day)
+                    m++;
+                if (mf < m) {
+                    mf = m;
+                }
+            }
+            m = 0;
+        }
+        return mf
+    };
 
     public thisDayLength = (lessons: Api.LessonDto[], day: number): number => {
         const filtered = lessons !== null && lessons.filter((item) => item.day === day);

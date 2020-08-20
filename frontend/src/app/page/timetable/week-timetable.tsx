@@ -10,6 +10,8 @@ import { SideTimebar } from 'app/page/timetable/side-timebar';
 import styles from 'app/page/timetable/lessons.module.scss';
 
 import { scheduleCalc } from './schedule-calc';
+import { lessonsService } from 'app/api/service/lessons-service';
+import { lessonInformationService } from 'app/api/service/lessonInformation-service';
 
 interface ContextProps {
     username: string | null;
@@ -47,14 +49,14 @@ const TimetablePageComponent: React.FC<Props> = (props) => {
         setWeekWorkDays([1, 2, 3, 4, 5]);
     }
 
+
     const filterByDay = (teacherLessons: Api.LessonDto[], day: number): Api.LessonDto[] => {
         if (teacherLessons != null) {
             const sortedLesson = teacherLessons.sort((n1, n2) => n1.time - n2.time);
             return sortedLesson.filter(lesson => lesson.day === day ? lesson : null);
         }
     };
-    // console.log(allLessons)
-    // const weekWorkDays = Array(5).fill(5);
+
     const allWeekDays = weekWorkDays.map((item) =>
         (
             < Col lg={8} md={20} sm={40} className={styles.dayClassCol} key={dayDate(item).day()} >
@@ -95,8 +97,8 @@ const TimetablePageComponent: React.FC<Props> = (props) => {
 
                 <div className={styles.week}>
                     <div className={styles.weekList} >
-                        <SideTimebar schedule={schedule} itemsInList={5} />
-                        <Row className={styles.daysRow}>
+                        <SideTimebar schedule={schedule} itemsInList={allLessons && scheduleCalc.getLongestDay(allLessons)} />
+                        <Row className={styles.daysRow} gutter={[0, 40]}>
                             {allWeekDays}
                         </Row>
                     </div>

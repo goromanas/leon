@@ -1,16 +1,20 @@
 @import '~app/style/style';
 // WEEK page
 .weekPage {
-  padding: $container-padding;
+  // padding: 80px;
+  margin: auto;
 }
 
 // WEEK <div>
 .week {
   background: $background;
   box-shadow: $containerShadow;
+  // border-radius: $conteinerRadius;
   border-radius: $conteinerRadius;
+    // height: calc(100vh - 129px);
   height: 100%;
-  padding: 50px 46px;
+  // height: 100%;
+  padding: 4%;
   margin-top: 12px;
 }
 
@@ -309,9 +313,9 @@
   pointer-events: none;
   cursor: default;
   .timeLine {
-    width: calc(50vw - 20px) !important;
+    width: calc(40vw) !important;
     @media only screen and (max-width: 990px) {
-      width: calc(100vw - 160px) !important;
+      width: calc(100vw - 130px) !important;
     }
   }
 }

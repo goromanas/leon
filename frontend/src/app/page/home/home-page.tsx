@@ -62,11 +62,12 @@ class HomePageComponent extends React.Component<Props, State> {
                             ) : (
                                     <>
 
-                                        <Row >
+                                        <Row>
                                             <Col lg={2} md={2} sm={2} >
                                                 <SideTimebar schedule={schedule} homepage={true} itemsInList={scheduleCalc.thisDayLength(allLessons, this.state.dayOfWeek)} />
+
                                             </Col>
-                                            <Col lg={18} md={38} sm={38} >
+                                            <Col lg={16} md={38} sm={38} >
                                                 <DayLessonsList
                                                     userRole={this.props.userRoles}
                                                     currentLesson={currentLesson}
@@ -77,7 +78,7 @@ class HomePageComponent extends React.Component<Props, State> {
                                                     homepage={true}
                                                 />
                                             </Col>
-                                            <Col lg={20} md={40} sm={40} className={styles.homeSide}>
+                                            <Col lg={22} md={40} sm={40} className={styles.homeSide}>
                                                 <div className={styles.homeImage}>
                                                     <img
                                                         alt="Homepage"

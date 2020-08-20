@@ -14,24 +14,34 @@
 
 
 .homePage {
-  padding: $container-padding;
+  // padding: $container-padding;
+  height: 100%;
+  Row {
+    height: 100%;
+  }
   .home {
     background: $background;
     box-shadow: $containerShadow;
-    border-radius: $conteinerRadius;
+    border-radius: $conteinerRadius $conteinerRadius 0 0;
+    // height: calc(100vh - 129px);
     height: 100%;
-    padding: 50px 46px;
-    margin-top:12px;
+    padding: 4%;
+    margin-top:64px;
   }
   .homeSide {
-    padding: 0 65px;
+    // padding: 0 65px;
+
+    align-items: center;
+    display: flex;
+    justify-content: center;
     position: relative;
   }
 
   .homeImage {
-    position: absolute;
-    width: 100%;
-    padding: 0 60px;
+    // position: absolute;
+    // padding: 9%;
+    display: flex;
+    height: 100%;
     img {
       width: 100%;
     }
@@ -42,7 +52,8 @@
     box-shadow: $containerShadow;
     border-radius: $conteinerRadius;
     position: absolute;
-    bottom: 55px;
+    bottom: 3%;
+    left: 7%;
     max-width: 70%;
     h1 {
       font-size: $lg;

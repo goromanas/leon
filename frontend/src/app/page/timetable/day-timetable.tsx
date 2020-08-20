@@ -37,7 +37,6 @@ const DayLessonsList: React.FC<Props> = ({ allLessons, userRole, day, date, curr
         dayClass,
         moment().format('YYYY-MM-DD') === date && activeDay,
     );
-    console.log(date);
     const lessonsList = dayLessons.map((item: any) => (
 
         <SingleLesson
