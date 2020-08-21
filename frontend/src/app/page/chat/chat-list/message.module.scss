@@ -1,5 +1,10 @@
 @import '~app/style/variables';
 
+@mixin message-style {
+  border-radius: 10px;
+  padding: 8px 20px;
+}
+
 .containerR{
   display: flex;
   margin-bottom: 1rem;
@@ -7,15 +12,12 @@
   margin-right: 10px;
   .message{
     background: $primary;
-    border-radius: 10px;
-    padding: 8px 20px;
     min-width: 94px;
     max-width: 801px;
     p{
       color: $grey2;
     }
   }
-//background: $primary;
 }
 
 .containerL{
@@ -25,9 +27,8 @@
   .message{
     min-width: 94px;
     max-width: 701px;
-    padding: 8px 20px;
     background: $grey2;
-    border-radius: 10px;
+
   }
   //background: $grey2;
 }
