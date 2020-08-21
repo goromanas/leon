@@ -48,35 +48,40 @@ class TopNavBarComponent extends React.Component<Props> {
                         <Link to={navigationService.redirectToChatRoom} key="8">Chat Room</Link>
                     </Menu.Item>
 
-                    <Menu.Item style={{ display: 'block', float: 'right' }} key="9">
-                        <LogoutOutlined data-tip="Log Out" onClick={this.handleClickLogout} style={{ fontSize: '1rem' }} />
-                    </Menu.Item>
+                    </Menu>
+                    <div className={styles.menuWrapper}>
 
-                    <li style={{ display: 'block', float: 'right', paddingLeft: '1em', paddingTop: '.6em' }} key="10">
-                        <Avatar className={styles.avatar} size="large" icon={<UserOutlined className={styles.userIcon} style={{ fontSize: '25px' }} />} style={{ color: 'grey', float: 'right' }} />
-                    </li>
-
-                    <li style={{ display: 'block', float: 'right', paddingLeft: '1em' }} key="11">
-                        {teacherLessons && userRoles.includes('STUDENT') ? teacherLessons[0].className: ''}
-                        {teacherLessons && userRoles.includes('TEACHER') ? firstName : ''}
-                    </li>
-                    <li style={{ display: 'block', float: 'right' }} key="12">
+                        <div className={styles.itemWrapper}>
+                        <Clock />
+                        </div>
+                            <Link to={navigationService.redirectToVideoChat(currentLesson)} key="16">
+                            <Button size="large" type="link" className={styles.cameraButton} shape="circle" icon={<VideoCameraOutlined style={{ fontSize: '25px', color: '#000' }} />} />
+                            <div className={currentLesson === 0 ? styles.cameraStatusDisabled : styles.cameraStatus} />
+                            </Link>
+                        <div className={styles.itemWrapper}>
                         <Link to={navigationService.redirectToVideoChat(currentLesson)} key="13">
                             <Button disabled={currentLesson === 0 ? true : false} shape="round" type="primary" key="14">
                                 Join a Class
                             </Button>
-                        </Link>
-                    </li>
-                    <Menu.Item style={{ display: 'block', float: 'right', paddingTop: '5px' }} key="15" disabled={currentLesson === 0 ? true : false}>
-                        <Link to={navigationService.redirectToVideoChat(currentLesson)} key="16">
-                            <Button size="large" type="link" className={styles.cameraButton} shape="circle" icon={<VideoCameraOutlined style={{ fontSize: '25px', color: '#000' }} />} />
-                        </Link>
-                        <div className={currentLesson === 0 ? styles.cameraStatusDisabled : styles.cameraStatus} key="17" />
-                    </Menu.Item>
-                    <li className={styles.modifiedItem} key="18">
-                        <Clock />
-                    </li>
-                </Menu>
+                       </Link>
+                        </div>
+
+                        <div className={styles.itemWrapper}>
+                            <div>
+                            {teacherLessons && userRoles.includes('STUDENT') ? teacherLessons[0].className: ''}
+                            {teacherLessons && userRoles.includes('TEACHER') ? firstName : ''}
+                            </div>
+                        </div>
+
+                        <div className={styles.itemWrapper}>
+                        <Avatar className={styles.avatar} size="large" icon={<UserOutlined className={styles.userIcon} style={{ fontSize: '25px' }} />} style={{ color: 'grey' }} />
+                        </div>
+                    <div className={styles.itemWrapper}>
+                    <LogoutOutlined data-tip="Log Out" onClick={this.handleClickLogout} style={{ fontSize: '1rem' }} />
+                    </div>
+
+
+            </div>
             </Header>
         );
     }
