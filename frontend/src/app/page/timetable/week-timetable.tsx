@@ -73,7 +73,7 @@ const TimetablePageComponent: React.FC<Props> = (props) => {
                 />
             </ Col >
         ));
-    console.log(props.allLessons);
+
     return (
         <AsyncContent loading={schedule.length === 0} loader={<PageLoadingSpinner />}>
             <div className={styles.weekPage}>

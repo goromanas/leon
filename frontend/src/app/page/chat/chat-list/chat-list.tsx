@@ -31,7 +31,8 @@ type Props = ContextProps & OwnProps;
 
 const ChatListComponent: React.FC<Props> = (
     {messages, currentChannel, currentClassroom, firstName }) => {
- 
+
+
     return(
         < div className={styles.container}>
 
