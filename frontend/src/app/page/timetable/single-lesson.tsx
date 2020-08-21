@@ -89,7 +89,7 @@ const SingleLesson: React.FC<Props> = (props) => {
                     <div className={lessonBarWithBreak}>
                         <div
                             className={lessonBarContent + ' ' + (checkUserRoleForModal() ? styles.pointer : null)}
-                            onClick={!thisLesson.lessonInformation[0] ? null : () => showModal(thisLesson.id)}
+                            onClick={!thisLesson.lessonInformation[0] && checkUserRoleForModal() ? null : () => showModal(thisLesson.id)}
                             style={{
                                 height: scheduleCalc.getLessonLength(schedule),
                                 cursor: !thisLesson.lessonInformation[0]  ? 'default' : 'cursor,'

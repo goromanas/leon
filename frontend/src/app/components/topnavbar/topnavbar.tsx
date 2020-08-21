@@ -57,7 +57,7 @@ class TopNavBarComponent extends React.Component<Props> {
                     </li>
 
                     <li style={{ display: 'block', float: 'right', paddingLeft: '1em' }} key="11">
-                        {teacherLessons && userRoles.includes('STUDENT') ? teacherLessons[0].className: ''}
+                        {/*{teacherLessons && userRoles.includes('STUDENT') ? teacherLessons[0].className: ''}*/}
                         {teacherLessons && userRoles.includes('TEACHER') ? firstName : ''}
                     </li>
                     <li style={{ display: 'block', float: 'right' }} key="12">
