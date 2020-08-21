@@ -14,28 +14,36 @@ interface Props {
 }
 
 const Message: React.FC<Props> = (
-    { text, author, date, channel, classroom, toRight }) => (
-  <div className={toRight ? styles.containerR : styles.containerL} >
-      {!toRight  && <div className={styles.avatarBox}>
-          <Avatar
-              className={styles.avatar}
-              size="large" icon={
-              <UserOutlined
-                  className={styles.userIcon}
-                  style={{fontSize: '25px'}}/>}
-              style={{color: 'white'}}
-          />
-      </div>}
+    { text, author, date, channel, classroom, toRight }) => {
+    let dateDisplay = date
+    if (dateDisplay.toString().length> 5){
+        let a = new Date(date)
+        let minutes = a.getMinutes().toString().length === 1 ? a.getMinutes().toString() + '0': a.getMinutes().toString()
+        dateDisplay = a.getHours().toString()+ ':' + minutes
+    }
+    return (
+        <div className={toRight ? styles.containerR : styles.containerL}>
+            {!toRight && <div className={styles.avatarBox}>
+                <Avatar
+                    className={styles.avatar}
+                    size="large" icon={
+                    <UserOutlined
+                        className={styles.userIcon}
+                        style={{fontSize: '25px'}}/>}
+                    style={{color: 'white'}}
+                />
+            </div>}
 
-    <div>
-        {!toRight && <span className={styles.author}>{author}</span>}
-        <div className={styles.message}>
-            <p>{text}</p>
-            <p className={styles.timestamp}>{date}</p>
+            <div>
+                {!toRight && <span className={styles.author}>{author}</span>}
+                <div className={styles.message}>
+                    <p>{text}</p>
+                    <p className={styles.timestamp}>{dateDisplay}</p>
+                </div>
+
+            </div>
         </div>
-
-    </div>
-  </div>
-);
+    );
+};
 
 export { Message };
