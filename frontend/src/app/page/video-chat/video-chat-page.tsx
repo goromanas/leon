@@ -80,7 +80,7 @@ class HomePageComponent extends React.Component<Props, State> {
     };
 
     public handleWhiteboard = (): void => {
-        console.log('whiteboard handle');
+
         this.setState({whiteboardVisible: !this.state.whiteboardVisible});
     };
 
@@ -95,14 +95,13 @@ class HomePageComponent extends React.Component<Props, State> {
             studentName: this.props.username,
         };
 
-        console.log('aaaaaaaaaaaa');
+
         this.ws.send(JSON.stringify(answer));
         this.setState({quizMessageForStudent: null});
-        console.log(this.state.value);
+
     };
 
     public handleCancel = () => {
-        console.log();
         this.setState({
             visible: false,
         });
@@ -140,7 +139,7 @@ class HomePageComponent extends React.Component<Props, State> {
                 this.setState({
                     answers: newAnswers,
                 });
-                console.log(this.state.answers);
+
                 this.showModal();
             }
         };
@@ -160,7 +159,7 @@ class HomePageComponent extends React.Component<Props, State> {
         };
         this.setState({question: values.question});
 
-        console.log(question);
+
         this.ws.send(JSON.stringify(question));
 
         this.setState({quizMessageForStudent: null, answers: []});
@@ -253,16 +252,17 @@ class HomePageComponent extends React.Component<Props, State> {
 
                         {videoChatName && (
                             <Jitsi
-                                containerStyle={{marginLeft: '61px'}}
+
                                 frameStyle={{
                                     display: 'block',
                                     height: this.state.whiteboardVisible ? '180px' : '443px',
-                                    width: this.state.whiteboardVisible ? '450px' : '1012px',
+                                    width: this.state.whiteboardVisible ? '450px' : '90%',
                                     zIndex: this.state.whiteboardVisible ? 2000 : 1,
                                     position: this.state.whiteboardVisible ? 'absolute' : 'inherit',
                                     right: this.state.whiteboardVisible ? '20px' : null,
                                     top: this.state.whiteboardVisible ? '10%' : null,
                                 }}
+                                containerStyle={{width:'100%', marginLeft: '5%'}}
                                 jwt="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250ZXh0Ijp7InVzZXIiOnsiYXZhdGFyIjoiaHR0cHM6Ly9hdmF0YXJzLmRpY2ViZWFyLmNvbS9hcGkvbWFsZS9tZW51by1zdS1pdC5zdmciLCJuYW1lIjoiTcSXbnVvIHN1IElUIn19LCJhdWQiOiJtZW51b19zdV9pdCIsImlzcyI6Im1lbnVvX3N1X2l0Iiwic3ViIjoibWVldC5qaXRzaSIsInJvb20iOiIqIn0.6CKZU_JWLhtj9eKJ-VdFGQZyRzvTZz29fn7--_dp-jw"
                                 roomName={videoChatName}
                                 domain="video-menuo-su-it.northeurope.cloudapp.azure.com:443"
@@ -294,12 +294,14 @@ class HomePageComponent extends React.Component<Props, State> {
                     </PageContent>
 
                 </Content>
-                <Sider width={this.state.whiteboardVisible ? '100%' : '282px'} className={styles.sider}>
-                    <VideoButton handleWhiteboard={() => this.handleWhiteboard()} role={userRoles}
-                                 openQuiz={this.openQuiz}
-                                 send={this.sendMessage}/>
-                    {this.state.whiteboardVisible ? <Whiteboard/> : null}
-                </Sider>
+                {userRoles[0] === 'STUDENT' ? null :
+                    <Sider width={this.state.whiteboardVisible ? '100%' : '282px'} className={styles.sider}>
+                        <VideoButton handleWhiteboard={() => this.handleWhiteboard()} role={userRoles}
+                                     openQuiz={this.openQuiz}
+                                     send={this.sendMessage}/>
+                        {this.state.whiteboardVisible ? <Whiteboard/> : null}
+                    </Sider>
+                }
 
             </Layout>
         );
