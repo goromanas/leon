@@ -33,14 +33,13 @@ const OptionList: React.FC<Props> = (props) => {
     };
     const [value, setValue] = React.useState(0);
 
-    const [questionCount, setquestionCount] = useState(1);
+    const [questionCount, setquestionCount] = useState(0);
 
     return ( <div>
         <Formik
             initialValues={{ question: '', options: [], timer: '15' }}
             onSubmit={(values, { setSubmitting }) => {
                 setTimeout(() => {
-
                     props.updateQuiz(values, value);
                     //   alert(JSON.stringify(values, null, 2));
                 }, 400);
@@ -121,7 +120,7 @@ const OptionList: React.FC<Props> = (props) => {
                                         <option value="60">1min</option>
                                     </Field> */}
                                     <label className={styles.timerLabel}>Select the duration to answer</label>
-                                    <Radio.Group name="timer">
+                                    <Radio.Group name="timer" >
                                         <Radio.Button value="15">15s</Radio.Button>
                                         <Radio.Button value="30">30s</Radio.Button>
                                         <Radio.Button value="40">45s</Radio.Button>
