@@ -130,6 +130,9 @@
       INSERT INTO `lesson` VALUES(47,15,4,16,'Chemistry 6A',5,4,0);
       INSERT INTO `lesson` VALUES(48,1,4,23,'Lithuanian',5,5,0);
       INSERT INTO `lesson` VALUES(49,1,4,23,'Lithuanian',5,6,0);
+      INSERT INTO `lesson` VALUES(50,15,4,16,'Chemistry 6A',5,7,0);
+      INSERT INTO `lesson` VALUES(51,15,4,16,'Chemistry 6A',5,8,0);
+
 
       create table schedule
       (
@@ -146,6 +149,15 @@
       INSERT INTO `schedule` VALUES(6, '12:55:00', '13:40:00');
       INSERT INTO `schedule` VALUES(7, '13:50:00', '14:35:00');
       INSERT INTO `schedule` VALUES(8, '14:45:00', '15:30:00');
+      INSERT INTO `schedule` VALUES(9, '15:40:00', '16:25:00');
+<!--      INSERT INTO `schedule` VALUES(2, '09:55:00', '09:40:00');-->
+<!--      INSERT INTO `schedule` VALUES(3, '010:50:00', '11:35:00');-->
+<!--      INSERT INTO `schedule` VALUES(4, '12:05:00', '12:50:00');-->
+<!--      INSERT INTO `schedule` VALUES(5, '13:00:00', '13:45:00');-->
+<!--      INSERT INTO `schedule` VALUES(6, '13:55:00', '14:40:00');-->
+<!--      INSERT INTO `schedule` VALUES(7, '14:50:00', '15:35:00');-->
+<!--      INSERT INTO `schedule` VALUES(8, '15:45:00', '16:30:00');-->
+
 
       ALTER TABLE lesson
       ADD FOREIGN KEY (TIME) REFERENCES schedule (ID)
