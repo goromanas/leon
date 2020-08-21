@@ -118,7 +118,7 @@ class ChatComponent extends React.Component<Props, State> {
         })
         .catch(() => console.log('Error getting subjects'));
 
-     
+
         }
 
         if (this.state.channels.length < 1 && userRoles.includes('TEACHER')) {
