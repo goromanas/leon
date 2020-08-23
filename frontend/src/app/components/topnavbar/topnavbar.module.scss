@@ -75,3 +75,7 @@
   padding-right: 2rem;
 }
 
+.join-lessonDisabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
