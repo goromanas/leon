@@ -27,7 +27,7 @@ interface Props {
 const { lesson, activeLesson, endedLesson, lessonBarContent, lessonBar, lessonBarWithBreak, activeInSchedules, emptyLesson, lessonIcon, lessonLive } = styles;
 
 const SingleLesson: React.FC<Props> = (props) => {
-    const { currentLesson, thisLesson, handleOpenClassroom, schedule, userRole, date, homepage, ifDayEnded } = props;
+    const {currentLesson, thisLesson, handleOpenClassroom, schedule, userRole, date, homepage, ifDayEnded} = props;
     const [modalVisible, setModalVisible] = useState(false);
 
     // define classNames
@@ -48,7 +48,9 @@ const SingleLesson: React.FC<Props> = (props) => {
 
     const showModal = (index: number) => {
         thisLesson.id !== -1 &&
-            setModalVisible(!modalVisible);
+        //for testing purposes
+        console.log(thisLesson.lessonInformation[0]);
+        setModalVisible(!modalVisible);
     };
 
     // console.log(parseInt(moment(date).format('DDD'), 10))
@@ -93,14 +95,14 @@ const SingleLesson: React.FC<Props> = (props) => {
                         date={date}
                     />) :
                     (<TeacherModal subject={thisLesson.subject} lessonId={thisLesson.id} onClose={handleOk} date={date}
-                        lessonInformation={thisLesson.lessonInformation
-                            .filter((lesson: Api.LessonInformationDto) => lesson.date === date)} />)}
+                                   lessonInformation={thisLesson.lessonInformation
+                                       .filter((lesson: Api.LessonInformationDto) => lesson.date === date)}/>)}
             </Modal>
             <div className={lessonClass} key={thisLesson.id}>
                 <div className={lessonBar}>
                     <div className={lessonBarWithBreak}>
                         <div
-                            data-tip={thisLesson.id === -1 ? "No Lesson" : null}
+                            data-tip={thisLesson.id === -1 ? 'No Lesson' : null}
                             className={lessonBarContent + ' ' + (checkUserRoleForModal() ? styles.pointer : null)}
                             onClick={!thisLesson.lessonInformation[0] && checkUserRoleForModal() ? null : () => showModal(thisLesson.id)}
                             style={{
@@ -113,7 +115,7 @@ const SingleLesson: React.FC<Props> = (props) => {
                                 src={`icons/subjects/${iconName}.svg`}
                             />
                             {checkUserRoleForModal() ? <h1>{thisLesson.subject}</h1> :
-                                <h1>{thisLesson.className + " " + thisLesson.subject}</h1>}
+                                <h1>{thisLesson.className + ' ' + thisLesson.subject}</h1>}
                             <div className={styles.assignments}>
                                 {
                                     currentLessonInfo?.assignment?.includes('Homework') &&
@@ -131,7 +133,7 @@ const SingleLesson: React.FC<Props> = (props) => {
                             </div>
                             {checkUserRoleForModal() ? null
                                 : <div className={styles.editModal}>
-                                    <i className="fas  fa-lg fa-plus-circle" />
+                                    <i className="fas  fa-lg fa-plus-circle"/>
                                 </div>}
                             {thisLesson.id === currentLesson && moment().format('W') === moment(date).format('W') ?
                                 (<Link to={navigationService.redirectToVideoChat(currentLesson)}>
@@ -154,7 +156,7 @@ const SingleLesson: React.FC<Props> = (props) => {
                                         )
 
                                         : (
-                                            <div style={{ display: 'flex' }}>
+                                            <div style={{display: 'flex'}}>
                                                 <img
                                                     className={lessonLive}
                                                     alt="Lesson modal icon"
@@ -166,19 +168,19 @@ const SingleLesson: React.FC<Props> = (props) => {
                                 </Link>)
                                 : null}
                         </div>
-                        {thisLesson.id === -1 && <ReactTooltip />}
+                        {thisLesson.id === -1 && <ReactTooltip/>}
                         <span
                             data-tip="Break"
-                            style={{ height: scheduleCalc.getBreakTime(schedule, thisLesson.time) }}
+                            style={{height: scheduleCalc.getBreakTime(schedule, thisLesson.time)}}
                             className={styles.breakSpan}
                         >   {
-                                scheduleCalc.getBreakTime(schedule, thisLesson.time) > 20 ?
-                                    (
-                                        <span className={styles.longBreak}>Long break</span>
-                                    ) : null
-                            }
+                            scheduleCalc.getBreakTime(schedule, thisLesson.time) > 20 ?
+                                (
+                                    <span className={styles.longBreak}>Long break</span>
+                                ) : null
+                        }
                         </span>
-                        <ReactTooltip />
+                        <ReactTooltip/>
                     </div>
                 </div>
             </div>

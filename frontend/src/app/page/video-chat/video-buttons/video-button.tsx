@@ -10,10 +10,12 @@ interface Props {
     send: any;
     handleWhiteboard: any;
     openQuiz: any;
+    activeUsers: number;
+    allUsers: number;
 }
 
 const VideoButton: React.FC<Props> = (props) => (
-    <div style={{ marginTop: '20px', marginLeft: '5px' }}>
+    <div style={{marginTop: '20px', marginLeft: '5px'}}>
         {/* <div className={styles.videobtn} style={{cursor: 'pointer'}}><Button type='primary' style={{
             borderRadius: '100%',
             height: '50px',
@@ -21,26 +23,35 @@ const VideoButton: React.FC<Props> = (props) => (
         }}><TeamOutlined/></Button> Participants
         </div> */}
         {
-            (props.role[0] === 'STUDENT') ? null :
-                (
-                    <>
+            <>
+                <div key={props.activeUsers} className={styles.videobtn}><Button type='primary' style={{
+                    borderRadius: '100%',
+                    height: '50px',
+                    fontSize: '20px'
+                }}><MessageOutlined/></Button>Participants {props.activeUsers} / {props.allUsers}
+                </div>
 
-                        <div onClick={props.openQuiz} className={styles.videobtn}><Button type='primary' style={{
-                            borderRadius: '100%',
-                            height: '50px',
-                            fontSize: '20px'
-                        }}><MessageOutlined /></Button>Create a Question
-                        </div>
-                        <div onClick={props.handleWhiteboard} className={styles.videobtn}><Button type='primary'
-                            style={{
+                {(props.role[0] === 'STUDENT') ? null :
+
+                    (<div>
+                            <div onClick={props.openQuiz} className={styles.videobtn}><Button type='primary' style={{
                                 borderRadius: '100%',
-                                height: '50px'
-                            }}><span
-                                style={{ width: '20px', display: 'flex' }}><Wand /></span></Button>
-                            Whiteboard
+                                height: '50px',
+                                fontSize: '20px'
+                            }}><MessageOutlined/></Button>Create a Question
+                            </div>
+                            <div onClick={props.handleWhiteboard} className={styles.videobtn}><Button type='primary'
+                                                                                                      style={{
+                                                                                                          borderRadius: '100%',
+                                                                                                          height: '50px'
+                                                                                                      }}><span
+                                style={{width: '20px', display: 'flex'}}><Wand/></span></Button>
+                                Whiteboard
+                            </div>
                         </div>
-                    </>
-                )
+                    )
+                }
+            </>
         }
     </div>
 );

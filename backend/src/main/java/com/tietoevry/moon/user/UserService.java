@@ -47,7 +47,7 @@ public class UserService {
             .map(UserMapper::mapUserDto);
     }
 
-    public UserDto findByUsername(String user){
+    public UserDto findByUsername(String user) {
         return userRepository.findByUsername(user).map(UserMapper::mapUserDto).orElseThrow();
     }
 

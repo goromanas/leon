@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import com.tietoevry.moon.user.model.Role;
 import com.tietoevry.moon.user.model.User;
+import com.tietoevry.moon.user.model.dto.ActiveUserDto;
 import com.tietoevry.moon.user.model.dto.UserDto;
 
 public class UserMapper {
@@ -23,6 +24,15 @@ public class UserMapper {
                 .map(Role::getName)
                 .collect(Collectors.toList())
         );
+        return userDto;
+    }
+    public static ActiveUserDto mapUserActiveDto(User user) {
+        ActiveUserDto userDto = new ActiveUserDto();
+        userDto.setId(user.getId());
+        userDto.setUsername(user.getUsername());
+        userDto.setFirstName(user.getFirstName());
+        userDto.setLastName(user.getLastName());
+        userDto.setActive(false);
         return userDto;
     }
 
