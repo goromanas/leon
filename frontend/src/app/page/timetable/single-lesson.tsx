@@ -67,6 +67,8 @@ const SingleLesson: React.FC<Props> = (props) => {
     return (
         <>
             <Modal
+                style={{borderRadius: '30px', overflow: 'hidden'}}
+                className={styles.modal}
                 visible={modalVisible}
                 footer={null}
                 onCancel={handleOk}
@@ -76,6 +78,7 @@ const SingleLesson: React.FC<Props> = (props) => {
             >
                 {checkUserRoleForModal() ?
                     (<StudentModal
+
                         subject={thisLesson.subject}
                         onClose={handleOk}
                         lessonInformation={thisLesson.lessonInformation
