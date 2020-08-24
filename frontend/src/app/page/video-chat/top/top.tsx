@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react';
-
-import { ClockCircleOutlined } from '@ant-design/icons';
+import React, { useEffect } from 'react';
 
 import styles from './top.module.scss';
 
@@ -17,8 +15,8 @@ const getTimeLeft = (endTime: string) => {
     const minutes = date.getMinutes();
     const seconds = date.getSeconds();
     const endSeconds: number =
-        endTime && parseInt(endTime.substr(0, 2),10) * 60 * 60 +
-        parseInt(endTime.substr(3, 2),10) * 60;
+        endTime && parseInt(endTime.substr(0, 2), 10) * 60 * 60 +
+        parseInt(endTime.substr(3, 2), 10) * 60;
     const nowSeconds: number = hours * 60 * 60 + minutes * 60 + seconds;
 
     const leftSeconds = endSeconds - nowSeconds;
@@ -31,8 +29,14 @@ const getTimeLeft = (endTime: string) => {
 };
 
 const Top: React.FC<Props> = ({ lessonTitle, teacher, startTime, endTime }) => {
-    const timeLeft = getTimeLeft(endTime);
+    let timeLeft = getTimeLeft(endTime);
 
+    useEffect(() => {
+        setInterval(() => {
+            timeLeft = getTimeLeft(endTime);
+            console.log('check time left');
+            }, 1000);
+    }, []);
 
     return (
         <div className={styles.container}>

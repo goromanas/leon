@@ -40,6 +40,7 @@ class HomePageComponent extends React.Component<Props, State> {
 
         return (
             <AsyncContent loading={this.props.schedule.length === 0} loader={<PageLoadingSpinner />}>
+                {/* {console.log('homepage')} */}
                 <div className={styles.homePage}>
                     <div className={styles.home}>
                         {

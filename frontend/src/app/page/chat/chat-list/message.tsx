@@ -10,16 +10,27 @@ interface Props {
     date: string;
     channel: number;
     classroom: string;
-    toRight: boolean
+    toRight: boolean;
 }
 
 const Message: React.FC<Props> = (
     { text, author, date, channel, classroom, toRight }) => {
-    let dateDisplay = date
-    if (dateDisplay.toString().length> 5){
-        let a = new Date(date)
-        let minutes = a.getMinutes().toString().length === 1 ? a.getMinutes().toString() + '0': a.getMinutes().toString()
-        dateDisplay = a.getHours().toString()+ ':' + minutes
+    const monthNames = ['Jan', 'Feb', 'Mar', 'Ap', 'May', 'Jun',
+        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+    ];
+    let dateDisplay = date;
+    const today = new Date();
+    if (dateDisplay.toString().length > 5) {
+        const a = new Date(date);
+        const minutes = a.getMinutes().toString().length === 1 ?
+            a.getMinutes().toString() + '0' : a.getMinutes().toString();
+
+        if (a.getDate() < today.getDate()) {
+            dateDisplay = monthNames[a.getMonth()] + ' ' + a.getDate() + ', ' + a.getHours().toString() + ':' + minutes;
+            // return;
+        }else{
+            dateDisplay = a.getHours().toString()+ ':' + minutes
+        }
     }
     return (
         <div className={toRight ? styles.containerR : styles.containerL}>
@@ -29,8 +40,8 @@ const Message: React.FC<Props> = (
                     size="large" icon={
                     <UserOutlined
                         className={styles.userIcon}
-                        style={{fontSize: '25px'}}/>}
-                    style={{color: 'white'}}
+                        style={{ fontSize: '25px' }} />}
+                    style={{ color: 'white' }}
                 />
             </div>}
 

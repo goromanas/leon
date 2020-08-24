@@ -54,15 +54,16 @@
   font-weight: $normal;
   font-size: $md;
   color: $grey9;
-  margin-right: 40px;
+  // margin-right: 40px;
   border-bottom: 2px solid rgba(255, 255, 255, 0);
   transform: translateY(1px);
   transition: 0.2s ease-out;
+  width: 170px;
+  margin-right: 25px;
 }
 
 .weekNavigationBackText {
   @extend .weekNavigationText;
-  margin-right: 25px;
   color: $primary;
   cursor: pointer;
 
@@ -88,6 +89,8 @@
 
   span {
     margin: 0 15px;
+    width: 100px;
+    text-align: center;
   }
 }
 
@@ -271,7 +274,6 @@
 .endedLesson {
   .lessonBarContent {
     color: #727272;
-
     & h1 {
       color: $grey5;
     }
@@ -281,9 +283,30 @@
     }
   }
 }
+.emptyLesson {
+  // background: repeating-linear-gradient(-45deg, #fff, #fff 5px, rgba(#DBDBDB, 0.3) 5px, rgba(#DBDBDB, 0.3) 6px);
+  .lessonBarContent {
+    background: repeating-linear-gradient(-45deg, #fff, #fff 5px, rgba(#DBDBDB, 0.2)  5px, rgba(219, 219, 219, 0.274) 6px);
+    opacity: 0.5;
+    box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.032),
+    0px 6px 16px rgba(0, 0, 0, 0.05),
+    0px 9px 28px 8px rgba(0, 0, 0, 0.05);
+    &::after {
+      display: none;
+    }
+  }
+
+  .assignments, .editModal, h1  {
+    display: none !important;
+    &:hover {
+      display: none;
+    }
+  }
+
+}
 
 .breakSpan {
-  pointer-events: none;
+  // pointer-events: none;
   cursor: default;
   height: 10px;
   display: block;
