@@ -104,17 +104,18 @@ public class VideoWebSocketHandler extends TextWebSocketHandler {
         if (include.equals("true")) {
             checkUsers = checkUsers.stream().filter(cu -> cu.getUsername() != session.getPrincipal().getName()).collect(Collectors.toList());
             System.out.println("Yesss");
-        }        checkUsers.add(userService.findByUsername(teacherUsername));
+        }
+            checkUsers.add(userService.findByUsername(teacherUsername));
 
+        System.out.println(teacherUsername);
         for (WebSocketSession webSocketSession : webSocketSessions) {
             if (checkUsers
                 .stream()
                 .anyMatch(student -> student
                     .getUsername()
                     .contains(webSocketSession.getPrincipal().getName()))) {
-                System.out.println(webSocketSession.getPrincipal().getName());
                 session.sendMessage(new TextMessage(new Gson().toJson(studentsOfAClass).toString()));
-
+                System.out.println(webSocketSession.getPrincipal().getName());
             }
 
         }

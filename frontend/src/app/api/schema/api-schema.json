@@ -1205,6 +1205,9 @@
         "teacher": {
           "type": "string"
         },
+        "teacherUsername": {
+          "type": "string"
+        },
         "time": {
           "type": "integer",
           "format": "int32"
