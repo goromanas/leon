@@ -71,7 +71,7 @@ const DayLessonsList: React.FC<Props> = ({ allLessons, userRole, day, date, curr
             {homepage ?
                 (
                     <div className={dayHeaderInHome}>
-                        <h1 className={dayHeader}>Today's lecture ({dayLessons.length})</h1>
+                        <h1 className={dayHeader}>Today's lessons ({dayLessons.length})</h1>
                         <Link to={navigationService.redirectToCalendarPage}>
                             View All
                         </Link>
@@ -80,7 +80,7 @@ const DayLessonsList: React.FC<Props> = ({ allLessons, userRole, day, date, curr
                 : (
                     <h1 className={dayHeader}>
                         <span>
-                            {(scheduleCalc.getDayFromInt(day).toUpperCase())}
+                            {(scheduleCalc.getDayFromInt(day))}
                         </span>
                         <span>{moment(date).format('DD MMM')}</span>
                     </h1>

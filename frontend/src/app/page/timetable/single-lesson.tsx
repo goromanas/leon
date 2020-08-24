@@ -24,7 +24,7 @@ interface Props {
     ifDayEnded: boolean;
 }
 
-const { lesson, activeLesson, endedLesson, lessonBarContent, lessonBar, lessonBarWithBreak, activeInSchedules, emptyLesson } = styles;
+const { lesson, activeLesson, endedLesson, lessonBarContent, lessonBar, lessonBarWithBreak, activeInSchedules, emptyLesson, lessonIcon, lessonLive } = styles;
 
 const SingleLesson: React.FC<Props> = (props) => {
     const { currentLesson, thisLesson, handleOpenClassroom, schedule, userRole, date, homepage, ifDayEnded } = props;
@@ -62,12 +62,18 @@ const SingleLesson: React.FC<Props> = (props) => {
         setModalVisible(!modalVisible);
     };
 
+    let iconName = thisLesson.subject;
+    if (thisLesson.subject && thisLesson.subject.includes(' ')) {
+        const arr = thisLesson.subject.split(' ');
+        iconName = arr[0];
+    }
+
     const currentLessonInfo = thisLesson.lessonInformation
         .filter((lesson: Api.LessonInformationDto) => lesson.date === date)[0];
     return (
         <>
             <Modal
-                style={{borderRadius: '30px', overflow: 'hidden'}}
+                style={{ borderRadius: '30px', overflow: 'hidden' }}
                 className={styles.modal}
                 visible={modalVisible}
                 footer={null}
@@ -101,17 +107,26 @@ const SingleLesson: React.FC<Props> = (props) => {
                                 height: scheduleCalc.getLessonLength(schedule),
                                 cursor: !thisLesson.lessonInformation[0] ? 'default' : 'cursor,'
                             }}
-                        >
+                        >    <img
+                                className={lessonIcon}
+                                alt=""
+                                src={`icons/subjects/${iconName}.svg`}
+                            />
                             {checkUserRoleForModal() ? <h1>{thisLesson.subject}</h1> :
                                 <h1>{thisLesson.className + " " + thisLesson.subject}</h1>}
                             <div className={styles.assignments}>
                                 {
                                     currentLessonInfo?.assignment?.includes('Homework') &&
-
-                                    <i style={{ color: 'white' }} className="far fa-file-alt " />}
+                                    <img
+                                        alt=""
+                                        src={`icons/homework.svg`}
+                                    />
+                                }
                                 {currentLessonInfo?.assignment?.includes('Test') &&
-                                    <i style={{ backgroundColor: 'red', color: 'black' }} className="far fa-file-alt" />
-
+                                    <img
+                                        alt=""
+                                        src={`icons/assignment.svg`}
+                                    />
                                 }
                             </div>
                             {checkUserRoleForModal() ? null
@@ -141,9 +156,10 @@ const SingleLesson: React.FC<Props> = (props) => {
                                         : (
                                             <div style={{ display: 'flex' }}>
                                                 <img
+                                                    className={lessonLive}
                                                     alt="Lesson modal icon"
                                                     src={'icons/camera.svg'}
-                                                /> <span>live</span>
+                                                /> <span>Live</span>
                                             </div>
 
                                         )}
