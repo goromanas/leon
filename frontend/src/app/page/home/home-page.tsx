@@ -12,6 +12,7 @@ import { scheduleCalc } from 'app/page/timetable/schedule-calc';
 import { Whiteboard } from 'app/components/whiteboard/whiteboard';
 
 import { HolidayCounter } from './holiday-counter/holiday-counter';
+import { TeacherFeedback } from './teacher-feedback/teacher-feedback';
 
 import styles from './home.module.scss';
 
@@ -70,24 +71,8 @@ class HomePageComponent extends React.Component<Props, State> {
                                                 />
                                             </Col>
                                             <Col lg={22} md={40} sm={40} className={styles.homeSide}>
-                                                {/* <div className={styles.homeImage}>
-                                                    <img
-                                                        alt="Homepage"
-                                                        src={'images/homeart.svg'}
-                                                    />
-                                                </div>
-                                                <div className={styles.homeModal}>
-                                                    <h1>Teacher’s Recomendation</h1>
-                                                    <div>
-                                                        <img
-                                                            alt="Homepage User"
-                                                            src={'icons/homeuser.svg'}
-                                                        />
-                                                        <p>If people only knew how hard I’ve worked to gain my mastery, it wouldn’t seem so wonderful at all.</p>
-                                                    </div>
-
-                                                </div> */}
-                                                <HolidayCounter />
+                                                {userRoles.includes('TEACHER') ? <TeacherFeedback /> : ''}
+                                                {userRoles.includes('STUDENT') ? <HolidayCounter /> : ''}
                                             </Col>
                                         </Row>
                                     </>

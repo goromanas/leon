@@ -1,6 +1,46 @@
-holiday-counter {
+@import '~app/style/variables';
+@import '~app/style/typography';
+
+.holiday-counter {
 
   &board {
-    width: 100%;
+    width: 400px;
+    position: relative;
+  }
+
+  &titleWrapper {
+    color: #fff;
+    position: absolute;
+    font-size: $xxl;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Cabin Sketch', cursive;
+    max-width: 100px;
+    line-height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  &number {
+    color: #fff;
+    position: absolute;
+    font-size: $xl;
+    top: 28%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Cabin Sketch', cursive;
+  }
+
+  &day {
+    color: #fff;
+    position: absolute;
+    font-size: $xl;
+    top: 35%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Cabin Sketch', cursive;
   }
 }
