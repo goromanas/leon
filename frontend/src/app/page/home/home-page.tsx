@@ -13,6 +13,8 @@ import { Whiteboard } from 'app/components/whiteboard/whiteboard';
 
 import { HolidayCounter } from './holiday-counter/holiday-counter';
 import { TeacherFeedback } from './teacher-feedback/teacher-feedback';
+import { ToDoList } from './to-do-list/to-do-list';
+import { Greeting } from './greeting/greeting';
 
 import styles from './home.module.scss';
 
@@ -39,6 +41,7 @@ class HomePageComponent extends React.Component<Props, State> {
             allLessons,
             currentLesson,
             schedule,
+            firstName,
         } = this.props;
 
         return (
@@ -53,13 +56,19 @@ class HomePageComponent extends React.Component<Props, State> {
                                 </Button>
                             ) : (
                                     <>
-
+                                        <div className={styles.greeting}>
+                                            <Greeting firstname={firstName} />
+                                        </div>
                                         <Row>
-                                            <Col lg={2} md={2} sm={2} >
-                                                <SideTimebar schedule={schedule} homepage={true} itemsInList={scheduleCalc.thisDayLength(allLessons, parseInt(moment().format('d'), 10))} />
+                                            <Col lg={2} md={2} sm={2}>
+                                                <SideTimebar
+                                                    schedule={schedule}
+                                                    homepage={true}
+                                                    itemsInList={scheduleCalc.thisDayLength(allLessons, parseInt(moment().format('d'), 10))}
+                                                />
 
                                             </Col>
-                                            <Col lg={16} md={38} sm={38} >
+                                            <Col lg={14} md={14} sm={38}>
                                                 <DayLessonsList
                                                     userRole={this.props.userRoles}
                                                     currentLesson={currentLesson}
@@ -70,7 +79,18 @@ class HomePageComponent extends React.Component<Props, State> {
                                                     homepage={true}
                                                 />
                                             </Col>
-                                            <Col lg={22} md={40} sm={40} className={styles.homeSide}>
+
+                                            <Col
+                                                lg={10}
+                                                md={4}
+                                                sm={38}
+                                                className={styles.todoList}
+                                            >
+                                                <ToDoList lessons={allLessons} />
+                                            </Col>
+                                            <Col
+
+                                            >
                                                 {userRoles.includes('TEACHER') ? <TeacherFeedback /> : ''}
                                                 {userRoles.includes('STUDENT') ? <HolidayCounter /> : ''}
                                             </Col>

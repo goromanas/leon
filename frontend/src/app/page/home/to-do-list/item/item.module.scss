@@ -1,0 +1,21 @@
+@import '~app/style/style';
+@import '~app/style/variables';
+
+.item {
+
+  &title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+
+  }
+
+  &subject {
+    color: $grey6;
+  }
+
+  &topic {
+    font-weight: $bold;
+  }
+}
