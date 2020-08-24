@@ -43,12 +43,25 @@ const TimetablePageComponent: React.FC<Props> = (props) => {
 
     // change week on arrow click
     const moveWeek = (direction: boolean) => {
-        direction ? setWeek(week + 7)
-            : setWeek(week - 7);
-    };
+        // direction ? setWeek(week + 7)
+        //     : setWeek(week - 7);
+
+        if (dayDate(weekWorkDays[4]).year() === moment().year()) {
+            direction ? setWeek(week + 7)
+                : setWeek(week - 7);
+            // }
+        } else if (dayDate(weekWorkDays[4]).year() < moment().year()) {
+            direction ? setWeek(week + 7)
+                : setWeek(week);
+        } else if (dayDate(weekWorkDays[4]).year() > moment().year()) {
+            direction ? setWeek(week)
+                : setWeek(week - 7);
+        }
+    }
 
     //change back to current week
     const resetWeek = () => {
+        setWeek(0);
         setWeekWorkDays([1, 2, 3, 4, 5]);
     };
 
@@ -59,7 +72,7 @@ const TimetablePageComponent: React.FC<Props> = (props) => {
             return sortedLesson.filter(lesson => lesson.day === day ? lesson : null);
         }
     };
-
+    // console.log(dayDate(item).year() === moment().year())
     const allWeekDays = weekWorkDays.map((item, index) =>
         (
             < Col lg={8} md={20} sm={40} className={styles.dayClassCol} key={index} >
@@ -68,12 +81,14 @@ const TimetablePageComponent: React.FC<Props> = (props) => {
                     // allLessons={filterByDay(allLessons, dayDate(item).day()) || []}
                     allLessons={allLessons || []}
                     currentLesson={currentLesson}
-                    day={dayDate(item).day()}
+                    day={dayDate(item).year() === moment().year() ? dayDate(item).day() : 0}
                     date={dayDate(item).format('YYYY-MM-DD')}
                     schedule={schedule}
                 />
             </ Col >
-        ));
+        )
+
+    );
 
     return (
         <AsyncContent loading={schedule.length === 0} loader={<PageLoadingSpinner />}>
