@@ -1,4 +1,6 @@
 @import '~app/style/style';
+
+
 // WEEK page
 .weekPage {
   // padding: 80px;
@@ -412,6 +414,20 @@
   cursor: pointer;
 }
 
+.ant-modal-content {
+  box-shadow: none !important;
+}
+
+.modal {
+  overflow: no-content;
+  background-color: #ffffff;
+
+  div {
+    box-shadow: none !important;
+  }
+}
+
+
 .lessonBarContent:hover {
 
   .editModal {
@@ -424,6 +440,8 @@
 .assignments {
   margin-left: auto;
   display: flex;
+  box-shadow: none !important;
+
   i {
     margin: 5px;
     display: block;

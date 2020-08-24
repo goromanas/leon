@@ -64,6 +64,8 @@ const SingleLesson: React.FC<Props> = (props) => {
     return (
         <>
             <Modal
+                style={{borderRadius: '30px', overflow: 'hidden'}}
+                className={styles.modal}
                 visible={modalVisible}
                 footer={null}
                 onCancel={handleOk}
@@ -73,6 +75,7 @@ const SingleLesson: React.FC<Props> = (props) => {
             >
                 {checkUserRoleForModal() ?
                     (<StudentModal
+
                         subject={thisLesson.subject}
                         onClose={handleOk}
                         lessonInformation={thisLesson.lessonInformation
@@ -92,7 +95,7 @@ const SingleLesson: React.FC<Props> = (props) => {
                             onClick={!thisLesson.lessonInformation[0] && checkUserRoleForModal() ? null : () => showModal(thisLesson.id)}
                             style={{
                                 height: scheduleCalc.getLessonLength(schedule),
-                                cursor: !thisLesson.lessonInformation[0]  ? 'default' : 'cursor,'
+                                cursor: !thisLesson.lessonInformation[0] ? 'default' : 'cursor,'
                             }}
                         >
                             <h1>{thisLesson.subject}</h1>

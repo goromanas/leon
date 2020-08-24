@@ -8,7 +8,7 @@ import { lessonInformationService } from 'app/api/service/lessonInformation-serv
 
 import styles from './teacherModal.module.scss';
 
-const { Option } = Select;
+const {Option} = Select;
 
 interface Values {
     assignment: string[];
@@ -34,6 +34,7 @@ const TeacherModal: React.FC<{ lessonId: number, onClose: () => void, date: stri
     const saveInformation = (lessonInformation: Api.LessonInformationDto): void => {
         updateLessonInformation(lessonInformation);
     };
+
     return (
         <div>
             <Formik
@@ -47,7 +48,7 @@ const TeacherModal: React.FC<{ lessonId: number, onClose: () => void, date: stri
                 }}
                 onSubmit={(
                     values: Api.LessonInformationDto,
-                    { setSubmitting }: FormikHelpers<Values>
+                    {setSubmitting}: FormikHelpers<Values>
                 ) => {
                     saveInformation(values);
                     setTimeout(() => {
@@ -57,7 +58,7 @@ const TeacherModal: React.FC<{ lessonId: number, onClose: () => void, date: stri
 
                 }}
             >
-                {({ setFieldValue }) => (
+                {({setFieldValue}) => (
                     <Form className={styles.teacherModal}>
                         <div className={styles.circle}>
                             <img
@@ -67,26 +68,24 @@ const TeacherModal: React.FC<{ lessonId: number, onClose: () => void, date: stri
                         </div>
                         <div className={styles.modalTop}>
                             <p>{props.subject}</p>
-                            <Field id="topic" name="topic" placeholder="Enter topic for this lesson" />
 
-                        </div>
-                        <div className={styles.textareaModal}>
-                            <label htmlFor='information'><h3>Homework</h3></label>
-                            <Field as="textarea" id="information" name="information"
-                                placeholder="Assignments, information, homework, etc." />
+                            <Field id="topic" name="topic" autoFocus placeholder="Enter topic for this lesson"/>
+
                         </div>
                         <div className={styles.selectorField}>
                             <Field
-
                                 component={SelectField}
                                 name="assignment"
-                                placeholder="Please select assignments for this lesson"
+                                placeholder="Please select an assignment"
                                 mode="multiple"
-                                onChange={(option: string) => setFieldValue('assignment', option)}
-                            >
+                                onChange={(option: string) => setFieldValue('assignment', option)}>
                                 <Option value="Test">Test</Option>
                                 <Option value="Homework">Homework</Option>
                             </Field>
+                        </div>
+                        <div className={styles.textareaModal}>
+                            <Field as="textarea" id="information" name="information"
+                                   placeholder="Please write all information student may need for this lesson."/>
                         </div>
                         <FormButton
                             component={SubmitButton}>{props.lessonInformation[0] ? 'Update' : 'Save'}</FormButton>
