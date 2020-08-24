@@ -9,9 +9,11 @@ import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-lo
 import { DayLessonsList } from 'app/page/timetable/day-timetable';
 import { SideTimebar } from 'app/page/timetable/side-timebar';
 import { scheduleCalc } from 'app/page/timetable/schedule-calc';
+import { Whiteboard } from 'app/components/whiteboard/whiteboard';
+
+import { HolidayCounter } from './holiday-counter/holiday-counter';
 
 import styles from './home.module.scss';
-import { Whiteboard } from 'app/components/whiteboard/whiteboard';
 
 interface ContextProps {
     username: string | null;
@@ -68,7 +70,7 @@ class HomePageComponent extends React.Component<Props, State> {
                                                 />
                                             </Col>
                                             <Col lg={22} md={40} sm={40} className={styles.homeSide}>
-                                                <div className={styles.homeImage}>
+                                                {/* <div className={styles.homeImage}>
                                                     <img
                                                         alt="Homepage"
                                                         src={'images/homeart.svg'}
@@ -84,7 +86,8 @@ class HomePageComponent extends React.Component<Props, State> {
                                                         <p>If people only knew how hard I’ve worked to gain my mastery, it wouldn’t seem so wonderful at all.</p>
                                                     </div>
 
-                                                </div>
+                                                </div> */}
+                                                <HolidayCounter />
                                             </Col>
                                         </Row>
                                     </>
