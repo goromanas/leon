@@ -21,7 +21,7 @@ interface ContextProps {
     authenticated: boolean;
 }
 
-interface OwnProps {}
+interface OwnProps { }
 
 message.config({
     duration: 2,
@@ -38,7 +38,7 @@ class LoginPageComponent extends React.Component<Props, {}> {
         const errors: LoginErrors = {};
 
         if (!values.username) {
-            errors.username = 'You need to enter a usename';
+            errors.username = 'You need to enter a username';
         }
         if (!values.password) {
             errors.password = 'You need to enter a password';
@@ -56,35 +56,35 @@ class LoginPageComponent extends React.Component<Props, {}> {
         }
 
         return (
-      <Layout className={styles.loginLayout}>
-        <Content>
-          <PageContent>
-            <Row className={styles.loginContainer}>
-              <div className={styles.loginHeading}>
-                <Logo fontSize={'2.5rem'} />
-                <span className={styles.loginSubheading}>Learning Online</span>
-              </div>
-              <div className={styles.loginMessagewrapper} />
-              <LoginForm
-                initialValues={LoginPageComponent.LOGIN_INITIAL_VALUES}
-                onSubmit={this.handleSubmit}
-                validate={LoginPageComponent.validate}
-              />
-            </Row>
-            <img alt="Login User" src={'images/login-user.svg'} className={styles.loginImage} />
-          </PageContent>
-        </Content>
-      </Layout>
+            <Layout className={styles.loginLayout}>
+                <Content>
+                    <PageContent>
+                        <Row className={styles.loginContainer}>
+                            <div className={styles.loginHeading}>
+                                <Logo fontSize={'2.5rem'} />
+                                <span className={styles.loginSubheading}>Learning Online</span>
+                            </div>
+                            <div className={styles.loginMessagewrapper} />
+                            <LoginForm
+                                initialValues={LoginPageComponent.LOGIN_INITIAL_VALUES}
+                                onSubmit={this.handleSubmit}
+                                validate={LoginPageComponent.validate}
+                            />
+                        </Row>
+                        <img alt="Login User" src={'images/login-user.svg'} className={styles.loginImage} />
+                    </PageContent>
+                </Content>
+            </Layout>
         );
     }
 
     private readonly handleSubmit = (values: LoginValues, { resetForm }: FormikHelpers<LoginValues>): void => {
         sessionService
-      .login(values.username, values.password, values.checkbox)
-      .then(() => {
-          navigationService.redirectToDefaultPageAfterLogin();
-      })
-      .catch(error => this.handleError(error, resetForm, values));
+            .login(values.username, values.password, values.checkbox)
+            .then(() => {
+                navigationService.redirectToDefaultPageAfterLogin();
+            })
+            .catch(error => this.handleError(error, resetForm, values));
     };
 
     private readonly handleError = (error: any, resetForm: (nextValues?: Partial<FormikState<LoginValues>>) => void, values: LoginValues): void => {
