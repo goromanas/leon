@@ -12,7 +12,7 @@
   box-shadow: $containerShadow;
   // border-radius: $conteinerRadius;
   border-radius: $conteinerRadius;
-    // height: calc(100vh - 129px);
+  // height: calc(100vh - 129px);
   height: 100%;
   // height: 100%;
   padding: 4%;
@@ -59,11 +59,13 @@
   transform: translateY(1px);
   transition: 0.2s ease-out;
 }
+
 .weekNavigationBackText {
   @extend .weekNavigationText;
   margin-right: 25px;
   color: $primary;
   cursor: pointer;
+
   &:hover {
     border-bottom: 2px solid $primary;
   }
@@ -95,6 +97,7 @@
   padding: 0 10px;
 
 }
+
 .dayClassCol:first-child {
   .longBreak {
     display: block;
@@ -117,12 +120,14 @@
     font-weight: $normal;
   }
 }
+
 .dayHeaderInHome {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 
 }
+
 .activeDay {
   .dayHeader {
     span:nth-child(1) {
@@ -141,6 +146,7 @@
 
     .lessonBarTime {
       margin-bottom: 0 !important;
+
     }
   }
 }
@@ -153,7 +159,7 @@
 
 .lessonBar {
   width: 100%;
-
+  cursor: pointer;
   display: flex;
 }
 
@@ -193,7 +199,7 @@
 
   & h1 {
     color: #000000;
-    font-size: $md;
+    font-size: $sm;
     margin: 0 0 0 30px;
     font-weight: $light;
     max-width: 50%;
@@ -286,14 +292,14 @@
   // background-color: #F3F3F3;
 }
 
-  .longBreak {
-    display: none;
-    font-size: $xs;
-    color: $grey6;
-    left: -80px;
-    position: relative;
-    font-weight: $light;
-  }
+.longBreak {
+  display: none;
+  font-size: $xs;
+  color: $grey6;
+  left: -80px;
+  position: relative;
+  font-weight: $light;
+}
 
 
 .toVideoButton {
@@ -314,6 +320,7 @@
 .lessonSideBarTimeInHome {
   pointer-events: none;
   cursor: default;
+
   .timeLine {
     width: calc(40vw) !important;
     @media only screen and (max-width: 990px) {
@@ -321,33 +328,38 @@
     }
   }
 }
+
 .lessonSideBar {
   pointer-events: none;
   cursor: default;
   margin-top: 37px;
   position: relative;
   z-index: 99;
+
   .lessonSideBarTime {
     display: flex;
     flex-direction: column;
     // margin-right: 10px;
     justify-content: center;
     align-items: center;
-     span:nth-child(1) {
+
+    span:nth-child(1) {
       font-weight: 300;
       font-size: $xs;
       line-height: 16px;
     }
-      span:nth-child(2) {
-        font-size: $sm;
-        line-height: 28px;
-        font-weight: $semiBold;
-      }
+
+    span:nth-child(2) {
+      font-size: $sm;
+      line-height: 28px;
+      font-weight: $semiBold;
+    }
   }
 
   .timeLine {
     position: absolute;
     width: calc(100vw - 160px);
+
     div {
       position: absolute;
       transform: translateY(-50%);
@@ -357,6 +369,7 @@
       line-height: 16px;
       color: $dustRed;
       width: 100%;
+
       span {
         border-bottom: 1px solid $dustRed;
         // width: 88vw;
@@ -365,6 +378,7 @@
         bottom: 50%;
         margin-bottom: 0px;
         margin-left: 6px;
+
         &::after {
           position: absolute;
           content: '';
@@ -374,6 +388,7 @@
           border-radius: 50%;
           background-color: $dustRed;
         }
+
         &::before {
           position: absolute;
           content: '';
@@ -388,6 +403,7 @@
     }
   }
 }
+
 .editModal {
   //display: none;
   margin: 0 1em 0 0;
@@ -407,12 +423,12 @@
 
 .assignments {
   margin-left: auto;
-
+  display: flex;
   i {
     margin: 5px;
     display: block;
     border-radius: 50%;
-    padding: 0.5em;
+    padding: 0.4em;
     float: left;
     background-color: #FBA536;
   }

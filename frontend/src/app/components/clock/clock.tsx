@@ -27,7 +27,7 @@ class Clock extends React.Component {
         return (
             <>
                 <span className={styles.date}>{this.state.date.format('dddd YYYY MM DD')}</span>
-                {this.state.date.format('HH:mm')}
+                <span className={styles.time}>{this.state.date.format('HH:mm')}</span>
             </>
         );
     }

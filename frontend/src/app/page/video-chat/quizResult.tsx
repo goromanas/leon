@@ -7,6 +7,7 @@ const {Content} = Layout;
 interface Props {
     answers: any;
     correct: number;
+    question: string;
 }
 
 const QuizResult: React.FC<Props> = (props) => {
@@ -16,6 +17,10 @@ const QuizResult: React.FC<Props> = (props) => {
         props.answers.filter((item: any) => item.answer === props.correct).length / props.answers.length * 100;
     return (
         <>
+            <h5>Your question</h5>
+            <h3>{props.question}</h3>
+
+
             <Progress percent={calculate()}
                       strokeColor={{
                           from: '#00ff00',
@@ -25,21 +30,22 @@ const QuizResult: React.FC<Props> = (props) => {
                       strokeWidth={25}
             ></Progress>
 
-            <ol>
+            <ul>
                 <li>
                     Correct {props.answers.filter((item: any) => item.answer === props.correct).length}
                 </li>
                 <li>
                     Incorrect {props.answers.length - props.answers.filter((item: any) => item.answer === props.correct).length}
                 </li>
-            </ol>
+            </ul>
 
-            {calculate()}
-            {props.answers.map((item: any) =>
-                (
-                    <h1 key={item.index}>{item.answer}</h1>
-                ),
-            )}
+
+            {/*{calculate()}*/}
+            {/*{props.answers.map((item: any) =>*/}
+            {/*    (*/}
+            {/*        <h1 key={item.index}>{item.answer}</h1>*/}
+            {/*    ),*/}
+            {/*)}*/}
         </>
     );
 };

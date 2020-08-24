@@ -39,8 +39,8 @@ const TeacherModal: React.FC<{ lessonId: number, onClose: () => void, date: stri
             <Formik
                 initialValues={{
                     assignment: props.lessonInformation[0] && props.lessonInformation[0].assignment,
-                    information: props.lessonInformation[0] ? props.lessonInformation[0].information : 'Add homework',
-                    topic: props.lessonInformation[0] ? props.lessonInformation[0].topic : 'Enter lesson topic',
+                    information: props.lessonInformation[0] ? props.lessonInformation[0].information : '',
+                    topic: props.lessonInformation[0] ? props.lessonInformation[0].topic : '',
                     id: props.lessonInformation[0] ? props.lessonInformation[0].id : 0,
                     lessonId: props.lessonId,
                     date: props.date,

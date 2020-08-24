@@ -46,9 +46,9 @@ public class VideoWebSocketHandler extends TextWebSocketHandler {
         String name = String.valueOf(messageContent.get("teacherUsername"));
         UserDto teacher = userService.findByUsername(name);
         for (WebSocketSession webSocketSession : webSocketSessions) {
-
-            if (teacher.getUsername() == webSocketSession.getPrincipal().getName()) {//  if (webSocketSession != session) {
-                System.out.println(teacher.getUsername());
+            System.out.println(webSocketSession.getPrincipal().getName());
+            if (webSocketSession.getPrincipal().getName().equals(name)) {//  if (webSocketSession != session) {
+               // System.out.println(teacher.getUsername());
                 webSocketSession.sendMessage(message);
             }//}
         }

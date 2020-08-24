@@ -31,10 +31,8 @@ type Props = ContextProps & OwnProps;
 
 const ChatListComponent: React.FC<Props> = (
     {messages, currentChannel, currentClassroom, firstName }) => {
-    console.log(messages)
-    console.log(messages && messages[0])
-    // console.log(messages && typeof messages[0])
-    // console.log(messages && Object.keys(messages[0]))
+
+
     return(
         < div className={styles.container}>
 

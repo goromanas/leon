@@ -21,7 +21,7 @@ const VideoButton: React.FC<Props> = (props) => (
         }}><TeamOutlined/></Button> Participants
         </div> */}
         {
-            (props.role[0] === 'STUDENT') ? console.log('student') :
+            (props.role[0] === 'STUDENT') ? null :
                 (
                     <>
 
