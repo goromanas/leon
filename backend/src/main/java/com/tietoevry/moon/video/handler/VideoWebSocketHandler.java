@@ -64,7 +64,6 @@ public class VideoWebSocketHandler extends TextWebSocketHandler {
         Map messageContent = new Gson().fromJson(message.getPayload(), Map.class);
         String classroomName = String.valueOf(messageContent.get("classroom"));
         String username = session.getPrincipal().getName();
-        System.out.println("BBBBBBBBBB");
         //  System.out.println(username);
         Classroom classroom = classroomService.findClassroomByName(classroomName);
         for (WebSocketSession webSocketSession : webSocketSessions) {
@@ -84,10 +83,11 @@ public class VideoWebSocketHandler extends TextWebSocketHandler {
 
     private void activeUsers(TextMessage message, WebSocketSession session) throws IOException {
 
-        System.out.println("AAAAAAAAA");
         Map messageContent = new Gson().fromJson(message.getPayload(), Map.class);
         String classroomName = String.valueOf(messageContent.get("classroom"));
         Classroom classroom = classroomService.findClassroomByName(classroomName);
+        String include = String.valueOf(messageContent.get("include"));
+        String teacherUsername = String.valueOf(messageContent.get("teacherUsername"));
         List<String> users = webSocketSessions.stream().map(w -> w.getPrincipal().getName()).collect(Collectors.toList());
         List<ActiveUserDto> studentsOfAClass = classroom
             .getUser()
@@ -100,21 +100,24 @@ public class VideoWebSocketHandler extends TextWebSocketHandler {
                 }
                 return s;
             }).collect(Collectors.toList());
+        List<UserDto> checkUsers = classroom.getUser().stream().map(UserMapper::mapUserDto).collect(Collectors.toList());
+        if (include.equals("true")) {
+            checkUsers = checkUsers.stream().filter(cu -> cu.getUsername() != session.getPrincipal().getName()).collect(Collectors.toList());
+            System.out.println("Yesss");
+        }        checkUsers.add(userService.findByUsername(teacherUsername));
 
         for (WebSocketSession webSocketSession : webSocketSessions) {
-            //  if (webSocketSession != session) {
-            if (classroom
-                .getUser()
+            if (checkUsers
                 .stream()
                 .anyMatch(student -> student
                     .getUsername()
                     .contains(webSocketSession.getPrincipal().getName()))) {
                 System.out.println(webSocketSession.getPrincipal().getName());
-                webSocketSession.sendMessage(new TextMessage(new Gson().toJson(studentsOfAClass).toString()));
-                //}
-            }
-        }
+                session.sendMessage(new TextMessage(new Gson().toJson(studentsOfAClass).toString()));
 
+            }
+
+        }
     }
 
 
@@ -122,6 +125,7 @@ public class VideoWebSocketHandler extends TextWebSocketHandler {
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         System.out.println("Remove session called");
         webSocketSessions.remove(session);
+
     }
 
     @Override

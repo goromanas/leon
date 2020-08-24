@@ -10,6 +10,8 @@ interface Props {
     send: any;
     handleWhiteboard: any;
     openQuiz: any;
+    activeUsers: number;
+    allUsers: number;
 }
 
 const VideoButton: React.FC<Props> = (props) => (
@@ -24,6 +26,12 @@ const VideoButton: React.FC<Props> = (props) => (
             (props.role[0] === 'STUDENT') ? null :
                 (
                     <>
+                        <div key={props.activeUsers} className={styles.videobtn}><Button type='primary' style={{
+                            borderRadius: '100%',
+                            height: '50px',
+                            fontSize: '20px'
+                        }}><MessageOutlined /></Button>Participants {props.activeUsers} / {props.allUsers}
+                        </div>
 
                         <div onClick={props.openQuiz} className={styles.videobtn}><Button type='primary' style={{
                             borderRadius: '100%',
