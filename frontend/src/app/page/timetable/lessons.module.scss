@@ -194,11 +194,11 @@
 
   &:hover {
     // background-color: rgba(#eeeeee, 1);
-    box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.11);
+    // box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.11);
   }
   .lessonIcon {
     color: #000000;
-    height: 100%;
+    height: 90%;
   }
 
   &::after {
@@ -369,7 +369,15 @@
 
   .timeLine {
     left: 20px;
-    width: calc(40vw) !important;
+      width: 0px;
+      transition: 0.5s ease-in-out;
+
+
+  }
+
+  .timeLineLong {
+      width: calc(40vw) !important;
+
   }
 }
 
@@ -402,7 +410,9 @@
 
   .timeLine {
     position: absolute;
-    width: calc(100vw - 180px);
+    width: 7px;
+    transition: 0.5s ease-in-out;
+
     @media only screen and (max-width: 990px) {
       width: calc(100vw - 130px) !important;
     }
@@ -416,10 +426,10 @@
       line-height: 16px;
       color: $dustRed;
       width: 100%;
-
       span {
         border-bottom: 1px solid $dustRed;
         // width: 88vw;
+        left: 30px;
         position: absolute;
         width: 100%;
         bottom: 50%;
@@ -450,7 +460,10 @@
     }
   }
 }
+.timeLineLong {
+    width: calc(100vw - 180px) !important;
 
+ }
 .editModal {
   //display: none;
   margin: 0 1em 0 0;

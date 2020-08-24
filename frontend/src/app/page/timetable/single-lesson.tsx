@@ -10,8 +10,26 @@ import { StudentModal } from 'app/components/modalContent/studentModal';
 import { navigationService } from 'app/service/navigation-service';
 
 import { scheduleCalc } from './schedule-calc';
+import { motion } from "framer-motion";
 
 import styles from './lessons.module.scss';
+
+const variants = {
+    open: {
+        y: 0,
+        opacity: 1,
+        transition: {
+            y: { stiffness: 1000, velocity: -100 }
+        }
+    },
+    closed: {
+        y: 50,
+        opacity: 0,
+        transition: {
+            y: { stiffness: 1000 }
+        }
+    }
+};
 
 interface Props {
     currentLesson: number;
@@ -96,7 +114,9 @@ const SingleLesson: React.FC<Props> = (props) => {
                         lessonInformation={thisLesson.lessonInformation
                             .filter((lesson: Api.LessonInformationDto) => lesson.date === date)} />)}
             </Modal>
-            <div className={lessonClass} key={thisLesson.id}>
+
+            <motion.div className={lessonClass} key={thisLesson.id}
+                variants={variants}>
                 <div className={lessonBar}>
                     <div className={lessonBarWithBreak}>
                         <div
@@ -181,7 +201,7 @@ const SingleLesson: React.FC<Props> = (props) => {
                         <ReactTooltip />
                     </div>
                 </div>
-            </div>
+            </motion.div>
         </ >
 
     );
