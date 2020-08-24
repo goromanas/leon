@@ -65,7 +65,8 @@ const TimetablePageComponent: React.FC<Props> = (props) => {
             < Col lg={8} md={20} sm={40} className={styles.dayClassCol} key={index} >
                 < DayLessonsList
                     userRole={userRoles}
-                    allLessons={filterByDay(allLessons, dayDate(item).day()) || []}
+                    // allLessons={filterByDay(allLessons, dayDate(item).day()) || []}
+                    allLessons={allLessons || []}
                     currentLesson={currentLesson}
                     day={dayDate(item).day()}
                     date={dayDate(item).format('YYYY-MM-DD')}

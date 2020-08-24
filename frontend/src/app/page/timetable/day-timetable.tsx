@@ -23,9 +23,23 @@ interface Props {
 const DayLessonsList: React.FC<Props> = ({ allLessons, userRole, day, date, currentLesson, schedule, homepage }) => {
 
     const { dayHeader, dayClass, dayLessonsList, activeDay, dayHeaderInHome } = styles;
-    // filter this { day } lessons from allLessons
+    // const dayTable = new Array(scheduleCalc.thisDayLength(allLessons, day));
+    const dayTable = new Array(scheduleCalc.getLongestDay(allLessons));
+
     const dayLessons = allLessons && allLessons.filter((lesson: Api.LessonDto) =>
         lesson.day === day);
+
+    for (let i = 0; dayTable.length > i; i++) {
+        if (dayTable[i] === undefined) {
+            dayTable[i] = {
+                id: -1,
+                lessonInformation: [],
+                time: i + 1,
+            }
+        }
+        dayLessons[i] !== undefined && dayTable[i].day === undefined &&
+            dayTable.splice(dayLessons[i].time - 1, 1, dayLessons[i]);
+    }
 
     // navigate to video chat by class number id. Passed function in SingleLesson
     const handleOpenClassroom = (id: number): void => {
@@ -36,7 +50,8 @@ const DayLessonsList: React.FC<Props> = ({ allLessons, userRole, day, date, curr
         dayClass,
         moment().format('YYYY-MM-DD') === date && activeDay,
     );
-    const lessonsList = dayLessons.map((item: any, index) => (
+
+    const lessonsList = dayTable.map((item: any, index) => (
 
         <SingleLesson
             key={index}
@@ -50,7 +65,7 @@ const DayLessonsList: React.FC<Props> = ({ allLessons, userRole, day, date, curr
             ifDayEnded={scheduleCalc.ifDayEnded(allLessons, schedule, day)}
         />
     ));
-    // console.log(currentLesson);
+    // console.log(dayLessons);
     return (
         <div className={dayClasses}>
             {homepage ?
