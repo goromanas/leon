@@ -61,6 +61,7 @@ const SingleLesson: React.FC<Props> = (props) => {
     const handleOk = () => {
         setModalVisible(!modalVisible);
     };
+
     const currentLessonInfo = thisLesson.lessonInformation
         .filter((lesson: Api.LessonInformationDto) => lesson.date === date)[0];
     return (
@@ -98,7 +99,8 @@ const SingleLesson: React.FC<Props> = (props) => {
                                 cursor: !thisLesson.lessonInformation[0] ? 'default' : 'cursor,'
                             }}
                         >
-                            <h1>{thisLesson.subject}</h1>
+                            {checkUserRoleForModal() ? <h1>{thisLesson.subject}</h1> :
+                                <h1>{thisLesson.className + " " + thisLesson.subject}</h1>}
                             <div className={styles.assignments}>
                                 {
                                     currentLessonInfo?.assignment?.includes('Homework') &&
