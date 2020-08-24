@@ -15,6 +15,7 @@ import { variantsDay, variantsWeek, variantsUl } from 'app/page/timetable/animat
 
 import { scheduleCalc } from './schedule-calc';
 
+
 interface ContextProps {
     username: string | null;
     userRoles: string[] | null;
@@ -102,6 +103,7 @@ const TimetablePageComponent: React.FC<Props> = (props) => {
 
     return (
         <AsyncContent loading={schedule.length === 0} loader={<PageLoadingSpinner />}>
+
             <div className={styles.weekPage}>
                 <div className={styles.weekInfo}>
                     <div className={styles.weekNavigation}>
