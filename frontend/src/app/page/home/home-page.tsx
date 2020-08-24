@@ -10,6 +10,10 @@ import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-lo
 import { DayLessonsList } from 'app/page/timetable/day-timetable';
 import { SideTimebar } from 'app/page/timetable/side-timebar';
 import { scheduleCalc } from 'app/page/timetable/schedule-calc';
+import { Whiteboard } from 'app/components/whiteboard/whiteboard';
+
+import { HolidayCounter } from './holiday-counter/holiday-counter';
+import { TeacherFeedback } from './teacher-feedback/teacher-feedback';
 
 import styles from './home.module.scss';
 
@@ -69,10 +73,9 @@ class HomePageComponent extends React.Component<Props, State> {
                                         </Col>
                                         <Col lg={22} md={40} sm={40} className={styles.homeSide}>
                                             <div className={styles.homeImage}>
-                                                <img
-                                                    alt="Homepage"
-                                                    src={'images/homeart.svg'}
-                                                />
+                                             {userRoles.includes('TEACHER') ? <TeacherFeedback /> : ''}
+                                                {userRoles.includes('STUDENT') ? <HolidayCounter /> : ''}
+
                                             </div>
                                             <div className={styles.homeModal}>
 
@@ -93,6 +96,7 @@ class HomePageComponent extends React.Component<Props, State> {
                                     </Row>
                                 </>
                             )
+
                         }
                     </div>
 

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
 import moment from 'moment';
+import { motion } from "framer-motion"
 
 import { navigationService } from 'app/service/navigation-service';
 
@@ -9,6 +10,7 @@ import { SingleLesson } from './single-lesson';
 
 import styles from './lessons.module.scss';
 import { Link } from 'react-router-dom';
+import { variantsWeek, variantsUl } from 'app/page/timetable/animation'
 
 interface Props {
     allLessons: Api.LessonDto[];
@@ -21,6 +23,14 @@ interface Props {
 }
 
 const DayLessonsList: React.FC<Props> = ({ allLessons, userRole, day, date, currentLesson, schedule, homepage }) => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setIsOpen(true)
+        }, 200)
+
+    }, [])
 
     const { dayHeader, dayClass, dayLessonsList, activeDay, dayHeaderInHome } = styles;
     // const dayTable = new Array(scheduleCalc.thisDayLength(allLessons, day));
@@ -73,7 +83,7 @@ const DayLessonsList: React.FC<Props> = ({ allLessons, userRole, day, date, curr
                     <div className={dayHeaderInHome}>
                         <h1 className={dayHeader}>Today's lessons ({dayLessons.length})</h1>
                         <Link to={navigationService.redirectToCalendarPage}>
-                            View All
+                            View All Week
                         </Link>
                     </div>
                 )
@@ -86,7 +96,15 @@ const DayLessonsList: React.FC<Props> = ({ allLessons, userRole, day, date, curr
                     </h1>
                 )
             }
-            <div className={dayLessonsList}>{lessonsList}</div>
+            <motion.nav
+                initial={false}
+                animate={isOpen ? "open" : "closed"}
+                variants={variantsWeek}
+            >
+                <motion.div className={dayLessonsList} variants={variantsUl}>
+                    {lessonsList}
+                </motion.div>
+            </motion.nav>
         </div>
     );
 };

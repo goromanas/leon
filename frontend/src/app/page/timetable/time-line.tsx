@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
+import classNames from 'classnames';
 
 import { scheduleCalc } from './schedule-calc';
 
@@ -12,12 +13,24 @@ interface Props {
 
 const TimeLine: React.FC<Props> = (props) => {
     const { schedule, itemsInList } = props;
+    const { timeLine, timeLineLong } = styles;
 
     let date = moment();
     const [top, setTop] = useState(scheduleCalc.convertTimeToMinutes(date.format('HH:mm')) - scheduleCalc.getDayStart(schedule));
     const startTimeInMins = scheduleCalc.getDayStart(schedule) - 10;
     const endTimeInMins = scheduleCalc.getDayEnd(schedule, itemsInList) + 10;
+    const [long, setLong] = useState(false);
 
+    useEffect(() => {
+        setTimeout(() => {
+            setLong(true)
+        }, 500)
+    }, [])
+
+    const timeLineClass = classNames(
+        timeLine,
+        long && timeLineLong,
+    )
     useEffect(() => {
         const interval = setInterval(() => {
 
@@ -37,7 +50,7 @@ const TimeLine: React.FC<Props> = (props) => {
     if (endTimeInMins > timeInMins && timeInMins > startTimeInMins && top !== 0) {
         return (
             <span
-                className={styles.timeLine}
+                className={timeLineClass}
                 style={{ top }}
             >
                 <div>{date.format('HH:mm')}<span /></div>

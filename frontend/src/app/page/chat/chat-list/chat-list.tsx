@@ -5,7 +5,7 @@ import { connectContext, SettingsProps } from 'app/context';
 
 import { Message } from './message';
 
-import styles from './chat-list.module.scss'
+import styles from './chat-list.module.scss';
 
 interface Message {
     content: string;
@@ -30,10 +30,10 @@ interface OwnProps {
 type Props = ContextProps & OwnProps;
 
 const ChatListComponent: React.FC<Props> = (
-    {messages, currentChannel, currentClassroom, firstName }) => {
+    { messages, currentChannel, currentClassroom, firstName }) => {
 
 
-    return(
+    return (
         < div className={styles.container}>
 
             < ul>

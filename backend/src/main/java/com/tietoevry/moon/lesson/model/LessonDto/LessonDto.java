@@ -16,6 +16,7 @@ public class LessonDto {
     private Long id;
     private String subject;
     private String teacher;
+    private String teacherUsername;
     private String video;
     private String className;
     private int time;

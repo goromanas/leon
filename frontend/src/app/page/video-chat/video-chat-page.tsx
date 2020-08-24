@@ -105,7 +105,7 @@ class HomePageComponent extends React.Component<Props, State> {
         const dataToSend = {
             type: 'activeUsers',
             classroom: this.props.teacherLessons[0].className,
-            teacherUsername: this.props.username,
+            teacherUsername: this.props.teacherLessons[0].teacherUsername,
             include: include,
         };
         this.ws.send(JSON.stringify(dataToSend));
@@ -359,7 +359,6 @@ class HomePageComponent extends React.Component<Props, State> {
         // });
         this.userActivityUpdate();
         api.addEventListener('readyToClose', () => {
-            this.userActivityUpdate(true);
             navigationService.redirectToHomePage();
         });
         api.addEventListener('participantJoined', () => {
