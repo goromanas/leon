@@ -243,6 +243,7 @@ class ChatComponent extends React.Component<Props, State> {
     };
 
     private readonly onChannelChange = (id: number): void => {
+        console.log(this.state.currentChannel, new Date())
         this.setState({
             currentChannel: id,
         });
