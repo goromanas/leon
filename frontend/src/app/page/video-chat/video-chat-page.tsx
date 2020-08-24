@@ -240,8 +240,8 @@ class HomePageComponent extends React.Component<Props, State> {
                             <QuizCreate updateQuiz={this.updateQuiz}
                             />}
                 </Modal>
-                <Content style={{ margin: 'auto', width: '70%' }}>
-                    {/*>>>>>>> master*/}
+                <Content style={{margin: 'auto', width: '70%'}}>
+
                     <PageContent>
 
                         <Top lessonTitle={lessonTitle}
@@ -255,14 +255,14 @@ class HomePageComponent extends React.Component<Props, State> {
 
                                 frameStyle={{
                                     display: 'block',
-                                    height: this.state.whiteboardVisible ? '180px' : '443px',
-                                    width: this.state.whiteboardVisible ? '450px' : '90%',
+                                    height: this.state.whiteboardVisible ? '180px' : '100%',
+                                    width: this.state.whiteboardVisible ? '450px' : '100%',
                                     zIndex: this.state.whiteboardVisible ? 2000 : 1,
                                     position: this.state.whiteboardVisible ? 'absolute' : 'inherit',
                                     right: this.state.whiteboardVisible ? '20px' : null,
                                     top: this.state.whiteboardVisible ? '10%' : null,
                                 }}
-                                containerStyle={{ width: '100%', marginLeft: '5%' }}
+                                containerStyle={{width:'90%', marginLeft: '5%', height: '70%'}}
                                 jwt="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250ZXh0Ijp7InVzZXIiOnsiYXZhdGFyIjoiaHR0cHM6Ly9hdmF0YXJzLmRpY2ViZWFyLmNvbS9hcGkvbWFsZS9tZW51by1zdS1pdC5zdmciLCJuYW1lIjoiTcSXbnVvIHN1IElUIn19LCJhdWQiOiJtZW51b19zdV9pdCIsImlzcyI6Im1lbnVvX3N1X2l0Iiwic3ViIjoibWVldC5qaXRzaSIsInJvb20iOiIqIn0.6CKZU_JWLhtj9eKJ-VdFGQZyRzvTZz29fn7--_dp-jw"
                                 roomName={videoChatName}
                                 domain="video-menuo-su-it.northeurope.cloudapp.azure.com:443"
