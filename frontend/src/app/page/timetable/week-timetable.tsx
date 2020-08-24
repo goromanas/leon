@@ -10,6 +10,8 @@ import { SideTimebar } from 'app/page/timetable/side-timebar';
 import styles from 'app/page/timetable/lessons.module.scss';
 import { lessonsService } from 'app/api/service/lessons-service';
 import { lessonInformationService } from 'app/api/service/lessonInformation-service';
+import { motion } from "framer-motion";
+import { variantsDay, variantsWeek, variantsUl } from 'app/page/timetable/animation'
 
 import { scheduleCalc } from './schedule-calc';
 
@@ -36,15 +38,18 @@ const TimetablePageComponent: React.FC<Props> = (props) => {
     const [week, setWeek] = useState(0);
     const [weekWorkDays, setWeekWorkDays] = useState([1, 2, 3, 4, 5]);
     const dayDate = (item?: any) => moment().day(item || undefined);
+    const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
         setWeekWorkDays([1 + week, 2 + week, 3 + week, 4 + week, 5 + week]);
     }, [week]);
 
+    useEffect(() => {
+        setIsOpen(true)
+    }, [])
+
     // change week on arrow click
     const moveWeek = (direction: boolean) => {
-        // direction ? setWeek(week + 7)
-        //     : setWeek(week - 7);
 
         if (dayDate(weekWorkDays[4]).year() === moment().year()) {
             direction ? setWeek(week + 7)
@@ -75,17 +80,22 @@ const TimetablePageComponent: React.FC<Props> = (props) => {
     // console.log(dayDate(item).year() === moment().year())
     const allWeekDays = weekWorkDays.map((item, index) =>
         (
-            < Col lg={8} md={20} sm={40} className={styles.dayClassCol} key={index} >
-                < DayLessonsList
-                    userRole={userRoles}
-                    // allLessons={filterByDay(allLessons, dayDate(item).day()) || []}
-                    allLessons={allLessons || []}
-                    currentLesson={currentLesson}
-                    day={dayDate(item).year() === moment().year() ? dayDate(item).day() : 0}
-                    date={dayDate(item).format('YYYY-MM-DD')}
-                    schedule={schedule}
-                />
+
+            < Col lg={8} md={20} sm={40} key={index} className={styles.dayClassCol}>
+                <motion.div variants={variantsDay}>
+                    < DayLessonsList
+                        userRole={userRoles}
+                        // allLessons={filterByDay(allLessons, dayDate(item).day()) || []}
+                        allLessons={allLessons || []}
+                        currentLesson={currentLesson}
+                        day={dayDate(item).year() === moment().year() ? dayDate(item).day() : 0}
+                        date={dayDate(item).format('YYYY-MM-DD')}
+                        schedule={schedule}
+                    />
+                </motion.div>
             </ Col >
+
+
         )
 
     );
@@ -114,14 +124,19 @@ const TimetablePageComponent: React.FC<Props> = (props) => {
                     <p>Lesson duration: {scheduleCalc.getLessonLength(schedule)}min</p>
                 </div>
 
-                <div className={styles.week}>
+                <motion.div className={styles.week} initial={false}
+                    animate={isOpen ? "open" : "closed"}
+                    variants={variantsWeek}>
                     <div className={styles.weekList} >
                         <SideTimebar schedule={schedule} itemsInList={allLessons && scheduleCalc.getLongestDay(allLessons)} />
-                        <Row className={styles.daysRow} gutter={[0, 40]}>
-                            {allWeekDays}
-                        </Row>
+                        <motion.div variants={variantsUl} style={{ width: '100%' }}>
+                            <Row gutter={[0, 40]} className={styles.daysRow}>
+                                {allWeekDays}
+                            </Row>
+                        </motion.div>
+
                     </div>
-                </div >
+                </motion.div >
             </div>
 
         </AsyncContent >
