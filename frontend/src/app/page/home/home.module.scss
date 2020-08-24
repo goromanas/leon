@@ -45,16 +45,16 @@
   .homeImage {
     // position: absolute;
     // padding: 9%;
-    display: flex;
+    display: block;
     height: 100%;
-
+    width: 400px;
     img {
       width: 100%;
     }
   }
 
   .homeModal {
-    bottom: 0.5em;
+    bottom: 0em;
     display: inline-block;
     flex-direction: column;
     width: 50%;
@@ -65,8 +65,6 @@
     }
 
     div {
-      //display: block;
-      float: bottom;
       padding: 8px 2px;
     }
 
@@ -77,12 +75,12 @@
 
     .homeModalMotivation {
       display: flex;
-      position: relative;
+      position: absolute;
+      bottom: 40px;
       z-index: 20;
       background-color: $primary;
       border-radius: $conteinerRadius;
-      //padding: 40px 25px;
-      color: #fff;
+      //color: #fff;
       box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.12), 0px 6px 16px rgba(0, 0, 0, 0.08), 0px 9px 28px rgba(0, 0, 0, 0.05);
     }
   }
@@ -93,8 +91,9 @@
     height: 100px;
     width: 100%;
     position: absolute;
-    bottom: 5.5em;
+    bottom: 1.5em;
     margin: auto;
+    z-index: 15;
     box-shadow: 0px 3px 6px -4px rgba(0, 0, 0, 0.12), 0px 6px 16px rgba(0, 0, 0, 0.08), 0px 9px 28px 8px rgba(0, 0, 0, 0.05);
   }
 
@@ -104,8 +103,9 @@
     height: 100px;
     width: 100%;
     margin: auto;
+
     position: relative;
-    bottom: 6.5em;
+    bottom: 0.5em;
     box-shadow: 0px 3px 6px -4px rgba(0, 0, 0, 0.12), 0px 6px 16px rgba(0, 0, 0, 0.08), 0px 9px 28px 8px rgba(0, 0, 0, 0.05);
   }
 }

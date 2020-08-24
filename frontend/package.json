@@ -12,6 +12,7 @@
     "classnames": "^2.2.6",
     "craco-antd": "^1.18.1",
     "formik": "^2.1.5",
+    "framer-motion": "^2.6.0",
     "lodash": "^4.17.19",
     "moment": "^2.27.0",
     "react": "^16.13.1",

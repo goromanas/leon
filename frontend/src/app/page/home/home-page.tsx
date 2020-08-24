@@ -73,9 +73,7 @@ class HomePageComponent extends React.Component<Props, State> {
                                         </Col>
                                         <Col lg={22} md={40} sm={40} className={styles.homeSide}>
                                             <div className={styles.homeImage}>
-                                             {userRoles.includes('TEACHER') ? <TeacherFeedback /> : ''}
                                                 {userRoles.includes('STUDENT') ? <HolidayCounter /> : ''}
-
                                             </div>
                                             <div className={styles.homeModal}>
 
