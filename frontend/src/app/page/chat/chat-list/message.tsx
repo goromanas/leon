@@ -27,10 +27,10 @@ const Message: React.FC<Props> = (
 
         if (a.getDate() < today.getDate()) {
             dateDisplay = monthNames[a.getMonth()] + ' ' + a.getDate() + ', ' + a.getHours().toString() + ':' + minutes;
-            return;
+            // return;
+        }else{
+            dateDisplay = a.getHours().toString()+ ':' + minutes
         }
-
-        dateDisplay = a.getHours().toString()+ ':' + minutes
     }
     return (
         <div className={toRight ? styles.containerR : styles.containerL}>
