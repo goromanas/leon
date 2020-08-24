@@ -84,6 +84,14 @@ class HomePageComponent extends React.Component<Props, State> {
         this.setState({whiteboardVisible: !this.state.whiteboardVisible});
     };
 
+    public userActivityUpdate() {
+        const dataTosend = {
+            type: 'activeUsers',
+            classroom: this.props.teacherLessons[0].className,
+        };
+        this.ws.send(JSON.stringify(dataTosend));
+    }
+
     public handleOk = () => {
         this.setState({
             visible: false,
@@ -94,7 +102,6 @@ class HomePageComponent extends React.Component<Props, State> {
             teacherUsername: this.state.quizMessageForStudent.teacherUsername,
             studentName: this.props.username,
         };
-
 
         this.ws.send(JSON.stringify(answer));
         this.setState({quizMessageForStudent: null});
@@ -132,7 +139,7 @@ class HomePageComponent extends React.Component<Props, State> {
             if (message.type === 'question') {
                 this.showModal();
                 this.setState({quizMessageForStudent: message});
-            } else {
+            } else if (message.type === 'answer') {
                 const copyAnswers = [...this.state.answers];
                 const newAnswers = [...copyAnswers, message];
 
@@ -141,6 +148,8 @@ class HomePageComponent extends React.Component<Props, State> {
                 });
 
                 this.showModal();
+            } else {
+                console.log(message);
             }
         };
     }
@@ -158,7 +167,6 @@ class HomePageComponent extends React.Component<Props, State> {
             timer: values.timer,
         };
         this.setState({question: values.question});
-
 
         this.ws.send(JSON.stringify(question));
 
@@ -262,13 +270,14 @@ class HomePageComponent extends React.Component<Props, State> {
                                     right: this.state.whiteboardVisible ? '20px' : null,
                                     top: this.state.whiteboardVisible ? '10%' : null,
                                 }}
-                                containerStyle={{width:'100%', marginLeft: '5%'}}
+
+                                containerStyle={{width: '100%', marginLeft: '5%'}}
                                 jwt="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250ZXh0Ijp7InVzZXIiOnsiYXZhdGFyIjoiaHR0cHM6Ly9hdmF0YXJzLmRpY2ViZWFyLmNvbS9hcGkvbWFsZS9tZW51by1zdS1pdC5zdmciLCJuYW1lIjoiTcSXbnVvIHN1IElUIn19LCJhdWQiOiJtZW51b19zdV9pdCIsImlzcyI6Im1lbnVvX3N1X2l0Iiwic3ViIjoibWVldC5qaXRzaSIsInJvb20iOiIqIn0.6CKZU_JWLhtj9eKJ-VdFGQZyRzvTZz29fn7--_dp-jw"
                                 roomName={videoChatName}
                                 domain="video-menuo-su-it.northeurope.cloudapp.azure.com:443"
                                 userInfo={{email: username}}
                                 displayName={username}
-                                onAPILoad={handleCallEnd}
+                                onAPILoad={this.jitsiActions}
                                 config={{
                                     startAudioMuted: 1,
                                     remoteVideoMenu: {
@@ -317,18 +326,25 @@ class HomePageComponent extends React.Component<Props, State> {
     private readonly handleClickToDefaultPage = (): void => {
         navigationService.redirectToDefaultPage();
     };
+    public jitsiActions = (api: any) => {
+        // api.executeCommand('startRecording', {
+        //     mode: 'file',
+        //     shouldShare: true,
+        // });
+        this.userActivityUpdate();
+        api.addEventListener('readyToClose', () => {
+            navigationService.redirectToHomePage();
+        });
+        api.addEventListener('participantJoined', () => {
+            alert("c");
+            this.userActivityUpdate();
+        });
+        api.addEventListener('participantLeft', () => {
+            alert("d");
+            this.userActivityUpdate();
+        });
+    };
 }
-
-const handleCallEnd = (api: any) => {
-    // api.executeCommand('startRecording', {
-    //     mode: 'file',
-    //     shouldShare: true,
-    // });
-
-    api.addEventListener('readyToClose', () => {
-        navigationService.redirectToHomePage();
-    });
-};
 
 const mapContextToProps = ({session: {user}, lessons, schedule}: SettingsProps): ContextProps => ({
     username: user != null ? user.username : null,
