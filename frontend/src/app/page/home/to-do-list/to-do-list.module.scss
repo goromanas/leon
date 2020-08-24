@@ -1,0 +1,16 @@
+@import '~app/style/style';
+@import '~app/style/variables';
+
+.item-wrapper {
+  position: relative;
+  background-color: #FAFAFA;
+  box-shadow: $lessonShadow;
+  border-radius: $elementRadius;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+  transition: all 0.2s cubic-bezier(0.43, 0.51, 0.63, 0.68);
+  margin-bottom: 0.6rem;
+}

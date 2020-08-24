@@ -1,0 +1,10 @@
+@import '~app/style/style';
+@import '~app/style/variables';
+
+.greeting {
+  font-size: $xxl;
+
+  &Name {
+    color: $primary;
+  }
+}

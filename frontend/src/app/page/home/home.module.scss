@@ -16,9 +16,26 @@
 .homePage {
   padding: 0 50px;
   height: 100%;
+
   Row {
     height: 100%;
   }
+
+  .greeting {
+    margin: -2rem 0 2rem 2rem;
+  }
+
+  .scheduleWrapper {
+    background: $background;
+    box-shadow: $containerShadow;
+    border-radius: $conteinerRadius $conteinerRadius 0 0;
+    // height: calc(100vh - 129px);
+  }
+
+  .todoList {
+    margin-left: 2rem;
+  }
+
   .home {
     background: $background;
     box-shadow: $containerShadow;
@@ -26,8 +43,9 @@
     // height: calc(100vh - 129px);
     height: 100%;
     padding: 4%;
-    margin-top:64px;
+    margin-top: 64px;
   }
+
   .homeSide {
     // padding: 0 65px;
 
@@ -44,10 +62,12 @@
     // padding: 9%;
     display: flex;
     height: 100%;
+
     img {
       width: 100%;
     }
   }
+
   .homeModal {
     padding: 33px 27px 20px 27px;
     background: $background;
@@ -57,18 +77,20 @@
     bottom: 3%;
     left: 7%;
     max-width: 70%;
+
     h1 {
       font-size: $lg;
     }
+
     div {
       display: flex;
       flex-direction: row;
       align-items: center;
     }
+
     img {
       height: 100px;
       margin-right: 12px;
     }
   }
 }
-
