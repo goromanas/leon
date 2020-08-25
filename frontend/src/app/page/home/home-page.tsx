@@ -95,26 +95,26 @@ class HomePageComponent extends React.Component<Props, State> {
                                             >
                                                 {userRoles.includes('TEACHER') ? <TeacherFeedback /> : ''}
                                                 {userRoles.includes('STUDENT') ? <HolidayCounter /> : ''}
-                                            </div>
-                                            <div className={styles.homeModal}>
 
-                                                <h1>Learn something new!</h1>
-                                                <div>
+                                                <div className={styles.homeModal}>
 
-                                                    <div className={styles.homeModalMotivation}>
-                                                        <img src={'icons/quoteLogo.svg'} />
-                                                        <Quotes />
+                                                    <h1>Learn something new!</h1>
+                                                    <div>
+
+                                                        <div className={styles.homeModalMotivation}>
+                                                            <img src={'icons/quoteLogo.svg'} />
+                                                            <Quotes />
+
+                                                        </div>
 
                                                     </div>
-
+                                                    <div className={styles.homeModalOne}></div>
+                                                    <div className={styles.homeModalTwo}></div>
                                                 </div>
-                                                <div className={styles.homeModalOne}></div>
-                                                <div className={styles.homeModalTwo}></div>
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                </>
-                            )
+                                            </Col>
+                                        </Row>
+                                    </>
+                                )
 
                         }
                     </div>

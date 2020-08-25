@@ -62,69 +62,66 @@
     // padding: 9%;
     display: block;
     height: 100%;
-    <<<<<<< HEAD=======width: 400px;
-
-    >>>>>>>8eb3a436672447d7885ec2057d2f0f3a13ce500c img {
-      width: 100%;
-    }
-  }
-
-  .homeModal {
-    bottom: 0em;
-    display: inline-block;
-    flex-direction: column;
-    width: 50%;
-    position: absolute;
-    <<<<<<< HEAD bottom: 3%;
-    left: 7%;
-    max-width: 70%;
-
-    =======>>>>>>>8eb3a436672447d7885ec2057d2f0f3a13ce500c h1 {
-      text-align: center;
-    }
-
-    div {
-      padding: 8px 2px;
-    }
-
-    img {
-      position: relative;
-      right: 1em;
-    }
-
-    .homeModalMotivation {
-      display: flex;
-      position: absolute;
-      bottom: 40px;
-      z-index: 20;
-      background-color: $primary;
-      border-radius: $conteinerRadius;
-      //color: #fff;
-      box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.12), 0px 6px 16px rgba(0, 0, 0, 0.08), 0px 9px 28px rgba(0, 0, 0, 0.05);
-    }
-  }
-
-  .homeModalOne {
-    background-color: $primary;
-    border-radius: $conteinerRadius;
-    height: 100px;
     width: 100%;
-    position: absolute;
-    bottom: 1.5em;
-    margin: auto;
-    z-index: 15;
-    box-shadow: 0px 3px 6px -4px rgba(0, 0, 0, 0.12), 0px 6px 16px rgba(0, 0, 0, 0.08), 0px 9px 28px 8px rgba(0, 0, 0, 0.05);
+  }
+}
+
+.homeModal {
+  bottom: 0em;
+  display: inline-block;
+  flex-direction: column;
+  width: 50%;
+  position: absolute;
+  bottom: 3%;
+  left: 7%;
+  width: 100%;
+  color: #fff;
+
+  h1 {
+    text-align: center;
   }
 
-  .homeModalTwo {
-    background-color: $primary;
-    border-radius: $conteinerRadius;
-    height: 100px;
-    width: 100%;
-    margin: auto;
+  div {
+    padding: 8px 2px;
+  }
 
+  img {
     position: relative;
-    bottom: 0.5em;
-    box-shadow: 0px 3px 6px -4px rgba(0, 0, 0, 0.12), 0px 6px 16px rgba(0, 0, 0, 0.08), 0px 9px 28px 8px rgba(0, 0, 0, 0.05);
+    right: 1em;
   }
+
+  .homeModalMotivation {
+    display: flex;
+    position: absolute;
+    bottom: 40px;
+    z-index: 20;
+    background-color: $primary;
+    border-radius: $conteinerRadius;
+    //color: #fff;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.12), 0px 6px 16px rgba(0, 0, 0, 0.08), 0px 9px 28px rgba(0, 0, 0, 0.05);
+  }
+}
+
+.homeModalOne {
+  background-color: $primary;
+  border-radius: $conteinerRadius;
+  height: 100px;
+  width: 100%;
+  position: absolute;
+  bottom: 1.5em;
+  margin: auto;
+  z-index: 15;
+  box-shadow: 0px 3px 6px -4px rgba(0, 0, 0, 0.12), 0px 6px 16px rgba(0, 0, 0, 0.08), 0px 9px 28px 8px rgba(0, 0, 0, 0.05);
+}
+
+.homeModalTwo {
+  background-color: $primary;
+  border-radius: $conteinerRadius;
+  height: 100px;
+  width: 100%;
+  margin: auto;
+
+  position: relative;
+  bottom: 0.5em;
+  box-shadow: 0px 3px 6px -4px rgba(0, 0, 0, 0.12), 0px 6px 16px rgba(0, 0, 0, 0.08), 0px 9px 28px 8px rgba(0, 0, 0, 0.05);
 }
