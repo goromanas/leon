@@ -10,14 +10,46 @@ body {
 }
 .sider{
   background: #FFFFFF;
-  width: 582px;
+  // width: 582px;
+  width: auto;
   border-left: 2px solid rgba(0, 0, 0, 0.1);
-  //border-left: solid 4px rgba(0, 0, 0, 0.03);
+  padding: 20px 40px 20px 20px;
     button {
       margin:10px;
       border-radius: 20px
   }
-//}
+  .videobtn {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    h1 {
+      margin: 0;
+      margin-right: 28px;;
+      span {
+        color: $grey6;
+      }
+    }
+  }
+  .allButtons {
+    width: auto;
+  }
+  .usersList {
+    margin-bottom: 0px;
+  }
+  .userRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    h3 {
+      margin: 0;
+    }
+    img {
+      height: 50px;
+    margin: 5px 10px 5px 31px;
+      transition: 0.3s ease-in-out;
+    }
+  }
 }
 
 

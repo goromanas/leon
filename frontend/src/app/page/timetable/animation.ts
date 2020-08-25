@@ -29,4 +29,35 @@ const variantsUl = {
     },
 };
 
-export { variantsDay, variantsWeek, variantsUl };
+const variantsUsersList = {
+    open: {
+        transition: {
+            staggerChildren: 0.05,
+            delayChildren: 0,
+        },
+        height: '100%',
+    },
+    closed: {
+        transition: { staggerChildren: 0.01, staggerDirection: 1 },
+        height: 0,
+    },
+};
+
+const variantsUser = {
+    open: {
+        y: 0,
+        opacity: 1,
+        transition: {
+            y: { stiffness: 1000, velocity: -100 },
+        },
+    },
+    closed: {
+        y: 100,
+        opacity: 0,
+        transition: {
+            y: { stiffness: 1000 },
+        },
+    },
+};
+
+export { variantsDay, variantsWeek, variantsUl, variantsUsersList, variantsUser };
