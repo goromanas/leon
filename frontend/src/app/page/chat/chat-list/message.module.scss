@@ -33,6 +33,20 @@
   //background: $grey2;
 }
 
+.containerLt{
+  display: flex;
+  margin-bottom: 1rem;
+
+  .message{
+    min-width: 94px;
+    max-width: 701px;
+    background: $gold8;
+    border-radius: 10px;
+    padding: 8px 20px;
+  }
+  //background: $grey2;
+}
+
 .avatarBox{
   display: flex;
   align-items: flex-end;

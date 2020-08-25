@@ -33,8 +33,8 @@ public class UserService {
             .collect(Collectors.toList());
     }
 
-    public String getUsersByUsername(String username) {
-        return userRepository.findByUsername(username).orElseThrow().getFirstName();
+    public User getUsersByUsername(String username) {
+        return userRepository.findByUsername(username).orElseThrow();
     }
 
     public Optional<User> getUserFromSession() {
