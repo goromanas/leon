@@ -20,6 +20,7 @@ const { Content, Sider } = Layout;
 
 interface ContextProps {
     username: string | null;
+    lastname: string | null;
     teacherLessons: Api.LessonDto[];
     userRoles: string[] | null;
 }
@@ -159,8 +160,11 @@ class ChatComponent extends React.Component<Props, State> {
     public render(): React.ReactNode {
         const { messages, channels, classRooms } = this.state;
         const { teacherLessons } = this.props;
-
-        console.log(messages);
+        console.log(this.props.username)
+        console.log(this.props.lastname)
+        // console.log(teacherLessons);
+        const teachersList = teacherLessons && teacherLessons.map(lesson=>lesson.teacher)
+        // console.log(teachersList)
         // console.log(this.state.currentClassroom);
         // console.log(this.state.currentChannel);
         return (
@@ -187,6 +191,8 @@ class ChatComponent extends React.Component<Props, State> {
                                 messages={messages}
                                 currentChannel={this.state.currentChannel}
                                 currentClassroom={this.state.currentClassroom}
+                                teachersList={teachersList}
+                                username={this.props.username + ' ' + this.props.lastname}
                             />
                             <ChatForm
                                 initialValues={ChatComponent.MESSAGE_INITIAL_VALUES}
@@ -217,11 +223,12 @@ class ChatComponent extends React.Component<Props, State> {
         const minutes = time.getMinutes().toString();
 
         if (values.message.trim() !== '') {
-            console.log(this.props.username)
+            // console.log(this.props.username)
+            // console.log(this.props.lastname)
             this.setState({
                 messages: [...messages, {
                     content: values.message,
-                    username: this.props.username,
+                    username: this.props.username + ' ' + this.props.lastname,
                     date: hours + ':' + minutes,
                     channel: currentChannel,
                     classname: currentClassroom,
@@ -231,7 +238,7 @@ class ChatComponent extends React.Component<Props, State> {
             });
             this.sendMessage({
                 content: values.message,
-                username: this.props.username,
+                username: this.props.username + ' ' + this.props.lastname,
                 date: hours + ':' + minutes,
                 classname: currentClassroom,
                 channel: currentChannel,
@@ -261,6 +268,7 @@ class ChatComponent extends React.Component<Props, State> {
 
 const mapContextToProps = ({ session: { user }, lessons }: SettingsProps): ContextProps => ({
     username: user != null ? user.firstName : null,
+    lastname: user != null ? user.lastName : null,
     userRoles: user.roles,
     teacherLessons: lessons,
 });
