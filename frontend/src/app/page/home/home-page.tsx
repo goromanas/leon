@@ -1,6 +1,7 @@
 import React from 'react';
-import { Button, Layout, Row, Col } from 'antd';
+import { Button, Col, Row } from 'antd';
 import moment from 'moment';
+import { Quotes } from '../../components/quotes/quotes';
 
 import { navigationService } from 'app/service/navigation-service';
 import { connectContext, SettingsProps } from 'app/context';
@@ -28,6 +29,7 @@ interface ContextProps {
 }
 
 type Props = ContextProps;
+
 interface State {
     move: number;
     dayOfWeek: number;
@@ -93,10 +95,27 @@ class HomePageComponent extends React.Component<Props, State> {
                                             >
                                                 {userRoles.includes('TEACHER') ? <TeacherFeedback /> : ''}
                                                 {userRoles.includes('STUDENT') ? <HolidayCounter /> : ''}
-                                            </Col>
-                                        </Row>
-                                    </>
-                                )
+                                            </div>
+                                            <div className={styles.homeModal}>
+
+                                                <h1>Learn something new!</h1>
+                                                <div>
+
+                                                    <div className={styles.homeModalMotivation}>
+                                                        <img src={'icons/quoteLogo.svg'} />
+                                                        <Quotes />
+
+                                                    </div>
+
+                                                </div>
+                                                <div className={styles.homeModalOne}></div>
+                                                <div className={styles.homeModalTwo}></div>
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                </>
+                            )
+
                         }
                     </div>
 

@@ -12,6 +12,7 @@ const StudentModal: React.FC<{ onClose: () => void, lessonInformation?: any, cla
                         src={'icons/science.svg'}
                     />
                 </div>
+                <h2>{props.subject}</h2>
                 <div className={styles.subjectTopic}>
                     <p>{props.subject}</p>
                     <h3>{props.lessonInformation[0] ? props.lessonInformation[0].topic : 'No lesson topic'}</h3>
