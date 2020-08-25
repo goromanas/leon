@@ -2,6 +2,8 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Layout, Modal } from 'antd';
 import Jitsi from 'react-jitsi';
+// @ts-ignore
+import ReconnectingWebSocket from 'reconnecting-websocket';
 
 import { connectContext, SettingsProps } from 'app/context';
 import { AsyncContent, PageContent } from 'app/components/layout';
@@ -12,8 +14,8 @@ import { QuizResult } from 'app/page/video-chat/quizResult';
 import { VideoButton } from 'app/page/video-chat/video-buttons/video-button';
 import { Whiteboard } from 'app/components/whiteboard/whiteboard';
 import { QuizCreate } from 'app/page/video-chat/quizCreate';
-// import { ActiveUsers } from 'app/page/video-chat/activeUsers';
 
+// import { ActiveUsers } from 'app/page/video-chat/activeUsers';
 // @ts-ignore
 import { Top } from './top/top';
 
@@ -153,7 +155,7 @@ class HomePageComponent extends React.Component<Props, State> {
             : 'wss://java-menuo-su-it.northeurope.cloudapp.azure.com/ws/lessonQuiz';
     };
 
-    public ws = new WebSocket(this.getSocketUrlQuiz());
+    public ws = new ReconnectingWebSocket(this.getSocketUrlQuiz());
 
     public componentDidMount() {
         this.interval = setInterval(() => this.userActivityUpdate(), 5000);
@@ -161,16 +163,17 @@ class HomePageComponent extends React.Component<Props, State> {
         this.ws.onopen = () => {
             // tslint:disable-next-line: no-console
         };
-        this.ws.onmessage = e => {
-            this.setState({ quizMessageForStudent: null });
+        this.ws.onmessage = (e: MessageEvent) => {
             const message = JSON.parse(e.data);
 
-            this.setState({ type: message.type });
             if (message.type === 'question') {
+                this.setState({ type: message.type });
+                this.setState({ quizMessageForStudent: null });
                 this.showModal();
                 this.setState({ quizMessageForStudent: message });
             } else if (message.type === 'answer') {
-                alert('failed');
+                this.setState({ type: message.type });
+                this.setState({ quizMessageForStudent: null });
                 const copyAnswers = [...this.state.answers];
                 const newAnswers = [...copyAnswers, message];
 
@@ -211,13 +214,14 @@ class HomePageComponent extends React.Component<Props, State> {
     };
 
     public openQuiz = (values: any): void => {
-        this.setState({ type: 'create' });
+        this.setState({ type: 'create', quizMessageForStudent: null });
         this.showModal();
     };
 
     public render(): React.ReactNode {
         const {
             username,
+            firstName,
             teacherLessons,
             userRoles,
             schedule,
@@ -277,10 +281,10 @@ class HomePageComponent extends React.Component<Props, State> {
                                     question={this.state.question}
                                 />
 
-                            </AsyncContent>
-                            :
+                            </AsyncContent> :
                             <QuizCreate updateQuiz={this.updateQuiz}
-                            />}
+                            />
+                    }
                 </Modal>
                 <Content style={{ margin: 'auto', width: '70%' }}>
 
@@ -381,6 +385,7 @@ const mapContextToProps = ({ session: { user }, lessons, schedule }: SettingsPro
     username: user != null ? user.username : null,
     firstName: user != null ? user.firstName : null,
     userRoles: user.roles,
+    // @ts-ignore
     teacherLessons: lessons,
     // studentLessons: lessons,
     schedule,

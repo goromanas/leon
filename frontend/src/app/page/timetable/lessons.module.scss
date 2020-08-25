@@ -390,6 +390,11 @@
 
 .toVideoButton {
   margin: 0 16px;
+  background: $secondary;
+  border: none;
+  &:hover{
+    background: $gold7;
+  }
 }
 
 .weekButtons {

@@ -11,10 +11,11 @@ interface Props {
     channel: number;
     classroom: string;
     toRight: boolean;
+    role: string;
 }
 
 const Message: React.FC<Props> = (
-    { text, author, date, channel, classroom, toRight }) => {
+    { text, author, date, channel, classroom, toRight, role }) => {
     const monthNames = ['Jan', 'Feb', 'Mar', 'Ap', 'May', 'Jun',
         'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
     ];
@@ -47,7 +48,9 @@ const Message: React.FC<Props> = (
 
             <div>
                 {!toRight && <span className={styles.author}>{author}</span>}
-                <div className={styles.message}>
+                <div className={styles.message}
+                     // style={role === 'TEACHER'? {background: '#FCE3BA !important'}: null}
+                >
                     <p>{text}</p>
                     <p className={styles.timestamp}>{dateDisplay}</p>
                 </div>

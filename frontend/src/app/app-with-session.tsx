@@ -1,4 +1,5 @@
 import * as React from 'react';
+import ReconnectingWebSocket from 'reconnecting-websocket';
 
 import { IndexPage } from 'app/index-page';
 import { sessionService } from 'app/api/service/session-service';
@@ -62,25 +63,25 @@ class AppWithSessionComponent extends React.Component<Props, State> {
     }
 
     public render(): React.ReactNode {
-        const {content, lessons} = this.state;
+        const { content, lessons } = this.state;
 
         return (
-            <AsyncContent loading={!content} loader={<PageLoadingSpinner/>}>
+            <AsyncContent loading={!content} loader={<PageLoadingSpinner />}>
                 {content}
             </AsyncContent>
         );
     }
 
-    private readonly handleResponse = ({user}: Api.Session): void => {
-        const {updateSession} = this.props;
+    private readonly handleResponse = ({ user }: Api.Session): void => {
+        const { updateSession } = this.props;
 
         updateSession(this.createSession(user));
-        this.setState({...this.state, content: <IndexPage/>});
+        this.setState({ ...this.state, content: <IndexPage /> });
     };
     private readonly handleLessonsResponse = (lessons: Api.LessonDto[]): void => {
-        const {updateLessons} = this.props;
+        const { updateLessons } = this.props;
 
-        this.setState({...this.state, lessons});
+        this.setState({ ...this.state, lessons });
         updateLessons(lessons);
     };
     private readonly handleScheduleResponse = (schedule: Api.ScheduleDto[]): void => {
@@ -88,13 +89,13 @@ class AppWithSessionComponent extends React.Component<Props, State> {
             updateSchedule,
         } = this.props;
 
-        this.setState({...this.state, schedule});
+        this.setState({ ...this.state, schedule });
         updateSchedule(schedule);
     };
     private readonly handleSocketResponse = (): void => {
-        const {updateCurrentLesson} = this.props;
+        const { updateCurrentLesson } = this.props;
         // connect to websocket to get currentLesson
-        const ws: any = new WebSocket(lessonsService.getSocketUrl());
+        const ws: any = new ReconnectingWebSocket(lessonsService.getSocketUrl());
 
         ws.onopen = () => {
             // tslint:disable-next-line: no-console
@@ -129,18 +130,18 @@ class AppWithSessionComponent extends React.Component<Props, State> {
                 _lesson.day && _lesson.day === currentDay && _lesson.time == currentLesson,
         )?.id || 0;
     };
-    private readonly createSession = (user: Api.SessionUser): ContextSession => ({user, authenticated: !!user});
+    private readonly createSession = (user: Api.SessionUser): ContextSession => ({ user, authenticated: !!user });
 }
 
 const mapContextToProps = ({
-                               actions: {updateSession, updateLessons, updateCurrentLesson, updateSchedule}
-                           }: SettingsProps)
+    actions: { updateSession, updateLessons, updateCurrentLesson, updateSchedule },
+}: SettingsProps)
     : ContextProps => ({
-    updateSession,
-    updateLessons,
-    updateCurrentLesson,
-    updateSchedule,
-});
+        updateSession,
+        updateLessons,
+        updateCurrentLesson,
+        updateSchedule,
+    });
 const AppWithSession = connectContext(mapContextToProps)(AppWithSessionComponent);
 
 export { AppWithSession };
