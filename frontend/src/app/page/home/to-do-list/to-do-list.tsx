@@ -21,7 +21,7 @@ const ToDoList: React.FC<Props> = (
         >
             <div>
                 <h4>Tomorrow's to-do list</h4>
-                {lessons.filter(item => item.lessonInformation.length > 0).map((lesson, index) => (
+                {lessons && lessons.filter(item => item.lessonInformation.length > 0).map((lesson, index) => (
                     <div className={styles.itemWrapper} key={index}>{lesson.lessonInformation.map((assignment, id) => (
                         <Item
                             key={id}
