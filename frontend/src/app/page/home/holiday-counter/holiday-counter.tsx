@@ -11,7 +11,7 @@ const hours = 24 - today.getHours();
 const HolidayCounter: React.FC = () =>
 
     (
-        <div>
+        <div className={styles.holidayCounterwrapper}>
             <img
                 alt="Teacher board"
                 src={'images/teacher-board.svg'}

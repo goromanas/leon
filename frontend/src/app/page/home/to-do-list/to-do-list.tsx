@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { assign } from 'lodash';
 
 import { AsyncContent } from 'app/components/layout';
 import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-loading-spinner';
@@ -15,25 +16,25 @@ interface Props {
 const getDayOfTheWeek = (day: string): string => {
     switch (new Date(day).getDay()) {
         case 0:
-            return 'Sunday';
+            return 'Sunday\'s to do list';
 
         case 1:
-            return 'Monday';
+            return 'Monday\'s to do list';
 
         case 2:
-            return 'Tuesday';
+            return 'Tuesday\'s to do list';
 
         case 3:
-            return 'Wednesday';
+            return 'Wednesday\'s to do list';
 
         case 4:
-            return 'Thursday';
+            return 'Thursday\'s to do list';
 
         case 5:
-            return 'Friday';
+            return 'Friday\'s to do list';
 
         case 6:
-            return 'Saturday';
+            return 'Saturday\'s to do list';
     }
 };
 
@@ -58,16 +59,16 @@ const ToDoList: React.FC<Props> = (props) => {
 
     let recentDate: string;
 
-    const checkIfrecent = (day: string): any => {
+    const checkIfrecent = (day: string, id: number): any => {
         if (day !== recentDate) {
             recentDate = day;
             if (checkIfTomorrow(new Date(day))) {
                 return (
-                    <h4 key={day}>Tomorrow</h4>
+                    <h4 key={id.toString() + day.toString()}>Tomorrow's to do list</h4>
                 );
             } else {
                 return (
-                    <h4 key={day}>{getDayOfTheWeek(day)}</h4>
+                    <h4 className={styles.daytitle} key={id.toString() + day.toString()}>{getDayOfTheWeek(day)}</h4>
                 );
             }
         }
@@ -94,7 +95,7 @@ const ToDoList: React.FC<Props> = (props) => {
                 {lessons && lessons
                     .filter(item => item.lessonInformation.length > 0)
                     .map((lesson, index) => (
-                        <div key={index} >
+                        <div key={lesson.id}>
                             {lesson.lessonInformation
                                 // .sort((a, b) => a.date < b.date ? 1 : -1)
                                 .filter(item => weekFromNow(item.date))
@@ -103,12 +104,12 @@ const ToDoList: React.FC<Props> = (props) => {
                                     <>
                                         {new Date(assignment.date) > currentDate
                                             ?
-                                            checkIfrecent(assignment.date)
+                                            checkIfrecent(assignment.date, assignment.id)
                                             : ''}
                                         {new Date(assignment.date) > currentDate ? (
-                                            <div key={id} className={styles.itemWrapper}>
+                                            <div key={assignment.id} className={styles.itemWrapper}>
                                                 <Item
-                                                    key={id}
+                                                    key={id.toString() + assignment.date.toString()}
                                                     lessonSubject={lesson.subject}
                                                     topic={assignment.topic}
                                                     type={assignment.assignment}

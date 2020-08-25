@@ -69,6 +69,11 @@
 
 .item-wrapper {
   padding-right: 2rem;
+
+  &Button {
+    padding-left: 1rem;
+    padding-right: 2rem;
+  }
 }
 
 .join-lessonDisabled {
@@ -79,7 +84,8 @@
 .joinButton {
   background: $secondary;
   border: none;
-  &:hover{
+
+  &:hover {
     background: $gold7;
   }
 }
