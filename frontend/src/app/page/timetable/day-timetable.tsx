@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
 import moment from 'moment';
-import { motion } from "framer-motion"
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 import { navigationService } from 'app/service/navigation-service';
+import { variantsWeek, variantsUl } from 'app/page/timetable/animation';
 
 import { scheduleCalc } from './schedule-calc';
 import { SingleLesson } from './single-lesson';
 
 import styles from './lessons.module.scss';
-import { Link } from 'react-router-dom';
-import { variantsWeek, variantsUl } from 'app/page/timetable/animation'
 
 interface Props {
     allLessons: Api.LessonDto[];
@@ -27,13 +27,12 @@ const DayLessonsList: React.FC<Props> = ({ allLessons, userRole, day, date, curr
 
     useEffect(() => {
         setTimeout(() => {
-            setIsOpen(true)
-        }, 200)
+            setIsOpen(true);
+        }, 200);
 
-    }, [])
+    }, []);
 
     const { dayHeader, dayClass, dayLessonsList, activeDay, dayHeaderInHome } = styles;
-    // const dayTable = new Array(scheduleCalc.thisDayLength(allLessons, day));
     const dayTable = new Array(scheduleCalc.getLongestDay(allLessons));
 
     const dayLessons = allLessons && allLessons.filter((lesson: Api.LessonDto) =>
@@ -45,7 +44,7 @@ const DayLessonsList: React.FC<Props> = ({ allLessons, userRole, day, date, curr
                 id: -1,
                 lessonInformation: [],
                 time: i + 1,
-            }
+            };
         }
         dayLessons[i] !== undefined && dayTable[i].day === undefined &&
             dayTable.splice(dayLessons[i].time - 1, 1, dayLessons[i]);
@@ -75,7 +74,7 @@ const DayLessonsList: React.FC<Props> = ({ allLessons, userRole, day, date, curr
             ifDayEnded={scheduleCalc.ifDayEnded(allLessons, schedule, day)}
         />
     ));
-    // console.log(dayLessons);
+
     return (
         <div className={dayClasses}>
             {homepage ?
@@ -98,12 +97,16 @@ const DayLessonsList: React.FC<Props> = ({ allLessons, userRole, day, date, curr
             }
             <motion.nav
                 initial={false}
-                animate={isOpen ? "open" : "closed"}
+                animate={isOpen ? 'open' : 'closed'}
                 variants={variantsWeek}
             >
-                <motion.div className={dayLessonsList} variants={variantsUl}>
-                    {lessonsList}
-                </motion.div>
+                {homepage && lessonsList.length === 0 ? <h2>There are no lessons today</h2> :
+                    (
+                        <motion.div className={dayLessonsList} variants={variantsUl}>
+                            {lessonsList}
+                        </motion.div>
+                    )
+                }
             </motion.nav>
         </div>
     );

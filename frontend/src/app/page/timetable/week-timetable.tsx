@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Layout, Row, Col } from 'antd';
 import moment from 'moment';
+import { motion } from 'framer-motion';
 
 import { AsyncContent } from 'app/components/layout';
 import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-loading-spinner';
@@ -8,13 +9,9 @@ import { connectContext, SettingsProps } from 'app/context';
 import { DayLessonsList } from 'app/page/timetable/day-timetable';
 import { SideTimebar } from 'app/page/timetable/side-timebar';
 import styles from 'app/page/timetable/lessons.module.scss';
-import { lessonsService } from 'app/api/service/lessons-service';
-import { lessonInformationService } from 'app/api/service/lessonInformation-service';
-import { motion } from "framer-motion";
-import { variantsDay, variantsWeek, variantsUl } from 'app/page/timetable/animation'
+import { variantsDay, variantsWeek, variantsUl } from 'app/page/timetable/animation';
 
 import { scheduleCalc } from './schedule-calc';
-
 
 interface ContextProps {
     username: string | null;
@@ -29,7 +26,6 @@ type Props = ContextProps;
 const TimetablePageComponent: React.FC<Props> = (props) => {
 
     const {
-        username,
         userRoles,
         allLessons,
         currentLesson,
@@ -46,8 +42,8 @@ const TimetablePageComponent: React.FC<Props> = (props) => {
     }, [week]);
 
     useEffect(() => {
-        setIsOpen(true)
-    }, [])
+        setIsOpen(true);
+    }, []);
 
     // change week on arrow click
     const moveWeek = (direction: boolean) => {
@@ -63,22 +59,22 @@ const TimetablePageComponent: React.FC<Props> = (props) => {
             direction ? setWeek(week)
                 : setWeek(week - 7);
         }
-    }
+    };
 
-    //change back to current week
+    // change back to current week
     const resetWeek = () => {
         setWeek(0);
         setWeekWorkDays([1, 2, 3, 4, 5]);
     };
 
-    //sort lessons by day of week
+    // sort lessons by day of week
     const filterByDay = (teacherLessons: Api.LessonDto[], day: number): Api.LessonDto[] => {
         if (teacherLessons != null) {
             const sortedLesson = teacherLessons.sort((n1, n2) => n1.time - n2.time);
             return sortedLesson.filter(lesson => lesson.day === day ? lesson : null);
         }
     };
-    // console.log(dayDate(item).year() === moment().year())
+
     const allWeekDays = weekWorkDays.map((item, index) =>
         (
 
@@ -86,7 +82,6 @@ const TimetablePageComponent: React.FC<Props> = (props) => {
                 <motion.div variants={variantsDay}>
                     < DayLessonsList
                         userRole={userRoles}
-                        // allLessons={filterByDay(allLessons, dayDate(item).day()) || []}
                         allLessons={allLessons || []}
                         currentLesson={currentLesson}
                         day={dayDate(item).year() === moment().year() ? dayDate(item).day() : 0}
@@ -96,8 +91,7 @@ const TimetablePageComponent: React.FC<Props> = (props) => {
                 </motion.div>
             </ Col >
 
-
-        )
+        ),
 
     );
 
@@ -108,14 +102,21 @@ const TimetablePageComponent: React.FC<Props> = (props) => {
                 <div className={styles.weekInfo}>
                     <div className={styles.weekNavigation}>
                         {weekWorkDays.includes(1) ? <span className={styles.weekNavigationText}>This Week</span>
-                            : <span className={styles.weekNavigationBackText} onClick={() => resetWeek()}>Back to This Week</span>}
+                            : (
+                                <span className={styles.weekNavigationBackText} onClick={() => resetWeek()}>
+                                    Back to This Week
+                                </span>
+                            )
+                        }
                         <span className={styles.weekNavigationDate}>
                             <img
                                 alt="week navigation"
                                 src={'icons/arrow.svg'}
                                 onClick={() => moveWeek(false)}
                             />
-                            <span>{dayDate(weekWorkDays[0]).format('DD')} - {dayDate(weekWorkDays[4]).format('DD MMM')}</span>
+                            <span>
+                                {dayDate(weekWorkDays[0]).format('DD')} - {dayDate(weekWorkDays[4]).format('DD MMM')}
+                            </span>
                             <img
                                 alt="week navigation"
                                 src={'icons/arrow.svg'}
@@ -126,11 +127,17 @@ const TimetablePageComponent: React.FC<Props> = (props) => {
                     <p>Lesson duration: {scheduleCalc.getLessonLength(schedule)}min</p>
                 </div>
 
-                <motion.div className={styles.week} initial={false}
-                    animate={isOpen ? "open" : "closed"}
-                    variants={variantsWeek}>
+                <motion.div
+                    className={styles.week}
+                    initial={false}
+                    animate={isOpen ? 'open' : 'closed'}
+                    variants={variantsWeek}
+                >
                     <div className={styles.weekList} >
-                        <SideTimebar schedule={schedule} itemsInList={allLessons && scheduleCalc.getLongestDay(allLessons)} />
+                        <SideTimebar
+                            schedule={schedule}
+                            itemsInList={allLessons && scheduleCalc.getLongestDay(allLessons)}
+                        />
                         <motion.div variants={variantsUl} style={{ width: '100%' }}>
                             <Row gutter={[0, 40]} className={styles.daysRow}>
                                 {allWeekDays}
