@@ -79,3 +79,11 @@
   cursor: not-allowed;
   pointer-events: none;
 }
+
+.joinButton {
+  background: $secondary;
+  border: none;
+  &:hover{
+    background: $gold7;
+  }
+}
