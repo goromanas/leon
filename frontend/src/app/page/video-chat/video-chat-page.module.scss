@@ -23,6 +23,12 @@ body {
     display: flex;
     flex-direction: row;
     align-items: center;
+    &:hover {
+      button {
+        background-color: #7DB7FC !important;
+        border-color: #85b6ff;
+      }
+    }
     h1 {
       margin: 0;
       margin-right: 28px;;
