@@ -85,25 +85,29 @@ class HomePageComponent extends React.Component<Props, State> {
                                             </Col>
 
                                             <Col
-                                                lg={10}
+                                                lg={8}
                                                 md={4}
                                                 sm={38}
                                                 className={styles.todoList}
                                             >
-                                                <ToDoList lessons={allLessons} />
+                                                <ToDoList
+                                                    lessons={allLessons}
+                                                    userRole={this.props.userRoles}
+                                                />
                                             </Col>
                                             <Col
-
+                                                lg={12}
+                                                md={4}
+                                                sm={38}
                                             >
-                                                {userRoles.includes('TEACHER') ? <TeacherFeedback /> : ''}
-                                                {userRoles.includes('STUDENT') ? <HolidayCounter /> : ''}
+                                                <HolidayCounter />
 
                                                 <div className={styles.homeModal}>
 
-                                                    <h1>Learn something new!</h1>
+                                                    <h2>Did you know?</h2>
                                                     <div>
                                                         <div className={styles.homeModalMotivation}>
-                                                            <img src={'icons/quoteLogo.svg'} />
+                                                            <img src={'icons/quoteLogo.svg'} alt="Quote" />
                                                             <Quotes />
 
                                                         </div>

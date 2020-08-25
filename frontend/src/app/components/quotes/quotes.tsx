@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { ArrowRightOutlined } from '@ant-design/icons';
+
+import styles from './quotes.module.scss';
 
 const Quotes: React.FC = () => {
     const [quoteText, setQouteText] = useState('');
@@ -22,12 +25,14 @@ const Quotes: React.FC = () => {
         getQuoteText();
 
     }, []);
-    return (<>
-        <div style={{width: '100%', marginRight:'0.5em'}}>
-            <div style={{fontStyle: 'italic'}}>"{quoteText}"</div>
-            <div style={{display: 'inline-block', float: 'right', marginRight:'10px'}}>{quoteAuthor}</div>
-        </div>
-    </>);
+    return (
+        <>
+            <div className={styles.quotes} >
+                <div>{quoteText}"</div>
+                <div className={styles.quotesAuthor}><ArrowRightOutlined style={{ fontSize: '2rem' }} /></div>
+            </div>
+        </>
+    );
 };
 
 export { Quotes };
