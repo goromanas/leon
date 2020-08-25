@@ -12,13 +12,14 @@ import { QuizResult } from 'app/page/video-chat/quizResult';
 import { VideoButton } from 'app/page/video-chat/video-buttons/video-button';
 import { Whiteboard } from 'app/components/whiteboard/whiteboard';
 import { QuizCreate } from 'app/page/video-chat/quizCreate';
+import { ActiveUsers } from 'app/page/video-chat/activeUsers';
 
 // @ts-ignore
 import { Top } from './top/top';
 
 import styles from './video-chat-page.module.scss';
 
-const {Content, Sider} = Layout;
+const { Content, Sider } = Layout;
 
 interface ContextProps {
     username: string | null;
@@ -28,7 +29,7 @@ interface ContextProps {
     schedule: Api.ScheduleDto[];
 }
 
-interface quizMessageForStudent {
+interface QuizMessageForStudent {
     classroom: string;
     teacherUsername: number;
     question: string;
@@ -46,7 +47,7 @@ interface ActiveUsers {
 
 }
 
-interface quizAnswer {
+interface QuizAnswer {
     studentName: string;
     answer: number;
 }
@@ -59,21 +60,23 @@ interface Params {
 
 interface State {
     type: string;
-    quizMessageForStudent: quizMessageForStudent;
+    quizMessageForStudent: QuizMessageForStudent;
     visible: boolean;
     value: number;
-    answers: quizAnswer[];
+    answers: QuizAnswer[];
     whiteboardVisible: boolean;
     participantsVisible: boolean;
     correct: number;
     question: string;
     activeUsers: ActiveUsers[];
+    showActiveUsers: boolean;
 }
 
 type Props = OwnProps & ContextProps;
 
 class HomePageComponent extends React.Component<Props, State> {
     public readonly state: State = {
+        showActiveUsers: false,
         type: null,
         quizMessageForStudent: null,
         visible: false,
@@ -91,14 +94,17 @@ class HomePageComponent extends React.Component<Props, State> {
             visible: true,
         });
     };
+    public handleActiveUsers = () => {
+        this.setState({ showActiveUsers: !this.state.showActiveUsers });
+    };
     public handleParticipants = (): void => {
 
-        this.setState({participantsVisible: !this.state.participantsVisible});
+        this.setState({ participantsVisible: !this.state.participantsVisible });
     };
 
     public handleWhiteboard = (): void => {
 
-        this.setState({whiteboardVisible: !this.state.whiteboardVisible});
+        this.setState({ whiteboardVisible: !this.state.whiteboardVisible });
     };
     private interval: NodeJS.Timeout;
 
@@ -107,7 +113,7 @@ class HomePageComponent extends React.Component<Props, State> {
             type: 'activeUsers',
             classroom: this.props.teacherLessons[0].className,
             teacherUsername: this.props.teacherLessons[0].teacherUsername,
-            include: include,
+            include,
         };
         this.ws.send(JSON.stringify(dataToSend));
     }
@@ -124,7 +130,7 @@ class HomePageComponent extends React.Component<Props, State> {
         };
 
         this.ws.send(JSON.stringify(answer));
-        this.setState({quizMessageForStudent: null});
+        this.setState({ quizMessageForStudent: null });
 
     };
 
@@ -134,7 +140,7 @@ class HomePageComponent extends React.Component<Props, State> {
         });
     };
     public updateQuiz = (values: any, value: any) => {
-        this.setState({correct: value});
+        this.setState({ correct: value });
         this.sendMessage(values);
         this.handleCancel();
     };
@@ -155,12 +161,12 @@ class HomePageComponent extends React.Component<Props, State> {
             // tslint:disable-next-line: no-console
         };
         this.ws.onmessage = e => {
-            this.setState({quizMessageForStudent: null});
+            this.setState({ quizMessageForStudent: null });
             const message = JSON.parse(e.data);
             this.setState({type: message.type});
             if (message.type === 'question') {
                 this.showModal();
-                this.setState({quizMessageForStudent: message});
+                this.setState({ quizMessageForStudent: message });
             } else if (message.type === 'answer') {
                 alert('failed');
                 const copyAnswers = [...this.state.answers];
@@ -195,28 +201,26 @@ class HomePageComponent extends React.Component<Props, State> {
             timer: values.timer,
         };
 
-        this.setState({question: values.question});
+        this.setState({ question: values.question });
 
         this.ws.send(JSON.stringify(question));
 
-        this.setState({quizMessageForStudent: null, answers: []});
-        //   this.ws.send('{"type":"question","classroom":"6A", "teacherUsername":"tecmokytojas", "question": "Is this legit?", "options": [{"id":"1", "name":"Option 1"},{"id":"2", "name":"Option 2"}],"correct":"1","timer":"1"}');
+        this.setState({ quizMessageForStudent: null, answers: [] });
     };
 
     public openQuiz = (values: any): void => {
-        this.setState({type: 'create'});
+        this.setState({ type: 'create' });
         this.showModal();
     };
 
     public render(): React.ReactNode {
         const {
             username,
-            firstName,
             teacherLessons,
             userRoles,
             schedule,
             match: {
-                params: {id},
+                params: { id },
             },
         } = this.props;
 
@@ -255,16 +259,18 @@ class HomePageComponent extends React.Component<Props, State> {
                     onCancel={this.handleCancel}
                     footer={false}
                     width="600px"
-                    style={{borderRadius: '20px'}}
+                    style={{ borderRadius: '20px' }}
                 >
                     {this.state.type === 'question' ?
-                        <AsyncContent loading={!this.state.quizMessageForStudent} loader={<PageLoadingSpinner/>}>
+                        (
+                            <AsyncContent loading={!this.state.quizMessageForStudent} loader={<PageLoadingSpinner/>}>
                             <AnswerQuiz message={this.state.quizMessageForStudent}
-                                        changeValue={this.changeValue}
-                                        onSuccess={() => this.handleOk()}
-                                        onCancel={() => this.handleCancel()}
-                                        visible={this.state.visible}
+                                changeValue={this.changeValue}
+                                onSuccess={() => this.handleOk()}
+                                onCancel={() => this.handleCancel()}
+                                visible={this.state.visible}
                             /> </AsyncContent>
+                        )
                         : this.state.type === 'answer' ?
                             <AsyncContent loading={!this.state.answers} loader={<PageLoadingSpinner/>}>
                                 <QuizResult answers={this.state.answers}
@@ -332,11 +338,20 @@ class HomePageComponent extends React.Component<Props, State> {
 
                 </Content>
                 <Sider width={this.state.whiteboardVisible ? '100%' : '282px'} className={styles.sider}>
-                    <VideoButton handleWhiteboard={() => this.handleWhiteboard()} role={userRoles}
-                                 openQuiz={this.openQuiz}
-                                 activeUsers={this.state.activeUsers.filter(au => au.active === true).length}
-                                 allUsers={this.state.activeUsers.length}
-                                 send={this.sendMessage}/>
+
+                    {this.state.showActiveUsers===true ? <ActiveUsers
+                            activeUsers={this.state.activeUsers}
+                            handleActiveUsers={()=>this.handleActiveUsers()}
+                        /> :
+                        <VideoButton handleWhiteboard={() => this.handleWhiteboard()} role={userRoles}
+                                     openQuiz={this.openQuiz}
+                                     activeUsers={this.state.activeUsers.filter(au => au.active === true).length}
+                                     allUsers={this.state.activeUsers.length}
+                                     send={this.sendMessage}
+                                     handleActiveUsers={()=>this.handleActiveUsers()}/>
+                    }
+
+
                     {this.state.whiteboardVisible ? <Whiteboard/> : null}
                 </Sider>
 
@@ -360,6 +375,7 @@ class HomePageComponent extends React.Component<Props, State> {
         //     mode: 'file',
         //     shouldShare: true,
         // });
+        this.userActivityUpdate()
         api.addEventListener('readyToClose', () => {
             navigationService.redirectToHomePage();
         });
