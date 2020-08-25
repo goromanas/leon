@@ -22,6 +22,7 @@ interface ContextProps {
     username: string | null;
     teacherLessons: Api.LessonDto[];
     userRoles: string[] | null;
+    wsChat: any;
 }
 
 interface OwnProps { }
@@ -143,7 +144,12 @@ class ChatComponent extends React.Component<Props, State> {
             this.setState({ currentChannel: this.state.channels[0].id });
         }
 
-        this.ws.onmessage = e => {
+
+      // this.props.wsChat.onopen = () => {
+      //       console.log('connected ws')
+      // }
+
+        this.ws.onmessage = (e: any) => {
             const message = JSON.parse(e.data);
             // console.log('Chat page receives ',message.classroom);
 
@@ -259,10 +265,11 @@ class ChatComponent extends React.Component<Props, State> {
     };
 }
 
-const mapContextToProps = ({ session: { user }, lessons }: SettingsProps): ContextProps => ({
+const mapContextToProps = ({ session: { user }, wsChat, lessons }: SettingsProps): ContextProps => ({
     username: user != null ? user.firstName : null,
     userRoles: user.roles,
     teacherLessons: lessons,
+    wsChat: wsChat,
 });
 
 const ChatPage = connectContext(mapContextToProps)(ChatComponent);

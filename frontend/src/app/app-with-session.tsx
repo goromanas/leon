@@ -9,6 +9,10 @@ import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-lo
 import { loggerService } from 'app/service/logger-service';
 import { lessonsService } from 'app/api/service/lessons-service';
 
+export interface ChatWebSocket {
+    wsChat: any;
+}
+
 interface State {
     content: React.ReactNode;
     lessons: Api.LessonDto[];
@@ -23,6 +27,7 @@ interface ContextProps {
     updateLessons: (lessons: Api.LessonDto[]) => void;
     updateCurrentLesson: (currentLesson: number) => void;
     updateSchedule: (schedule: Api.ScheduleDto[]) => void;
+    updateWebsocket: (wsChat: ChatWebSocket) => void;
 }
 
 type Props = OwnProps & ContextProps;
@@ -60,6 +65,7 @@ class AppWithSessionComponent extends React.Component<Props, State> {
                 loggerService.error('Error occurred when getting session information', error);
             });
         this.handleSocketResponse();
+        this.handleChatWebSocket();
     }
 
     public render(): React.ReactNode {
@@ -78,6 +84,13 @@ class AppWithSessionComponent extends React.Component<Props, State> {
         updateSession(this.createSession(user));
         this.setState({ ...this.state, content: <IndexPage /> });
     };
+
+    // private readonly  handlechatwsResponse = (wsChat: ChatWebSocket): void => {
+    //     const { updateWebsocket } = this.props;
+    //
+    //     updateWebsocket(this.handleChatWebSocket(wsChat));
+    // };
+
     private readonly handleLessonsResponse = (lessons: Api.LessonDto[]): void => {
         const { updateLessons } = this.props;
 
@@ -117,6 +130,29 @@ class AppWithSessionComponent extends React.Component<Props, State> {
             console.log('disconnected');
         };
     };
+    private readonly handleChatWebSocket = (): ReconnectingWebSocket => {
+        const getSocketUrl = (): string => {
+            const loc = window.location;
+            let newUrl: string;
+
+            if (loc.host === 'localhost:3000') {
+                newUrl = 'ws://localhost:8080/ws/chat';
+            } else {
+                newUrl = ' wss://java-menuo-su-it.northeurope.cloudapp.azure.com/ws/chat';
+            }
+            return newUrl;
+        };
+
+        const wsChat = new ReconnectingWebSocket(getSocketUrl());
+
+        wsChat.onopen = () => {
+            // tslint:disable-next-line: no-console
+            console.log('connected chat websocket');
+        };
+
+        return wsChat;
+    };
+
     // get currentLessonID from lessons using curent day of week and currentLesson from websocket
     private readonly getCurrentLessonID = (currentLesson: number): number => {
         const date = new Date();
@@ -130,17 +166,19 @@ class AppWithSessionComponent extends React.Component<Props, State> {
                 _lesson.day && _lesson.day === currentDay && _lesson.time == currentLesson,
         )?.id || 0;
     };
+
     private readonly createSession = (user: Api.SessionUser): ContextSession => ({ user, authenticated: !!user });
 }
 
 const mapContextToProps = ({
-    actions: { updateSession, updateLessons, updateCurrentLesson, updateSchedule },
+    actions: { updateSession, updateLessons, updateCurrentLesson, updateSchedule, updateWebsocket },
 }: SettingsProps)
     : ContextProps => ({
         updateSession,
         updateLessons,
         updateCurrentLesson,
         updateSchedule,
+        updateWebsocket,
     });
 const AppWithSession = connectContext(mapContextToProps)(AppWithSessionComponent);
 

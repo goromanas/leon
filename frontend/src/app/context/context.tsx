@@ -7,11 +7,16 @@ export interface Session {
     authenticated: boolean;
 }
 
+export interface ChatWebSocket {
+    wsChat: any
+}
+
 export interface Actions {
     updateSession: (session: Session) => void;
     updateLessons: (lessons: Api.LessonDto[]) => void;
     updateCurrentLesson: (currentLesson: number) => void;
     updateSchedule: (schedule: Api.ScheduleDto[]) => void;
+    updateWebsocket: (wsChat: ChatWebSocket) => void;
 }
 
 export interface SettingsProps {
@@ -20,6 +25,7 @@ export interface SettingsProps {
     lessons: Api.LessonDto[];
     currentLesson: number;
     schedule: Api.ScheduleDto[];
+    wsChat: any;
 }
 
 const INITIAL_SESSION: Session = {
@@ -39,10 +45,12 @@ const DEFAULT_SETTINGS: SettingsProps = {
         updateLessons: () => undefined,
         updateCurrentLesson: () => undefined,
         updateSchedule: () => undefined,
+        updateWebsocket: () => undefined,
     },
     lessons: INITIAL_LESSONS,
     currentLesson: INITIAL_CURRENT_LESSON,
     schedule: INITIAL_SCHEDULE,
+    wsChat: null,
 };
 
 const settingsContext: React.Context<SettingsProps> = React.createContext<SettingsProps>(DEFAULT_SETTINGS);
