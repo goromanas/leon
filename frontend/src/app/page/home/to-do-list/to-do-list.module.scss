@@ -14,3 +14,11 @@
   transition: all 0.2s cubic-bezier(0.43, 0.51, 0.63, 0.68);
   margin-bottom: 0.6rem;
 }
+
+.daytitle {
+  margin-top: 1.5rem;
+
+  &:first-child {
+    margin-top: 0;
+  }
+}

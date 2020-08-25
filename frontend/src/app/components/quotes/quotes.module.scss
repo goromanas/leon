@@ -5,7 +5,9 @@
   padding-right: 1.5rem;
 
   &-author {
-    text-align: right;
-    margin-right: 2rem;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
   }
 }
