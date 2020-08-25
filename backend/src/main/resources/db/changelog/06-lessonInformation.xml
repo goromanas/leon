@@ -43,9 +43,15 @@
       insert into assignment values(4,'Presentation');
       insert into assignment values(5,'Project');
 
+      insert into lesson_information values (1,'2020-08-27','Reaction homework','Read the chapter which we started in the classroom',40);
+      insert into lesson_information values (2,'2020-08-28','another test','Some Information2',45);
+      insert into lesson_information_assignment values (1,2);
+      insert into lesson_information_assignment values (2,3);
 
 
-<!--      create table lesson_lesson_information-->
+
+
+      <!--      create table lesson_lesson_information-->
 <!--      (-->
 <!--      LESSON_ID bigint not null,-->
 <!--      LESSON_INFORMATION_ID bigint not null,-->

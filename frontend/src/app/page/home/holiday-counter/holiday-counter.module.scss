@@ -43,4 +43,34 @@
     transform: translateX(-50%);
     font-family: 'Cabin Sketch', cursive;
   }
+
+  &semicolon {
+    color: #fff;
+    position: absolute;
+    font-size: $xl;
+    top: 28%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Cabin Sketch', cursive;
+  }
+
+  &hours {
+    color: #fff;
+    position: absolute;
+    font-size: $xl;
+    top: 28%;
+    left: 58%;
+    transform: translateX(-50%);
+    font-family: 'Cabin Sketch', cursive;
+  }
+
+  &days {
+    color: #fff;
+    position: absolute;
+    font-size: $xl;
+    top: 28%;
+    left: 42.5%;
+    transform: translateX(-50%);
+    font-family: 'Cabin Sketch', cursive;
+  }
 }

@@ -17,11 +17,10 @@ class LessonInformationService {
             });
 
     public readonly updateLessonInformation =
-        (lessonInformation: Api.LessonInformationDto): Promise<Api.LessonInformationDto> => {
-            return this.restService.put<Api.LessonInformationDto>(LessonInformationService.LESSON_INFORMATION_PATH, {
+        (lessonInformation: Api.LessonInformationDto): Promise<Api.LessonInformationDto> =>
+            this.restService.put<Api.LessonInformationDto>(LessonInformationService.LESSON_INFORMATION_PATH, {
                 ...lessonInformation,
             });
-        };
 }
 
 const lessonInformationService = new LessonInformationService();

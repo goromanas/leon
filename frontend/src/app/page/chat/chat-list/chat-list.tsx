@@ -30,10 +30,10 @@ interface OwnProps {
 type Props = ContextProps & OwnProps;
 
 const ChatListComponent: React.FC<Props> = (
-    { messages, currentChannel, currentClassroom, firstName }) => {
+    { messages, currentChannel, currentClassroom, firstName }) =>
 
 
-    return (
+    (
         < div className={styles.container}>
 
             < ul>
@@ -67,8 +67,7 @@ const ChatListComponent: React.FC<Props> = (
                 </TransitionGroup>
             </ul>
         </div>
-    );
-}
+    )
 
 const mapContextToProps = ({ session: { user }, lessons }: SettingsProps): ContextProps => ({
     teacherLessons: lessons,
