@@ -1,9 +1,7 @@
 @import '~app/style/style';
 
-
 // WEEK page
 .weekPage {
-  // padding: 80px;
   padding: 0 50px;
   margin: auto;
 }
@@ -12,18 +10,14 @@
 .week {
   background: $background;
   box-shadow: $containerShadow;
-  // border-radius: $conteinerRadius;
   border-radius: $conteinerRadius;
-  // height: calc(100vh - 129px);
   height: 100%;
-  // height: 100%;
   padding: 4%;
   margin-top: 12px;
 }
 
 .weekList {
   display: flex;
-  // flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-between;
 
@@ -56,7 +50,6 @@
   font-weight: $normal;
   font-size: $md;
   color: $grey9;
-  // margin-right: 40px;
   border-bottom: 2px solid rgba(255, 255, 255, 0);
   transform: translateY(1px);
   transition: 0.2s ease-out;
@@ -81,7 +74,6 @@
   align-items: center;
 
   img {
-
     cursor: pointer;
   }
 
@@ -304,7 +296,6 @@
   }
 }
 .emptyLesson {
-  // background: repeating-linear-gradient(-45deg, #fff, #fff 5px, rgba(#DBDBDB, 0.3) 5px, rgba(#DBDBDB, 0.3) 6px);
   .lessonBarContent {
     background: repeating-linear-gradient(-45deg, #fff, #fff 5px, rgba(#DBDBDB, 0.2)  5px, rgba(219, 219, 219, 0.274) 6px);
     opacity: 0.5;
@@ -325,17 +316,13 @@
       display: none;
     }
   }
-
 }
 
 .breakSpan {
-  // pointer-events: none;
   cursor: default;
   height: 10px;
   display: block;
-  // margin: 0.1em 0;
   background: repeating-linear-gradient(-45deg, #fff, #fff 5px, rgba(#DBDBDB, 0.3) 5px, rgba(#DBDBDB, 0.3) 6px);
-  // background-color: #F3F3F3;
 }
 
 .longBreak {
@@ -371,13 +358,10 @@
     left: 20px;
       width: 0px;
       transition: 0.5s ease-in-out;
-
-
   }
 
   .timeLineLong {
       width: calc(40vw) !important;
-
   }
 }
 
@@ -391,7 +375,6 @@
   .lessonSideBarTime {
     display: flex;
     flex-direction: column;
-    // margin-right: 10px;
     justify-content: center;
     align-items: center;
 
@@ -419,7 +402,6 @@
     div {
       position: absolute;
       transform: translateY(-50%);
-      // left: -40px;
       left: -60px;
       font-weight: $normal;
       font-size: $xs;
@@ -428,7 +410,6 @@
       width: 100%;
       span {
         border-bottom: 1px solid $dustRed;
-        // width: 88vw;
         left: 30px;
         position: absolute;
         width: 100%;
@@ -460,12 +441,13 @@
     }
   }
 }
+
 .timeLineLong {
     width: calc(100vw - 180px) !important;
 
- }
+}
+
 .editModal {
-  //display: none;
   margin: 0 1em 0 0;
   width: 20px;
   opacity: 0;
@@ -485,9 +467,7 @@
   }
 }
 
-
 .lessonBarContent:hover {
-
   .editModal {
     display: block;
     opacity: 1;

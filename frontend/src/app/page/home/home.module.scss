@@ -10,13 +10,10 @@
   background: #fff;
 }
 
-// day schedule in home
-
-
 .homePage {
   padding: 0 50px;
   height: 100%;
-
+  margin-top: 36px;
   Row {
     height: 100%;
   }
@@ -25,15 +22,12 @@
     background: $background;
     box-shadow: $containerShadow;
     border-radius: $conteinerRadius $conteinerRadius 0 0;
-    // height: calc(100vh - 129px);
     height: 100%;
     padding: 4%;
-    margin-top: 64px;
+
   }
 
   .homeSide {
-    // padding: 0 65px;
-
     align-items: center;
     display: flex;
     justify-content: flex-start;
@@ -43,8 +37,6 @@
   }
 
   .homeImage {
-    // position: absolute;
-    // padding: 9%;
     display: block;
     height: 100%;
     width: 400px;
@@ -80,7 +72,6 @@
       z-index: 20;
       background-color: $primary;
       border-radius: $conteinerRadius;
-      //color: #fff;
       box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.12), 0px 6px 16px rgba(0, 0, 0, 0.08), 0px 9px 28px rgba(0, 0, 0, 0.05);
     }
   }

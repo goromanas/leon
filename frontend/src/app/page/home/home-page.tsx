@@ -41,11 +41,13 @@ class HomePageComponent extends React.Component<Props, State> {
             allLessons,
             currentLesson,
             schedule,
+            firstName,
         } = this.props;
 
+        const dayLessons = allLessons && allLessons.filter(lesson => lesson.day === moment().day())
+
         return (
-            <AsyncContent loading={this.props.schedule.length === 0} loader={<PageLoadingSpinner/>}>
-                {/* {console.log('homepage')} */}
+            <AsyncContent loading={this.props.schedule.length === 0} loader={<PageLoadingSpinner />}>
                 <div className={styles.homePage}>
                     <div className={styles.home}>
                         {
@@ -54,46 +56,46 @@ class HomePageComponent extends React.Component<Props, State> {
                                     To user list
                                 </Button>
                             ) : (
-                                <>
-                                    <Row>
-                                        <Col lg={2} md={2} sm={2}>
-                                            <SideTimebar schedule={schedule} homepage={true}
-                                                         itemsInList={scheduleCalc.thisDayLength(allLessons, parseInt(moment().format('d'), 10))}/>
-                                        </Col>
-                                        <Col lg={16} md={38} sm={38}>
-                                            <DayLessonsList
-                                                userRole={this.props.userRoles}
-                                                currentLesson={currentLesson}
-                                                allLessons={allLessons || []}
-                                                date={moment().format('YYYY-MM-DD')}
-                                                day={parseInt(moment().format('d'), 10)}
-                                                schedule={schedule}
-                                                homepage={true}
-                                            />
-                                        </Col>
-                                        <Col lg={22} md={40} sm={40} className={styles.homeSide}>
-                                            <div className={styles.homeImage}>
-                                                {userRoles.includes('STUDENT') ? <HolidayCounter /> : ''}
-                                            </div>
-                                            <div className={styles.homeModal}>
+                                    <>
+                                        <Row>
+                                            <Col lg={2} md={2} sm={2}>
+                                                <SideTimebar schedule={schedule} homepage={true}
+                                                    itemsInList={scheduleCalc.thisDayLength(allLessons, parseInt(moment().format('d'), 10))} />
+                                            </Col>
+                                            <Col lg={16} md={38} sm={38}>
+                                                <DayLessonsList
+                                                    userRole={this.props.userRoles}
+                                                    currentLesson={currentLesson}
+                                                    allLessons={dayLessons || []}
+                                                    date={moment().format('YYYY-MM-DD')}
+                                                    day={parseInt(moment().format('d'), 10)}
+                                                    schedule={schedule}
+                                                    homepage={true}
+                                                />
+                                            </Col>
+                                            <Col lg={22} md={40} sm={40} className={styles.homeSide}>
+                                                <div className={styles.homeImage}>
+                                                    {userRoles.includes('STUDENT') ? <HolidayCounter /> : ''}
+                                                </div>
+                                                <div className={styles.homeModal}>
 
-                                                <h1>Learn something new!</h1>
-                                                <div>
+                                                    <h1>Learn something new!</h1>
+                                                    <div>
 
-                                                    <div className={styles.homeModalMotivation}>
-                                                        <img src={'icons/quoteLogo.svg'}/>
-                                                        <Quotes />
+                                                        <div className={styles.homeModalMotivation}>
+                                                            <img src={'icons/quoteLogo.svg'} />
+                                                            <Quotes />
+
+                                                        </div>
 
                                                     </div>
-
+                                                    <div className={styles.homeModalOne}></div>
+                                                    <div className={styles.homeModalTwo}></div>
                                                 </div>
-                                                <div className={styles.homeModalOne}></div>
-                                                <div className={styles.homeModalTwo}></div>
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                </>
-                            )
+                                            </Col>
+                                        </Row>
+                                    </>
+                                )
 
                         }
                     </div>
@@ -108,7 +110,7 @@ class HomePageComponent extends React.Component<Props, State> {
     };
 }
 
-const mapContextToProps = ({session: {user}, lessons, currentLesson, schedule}: SettingsProps): ContextProps => ({
+const mapContextToProps = ({ session: { user }, lessons, currentLesson, schedule }: SettingsProps): ContextProps => ({
     username: user != null ? user.username : null,
     firstName: user != null ? user.firstName : null,
     userRoles: user.roles,
