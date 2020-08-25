@@ -18,6 +18,7 @@ import { ActiveUsers } from 'app/page/video-chat/activeUsers';
 import { Top } from './top/top';
 
 import styles from './video-chat-page.module.scss';
+// @ts-ignore
 import ReconnectingWebSocket from 'reconnecting-websocket';
 
 const { Content, Sider } = Layout;
@@ -161,15 +162,16 @@ class HomePageComponent extends React.Component<Props, State> {
         this.ws.onopen = () => {
             // tslint:disable-next-line: no-console
         };
-        this.ws.onmessage = e => {
-            this.setState({ quizMessageForStudent: null });
+        this.ws.onmessage = (e:MessageEvent) => {
             const message = JSON.parse(e.data);
-            this.setState({ type: message.type });
             if (message.type === 'question') {
+                this.setState({type: message.type});
+                this.setState({quizMessageForStudent: null});
                 this.showModal();
                 this.setState({ quizMessageForStudent: message });
             } else if (message.type === 'answer') {
-                alert('failed');
+                this.setState({type: message.type});
+                this.setState({quizMessageForStudent: null});
                 const copyAnswers = [...this.state.answers];
                 const newAnswers = [...copyAnswers, message];
 
@@ -210,13 +212,14 @@ class HomePageComponent extends React.Component<Props, State> {
     };
 
     public openQuiz = (values: any): void => {
-        this.setState({ type: 'create' });
+        this.setState({type: 'create',quizMessageForStudent:null});
         this.showModal();
     };
 
     public render(): React.ReactNode {
         const {
             username,
+            firstName,
             teacherLessons,
             userRoles,
             schedule,
@@ -279,10 +282,10 @@ class HomePageComponent extends React.Component<Props, State> {
                                     question={this.state.question}
                                 />
 
-                            </AsyncContent>
-                            :
+                            </AsyncContent> :
                             <QuizCreate updateQuiz={this.updateQuiz}
-                            />}
+                            />
+                    }
                 </Modal>
                 <Content style={{ margin: 'auto', width: '70%' }}>
 
@@ -383,10 +386,12 @@ class HomePageComponent extends React.Component<Props, State> {
     };
 }
 
+// @ts-ignore
 const mapContextToProps = ({ session: { user }, lessons, schedule }: SettingsProps): ContextProps => ({
     username: user != null ? user.username : null,
     firstName: user != null ? user.firstName : null,
     userRoles: user.roles,
+    // @ts-ignore
     teacherLessons: lessons,
     // studentLessons: lessons,
     schedule,

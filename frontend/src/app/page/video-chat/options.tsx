@@ -31,7 +31,12 @@ const OptionList: React.FC<Props> = (props) => {
         setValue(e.target.value);
 
     };
+    const onChangeTimer = (e: any) => {
+        setValueTimer(e.target.value);
+
+    };
     const [value, setValue] = React.useState(0);
+    const [valueTimer, setValueTimer] = React.useState("15");
 
     const [questionCount, setquestionCount] = useState(0);
 
@@ -40,6 +45,7 @@ const OptionList: React.FC<Props> = (props) => {
             initialValues={{ question: '', options: [], timer: '15' }}
             onSubmit={(values, { setSubmitting }) => {
                 setTimeout(() => {
+                    values.timer=valueTimer;
                     props.updateQuiz(values, value);
                     //   alert(JSON.stringify(values, null, 2));
                 }, 400);
@@ -47,6 +53,7 @@ const OptionList: React.FC<Props> = (props) => {
             render={({ values, validateField, errors }) => (
                 <Form className={styles.quizForm}>
                     <Field name="question"
+                           as="textarea"
                            validate={validateQuestion}
                            className={styles.questionField}
                            placeholder="Write your Question"
@@ -78,6 +85,7 @@ const OptionList: React.FC<Props> = (props) => {
                                                             -
                                                         </Button>
                                                         <Button
+                                                            disabled={questionCount==5?true:false}
                                                             onClick={() => (arrayHelpers.insert(index + 1, ''), setquestionCount(questionCount + 1))}
                                                             className={styles.changeOption}
                                                             shape="circle"
@@ -120,7 +128,7 @@ const OptionList: React.FC<Props> = (props) => {
                                         <option value="60">1min</option>
                                     </Field> */}
                                     <label className={styles.timerLabel}>Select the duration to answer</label>
-                                    <Radio.Group name="timer" >
+                                    <Radio.Group name="timer" onChange={onChangeTimer} value={valueTimer} >
                                         <Radio.Button value="15">15s</Radio.Button>
                                         <Radio.Button value="30">30s</Radio.Button>
                                         <Radio.Button value="40">45s</Radio.Button>
@@ -129,7 +137,7 @@ const OptionList: React.FC<Props> = (props) => {
                                 </div>
                                     <button type="submit"
                                             className={styles.submitButton}
-                                            disabled={(errors.question || questionCount < 2 || checkForDuplicates(values.options)) ? true : false}
+                                            disabled={(errors.question || questionCount < 2 || checkForDuplicates(values.options))? true : false}
                                             onClick={() => validateField('question')}
                                     >Send your question
                                     </button>
