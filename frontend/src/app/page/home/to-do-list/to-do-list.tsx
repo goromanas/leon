@@ -9,10 +9,11 @@ import styles from './to-do-list.module.scss';
 
 interface Props {
     lessons: Api.LessonDto[];
+    userRole: string[] | null;
 }
 
 const ToDoList: React.FC<Props> = (
-    { lessons }) =>
+    { lessons, userRole }) =>
 
     (
         <AsyncContent
@@ -28,6 +29,7 @@ const ToDoList: React.FC<Props> = (
                             lessonSubject={lesson.subject}
                             topic={assignment.topic}
                             type={assignment.assignment}
+                            userRole={userRole}
                         />
                     ))}</div>
                 ))}
