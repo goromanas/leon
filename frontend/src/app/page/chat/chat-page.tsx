@@ -14,6 +14,7 @@ import { ChatList } from './chat-list/chat-list';
 import { Channels } from './channels';
 
 import styles from './chat-page.module.scss';
+import ReconnectingWebSocket from 'reconnecting-websocket';
 
 const { Content, Sider } = Layout;
 
@@ -23,7 +24,7 @@ interface ContextProps {
     userRoles: string[] | null;
 }
 
-interface OwnProps {}
+interface OwnProps { }
 
 type Props = ContextProps & OwnProps;
 
@@ -63,7 +64,7 @@ class ChatComponent extends React.Component<Props, State> {
         return newUrl;
     };
 
-    public ws = new WebSocket(this.getSocketUrl());
+    public ws = new ReconnectingWebSocket(this.getSocketUrl());
 
     public readonly state: State = {
         messages: [],
@@ -73,7 +74,7 @@ class ChatComponent extends React.Component<Props, State> {
         channels: [],
         classRooms: [],
         currentChannel: 1,
-        currentClassroom:  '',
+        currentClassroom: '',
         teacherSubjectId: 1,
     };
 
@@ -93,7 +94,7 @@ class ChatComponent extends React.Component<Props, State> {
 
     }
 
-  // tslint:disable-next-line:typedef
+    // tslint:disable-next-line:typedef
     public componentDidMount() {
         const { messages } = this.state;
         const { teacherLessons, userRoles } = this.props;
@@ -110,31 +111,31 @@ class ChatComponent extends React.Component<Props, State> {
 
         if (this.state.channels.length < 1 && userRoles.includes('STUDENT')) {
             chatService
-        .getSubjects()
-        .then(channels => {
-            this.setState({ channels });
-            this.setState({ currentChannel: channels[0].id });
-            this.setState({ currentClassroom: teacherLessons[0].className });
-        })
-        .catch(() => console.log('Error getting subjects'));
+                .getSubjects()
+                .then(channels => {
+                    this.setState({ channels });
+                    this.setState({ currentChannel: channels[0].id });
+                    this.setState({ currentClassroom: teacherLessons[0].className });
+                })
+                .catch(() => console.log('Error getting subjects'));
 
 
         }
 
         if (this.state.channels.length < 1 && userRoles.includes('TEACHER')) {
             chatService
-      .getClassrooms()
-      .then(classRooms => {
-          this.setState({ classRooms, currentClassroom: classRooms[0].classroomName });
-      })
+                .getClassrooms()
+                .then(classRooms => {
+                    this.setState({ classRooms, currentClassroom: classRooms[0].classroomName });
+                })
 
-      .catch(() => console.log('Error getting subjects'));
+                .catch(() => console.log('Error getting subjects'));
 
             chatService.getTeacherSubject()
-      .then(teacherSubject => {
-          this.setState({ currentChannel: teacherSubject.id });
-      })
-      .catch(() => console.log('Error getting teacher subject'));
+                .then(teacherSubject => {
+                    this.setState({ currentChannel: teacherSubject.id });
+                })
+                .catch(() => console.log('Error getting teacher subject'));
 
         }
 
@@ -144,7 +145,7 @@ class ChatComponent extends React.Component<Props, State> {
 
         this.ws.onmessage = e => {
             const message = JSON.parse(e.data);
-      // console.log('Chat page receives ',message.classroom);
+            // console.log('Chat page receives ',message.classroom);
 
             const copyMsg = [...this.state.messages];
             const newMsg = [...copyMsg, message];
@@ -164,44 +165,44 @@ class ChatComponent extends React.Component<Props, State> {
         // console.log(this.state.currentChannel);
         return (
 
-     <AsyncContent
-        loading={!teacherLessons && !this.state.channels}
-        loader={<PageLoadingSpinner />}
-     >
+            <AsyncContent
+                loading={!teacherLessons && !this.state.channels}
+                loader={<PageLoadingSpinner />}
+            >
 
-         <Layout >
-            <Sider theme="light" className={styles.sider} width="250px">
-              <Channels
-                channels={channels}
-                classRooms={classRooms}
-                currentChannel={this.state.currentChannel}
-                onChannelChange={this.onChannelChange}
-                onClassChange={this.onClassChange}
-                role={this.props.userRoles[0]}
-              />
-           </Sider>
-            <Content style={{ background: 'white', overflow: 'hidden', height: '92vh' }} >
-             <PageContent >
-            <ChatList
-                messages={messages}
-                currentChannel={this.state.currentChannel}
-                currentClassroom={this.state.currentClassroom}
-             />
-             <ChatForm
-                  initialValues={ChatComponent.MESSAGE_INITIAL_VALUES}
-                  onSubmit={this.handleSubmit}
-             />
-             </PageContent>
-            </Content>
-        </Layout>
+                <Layout >
+                    <Sider theme="light" className={styles.sider} width="250px">
+                        <Channels
+                            channels={channels}
+                            classRooms={classRooms}
+                            currentChannel={this.state.currentChannel}
+                            onChannelChange={this.onChannelChange}
+                            onClassChange={this.onClassChange}
+                            role={this.props.userRoles[0]}
+                        />
+                    </Sider>
+                    <Content style={{ background: 'white', overflow: 'hidden', height: '92vh' }} >
+                        <PageContent >
+                            <ChatList
+                                messages={messages}
+                                currentChannel={this.state.currentChannel}
+                                currentClassroom={this.state.currentClassroom}
+                            />
+                            <ChatForm
+                                initialValues={ChatComponent.MESSAGE_INITIAL_VALUES}
+                                onSubmit={this.handleSubmit}
+                            />
+                        </PageContent>
+                    </Content>
+                </Layout>
 
-      </AsyncContent>
+            </AsyncContent>
         );
     }
 
     public sendMessage = (message: Message) => {
         try {
-      // console.log(message)
+            // console.log(message)
             this.ws.send(JSON.stringify(message));
         } catch (error) {
             console.log(error); // catch error
