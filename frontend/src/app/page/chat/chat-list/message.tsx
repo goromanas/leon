@@ -1,6 +1,8 @@
 import React from 'react';
-import Avatar from 'antd/lib/avatar/avatar';
 import { UserOutlined } from '@ant-design/icons';
+
+// import Avatar from 'antd/lib/avatar/avatar';
+import { Avatar } from 'app/components/avatar/avatar';
 
 import styles from './message.module.scss';
 
@@ -29,27 +31,20 @@ const Message: React.FC<Props> = (
         if (a.getDate() < today.getDate()) {
             dateDisplay = monthNames[a.getMonth()] + ' ' + a.getDate() + ', ' + a.getHours().toString() + ':' + minutes;
             // return;
-        }else{
-            dateDisplay = a.getHours().toString()+ ':' + minutes
+        } else {
+            dateDisplay = a.getHours().toString() + ':' + minutes;
         }
     }
     return (
         <div className={toRight ? styles.containerR : styles.containerL}>
             {!toRight && <div className={styles.avatarBox}>
-                <Avatar
-                    className={styles.avatar}
-                    size="large" icon={
-                    <UserOutlined
-                        className={styles.userIcon}
-                        style={{ fontSize: '25px' }} />}
-                    style={{ color: 'white' }}
-                />
+                <Avatar firstName={author} />
             </div>}
 
             <div>
                 {!toRight && <span className={styles.author}>{author}</span>}
                 <div className={styles.message}
-                     // style={role === 'TEACHER'? {background: '#FCE3BA !important'}: null}
+                // style={role === 'TEACHER'? {background: '#FCE3BA !important'}: null}
                 >
                     <p>{text}</p>
                     <p className={styles.timestamp}>{dateDisplay}</p>

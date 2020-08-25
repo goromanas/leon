@@ -24,6 +24,10 @@ const VideoButton: React.FC<Props> = (props) => {
         setShowUsers(!showUsers);
         // console.log(showUsers);
     };
+    const handleClickWhiteboard = () => {
+        showUsers && setShowUsers(false);
+        props.handleWhiteboard();
+    };
 
     return (
         <div className={styles.allButtons} >
@@ -43,7 +47,7 @@ const VideoButton: React.FC<Props> = (props) => {
                         backgroundColor: showUsers ? '#5A8AEA' : '#5B97FC',
                     }}
                 >
-                    <TeamOutlined />
+                    <TeamOutlined style={{ transform: 'scale(1.5)' }} />
                 </Button>
                 <h1> Participants <span>({props.activeUsers}/{props.allUsers})</span></h1>
             </div>
@@ -55,42 +59,43 @@ const VideoButton: React.FC<Props> = (props) => {
             />
             {/* )
             } */}
-            {(props.role[0] === 'STUDENT') ? null :
+            {
+                (props.role[0] === 'STUDENT') ? null :
 
-                (
-                    <div>
-                        <div onClick={props.openQuiz} className={styles.videobtn}>
-                            <Button
-                                type="primary"
-                                style={{
-                                    borderRadius: '100%',
-                                    height: '50px',
-                                    fontSize: '20px',
-                                }}
-                            >
-                                <MessageOutlined />
-                            </Button>Create a Question
-                        </div>
-                        <div onClick={props.handleWhiteboard} className={styles.videobtn}>
-                            <Button
-                                type="primary"
-                                style={{
-                                    borderRadius: '100%',
-                                    height: '50px',
-                                }}
-                            >
-                                <span
-                                    style={{ width: '20px', display: 'flex' }}
+                    (
+                        <div>
+                            <div onClick={props.openQuiz} className={styles.videobtn}>
+                                <Button
+                                    type="primary"
+                                    style={{
+                                        borderRadius: '100%',
+                                        height: '50px',
+                                        fontSize: '20px',
+                                    }}
                                 >
-                                    <Wand />
-                                </span>
-                            </Button>
+                                    <MessageOutlined style={{ transform: 'scale(1.5)' }} />
+                                </Button>Create a Question
+                        </div>
+                            <div onClick={() => handleClickWhiteboard()} className={styles.videobtn}>
+                                <Button
+                                    type="primary"
+                                    style={{
+                                        borderRadius: '100%',
+                                        height: '50px',
+                                    }}
+                                >
+                                    <span
+                                        style={{ width: '20px', display: 'flex' }}
+                                    >
+                                        <div style={{ transform: 'scale(1.5)' }}> <Wand /></div>
+                                    </span>
+                                </Button>
                                 Whiteboard
                             </div>
-                    </div>
-                )
+                        </div>
+                    )
             }
-        </div>
+        </div >
     );
 };
 
