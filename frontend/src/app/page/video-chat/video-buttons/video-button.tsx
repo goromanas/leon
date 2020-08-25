@@ -12,6 +12,7 @@ interface Props {
     openQuiz: any;
     activeUsers: number;
     allUsers: number;
+    handleActiveUsers: any;
 }
 
 const VideoButton: React.FC<Props> = (props) => (
@@ -24,7 +25,7 @@ const VideoButton: React.FC<Props> = (props) => (
         </div> */}
         {
             <>
-                <div key={props.activeUsers} className={styles.videobtn}><Button type='primary' style={{
+                <div key={props.activeUsers} className={styles.videobtn}><Button onClick={props.handleActiveUsers} type='primary' style={{
                     borderRadius: '100%',
                     height: '50px',
                     fontSize: '20px'
