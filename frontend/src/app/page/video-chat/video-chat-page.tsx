@@ -8,18 +8,20 @@ import ReconnectingWebSocket from 'reconnecting-websocket';
 import { connectContext, SettingsProps } from 'app/context';
 import { AsyncContent, PageContent } from 'app/components/layout';
 import { navigationService } from 'app/service/navigation-service';
-import { AnswerQuiz } from 'app/page/video-chat/answerQuiz';
+
 import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-loading-spinner';
-import { QuizResult } from 'app/page/video-chat/quizResult';
+
 import { VideoButton } from 'app/page/video-chat/video-buttons/video-button';
 import { Whiteboard } from 'app/components/whiteboard/whiteboard';
-import { QuizCreate } from 'app/page/video-chat/quizCreate';
+
 
 // import { ActiveUsers } from 'app/page/video-chat/activeUsers';
 // @ts-ignore
 import { Top } from './top/top';
 
 import styles from './video-chat-page.module.scss';
+import { AnswerQuiz } from './quiz/answerQuiz';
+import { QuizCreate } from './quiz/quizCreate';
 
 const { Content, Sider } = Layout;
 
@@ -64,6 +66,7 @@ interface State {
     type: string;
     quizMessageForStudent: QuizMessageForStudent;
     visible: boolean;
+    replyVisible: boolean;
     value: number;
     answers: QuizAnswer[];
     whiteboardVisible: boolean;
@@ -89,11 +92,18 @@ class HomePageComponent extends React.Component<Props, State> {
         participantsVisible: false,
         correct: 1,
         question: null,
+        replyVisible: false,
     };
 
     public showModal = () => {
         this.setState({
             visible: true,
+        });
+    };
+
+    public showResults = () => {
+        this.setState({
+            replyVisible: true,
         });
     };
     // public handleActiveUsers = () => {
@@ -181,7 +191,7 @@ class HomePageComponent extends React.Component<Props, State> {
                     answers: newAnswers,
                 });
 
-                this.showModal();
+                // this.showModal();
             } else {
                 this.setState({ activeUsers: message });
             }
@@ -216,6 +226,7 @@ class HomePageComponent extends React.Component<Props, State> {
     public openQuiz = (values: any): void => {
         this.setState({ type: 'create', quizMessageForStudent: null });
         this.showModal();
+        this.showResults();
     };
 
     public render(): React.ReactNode {
@@ -276,10 +287,10 @@ class HomePageComponent extends React.Component<Props, State> {
                         )
                         : this.state.type === 'answer' ?
                             <AsyncContent loading={!this.state.answers} loader={<PageLoadingSpinner />}>
-                                <QuizResult answers={this.state.answers}
+                                {/* <QuizResult answers={this.state.answers}
                                     correct={this.state.correct}
                                     question={this.state.question}
-                                />
+                                /> */}
 
                             </AsyncContent> :
                             <QuizCreate updateQuiz={this.updateQuiz}
@@ -351,7 +362,12 @@ class HomePageComponent extends React.Component<Props, State> {
                         users={this.state.activeUsers}
                         allUsers={this.state.activeUsers.length}
                         send={this.sendMessage}
+                        answers={this.state.answers}
+                        correct={this.state.correct}
+                        question={this.state.question}
+                        replyVisible={this.state.replyVisible}
                     />
+
                     {this.state.whiteboardVisible ? <Whiteboard /> : null}
                 </Sider>
 
