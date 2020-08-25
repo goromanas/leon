@@ -100,8 +100,9 @@ class HomePageComponent extends React.Component<Props, State> {
 
         this.setState({whiteboardVisible: !this.state.whiteboardVisible});
     };
+    private interval: NodeJS.Timeout;
 
-    public userActivityUpdate(include?:boolean) {
+    public userActivityUpdate(include?: boolean) {
         const dataToSend = {
             type: 'activeUsers',
             classroom: this.props.teacherLessons[0].className,
@@ -148,6 +149,8 @@ class HomePageComponent extends React.Component<Props, State> {
     public ws = new WebSocket(this.getSocketUrlQuiz());
 
     public componentDidMount() {
+        this.interval = setInterval(() => this.userActivityUpdate(), 5000);
+
         this.ws.onopen = () => {
             // tslint:disable-next-line: no-console
         };
@@ -159,6 +162,7 @@ class HomePageComponent extends React.Component<Props, State> {
                 this.showModal();
                 this.setState({quizMessageForStudent: message});
             } else if (message.type === 'answer') {
+                alert('failed');
                 const copyAnswers = [...this.state.answers];
                 const newAnswers = [...copyAnswers, message];
 
@@ -169,13 +173,12 @@ class HomePageComponent extends React.Component<Props, State> {
                 this.showModal();
             } else {
                 this.setState({activeUsers: message});
-                console.log(this.state.activeUsers);
             }
         };
     }
 
     public componentWillUnmount() {
-        this.userActivityUpdate(true);
+        clearInterval(this.interval);
         this.ws.close();
     }
 
@@ -328,14 +331,14 @@ class HomePageComponent extends React.Component<Props, State> {
                     </PageContent>
 
                 </Content>
-                    <Sider width={this.state.whiteboardVisible ? '100%' : '282px'} className={styles.sider}>
-                        <VideoButton handleWhiteboard={() => this.handleWhiteboard()} role={userRoles}
-                                     openQuiz={this.openQuiz}
-                                     activeUsers={this.state.activeUsers.filter(au => au.active === true).length}
-                                     allUsers={this.state.activeUsers.length}
-                                     send={this.sendMessage}/>
-                        {this.state.whiteboardVisible ? <Whiteboard/> : null}
-                    </Sider>
+                <Sider width={this.state.whiteboardVisible ? '100%' : '282px'} className={styles.sider}>
+                    <VideoButton handleWhiteboard={() => this.handleWhiteboard()} role={userRoles}
+                                 openQuiz={this.openQuiz}
+                                 activeUsers={this.state.activeUsers.filter(au => au.active === true).length}
+                                 allUsers={this.state.activeUsers.length}
+                                 send={this.sendMessage}/>
+                    {this.state.whiteboardVisible ? <Whiteboard/> : null}
+                </Sider>
 
 
             </Layout>
@@ -357,15 +360,8 @@ class HomePageComponent extends React.Component<Props, State> {
         //     mode: 'file',
         //     shouldShare: true,
         // });
-        this.userActivityUpdate();
         api.addEventListener('readyToClose', () => {
             navigationService.redirectToHomePage();
-        });
-        api.addEventListener('participantJoined', () => {
-            this.userActivityUpdate();
-        });
-        api.addEventListener('participantLeft', () => {
-            this.userActivityUpdate();
         });
     };
 }
