@@ -25,7 +25,7 @@ const Item: React.FC<Props> = (props) => {
     return (
         <>
             <Modal
-                // className={styles.modal}
+                className={styles.modal}
                 style={{ borderRadius: '30px', overflow: 'hidden' }}
                 visible={modalVisible}
                 footer={null}
@@ -50,7 +50,7 @@ const Item: React.FC<Props> = (props) => {
                     <span className={styles.itemsubject}>{lessonSubject}</span>
                 </div>
 
-                <span >View</span>
+                <span className={styles.view}>View</span>
             </div>
             <div>
                 <span className={styles.itemtopic}>

@@ -73,6 +73,18 @@ const ToDoList: React.FC<Props> = (props) => {
         }
     };
 
+    const weekFromNow = (day: string): boolean => {
+        const checkDay = new Date();
+        const newDate = new Date(day);
+        checkDay.setDate(new Date().getDate() + 5);
+
+        if (newDate < checkDay) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
     return (
         <AsyncContent
             loading={!lessons === null && lessons.length > 0}
@@ -84,6 +96,9 @@ const ToDoList: React.FC<Props> = (props) => {
                     .map((lesson, index) => (
                         <div key={index} >
                             {lesson.lessonInformation
+                                // .sort((a, b) => a.date < b.date ? 1 : -1)
+                                .filter(item => weekFromNow(item.date))
+                                .filter(item => index < 7)
                                 .map((assignment, id) => (
                                     <>
                                         {new Date(assignment.date) > currentDate

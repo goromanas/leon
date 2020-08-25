@@ -9,7 +9,7 @@ const StudentModal: React.FC<{ onClose: () => void, lessonInformation?: any, cla
                 <div className={styles.circle}>
                     <img
                         alt="Lesson modal icon"
-                        src={'icons/science.svg'}
+                        src={`icons/subjects/${props.subject}.svg`}
                     />
                 </div>
                 <h2>{props.subject}</h2>

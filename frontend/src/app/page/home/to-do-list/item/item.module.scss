@@ -1,7 +1,6 @@
 @import '~app/style/style';
 @import '~app/style/variables';
 
-
 .item {
 
   &title {
@@ -10,6 +9,11 @@
     justify-content: space-between;
     margin-bottom: 1rem;
     cursor: pointer;
+  }
+
+  &title:hover>.view {
+    color: $secondary;
+    transition: all 0.3s ease-out;
   }
 
   &title>* {
@@ -22,5 +26,14 @@
 
   &topic {
     font-weight: $bold;
+  }
+}
+
+.modal {
+  overflow: no-content;
+  background-color: #ffffff;
+
+  div {
+    box-shadow: none !important;
   }
 }

@@ -63,7 +63,7 @@ const TeacherModal: React.FC<{ lessonId: number, onClose: () => void, date: stri
                         <div className={styles.circle}>
                             <img
                                 alt="Lesson modal icon"
-                                src={'icons/science.svg'}
+                                src={`icons/subjects/${props.subject}.svg`}
                             />
                         </div>
                         <div className={styles.modalTop}>
