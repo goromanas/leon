@@ -1,6 +1,7 @@
 @import '~app/style/style';
 @import '~app/style/variables';
 
+
 .item {
 
   &title {
@@ -8,7 +9,11 @@
     flex-direction: row;
     justify-content: space-between;
     margin-bottom: 1rem;
+    cursor: pointer;
+  }
 
+  &title>* {
+    cursor: pointer;
   }
 
   &subject {

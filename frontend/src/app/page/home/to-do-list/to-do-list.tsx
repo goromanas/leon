@@ -12,6 +12,7 @@ interface Props {
     userRole: string[] | null;
 }
 
+const today = new Date();
 const ToDoList: React.FC<Props> = (
     { lessons, userRole }) =>
 
@@ -21,18 +22,29 @@ const ToDoList: React.FC<Props> = (
             loader={<PageLoadingSpinner />}
         >
             <div>
-                <h4>Tomorrow's to-do list</h4>
-                {lessons && lessons.filter(item => item.lessonInformation.length > 0).map((lesson, index) => (
-                    <div className={styles.itemWrapper} key={index}>{lesson.lessonInformation.map((assignment, id) => (
-                        <Item
-                            key={id}
-                            lessonSubject={lesson.subject}
-                            topic={assignment.topic}
-                            type={assignment.assignment}
-                            userRole={userRole}
-                        />
-                    ))}</div>
-                ))}
+
+                {lessons && lessons
+                    .filter(item => item.lessonInformation.length > 0)
+                    .map((lesson, index) => (
+                        <div key={index} >
+                            {lesson.lessonInformation
+                                .map((assignment, id) => (
+                                    <>
+                                        <h4>t</h4>
+                                        <div key={id} className={styles.itemWrapper}>
+                                            <Item
+                                                key={id}
+                                                lessonSubject={lesson.subject}
+                                                topic={assignment.topic}
+                                                type={assignment.assignment}
+                                                information={assignment.information}
+                                                userRole={userRole}
+                                                date={assignment.date}
+                                            />
+                                        </div>
+                                    </>
+                                ))}</div>
+                    ))}
             </div>
         </AsyncContent>
     );
