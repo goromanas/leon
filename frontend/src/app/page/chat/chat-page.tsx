@@ -160,7 +160,7 @@ class ChatComponent extends React.Component<Props, State> {
         const { messages, channels, classRooms } = this.state;
         const { teacherLessons } = this.props;
 
-        // console.log(messages);
+        console.log(messages);
         // console.log(this.state.currentClassroom);
         // console.log(this.state.currentChannel);
         return (
