@@ -1,4 +1,5 @@
 import * as React from 'react';
+import ReconnectingWebSocket from 'reconnecting-websocket';
 
 export type CurrentUser = Api.SessionUser | null;
 
@@ -7,16 +8,16 @@ export interface Session {
     authenticated: boolean;
 }
 
-export interface ChatWebSocket {
-    wsChat: any
-}
+// export interface ChatWebSocket {
+//     wsChat: any
+// }
 
 export interface Actions {
     updateSession: (session: Session) => void;
     updateLessons: (lessons: Api.LessonDto[]) => void;
     updateCurrentLesson: (currentLesson: number) => void;
     updateSchedule: (schedule: Api.ScheduleDto[]) => void;
-    updateWebsocket: (wsChat: ChatWebSocket) => void;
+    updateWebsocket: (wsChat: ReconnectingWebSocket) => void;
 }
 
 export interface SettingsProps {
@@ -25,7 +26,7 @@ export interface SettingsProps {
     lessons: Api.LessonDto[];
     currentLesson: number;
     schedule: Api.ScheduleDto[];
-    wsChat: any;
+    wsChat: ReconnectingWebSocket;
 }
 
 const INITIAL_SESSION: Session = {

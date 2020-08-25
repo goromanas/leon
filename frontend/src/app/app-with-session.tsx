@@ -9,9 +9,6 @@ import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-lo
 import { loggerService } from 'app/service/logger-service';
 import { lessonsService } from 'app/api/service/lessons-service';
 
-export interface ChatWebSocket {
-    wsChat: any;
-}
 
 interface State {
     content: React.ReactNode;
@@ -27,7 +24,7 @@ interface ContextProps {
     updateLessons: (lessons: Api.LessonDto[]) => void;
     updateCurrentLesson: (currentLesson: number) => void;
     updateSchedule: (schedule: Api.ScheduleDto[]) => void;
-    updateWebsocket: (wsChat: ChatWebSocket) => void;
+    updateWebsocket: (wsChat: ReconnectingWebSocket) => void;
 }
 
 type Props = OwnProps & ContextProps;
@@ -130,7 +127,7 @@ class AppWithSessionComponent extends React.Component<Props, State> {
             console.log('disconnected');
         };
     };
-    private readonly handleChatWebSocket = (): ReconnectingWebSocket => {
+    private readonly handleChatWebSocket = (): void => {
         const getSocketUrl = (): string => {
             const loc = window.location;
             let newUrl: string;
@@ -150,7 +147,7 @@ class AppWithSessionComponent extends React.Component<Props, State> {
             console.log('connected chat websocket');
         };
 
-        return wsChat;
+        this.props.updateWebsocket(wsChat);
     };
 
     // get currentLessonID from lessons using curent day of week and currentLesson from websocket
