@@ -68,7 +68,7 @@ class TopNavBarComponent extends React.Component<Props> {
                     </Link>
                     <div className={styles.itemWrapper}>
                         <Link to={navigationService.redirectToVideoChat(currentLesson)} key="13">
-                            <Button disabled={currentLesson === 0 ? true : false} shape="round" type="primary" key="14" className={styles.joinButton}>
+                            <Button disabled={currentLesson === 0} shape="round" type="primary" key="14" className={styles.joinButton}>
                                 Join a Class
                             </Button>
                         </Link>

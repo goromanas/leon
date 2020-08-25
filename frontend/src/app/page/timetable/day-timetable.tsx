@@ -64,7 +64,7 @@ const DayLessonsList: React.FC<Props> = ({ allLessons, userRole, day, date, curr
 
         <SingleLesson
             key={index}
-            currentLesson={currentLesson}
+            currentLesson={24}
             thisLesson={item}
             handleOpenClassroom={handleOpenClassroom}
             schedule={schedule}
