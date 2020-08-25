@@ -45,7 +45,8 @@
 
 
 
-<!--      create table lesson_lesson_information-->
+
+      <!--      create table lesson_lesson_information-->
 <!--      (-->
 <!--      LESSON_ID bigint not null,-->
 <!--      LESSON_INFORMATION_ID bigint not null,-->

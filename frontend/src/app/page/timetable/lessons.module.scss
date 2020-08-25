@@ -184,10 +184,6 @@
   padding-left: 15px;
   transition: all 0.2s cubic-bezier(0.43, 0.51, 0.63, 0.68);
 
-  &:hover {
-    // background-color: rgba(#eeeeee, 1);
-    // box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.11);
-  }
   .lessonIcon {
     color: #000000;
     height: 90%;
@@ -245,11 +241,13 @@
 .activeLesson {
   .lessonBarContent {
     background-color: $grey2;
+
     // box-shadow: $activeLessonShadow;
     & h1 {
       font-weight: $semiBold;
       color: #000000;
     }
+
     &::after {
       // background-color: white;
       opacity: 1;
@@ -282,9 +280,11 @@
 .endedLesson {
   .lessonBarContent {
     color: #727272;
+
     & h1 {
       color: $grey5;
     }
+
     .lessonIcon {
       opacity: 0.3;
     }
@@ -295,23 +295,29 @@
 
   }
 }
+
 .emptyLesson {
   .lessonBarContent {
-    background: repeating-linear-gradient(-45deg, #fff, #fff 5px, rgba(#DBDBDB, 0.2)  5px, rgba(219, 219, 219, 0.274) 6px);
+    background: repeating-linear-gradient(-45deg, #fff, #fff 5px, rgba(#DBDBDB, 0.2) 5px, rgba(219, 219, 219, 0.274) 6px);
     opacity: 0.5;
     box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.032),
-    0px 6px 16px rgba(0, 0, 0, 0.05),
-    0px 9px 28px 8px rgba(0, 0, 0, 0.05);
+      0px 6px 16px rgba(0, 0, 0, 0.05),
+      0px 9px 28px 8px rgba(0, 0, 0, 0.05);
+
     &::after {
       display: none;
     }
+
     .lessonIcon {
       display: none;
     }
   }
 
-  .assignments, .editModal, h1  {
+  .assignments,
+  .editModal,
+  h1 {
     display: none !important;
+
     &:hover {
       display: none;
     }
@@ -399,6 +405,7 @@
     @media only screen and (max-width: 990px) {
       width: calc(100vw - 130px) !important;
     }
+
     div {
       position: absolute;
       transform: translateY(-50%);
@@ -408,6 +415,7 @@
       line-height: 16px;
       color: $dustRed;
       width: 100%;
+
       span {
         border-bottom: 1px solid $dustRed;
         left: 30px;
@@ -443,7 +451,7 @@
 }
 
 .timeLineLong {
-    width: calc(100vw - 180px) !important;
+  width: calc(100vw - 180px) !important;
 
 }
 
@@ -481,10 +489,12 @@
   box-shadow: none !important;
   height: 100%;
   align-items: center;
-  :nth-last-child(2){
+
+  :nth-last-child(2) {
     position: relative;
     left: 15px;
   }
+
   img {
     margin: 2px;
     height: 90%;

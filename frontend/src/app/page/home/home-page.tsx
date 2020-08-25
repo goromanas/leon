@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button, Col, Row } from 'antd';
 import moment from 'moment';
-import { Quotes } from '../../components/quotes/quotes';
 
+import { Quotes } from 'app/components/quotes/quotes';
 import { navigationService } from 'app/service/navigation-service';
 import { connectContext, SettingsProps } from 'app/context';
 import { AsyncContent } from 'app/components/layout';
@@ -10,10 +10,11 @@ import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-lo
 import { DayLessonsList } from 'app/page/timetable/day-timetable';
 import { SideTimebar } from 'app/page/timetable/side-timebar';
 import { scheduleCalc } from 'app/page/timetable/schedule-calc';
-import { Whiteboard } from 'app/components/whiteboard/whiteboard';
 
 import { HolidayCounter } from './holiday-counter/holiday-counter';
 import { TeacherFeedback } from './teacher-feedback/teacher-feedback';
+import { ToDoList } from './to-do-list/to-do-list';
+import { Greeting } from './greeting/greeting';
 
 import styles from './home.module.scss';
 
@@ -44,7 +45,7 @@ class HomePageComponent extends React.Component<Props, State> {
             firstName,
         } = this.props;
 
-        const dayLessons = allLessons && allLessons.filter(lesson => lesson.day === moment().day())
+        const dayLessons = allLessons && allLessons.filter(lesson => lesson.day === moment().day());
 
         return (
             <AsyncContent loading={this.props.schedule.length === 0} loader={<PageLoadingSpinner />}>
@@ -57,12 +58,21 @@ class HomePageComponent extends React.Component<Props, State> {
                                 </Button>
                             ) : (
                                     <>
+                                        <div className={styles.greeting}>
+                                            <Greeting firstname={firstName} />
+                                        </div>
                                         <Row>
                                             <Col lg={2} md={2} sm={2}>
-                                                <SideTimebar schedule={schedule} homepage={true}
-                                                    itemsInList={scheduleCalc.thisDayLength(allLessons, parseInt(moment().format('d'), 10))} />
+                                                <SideTimebar
+                                                    schedule={schedule}
+                                                    homepage={true}
+                                                    itemsInList={scheduleCalc.thisDayLength(
+                                                        allLessons, parseInt(moment().format('d'), 10),
+                                                    )}
+                                                />
+
                                             </Col>
-                                            <Col lg={16} md={38} sm={38}>
+                                            <Col lg={14} md={14} sm={38}>
                                                 <DayLessonsList
                                                     userRole={this.props.userRoles}
                                                     currentLesson={currentLesson}
@@ -73,24 +83,33 @@ class HomePageComponent extends React.Component<Props, State> {
                                                     homepage={true}
                                                 />
                                             </Col>
-                                            <Col lg={22} md={40} sm={40} className={styles.homeSide}>
-                                                <div className={styles.homeImage}>
-                                                    {userRoles.includes('STUDENT') ? <HolidayCounter /> : ''}
-                                                </div>
+
+                                            <Col
+                                                lg={10}
+                                                md={4}
+                                                sm={38}
+                                                className={styles.todoList}
+                                            >
+                                                <ToDoList lessons={allLessons} />
+                                            </Col>
+                                            <Col
+
+                                            >
+                                                {userRoles.includes('TEACHER') ? <TeacherFeedback /> : ''}
+                                                {userRoles.includes('STUDENT') ? <HolidayCounter /> : ''}
+
                                                 <div className={styles.homeModal}>
 
                                                     <h1>Learn something new!</h1>
                                                     <div>
-
                                                         <div className={styles.homeModalMotivation}>
                                                             <img src={'icons/quoteLogo.svg'} />
                                                             <Quotes />
 
                                                         </div>
-
                                                     </div>
-                                                    <div className={styles.homeModalOne}></div>
-                                                    <div className={styles.homeModalTwo}></div>
+                                                    <div className={styles.homeModalOne} />
+                                                    <div className={styles.homeModalTwo} />
                                                 </div>
                                             </Col>
                                         </Row>
@@ -101,7 +120,7 @@ class HomePageComponent extends React.Component<Props, State> {
                     </div>
 
                 </div>
-            </AsyncContent>
+            </AsyncContent >
         );
     }
 
