@@ -2,6 +2,8 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Layout, Modal } from 'antd';
 import Jitsi from 'react-jitsi';
+// @ts-ignore
+import ReconnectingWebSocket from 'reconnecting-websocket';
 
 import { connectContext, SettingsProps } from 'app/context';
 import { AsyncContent, PageContent } from 'app/components/layout';
@@ -12,14 +14,12 @@ import { QuizResult } from 'app/page/video-chat/quizResult';
 import { VideoButton } from 'app/page/video-chat/video-buttons/video-button';
 import { Whiteboard } from 'app/components/whiteboard/whiteboard';
 import { QuizCreate } from 'app/page/video-chat/quizCreate';
-import { ActiveUsers } from 'app/page/video-chat/activeUsers';
 
+// import { ActiveUsers } from 'app/page/video-chat/activeUsers';
 // @ts-ignore
 import { Top } from './top/top';
 
 import styles from './video-chat-page.module.scss';
-// @ts-ignore
-import ReconnectingWebSocket from 'reconnecting-websocket';
 
 const { Content, Sider } = Layout;
 
@@ -96,9 +96,9 @@ class HomePageComponent extends React.Component<Props, State> {
             visible: true,
         });
     };
-    public handleActiveUsers = () => {
-        this.setState({ showActiveUsers: !this.state.showActiveUsers });
-    };
+    // public handleActiveUsers = () => {
+    //     this.setState({ showActiveUsers: !this.state.showActiveUsers });
+    // };
     public handleParticipants = (): void => {
 
         this.setState({ participantsVisible: !this.state.participantsVisible });
@@ -117,6 +117,7 @@ class HomePageComponent extends React.Component<Props, State> {
             teacherUsername: this.props.teacherLessons[0].teacherUsername,
             include,
         };
+
         this.ws.send(JSON.stringify(dataToSend));
     }
 
@@ -162,16 +163,17 @@ class HomePageComponent extends React.Component<Props, State> {
         this.ws.onopen = () => {
             // tslint:disable-next-line: no-console
         };
-        this.ws.onmessage = (e:MessageEvent) => {
+        this.ws.onmessage = (e: MessageEvent) => {
             const message = JSON.parse(e.data);
+
             if (message.type === 'question') {
-                this.setState({type: message.type});
-                this.setState({quizMessageForStudent: null});
+                this.setState({ type: message.type });
+                this.setState({ quizMessageForStudent: null });
                 this.showModal();
                 this.setState({ quizMessageForStudent: message });
             } else if (message.type === 'answer') {
-                this.setState({type: message.type});
-                this.setState({quizMessageForStudent: null});
+                this.setState({ type: message.type });
+                this.setState({ quizMessageForStudent: null });
                 const copyAnswers = [...this.state.answers];
                 const newAnswers = [...copyAnswers, message];
 
@@ -212,7 +214,7 @@ class HomePageComponent extends React.Component<Props, State> {
     };
 
     public openQuiz = (values: any): void => {
-        this.setState({type: 'create',quizMessageForStudent:null});
+        this.setState({ type: 'create', quizMessageForStudent: null });
         this.showModal();
     };
 
@@ -250,10 +252,7 @@ class HomePageComponent extends React.Component<Props, State> {
         }
 
         return (
-            // <<<<<<< HEAD
-            //             <Layout >
-            //                 <Content style={{ margin: 'auto', width: '70%', background: 'white' }}>
-            // =======
+
             <Layout className={styles.layout} key={'video-chat' + id}>
 
                 <Modal
@@ -341,31 +340,27 @@ class HomePageComponent extends React.Component<Props, State> {
                     </PageContent>
 
                 </Content>
-                <Sider width={this.state.whiteboardVisible ? '100%' : '282px'} className={styles.sider}>
+                <Sider width={this.state.whiteboardVisible ? '100%' : 'auto'} className={styles.sider}>
 
-                    {this.state.showActiveUsers === true ? <ActiveUsers
-                        activeUsers={this.state.activeUsers}
-                        handleActiveUsers={() => this.handleActiveUsers()}
-                    /> :
-                        <VideoButton handleWhiteboard={() => this.handleWhiteboard()} role={userRoles}
-                            openQuiz={this.openQuiz}
-                            activeUsers={this.state.activeUsers.filter(au => au.active === true).length}
-                            allUsers={this.state.activeUsers.length}
-                            send={this.sendMessage}
-                            handleActiveUsers={() => this.handleActiveUsers()} />
-                    }
-
-
+                    <VideoButton
+                        handleWhiteboard={() => this.handleWhiteboard()}
+                        role={userRoles}
+                        openQuiz={this.openQuiz}
+                        activeUsers={this.state.activeUsers.filter(au => au.active === true).length}
+                        activeUsersState={this.state.showActiveUsers}
+                        users={this.state.activeUsers}
+                        allUsers={this.state.activeUsers.length}
+                        send={this.sendMessage}
+                    />
                     {this.state.whiteboardVisible ? <Whiteboard /> : null}
                 </Sider>
-
 
             </Layout>
         );
     }
 
-    private readonly changeValue = (number: number) => {
-        this.setState({ value: number });
+    private readonly changeValue = (_number: number) => {
+        this.setState({ value: _number });
     };
 
     private readonly generateUniqueName = (subject: string, video: string): string =>
@@ -379,14 +374,13 @@ class HomePageComponent extends React.Component<Props, State> {
         //     mode: 'file',
         //     shouldShare: true,
         // });
-        this.userActivityUpdate()
+        this.userActivityUpdate();
         api.addEventListener('readyToClose', () => {
             navigationService.redirectToHomePage();
         });
     };
 }
 
-// @ts-ignore
 const mapContextToProps = ({ session: { user }, lessons, schedule }: SettingsProps): ContextProps => ({
     username: user != null ? user.username : null,
     firstName: user != null ? user.firstName : null,
