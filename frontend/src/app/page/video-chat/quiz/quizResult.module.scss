@@ -1,0 +1,46 @@
+@import '~app/style/variables';
+
+.quiz-result {
+  margin: 2rem 0;
+  padding: 0 1rem;
+
+  &closed {
+    margin-top: 0;
+    padding: 0 1rem;
+  }
+
+  &top {
+    margin-bottom: 4rem;
+  }
+
+  .time {
+    font-weight: $bold;
+  }
+
+  .replywrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    margin-top: 1rem;
+  }
+
+  .badgewrapper {
+    display: flex;
+    flex-direction: row;
+    align-content: flex-start;
+    justify-content: space-evenly;
+  }
+
+  .question {
+    color: $grey6;
+
+    &wrapper {
+      margin-top: 4rem;
+    }
+  }
+
+  .badge {
+    padding-right: 1rem;
+  }
+}

@@ -76,10 +76,12 @@ const ToDoList: React.FC<Props> = (props) => {
 
     const weekFromNow = (day: string): boolean => {
         const checkDay = new Date();
+        const tomorrow = new Date();
         const newDate = new Date(day);
-        checkDay.setDate(new Date().getDate() + 5);
+        tomorrow.setDate(new Date().getDate() + 1);
+        checkDay.setDate(new Date().getDate() + 4);
 
-        if (newDate < checkDay) {
+        if (newDate < checkDay && newDate > tomorrow) {
             return true;
         } else {
             return false;

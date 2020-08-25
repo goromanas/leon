@@ -5,6 +5,12 @@ import { MessageOutlined, TeamOutlined } from '@ant-design/icons';
 import { Wand } from 'app/page/video-chat/wand';
 import { ActiveUsers } from 'app/page/video-chat/activeUsers';
 import styles from 'app/page/video-chat/video-chat-page.module.scss';
+import { QuizResult } from '../quiz/quizResult';
+
+interface QuizAnswer {
+    studentName: string;
+    answer: number;
+}
 
 interface Props {
     role: string[];
@@ -15,6 +21,10 @@ interface Props {
     allUsers: number;
     users: any;
     activeUsersState: boolean;
+    answers: QuizAnswer[];
+    correct: number;
+    question: string;
+    replyVisible: boolean;
 }
 
 const VideoButton: React.FC<Props> = (props) => {
@@ -76,6 +86,12 @@ const VideoButton: React.FC<Props> = (props) => {
                                     <MessageOutlined style={{ transform: 'scale(1.5)' }} />
                                 </Button>Create a Question
                         </div>
+                            <QuizResult
+                                answers={props.answers}
+                                correct={props.correct}
+                                question={props.question}
+                                isOpen={props.replyVisible}
+                            />
                             <div onClick={() => handleClickWhiteboard()} className={styles.videobtn}>
                                 <Button
                                     type="primary"
