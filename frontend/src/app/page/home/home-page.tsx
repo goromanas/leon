@@ -99,8 +99,12 @@ class HomePageComponent extends React.Component<Props, State> {
                                                 lg={12}
                                                 md={4}
                                                 sm={38}
+                                                className={styles.holidayCounterwrapper}
                                             >
-                                                <HolidayCounter />
+                                                <div>
+                                                    <HolidayCounter />
+                                                </div>
+
 
                                                 <div className={styles.homeModal}>
 

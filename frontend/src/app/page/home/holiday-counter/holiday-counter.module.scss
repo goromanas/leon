@@ -4,7 +4,8 @@
 .holiday-counter {
 
   &board {
-    width: 400px;
+    height: 300px;
+    width: 100%;
     position: relative;
   }
 
@@ -13,7 +14,7 @@
     position: absolute;
     font-size: $xxl;
     top: 13%;
-    left: 45%;
+    left: 50%;
     transform: translateX(-50%);
     font-family: 'Cabin Sketch', cursive;
     max-width: 100px;
@@ -38,8 +39,8 @@
     color: #fff;
     position: absolute;
     font-size: $xl;
-    top: 35%;
-    left: 45%;
+    top: 32%;
+    left: 50%;
     transform: translateX(-50%);
     font-family: 'Cabin Sketch', cursive;
   }
@@ -49,7 +50,7 @@
     position: absolute;
     font-size: $xl;
     top: 26%;
-    left: 47%;
+    left: 50%;
     transform: translateX(-50%);
     font-family: 'Cabin Sketch', cursive;
   }
@@ -58,8 +59,8 @@
     color: #fff;
     position: absolute;
     font-size: $xl;
-    top: 27%;
-    left: 54%;
+    top: 26%;
+    left: 57%;
     transform: translateX(-50%);
     font-family: 'Cabin Sketch', cursive;
   }
@@ -68,8 +69,8 @@
     color: #fff;
     position: absolute;
     font-size: $xl;
-    top: 27%;
-    left: 39%;
+    top: 26%;
+    left: 43%;
     transform: translateX(-50%);
     font-family: 'Cabin Sketch', cursive;
   }
