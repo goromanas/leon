@@ -26,18 +26,7 @@ interface Props {
     ifDayEnded: boolean;
 }
 
-const {
-    lesson,
-    activeLesson,
-    endedLesson,
-    lessonBarContent,
-    lessonBar,
-    lessonBarWithBreak,
-    activeInSchedules,
-    emptyLesson,
-    lessonIcon,
-    lessonLive,
-} = styles;
+const { lesson, activeLesson, endedLesson, lessonBarContent, lessonBar, lessonBarWithBreak, activeInSchedules, emptyLesson, lessonIcon, lessonLive, activeBorder } = styles;
 
 const SingleLesson: React.FC<Props> = (props) => {
     const { currentLesson, thisLesson, handleOpenClassroom, schedule, userRole, date, homepage, ifDayEnded } = props;
@@ -127,69 +116,58 @@ const SingleLesson: React.FC<Props> = (props) => {
             >
                 <div className={lessonBar}>
                     <div className={lessonBarWithBreak}>
-                        <div
-                            data-tip={thisLesson.id === -1 ? 'No Lesson' : null}
-                            className={lessonBarContent + ' ' + (checkUserRoleForModal() ? styles.pointer : null)}
-                            onClick={
-                                !thisLesson.lessonInformation[0] && checkUserRoleForModal()
-                                    ? null
-                                    : () => showModal(thisLesson.id)
-                            }
-                            style={{
-                                height: scheduleCalc.getLessonLength(schedule),
-                                cursor: !thisLesson.lessonInformation[0] ? 'default' : 'cursor,',
-                            }}
-                        >
-                            <img
-                                className={lessonIcon}
-                                alt=""
-                                src={`icons/subjects/${iconName}.svg`}
-                            />
-                            {checkUserRoleForModal() ? <h1>{thisLesson.subject}</h1> :
-                                <h1>{thisLesson.className + ' ' + thisLesson.subject}</h1>}
-                            <div className={styles.assignments}>
-                                {
-                                    currentLessonInfo?.assignment?.includes('Homework') &&
-                                    (
+                        <div className={activeBorder}>
+                            <div
+                                data-tip={thisLesson.id === -1 ? 'No Lesson' : null}
+                                className={lessonBarContent + ' ' + (checkUserRoleForModal() ? styles.pointer : null)}
+                                onClick={!thisLesson.lessonInformation[0] && checkUserRoleForModal() ? null : () => showModal(thisLesson.id)}
+                                style={{
+                                    height: scheduleCalc.getLessonLength(schedule),
+                                    cursor: !thisLesson.lessonInformation[0] ? 'default' : 'cursor,',
+                                }}
+                            > <img
+                                    className={lessonIcon}
+                                    alt=""
+                                    src={`icons/subjects/${iconName}.svg`}
+                                />
+                                {checkUserRoleForModal() ? <h1>{thisLesson.subject}</h1> :
+                                    <h1>{thisLesson.className + ' ' + thisLesson.subject}</h1>}
+                                <div className={styles.assignments}>
+                                    {
+                                        currentLessonInfo?.assignment?.includes('Homework') &&
                                         <img
                                             alt=""
                                             src={`icons/homework.svg`}
                                         />
-                                    )
-                                }
-                                {currentLessonInfo?.assignment?.includes('Test') &&
-                                    (
+                                    }
+                                    {currentLessonInfo?.assignment?.includes('Test') &&
                                         <img
                                             alt=""
                                             src={`icons/assignment.svg`}
                                         />
-                                    )
-                                }
-                            </div>
-                            {checkUserRoleForModal() ? null
-                                : (
-                                    <div className={styles.editModal}>
+                                    }
+                                </div>
+                                {checkUserRoleForModal() ? null
+                                    : <div className={styles.editModal}>
                                         <i className="fas  fa-lg fa-plus-circle" />
-                                    </div>
-                                )}
-                            {thisLesson.id === currentLesson && moment().format('W') === moment(date).format('W') ?
-                                (
-                                    <Link to={navigationService.redirectToVideoChat(currentLesson)}>
+                                    </div>}
+                                {thisLesson.id === currentLesson && moment().format('W') === moment(date).format('W') ?
+                                    (<Link to={navigationService.redirectToVideoChat(currentLesson)}>
                                         {homepage ?
 
                                             (
                                                 <>
-                                                    <img
+                                                    {/* <img
                                                         alt="Lesson camera icon"
                                                         src={'icons/camera.svg'}
-                                                    />
+                                                    /> */}
                                                     <Button
                                                         type="primary"
                                                         shape="round"
                                                         className={styles.toVideoButton}
                                                     >
                                                         Join a Class
-                                                    </Button>
+                                                </Button>
                                                 </>
                                             )
 
@@ -203,9 +181,9 @@ const SingleLesson: React.FC<Props> = (props) => {
                                                 </div>
 
                                             )}
-                                    </Link>
-                                )
-                                : null}
+                                    </Link>)
+                                    : null}
+                            </div>
                         </div>
                         {thisLesson.id === -1 && <ReactTooltip />}
                         <span
