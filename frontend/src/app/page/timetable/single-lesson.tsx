@@ -9,27 +9,11 @@ import { motion } from 'framer-motion';
 import { TeacherModal } from 'app/components/modalContent/teacherModal';
 import { StudentModal } from 'app/components/modalContent/studentModal';
 import { navigationService } from 'app/service/navigation-service';
+import { variantsDay } from 'app/page/timetable/animation';
 
 import { scheduleCalc } from './schedule-calc';
 
 import styles from './lessons.module.scss';
-
-const variants = {
-    open: {
-        y: 0,
-        opacity: 1,
-        transition: {
-            y: { stiffness: 1000, velocity: -100 },
-        },
-    },
-    closed: {
-        y: 50,
-        opacity: 0,
-        transition: {
-            y: { stiffness: 1000 },
-        },
-    },
-};
 
 interface Props {
     currentLesson: number;
@@ -58,6 +42,7 @@ const SingleLesson: React.FC<Props> = (props) => {
         parseInt(moment().format('DDD'), 10) > parseInt(moment(date).format('DDD'), 10) && endedLesson,
         currentLesson > thisLesson.id && moment().format('DDD') === moment(date).format('DDD') && endedLesson,
         ifDayEnded && date === moment().format('YYYY-MM-DD') && endedLesson,
+
         // empty lesson
         thisLesson.id === -1 && emptyLesson,
     );
@@ -65,10 +50,9 @@ const SingleLesson: React.FC<Props> = (props) => {
         userRole.includes('STUDENT') || userRole.includes('PARENT');
 
     const showModal = (index: number) => {
-        thisLesson.id !== -1 &&
-            setModalVisible(!modalVisible);
+        thisLesson.id !== -1 && setModalVisible(!modalVisible);
         // for testing purposes
-        console.log(thisLesson.lessonInformation[0]);
+        // console.log(thisLesson.lessonInformation[0]);
     };
 
     const checkLessonInformation = (): void => {
@@ -87,7 +71,7 @@ const SingleLesson: React.FC<Props> = (props) => {
     }
 
     const currentLessonInfo = thisLesson.lessonInformation
-        .filter((lesson: Api.LessonInformationDto) => lesson.date === date)[0];
+        .filter((_lesson: Api.LessonInformationDto) => _lesson.date === date)[0];
     return (
         <>
             <Modal
@@ -101,22 +85,35 @@ const SingleLesson: React.FC<Props> = (props) => {
                 }}
             >
                 {checkUserRoleForModal() ?
-                    (<StudentModal
+                    (
+                        <StudentModal
 
-                        subject={thisLesson.subject}
-                        onClose={handleOk}
-                        lessonInformation={thisLesson.lessonInformation
-                            .filter((lesson: Api.LessonInformationDto) => lesson.date === date)}
-                        classId={thisLesson.id}
-                        date={date}
-                    />) :
-                    (<TeacherModal subject={thisLesson.subject} lessonId={thisLesson.id} onClose={handleOk} date={date}
-                        lessonInformation={thisLesson.lessonInformation
-                            .filter((lesson: Api.LessonInformationDto) => lesson.date === date)} />)}
+                            subject={thisLesson.subject}
+                            onClose={handleOk}
+                            lessonInformation={thisLesson.lessonInformation
+                                .filter((lesson: Api.LessonInformationDto) => lesson.date === date)}
+                            classId={thisLesson.id}
+                            date={date}
+                        />
+                    ) :
+                    (
+                        <TeacherModal
+                            subject={thisLesson.subject}
+                            lessonId={thisLesson.id}
+                            onClose={handleOk}
+                            date={date}
+                            lessonInformation={thisLesson.lessonInformation
+                                .filter((_lesson: Api.LessonInformationDto) => _lesson.date === date)}
+                        />
+                    )
+                }
             </Modal>
 
-            <motion.div className={lessonClass} key={thisLesson.id}
-                variants={variants}>
+            <motion.div
+                className={lessonClass}
+                key={thisLesson.id}
+                variants={variantsDay}
+            >
                 <div className={lessonBar}>
                     <div className={lessonBarWithBreak}>
                         <div className={activeBorder}>
@@ -193,7 +190,7 @@ const SingleLesson: React.FC<Props> = (props) => {
                             data-tip="Break"
                             style={{ height: scheduleCalc.getBreakTime(schedule, thisLesson.time) }}
                             className={styles.breakSpan}
-                        >   {
+                        > {
                                 scheduleCalc.getBreakTime(schedule, thisLesson.time) > 20 ?
                                     (
                                         <span className={styles.longBreak}>Long break</span>

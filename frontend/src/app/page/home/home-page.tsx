@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button, Col, Row } from 'antd';
 import moment from 'moment';
-import { Quotes } from '../../components/quotes/quotes';
 
+import { Quotes } from 'app/components/quotes/quotes';
 import { navigationService } from 'app/service/navigation-service';
 import { connectContext, SettingsProps } from 'app/context';
 import { AsyncContent } from 'app/components/layout';
@@ -10,7 +10,6 @@ import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-lo
 import { DayLessonsList } from 'app/page/timetable/day-timetable';
 import { SideTimebar } from 'app/page/timetable/side-timebar';
 import { scheduleCalc } from 'app/page/timetable/schedule-calc';
-import { Whiteboard } from 'app/components/whiteboard/whiteboard';
 
 import { HolidayCounter } from './holiday-counter/holiday-counter';
 import { TeacherFeedback } from './teacher-feedback/teacher-feedback';
@@ -46,9 +45,10 @@ class HomePageComponent extends React.Component<Props, State> {
             firstName,
         } = this.props;
 
+        const dayLessons = allLessons && allLessons.filter(lesson => lesson.day === moment().day());
+
         return (
             <AsyncContent loading={this.props.schedule.length === 0} loader={<PageLoadingSpinner />}>
-                {/* {console.log('homepage')} */}
                 <div className={styles.homePage}>
                     <div className={styles.home}>
                         {
@@ -66,7 +66,9 @@ class HomePageComponent extends React.Component<Props, State> {
                                                 <SideTimebar
                                                     schedule={schedule}
                                                     homepage={true}
-                                                    itemsInList={scheduleCalc.thisDayLength(allLessons, parseInt(moment().format('d'), 10))}
+                                                    itemsInList={scheduleCalc.thisDayLength(
+                                                        allLessons, parseInt(moment().format('d'), 10),
+                                                    )}
                                                 />
 
                                             </Col>
@@ -74,7 +76,7 @@ class HomePageComponent extends React.Component<Props, State> {
                                                 <DayLessonsList
                                                     userRole={this.props.userRoles}
                                                     currentLesson={currentLesson}
-                                                    allLessons={allLessons || []}
+                                                    allLessons={dayLessons || []}
                                                     date={moment().format('YYYY-MM-DD')}
                                                     day={parseInt(moment().format('d'), 10)}
                                                     schedule={schedule}
@@ -100,16 +102,14 @@ class HomePageComponent extends React.Component<Props, State> {
 
                                                     <h1>Learn something new!</h1>
                                                     <div>
-
                                                         <div className={styles.homeModalMotivation}>
                                                             <img src={'icons/quoteLogo.svg'} />
                                                             <Quotes />
 
                                                         </div>
-
                                                     </div>
-                                                    <div className={styles.homeModalOne}></div>
-                                                    <div className={styles.homeModalTwo}></div>
+                                                    <div className={styles.homeModalOne} />
+                                                    <div className={styles.homeModalTwo} />
                                                 </div>
                                             </Col>
                                         </Row>

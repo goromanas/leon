@@ -43,6 +43,7 @@ class ScheduleCalc {
             const breakStartMinutes = this.convertTimeToMinutes(starts);
             const breakEndMinutes = this.convertTimeToMinutes(ends);
             // console.log(breakEndMinutes - breakStartMinutes);
+
             return schedule && breakEndMinutes - breakStartMinutes;
         }
         // console.log(schedule);
@@ -65,18 +66,22 @@ class ScheduleCalc {
 
     public getDayEnd = (schedule: Api.ScheduleDto[], lastItem: number) => {
 
-        if (schedule.length !== 0 && schedule.length > lastItem && lastItem !== 0 && schedule[lastItem - 1] !== undefined) {
-            // console.log(schedule.length);
+        if (
+            schedule.length !== 0
+            && schedule.length > lastItem
+            && lastItem !== 0
+            && schedule[lastItem - 1] !== undefined
+        ) {
             return this.convertTimeToMinutes(schedule[lastItem - 1].endTime);
         }
         return 0;
     };
 
     public getLongestDay = (lessons: Api.LessonDto[]) => {
-        const lastLesson = lessons.length > 0 && lessons.reduce((prev, current) => (prev.time > current.time) ? prev : current);
+        const lastLesson = lessons.length > 0 && lessons.reduce((prev, current) =>
+            (prev.time > current.time) ? prev : current);
 
         if (lessons.length > 0 && lastLesson.time !== undefined) {
-            // console.log(lastLesson.time);
             return lastLesson.time;
         }
         return 0;
@@ -85,21 +90,23 @@ class ScheduleCalc {
 
     public thisDayLength = (lessons: Api.LessonDto[], day: number): number => {
         const filtered = lessons !== null && lessons.filter((item) => item.day === day);
-        const lastLesson = filtered.length > 0 && filtered.reduce((prev, current) => (prev.time > current.time) ? prev : current);
+        const lastLesson = filtered.length > 0 && filtered.reduce((prev, current) =>
+            (prev.time > current.time) ? prev : current);
 
         if (filtered.length > 0 && lastLesson.time !== undefined) {
-            // console.log(lastLesson.time);
             return lastLesson.time;
         }
         return 0;
-    }
+    };
 
     public ifDayEnded = (lessons: Api.LessonDto[], schedule: Api.ScheduleDto[], day: number): any => {
-        if (schedule.length !== 0 && this.convertTimeToMinutes(schedule[this.thisDayLength(lessons, day)].endTime) <= this.convertTimeToMinutes(moment().format('HH:mm:ss'))) {
+        if (schedule.length !== 0 &&
+            this.convertTimeToMinutes(schedule[this.thisDayLength(lessons, day)].endTime)
+            <= this.convertTimeToMinutes(moment().format('HH:mm:ss'))) {
             return true;
         }
         return false;
-    }
+    };
 }
 
 const scheduleCalc = new ScheduleCalc();
