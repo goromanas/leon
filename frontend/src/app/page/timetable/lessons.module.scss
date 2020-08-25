@@ -1,9 +1,7 @@
 @import '~app/style/style';
 
-
 // WEEK page
 .weekPage {
-  // padding: 80px;
   padding: 0 50px;
   margin: auto;
 }
@@ -12,18 +10,14 @@
 .week {
   background: $background;
   box-shadow: $containerShadow;
-  // border-radius: $conteinerRadius;
   border-radius: $conteinerRadius;
-  // height: calc(100vh - 129px);
   height: 100%;
-  // height: 100%;
   padding: 4%;
   margin-top: 12px;
 }
 
 .weekList {
   display: flex;
-  // flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-between;
 
@@ -56,7 +50,6 @@
   font-weight: $normal;
   font-size: $md;
   color: $grey9;
-  // margin-right: 40px;
   border-bottom: 2px solid rgba(255, 255, 255, 0);
   transform: translateY(1px);
   transition: 0.2s ease-out;
@@ -81,7 +74,6 @@
   align-items: center;
 
   img {
-
     cursor: pointer;
   }
 
@@ -192,11 +184,6 @@
   padding-left: 15px;
   transition: all 0.2s cubic-bezier(0.43, 0.51, 0.63, 0.68);
 
-  &:hover {
-    // background-color: rgba(#eeeeee, 1);
-    // box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.11);
-  }
-
   .lessonIcon {
     color: #000000;
     height: 90%;
@@ -250,12 +237,59 @@
     font-weight: $semiBold;
   }
 }
-
+@keyframes moveGradient {
+  50% {
+    background-position: 100% 50%;
+  }
+}
 .activeLesson {
+  .lessonBarWithBreak {
+    z-index: 2;
+  }
+  .activeBorder {
+    z-index: 1;
+    --border-width: 3px;
+    border-radius: var(--border-width);
+    position: relative;
+    padding: 3px 3px 3px 7px;
+    // background: #222;
+    // z-index: 1;
+    &::after {
+      position: absolute;
+      content: "";
+      // top: calc(-1 * var(--border-width));
+      // left: calc(-1 * var(--border-width));
+      top: 0;
+      left:0;
+      z-index: -1;
+      // width: calc(100% + var(--border-width) * 2);
+      // height: calc(100% + var(--border-width) * 2);
+      width: 100%;
+    height: 100%;
+
+      background: linear-gradient(
+        60deg,
+        #C3DFFE,
+        #7DB7FC,
+        #69A7FB,
+        #5B97FC,
+        #F08B2D,
+        #FBA536,
+        #FCE3BA,
+        #FCC45B,
+      );
+      background-size: 300% 300%;
+      background-position: 0 50%;
+      border-radius: calc(2 * var(--border-width));
+      animation: moveGradient 4s alternate infinite;
+  }
   .lessonBarContent {
     background-color: $grey2;
-
-    // box-shadow: $activeLessonShadow;
+    padding-left: 8px;
+    &::after {
+      display: none;
+    }
+    }
     & h1 {
       font-weight: $semiBold;
       color: #000000;
@@ -310,8 +344,6 @@
 }
 
 .emptyLesson {
-
-  // background: repeating-linear-gradient(-45deg, #fff, #fff 5px, rgba(#DBDBDB, 0.3) 5px, rgba(#DBDBDB, 0.3) 6px);
   .lessonBarContent {
     background: repeating-linear-gradient(-45deg, #fff, #fff 5px, rgba(#DBDBDB, 0.2) 5px, rgba(219, 219, 219, 0.274) 6px);
     opacity: 0.5;
@@ -337,17 +369,13 @@
       display: none;
     }
   }
-
 }
 
 .breakSpan {
-  // pointer-events: none;
   cursor: default;
   height: 10px;
   display: block;
-  // margin: 0.1em 0;
   background: repeating-linear-gradient(-45deg, #fff, #fff 5px, rgba(#DBDBDB, 0.3) 5px, rgba(#DBDBDB, 0.3) 6px);
-  // background-color: #F3F3F3;
 }
 
 .longBreak {
@@ -381,15 +409,12 @@
 
   .timeLine {
     left: 20px;
-    width: 0px;
-    transition: 0.5s ease-in-out;
-
-
+      width: 0px;
+      transition: 0.5s ease-in-out;
   }
 
   .timeLineLong {
-    width: calc(35vw) !important;
-
+      width: calc(40vw) !important;
   }
 }
 
@@ -403,7 +428,6 @@
   .lessonSideBarTime {
     display: flex;
     flex-direction: column;
-    // margin-right: 10px;
     justify-content: center;
     align-items: center;
 
@@ -432,7 +456,6 @@
     div {
       position: absolute;
       transform: translateY(-50%);
-      // left: -40px;
       left: -60px;
       font-weight: $normal;
       font-size: $xs;
@@ -442,7 +465,6 @@
 
       span {
         border-bottom: 1px solid $dustRed;
-        // width: 88vw;
         left: 30px;
         position: absolute;
         width: 100%;
@@ -481,7 +503,6 @@
 }
 
 .editModal {
-  //display: none;
   margin: 0 1em 0 0;
   width: 20px;
   opacity: 0;
@@ -501,9 +522,7 @@
   }
 }
 
-
 .lessonBarContent:hover {
-
   .editModal {
     display: block;
     opacity: 1;
