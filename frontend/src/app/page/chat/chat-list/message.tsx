@@ -25,7 +25,7 @@ const Message: React.FC<Props> = (
     if (dateDisplay.toString().length > 5) {
         const a = new Date(date);
         const minutes = a.getMinutes().toString().length === 1 ?
-            a.getMinutes().toString() + '0' : a.getMinutes().toString();
+            '0' + a.getMinutes().toString()  : a.getMinutes().toString();
 
         if (a.getDate() < today.getDate()) {
             dateDisplay = monthNames[a.getMonth()] + ' ' + a.getDate() + ', ' + a.getHours().toString() + ':' + minutes;
