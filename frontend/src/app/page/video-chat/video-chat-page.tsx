@@ -149,20 +149,22 @@ class HomePageComponent extends React.Component<Props, State> {
     public ws = new WebSocket(this.getSocketUrlQuiz());
 
     public componentDidMount() {
+
         this.interval = setInterval(() => this.userActivityUpdate(), 5000);
 
         this.ws.onopen = () => {
             // tslint:disable-next-line: no-console
         };
         this.ws.onmessage = e => {
-            this.setState({quizMessageForStudent: null});
             const message = JSON.parse(e.data);
-            this.setState({type: message.type});
             if (message.type === 'question') {
+                this.setState({type: message.type});
+                this.setState({quizMessageForStudent: null});
                 this.showModal();
-                this.setState({quizMessageForStudent: message});
+                this.setState({ quizMessageForStudent: message });
             } else if (message.type === 'answer') {
-                alert('failed');
+                this.setState({type: message.type});
+                this.setState({quizMessageForStudent: null});
                 const copyAnswers = [...this.state.answers];
                 const newAnswers = [...copyAnswers, message];
 
@@ -175,6 +177,7 @@ class HomePageComponent extends React.Component<Props, State> {
                 this.setState({activeUsers: message});
             }
         };
+
     }
 
     public componentWillUnmount() {
@@ -204,7 +207,7 @@ class HomePageComponent extends React.Component<Props, State> {
     };
 
     public openQuiz = (values: any): void => {
-        this.setState({type: 'create'});
+        this.setState({type: 'create',quizMessageForStudent:null});
         this.showModal();
     };
 
@@ -272,10 +275,10 @@ class HomePageComponent extends React.Component<Props, State> {
                                             question={this.state.question}
                                 />
 
-                            </AsyncContent>
-                            :
+                            </AsyncContent> :
                             <QuizCreate updateQuiz={this.updateQuiz}
-                            />}
+                            />
+                    }
                 </Modal>
                 <Content style={{margin: 'auto', width: '70%'}}>
 
