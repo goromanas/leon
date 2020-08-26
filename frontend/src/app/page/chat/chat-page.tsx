@@ -162,6 +162,7 @@ if(newMessages.length !== 0 ){
         const { messages, channels, classRooms } = this.state;
         const { teacherLessons, channelsWithNewMessages, newMessages } = this.props;
 
+        console.log(channelsWithNewMessages)
         // console.log(newMessages)
         // if (this.props.newMessages.length !== 0) {
         //     console.log('not emty')
