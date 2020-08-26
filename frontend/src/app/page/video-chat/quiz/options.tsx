@@ -126,8 +126,6 @@ const OptionList: React.FC<Props> = (props) => {
                                         </button>
                                     )}
 
-
-
                                 <div className={styles.submitContainer}>
                                     <div>
                                         {/* <Field name="timer" as="select" placeholder="Select a time">
@@ -144,9 +142,11 @@ const OptionList: React.FC<Props> = (props) => {
                                             <Radio.Button value="60">1min</Radio.Button>
                                         </Radio.Group>
                                     </div>
-                                    <button type="submit"
+                                    <button
+                                        type="submit"
                                         className={styles.submitButton}
                                         disabled={(errors.question || questionCount < 2 || checkForDuplicates(values.options) || value === 0) ? true : false}
+                                        // disabled={true}
                                         onClick={() => validateField('question')}
                                     >Send your question
                                     </button>
