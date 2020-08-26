@@ -69,10 +69,12 @@ class ChatComponent extends React.Component<Props, State> {
     };
 
     public static MESSAGE_INITIAL_VALUES: MessageValue = { message: '' };
+    public stupidity = true;
 
 
     public componentDidUpdate(prev: Props, prevState: State) {
-        const { userRoles } = this.props;
+        const {messages} = this.state
+        const { userRoles, newMessages } = this.props;
 
         if (prev.teacherLessons !== this.props.teacherLessons && userRoles.includes('STUDENT')) {
             const { teacherLessons } = this.props;
@@ -82,18 +84,34 @@ class ChatComponent extends React.Component<Props, State> {
             }
         }
 
+        if(prev.newMessages !== this.props.newMessages){
+            this.setState({ ...this.state, messages: [...messages, ...newMessages] });
+        }
+
     }
+
+    // componentWillReceiveProps(nextProps: Readonly<Props>, nextContext: any) {
+    //     const {messages} = this.state
+    //     const { userRoles, newMessages } = this.props;
+    //     if (this.props.newMessages.length !== 0) {
+    //         console.log('not emty')
+    //         this.setState({ ...this.state, messages: [...messages, ...newMessages] })
+    //     }else {
+    //         console.log('emty')
+    //     }
+    // }
 
     // tslint:disable-next-line:typedef
     public componentDidMount() {
         const { messages } = this.state;
-        const { teacherLessons, userRoles } = this.props;
+        const { teacherLessons, userRoles, newMessages } = this.props;
         const currentChannel: number = 1;
         console.log(this.props)
 
         chatService.getChatMessages()
             .then((data: any) => {
-                // console.log(data[0]);
+                console.log(data[0]);
+                console.log(newMessages)
                 this.setState({
                     messages: [...data],
                 });
@@ -136,12 +154,18 @@ class ChatComponent extends React.Component<Props, State> {
     }
 
 
+
     public render(): React.ReactNode {
         const { messages, channels, classRooms } = this.state;
         const { teacherLessons, channelsWithNewMessages, newMessages } = this.props;
 
-        console.log(channelsWithNewMessages)
-        console.log(newMessages)
+        // if (this.props.newMessages.length !== 0) {
+        //     console.log('not emty')
+        //     // this.setState({ messages: [...messages, ...newMessages] })
+        // }else {
+        //     console.log('emty')
+        // }
+
 
         return (
 

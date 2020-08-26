@@ -19,14 +19,18 @@ interface ContextProps {
 type Props = OwnProps & ContextProps
 
 class ChannelsC extends React.Component<Props> {
-    public render(): React.ReactNode {
+
+    componentDidUpdate(){
         const { channels, currentChannel, onChannelChange, classRooms, role, channelsWithNewMessages, removeChannelArray } = this.props;
-        console.log(channelsWithNewMessages)
-        // console.log(classRooms)
-        // console.log(currentChannel)
+
         if (channelsWithNewMessages.includes(currentChannel)) {
             removeChannelArray(currentChannel);
         }
+    }
+
+    public render(): React.ReactNode {
+        const { channels, currentChannel, onChannelChange, classRooms, role, channelsWithNewMessages, removeChannelArray } = this.props;
+
         return (
       <Menu
           selectedKeys={[currentChannel.toString()]}
