@@ -97,17 +97,6 @@ const VideoButton: React.FC<Props> = (props) => {
                                 question={props.question}
                                 isOpen={props.replyVisible}
                             />
-                            <div onClick={() => handleClickWhiteboard()} className={styles.videobtn}>
-                                <Button
-                                    type="primary"
-                                    style={{
-                                        borderRadius: '100%',
-                                        height: '50px',
-                                        fontSize: '20px'
-                                    }}><MessageOutlined
-                                        style={{transform: 'scale(1.5)'}}/></Button>Create
-                                    a Question
-                                </div>
                                 <div onClick={props.handleWhiteboard} className={styles.videobtn}><Button type='primary'
                                                                                                           style={{
                                                                                                               borderRadius: '100%',

@@ -67,13 +67,15 @@ body {
 }
 
 .bonusPointMenu {
-
+  border: none!important;
   .ant-menu-submenu-title-custom {
     height: 70px !important;
+
 
     ul > li{
       padding: 0 !important;
       background-color: #fff !important;
+
     }
     div {
       //margin-right: auto !important;
