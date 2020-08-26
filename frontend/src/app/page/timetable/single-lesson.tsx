@@ -51,6 +51,7 @@ const SingleLesson: React.FC<Props> = (props) => {
 
     const showModal = (index: number) => {
         thisLesson.id !== -1 && setModalVisible(!modalVisible);
+        console.log(thisLesson.id);
         // for testing purposes
         // console.log(thisLesson.lessonInformation[0]);
     };

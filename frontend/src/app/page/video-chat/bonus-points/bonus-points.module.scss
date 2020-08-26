@@ -1,0 +1,14 @@
+.bonusPoints{
+
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+  }
+
+  form > input, label {
+    width: 80%;
+    margin: auto !important;
+  }
+}
