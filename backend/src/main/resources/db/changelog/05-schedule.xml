@@ -115,6 +115,7 @@
       INSERT INTO `lesson` VALUES(34,1,4,23,'Lithuanian 6A',3,5,0);
       INSERT INTO `lesson` VALUES(35,2,4,28,'Mathematics 6A',3,6,0);
       INSERT INTO `lesson` VALUES(36,14,4,15,'Biology 6A',3,7,0);
+      INSERT INTO `lesson` VALUES(52,8,4,25,'History 6A',3,3,0);
 
       INSERT INTO `lesson` VALUES(37,1,4,23,'Lithuanian 6A',4,1,0);
       INSERT INTO `lesson` VALUES(38,7,4,7,'Physical Education 6A',4,2,0);
@@ -123,6 +124,7 @@
       INSERT INTO `lesson` VALUES(41,9,4,26,'Arts 6A',4,5,0);
       INSERT INTO `lesson` VALUES(42,1,4,23,'Lithuanian',4,6,0);
       INSERT INTO `lesson` VALUES(43,14,4,15,'Biology 6A',4,7,0);
+      INSERT INTO `lesson` VALUES(53,2,4,28,'Mathematics 6A',5,3,0);
 
       INSERT INTO `lesson` VALUES(44,14,4,15,'Biology 6A',5,1,0);
       INSERT INTO `lesson` VALUES(45,3,4,11,'Geography 6A',5,2,0);
