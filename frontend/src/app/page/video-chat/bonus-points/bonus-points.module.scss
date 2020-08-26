@@ -1,14 +1,36 @@
 
 .bonusPoints {
-
+  cursor: initial !important;
 
   form {
-    display: flex;
+    display: block;
     flex-direction: column;
+    cursor: initial !important;
 
+    label {
+
+      padding-bottom: 1em;
+    }
+
+    span {
+
+      margin: 0 auto;
+      margin: 10px;
+      padding: 9px;
+    }
+
+    .button {
+      display: block;
+
+      span {
+        padding: 0;
+        margin: 0;
+      }
+    }
   }
+}
 
-
-
-
+.bonusPoints::after {
+  border-right: none !important;
+  opacity: 0!important;
 }

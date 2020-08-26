@@ -112,8 +112,7 @@ class HomePageComponent extends React.Component<Props, State> {
     };
 
     public handleWhiteboard = (): void => {
-
-        this.setState({ whiteboardVisible: !this.state.whiteboardVisible });
+        this.setState({whiteboardVisible: !this.state.whiteboardVisible});
     };
 
     private interval: NodeJS.Timeout;
@@ -191,6 +190,7 @@ class HomePageComponent extends React.Component<Props, State> {
 
                 // this.showModal();
             } else if (message.type === 'points') {
+                console.log(message);
             } else {
                 this.setState({ activeUsers: message });
             }
