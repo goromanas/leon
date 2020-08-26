@@ -28,6 +28,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String email;
+    private double points;
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Role> role;
