@@ -38,17 +38,24 @@ const OptionList: React.FC<Props> = (props) => {
     const [value, setValue] = React.useState(0);
     const [valueTimer, setValueTimer] = React.useState("15");
 
-    const [questionCount, setquestionCount] = useState(0);
+    const [questionCount, setQuestionCount] = useState(0);
 
     return (<div>
         <Formik
             initialValues={{ question: '', options: [], timer: '15' }}
-            onSubmit={(values, { setSubmitting }) => {
+            onSubmit={(values, { setSubmitting,resetForm }) => {
                 setTimeout(() => {
                     values.timer = valueTimer;
                     props.updateQuiz(values, value);
                     //   alert(JSON.stringify(values, null, 2));
                 }, 400);
+
+                setTimeout(async () => {
+                    resetForm();
+                    setValueTimer("15");
+                    setQuestionCount(0);
+                    //   alert(JSON.stringify(values, null, 2));
+                }, 1000);
             }}
             render={({ values, validateField, errors }) => (
                 <Form className={styles.quizForm}>
@@ -78,7 +85,7 @@ const OptionList: React.FC<Props> = (props) => {
                                                             placeholder="Option"
                                                         />
                                                         <Button
-                                                            onClick={() => (arrayHelpers.remove(index), setquestionCount(questionCount - 1))}
+                                                            onClick={() => (arrayHelpers.remove(index), setQuestionCount(questionCount - 1))}
                                                             className={styles.changeOption}
                                                             shape="circle"
                                                         >
@@ -86,7 +93,7 @@ const OptionList: React.FC<Props> = (props) => {
                                                         </Button>
                                                         <Button
                                                             disabled={questionCount == 5 ? true : false}
-                                                            onClick={() => (arrayHelpers.insert(index + 1, ''), setquestionCount(questionCount + 1))}
+                                                            onClick={() => (arrayHelpers.insert(index + 1, ''), setQuestionCount(questionCount + 1))}
                                                             className={styles.changeOption}
                                                             shape="circle"
                                                         >
@@ -98,7 +105,7 @@ const OptionList: React.FC<Props> = (props) => {
                                             ))}
                                     </Radio.Group>) : (
                                         <button type="button"
-                                            onClick={() => (arrayHelpers.push(''), setquestionCount(questionCount + 1))}
+                                            onClick={() => (arrayHelpers.push(''), setQuestionCount(questionCount + 1))}
                                             className={styles.optionButton}
                                         >
                                             Add an option
@@ -137,7 +144,7 @@ const OptionList: React.FC<Props> = (props) => {
                                     </div>
                                     <button type="submit"
                                         className={styles.submitButton}
-                                        disabled={(errors.question || questionCount < 2 || checkForDuplicates(values.options)) ? true : false}
+                                        disabled={(errors.question || questionCount < 2 || checkForDuplicates(values.options)|| value === 0) ? true : false}
                                         onClick={() => validateField('question')}
                                     >Send your question
                                     </button>
