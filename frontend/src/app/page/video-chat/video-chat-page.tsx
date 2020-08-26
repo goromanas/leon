@@ -273,24 +273,24 @@ class HomePageComponent extends React.Component<Props, State> {
                     onCancel={this.handleCancel}
                     footer={false}
                     width="600px"
-                    style={{borderRadius: '20px'}}
+                    style={{ borderRadius: '20px' }}
                 >
                     {this.state.type === 'question' ?
                         (
                             <AsyncContent loading={!this.state.quizMessageForStudent} loader={<PageLoadingSpinner />}>
                                 <AnswerQuiz message={this.state.quizMessageForStudent}
-                                    changeValue={this.changeValue}
-                                    onSuccess={() => this.handleOk()}
-                                    onCancel={() => this.handleCancel()}
-                                    visible={this.state.visible}
+                                            changeValue={this.changeValue}
+                                            onSuccess={() => this.handleOk()}
+                                            onCancel={() => this.handleCancel()}
+                                            visible={this.state.visible}
                                 /> </AsyncContent>
                         )
                         : this.state.type === 'answer' ?
                             <AsyncContent loading={!this.state.answers} loader={<PageLoadingSpinner />}>
-                                <QuizResult answers={this.state.answers}
+                                {/* <QuizResult answers={this.state.answers}
                                     correct={this.state.correct}
                                     question={this.state.question}
-                                />
+                                /> */}
 
                             </AsyncContent> :
                             <QuizCreate updateQuiz={this.updateQuiz}
@@ -299,10 +299,11 @@ class HomePageComponent extends React.Component<Props, State> {
                 </Modal>
                 <Content style={{margin: 'auto', width: '70%'}}>
                     <PageContent>
+
                         <Top lessonTitle={lessonTitle}
-                            teacher={currentLesson && currentLesson[0].teacher}
-                            startTime={startTime}
-                            endTime={endTime}
+                             teacher={currentLesson && currentLesson[0].teacher}
+                             startTime={startTime}
+                             endTime={endTime}
                         />
 
                         {videoChatName && (
@@ -337,19 +338,23 @@ class HomePageComponent extends React.Component<Props, State> {
                                         'microphone', 'camera', 'desktop', 'fullscreen', 'raisehand', 'hangup', 'chat',
                                         'tileview', 'download', 'videoquality', 'filmstrip', 'invite', 'feedback',
                                         'stats', 'shortcuts',
-                                    ]
-                                } || {SHOW_WATERMARK_FOR_GUESTS: false, SHOW_JITSI_WATERMARK: false}}
+                                    ],
+                                } || {
+
+                                    SHOW_WATERMARK_FOR_GUESTS: false, SHOW_JITSI_WATERMARK: false,
+                                }
+                                }
                             />
                         )}
 
                     </PageContent>
+
 
                 </Content>
                 <Sider width={this.state.whiteboardVisible ? '100%' : 'auto'} className={styles.sider}>
 
                     <VideoButton
                         handleWhiteboard={() => this.handleWhiteboard()}
-                        handleBonusPointsTab={()=> this.handleBonusPointsTab()}
                         role={userRoles}
                         openQuiz={this.openQuiz}
                         activeUsers={this.state.activeUsers.filter(au => au.active === true).length}
@@ -357,9 +362,15 @@ class HomePageComponent extends React.Component<Props, State> {
                         users={this.state.activeUsers}
                         allUsers={this.state.activeUsers.length}
                         send={this.sendMessage}
+                        answers={this.state.answers}
+                        correct={this.state.correct}
+                        question={this.state.question}
+                        replyVisible={this.state.replyVisible}
                     />
+
                     {this.state.whiteboardVisible ? <Whiteboard /> : null}
                 </Sider>
+
 
             </Layout>
         );
