@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Layout, message } from 'antd';
 import { FormikHelpers } from 'formik';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import ReconnectingWebSocket from 'reconnecting-websocket';
 
 import { PageContent } from 'app/components/layout';
 import { connectContext, SettingsProps } from 'app/context';
@@ -14,7 +15,6 @@ import { ChatList } from './chat-list/chat-list';
 import { Channels } from './channels';
 
 import styles from './chat-page.module.scss';
-import ReconnectingWebSocket from 'reconnecting-websocket';
 
 const { Content, Sider } = Layout;
 
@@ -81,7 +81,6 @@ class ChatComponent extends React.Component<Props, State> {
 
     public static MESSAGE_INITIAL_VALUES: MessageValue = { message: '' };
 
-
     public componentDidUpdate(prev: Props, prevState: State) {
         const { userRoles } = this.props;
 
@@ -119,7 +118,6 @@ class ChatComponent extends React.Component<Props, State> {
                     this.setState({ currentClassroom: teacherLessons[0].className });
                 })
                 .catch(() => console.log('Error getting subjects'));
-
 
         }
 
@@ -160,13 +158,14 @@ class ChatComponent extends React.Component<Props, State> {
     public render(): React.ReactNode {
         const { messages, channels, classRooms } = this.state;
         const { teacherLessons } = this.props;
-        console.log(this.props.username)
-        console.log(this.props.lastname)
+        // console.log(this.props.username)
+        // console.log(this.props.lastname)
         // console.log(teacherLessons);
-        const teachersList = teacherLessons && teacherLessons.map(lesson=>lesson.teacher)
+        const teachersList = teacherLessons && teacherLessons.map(lesson => lesson.teacher);
         // console.log(teachersList)
         // console.log(this.state.currentClassroom);
         // console.log(this.state.currentChannel);
+
         return (
 
             <AsyncContent
@@ -251,7 +250,7 @@ class ChatComponent extends React.Component<Props, State> {
     };
 
     private readonly onChannelChange = (id: number): void => {
-        console.log(this.state.currentChannel, new Date())
+        console.log(this.state.currentChannel, new Date());
         this.setState({
             currentChannel: id,
         });
