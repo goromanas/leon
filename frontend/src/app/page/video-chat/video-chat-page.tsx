@@ -192,6 +192,7 @@ class HomePageComponent extends React.Component<Props, State> {
                 });
 
                 // this.showModal();
+            } else if (message.type === 'points') {
             } else {
                 this.setState({activeUsers: message});
             }
@@ -265,7 +266,6 @@ class HomePageComponent extends React.Component<Props, State> {
         return (
 
             <Layout className={styles.layout} key={'video-chat' + id}>
-
                 <Modal
                     // title="Basic Modal"
                     visible={this.state.visible}
@@ -305,6 +305,7 @@ class HomePageComponent extends React.Component<Props, State> {
                              startTime={startTime}
                              endTime={endTime}
                         />
+
 
                         {videoChatName && (
                             <Jitsi
