@@ -8,21 +8,19 @@ import ReconnectingWebSocket from 'reconnecting-websocket';
 import { connectContext, SettingsProps } from 'app/context';
 import { AsyncContent, PageContent } from 'app/components/layout';
 import { navigationService } from 'app/service/navigation-service';
-
 import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-loading-spinner';
-
 import { VideoButton } from 'app/page/video-chat/video-buttons/video-button';
 import { Whiteboard } from 'app/components/whiteboard/whiteboard';
 
 // import { ActiveUsers } from 'app/page/video-chat/activeUsers';
 // @ts-ignore
 import { Top } from './top/top';
-
-import styles from './video-chat-page.module.scss';
 import { AnswerQuiz } from './quiz/answerQuiz';
 import { QuizCreate } from './quiz/quizCreate';
 
-const {Content, Sider} = Layout;
+import styles from './video-chat-page.module.scss';
+
+const { Content, Sider } = Layout;
 
 interface ContextProps {
     username: string | null;
@@ -73,7 +71,7 @@ interface State {
     question: string;
     activeUsers: ActiveUsers[];
     showActiveUsers: boolean;
-    replyVisible: boolean,
+    replyVisible: boolean;
 }
 
 type Props = OwnProps & ContextProps;
@@ -110,12 +108,12 @@ class HomePageComponent extends React.Component<Props, State> {
     // };
     public handleParticipants = (): void => {
 
-        this.setState({participantsVisible: !this.state.participantsVisible});
+        this.setState({ participantsVisible: !this.state.participantsVisible });
     };
 
     public handleWhiteboard = (): void => {
 
-        this.setState({whiteboardVisible: !this.state.whiteboardVisible});
+        this.setState({ whiteboardVisible: !this.state.whiteboardVisible });
     };
 
     private interval: NodeJS.Timeout;
@@ -143,7 +141,7 @@ class HomePageComponent extends React.Component<Props, State> {
         };
 
         this.ws.send(JSON.stringify(answer));
-        this.setState({quizMessageForStudent: null});
+        this.setState({ quizMessageForStudent: null });
 
     };
 
@@ -153,7 +151,7 @@ class HomePageComponent extends React.Component<Props, State> {
         });
     };
     public updateQuiz = (values: any, value: any) => {
-        this.setState({correct: value});
+        this.setState({ correct: value });
         this.sendMessage(values);
         this.handleCancel();
     };
@@ -177,13 +175,13 @@ class HomePageComponent extends React.Component<Props, State> {
             const message = JSON.parse(e.data);
 
             if (message.type === 'question') {
-                this.setState({type: message.type});
-                this.setState({quizMessageForStudent: null});
+                this.setState({ type: message.type });
+                this.setState({ quizMessageForStudent: null });
                 this.showModal();
-                this.setState({quizMessageForStudent: message});
+                this.setState({ quizMessageForStudent: message });
             } else if (message.type === 'answer') {
-                this.setState({type: message.type});
-                this.setState({quizMessageForStudent: null});
+                this.setState({ type: message.type });
+                this.setState({ quizMessageForStudent: null });
                 const copyAnswers = [...this.state.answers];
                 const newAnswers = [...copyAnswers, message];
 
@@ -194,7 +192,7 @@ class HomePageComponent extends React.Component<Props, State> {
                 // this.showModal();
             } else if (message.type === 'points') {
             } else {
-                this.setState({activeUsers: message});
+                this.setState({ activeUsers: message });
             }
         };
     }
@@ -217,15 +215,15 @@ class HomePageComponent extends React.Component<Props, State> {
             timer: values.timer,
         };
 
-        this.setState({question: values.question});
+        this.setState({ question: values.question });
 
         this.ws.send(JSON.stringify(question));
 
-        this.setState({quizMessageForStudent: null, answers: []});
+        this.setState({ quizMessageForStudent: null, answers: [] });
     };
 
     public openQuiz = (values: any): void => {
-        this.setState({type: 'create', quizMessageForStudent: null});
+        this.setState({ type: 'create', quizMessageForStudent: null });
         this.showModal();
         this.showResults();
     };
@@ -238,7 +236,7 @@ class HomePageComponent extends React.Component<Props, State> {
             userRoles,
             schedule,
             match: {
-                params: {id},
+                params: { id },
             },
         } = this.props;
 
@@ -273,20 +271,20 @@ class HomePageComponent extends React.Component<Props, State> {
                     onCancel={this.handleCancel}
                     footer={false}
                     width="600px"
-                    style={{borderRadius: '20px'}}
+                    style={{ borderRadius: '20px' }}
                 >
                     {this.state.type === 'question' ?
                         (
-                            <AsyncContent loading={!this.state.quizMessageForStudent} loader={<PageLoadingSpinner/>}>
+                            <AsyncContent loading={!this.state.quizMessageForStudent} loader={<PageLoadingSpinner />}>
                                 <AnswerQuiz message={this.state.quizMessageForStudent}
-                                            changeValue={this.changeValue}
-                                            onSuccess={() => this.handleOk()}
-                                            onCancel={() => this.handleCancel()}
-                                            visible={this.state.visible}
+                                    changeValue={this.changeValue}
+                                    onSuccess={() => this.handleOk()}
+                                    onCancel={() => this.handleCancel()}
+                                    visible={this.state.visible}
                                 /> </AsyncContent>
                         )
                         : this.state.type === 'answer' ?
-                            <AsyncContent loading={!this.state.answers} loader={<PageLoadingSpinner/>}>
+                            <AsyncContent loading={!this.state.answers} loader={<PageLoadingSpinner />}>
                                 {/* <QuizResult answers={this.state.answers}
                                     correct={this.state.correct}
                                     question={this.state.question}
@@ -297,15 +295,14 @@ class HomePageComponent extends React.Component<Props, State> {
                             />
                     }
                 </Modal>
-                <Content style={{margin: 'auto', width: '70%'}}>
+                <Content style={{ margin: '0 auto', width: '70%' }}>
                     <PageContent>
 
                         <Top lessonTitle={lessonTitle}
-                             teacher={currentLesson && currentLesson[0].teacher}
-                             startTime={startTime}
-                             endTime={endTime}
+                            teacher={currentLesson && currentLesson[0].teacher}
+                            startTime={startTime}
+                            endTime={endTime}
                         />
-
 
                         {videoChatName && (
                             <Jitsi
@@ -319,11 +316,11 @@ class HomePageComponent extends React.Component<Props, State> {
                                     right: this.state.whiteboardVisible ? '20px' : null,
                                     top: this.state.whiteboardVisible ? '10%' : null,
                                 }}
-                                containerStyle={{width: '90%', marginLeft: '5%', height: '70%'}}
+                                containerStyle={{ width: '90%', marginLeft: '5%', height: '70%' }}
                                 jwt="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250ZXh0Ijp7InVzZXIiOnsiYXZhdGFyIjoiaHR0cHM6Ly9hdmF0YXJzLmRpY2ViZWFyLmNvbS9hcGkvbWFsZS9tZW51by1zdS1pdC5zdmciLCJuYW1lIjoiTcSXbnVvIHN1IElUIn19LCJhdWQiOiJtZW51b19zdV9pdCIsImlzcyI6Im1lbnVvX3N1X2l0Iiwic3ViIjoibWVldC5qaXRzaSIsInJvb20iOiIqIn0.6CKZU_JWLhtj9eKJ-VdFGQZyRzvTZz29fn7--_dp-jw"
                                 roomName={videoChatName}
                                 domain="video-menuo-su-it.northeurope.cloudapp.azure.com:443"
-                                userInfo={{email: username}}
+                                userInfo={{ email: username }}
                                 displayName={username}
                                 onAPILoad={this.jitsiActions}
                                 config={{
@@ -339,14 +336,13 @@ class HomePageComponent extends React.Component<Props, State> {
                                         'microphone', 'camera', 'desktop', 'fullscreen', 'raisehand', 'hangup', 'chat',
                                         'tileview', 'download', 'videoquality', 'filmstrip', 'invite', 'feedback',
                                         'stats', 'shortcuts',
-                                    ]
-                                } || {SHOW_WATERMARK_FOR_GUESTS: false, SHOW_JITSI_WATERMARK: false,}
+                                    ],
+                                } || { SHOW_WATERMARK_FOR_GUESTS: false, SHOW_JITSI_WATERMARK: false }
                                 }
                             />
                         )}
 
                     </PageContent>
-
 
                 </Content>
                 <Sider width={this.state.whiteboardVisible ? '100%' : 'auto'} className={styles.sider}>
@@ -367,16 +363,15 @@ class HomePageComponent extends React.Component<Props, State> {
                         ws={this.ws}
                     />
 
-                    {this.state.whiteboardVisible ? <Whiteboard/> : null}
+                    {this.state.whiteboardVisible ? <Whiteboard /> : null}
                 </Sider>
-
 
             </Layout>
         );
     }
 
     private readonly changeValue = (_number: number) => {
-        this.setState({value: _number});
+        this.setState({ value: _number });
     };
 
     private readonly generateUniqueName = (subject: string, video: string): string =>
@@ -398,7 +393,7 @@ class HomePageComponent extends React.Component<Props, State> {
     };
 }
 
-const mapContextToProps = ({session: {user}, lessons, schedule}: SettingsProps): ContextProps => ({
+const mapContextToProps = ({ session: { user }, lessons, schedule }: SettingsProps): ContextProps => ({
     username: user != null ? user.username : null,
     firstName: user != null ? user.firstName : null,
     userRoles: user.roles,

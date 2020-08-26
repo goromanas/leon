@@ -96,7 +96,7 @@ class ScheduleCalc {
         if (filtered.length > 0 && lastLesson.time !== undefined) {
             return lastLesson.time;
         }
-        return 0;
+        return 1;
     };
 
     public ifDayEnded = (lessons: Api.LessonDto[], schedule: Api.ScheduleDto[], day: number): any => {
