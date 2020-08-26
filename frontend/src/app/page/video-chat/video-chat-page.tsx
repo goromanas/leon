@@ -100,9 +100,12 @@ class HomePageComponent extends React.Component<Props, State> {
         });
     };
 
-    public showResults = () => {
+    public showResults = (): void => {
+        let currentStatus: boolean = this.state.replyVisible;
+
+        currentStatus = !currentStatus;
         this.setState({
-            replyVisible: true,
+            replyVisible: currentStatus,
         });
     };
     // public handleActiveUsers = () => {
@@ -114,7 +117,7 @@ class HomePageComponent extends React.Component<Props, State> {
     };
 
     public handleWhiteboard = (): void => {
-        this.setState({whiteboardVisible: !this.state.whiteboardVisible});
+        this.setState({ whiteboardVisible: !this.state.whiteboardVisible });
     };
 
     private interval: NodeJS.Timeout;
@@ -155,6 +158,7 @@ class HomePageComponent extends React.Component<Props, State> {
         this.setState({ correct: value });
         this.sendMessage(values);
         this.handleCancel();
+        this.showResults();
     };
 
     public readonly getSocketUrlQuiz = (): string => {
@@ -232,7 +236,6 @@ class HomePageComponent extends React.Component<Props, State> {
     public openQuiz = (values: any): void => {
         this.setState({ type: 'create', quizMessageForStudent: null });
         this.showModal();
-        this.showResults();
     };
 
     public render(): React.ReactNode {
@@ -367,6 +370,7 @@ class HomePageComponent extends React.Component<Props, State> {
                         correct={this.state.correct}
                         question={this.state.question}
                         replyVisible={this.state.replyVisible}
+                        showResults={this.showResults}
                         ws={this.ws}
                     />
 

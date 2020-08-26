@@ -15,7 +15,7 @@ interface QuizAnswer {
     answer: number;
 }
 
-const {SubMenu} = Menu;
+const { SubMenu } = Menu;
 
 interface Props {
     role: string[];
@@ -31,6 +31,7 @@ interface Props {
     question: string;
     replyVisible: boolean;
     ws: any;
+    showResults: any;
 }
 
 const VideoButton: React.FC<Props> = (props) => {
@@ -51,18 +52,20 @@ const VideoButton: React.FC<Props> = (props) => {
     return (
         <div className={styles.allButtons}>
             <div key={props.activeUsers} className={styles.videobtn} onClick={() => handleActiveUsers()}>
-                <Button type="primary" style={{
-                    borderRadius: '100%',
-                    height: '50px',
-                    fontSize: '20px',
-                    boxShadow: showUsers ? '6px 6px 17px -3px rgba(0,0,0,0.26)' : '',
-                    backgroundColor: showUsers ? '#5A8AEA' : '#5B97FC',
-                }}>
-                    <TeamOutlined style={{transform: 'scale(1.5)'}}/>
+                <Button
+                    type="primary"
+                    style={{
+                        borderRadius: '100%',
+                        height: '50px',
+                        fontSize: '20px',
+                        boxShadow: showUsers ? '6px 6px 17px -3px rgba(0,0,0,0.26)' : '',
+                        backgroundColor: showUsers ? '#5A8AEA' : '#5B97FC',
+                    }}>
+                    <TeamOutlined style={{ transform: 'scale(1.5)' }} />
                 </Button>
                 <h1> Participants <span>({props.activeUsers}/{props.allUsers})</span></h1>
             </div>
-            <ActiveUsers activeUsers={props.users} isOpen={showUsers}/>
+            <ActiveUsers activeUsers={props.users} isOpen={showUsers} />
 
             {
                 (props.role[0] === 'STUDENT') ? null :
@@ -71,24 +74,31 @@ const VideoButton: React.FC<Props> = (props) => {
 
                         <div>
                             <div
-                                style={{cursor: 'pointer'}}
+                                style={{ cursor: 'pointer' }}
                                 onClick={() => handleBonusPoints()}>
-                                <Button type="primary" style={{
-                                    borderRadius: '100%',
-                                    height: '50px',
-                                    fontSize: '20px',
-                                    boxShadow: showUsers ? '6px 6px 17px -3px rgba(0,0,0,0.26)' : '',
-                                    backgroundColor: showUsers ? '#5A8AEA' : '#5B97FC',
-                                }}>
-                                    <TeamOutlined style={{transform: 'scale(1.5)'}}/>
+                                <Button
+                                    type="primary"
+                                    style={{
+                                        borderRadius: '100%',
+                                        height: '50px',
+                                        fontSize: '20px',
+                                        boxShadow: showUsers ? '6px 6px 17px -3px rgba(0,0,0,0.26)' : '',
+                                        backgroundColor: showUsers ? '#5A8AEA' : '#5B97FC',
+                                    }}>
+                                    <TeamOutlined style={{ transform: 'scale(1.5)' }} />
                                 </Button>
                                 Send Bonus Points
 
                             </div>
 
-
-                            {showBonusPoints ? null :
-                                <BonusPoints onClose={handleBonusPoints}users={props.users} ws={props.ws} show={showBonusPoints}/>}
+                            {showBonusPoints ? null : (
+                                <BonusPoints
+                                    onClose={handleBonusPoints}
+                                    users={props.users}
+                                    ws={props.ws}
+                                    show={showBonusPoints}
+                                />
+                            )}
                             <div onClick={props.openQuiz} className={styles.videobtn}>
                                 <Button
                                     type="primary"
@@ -98,22 +108,28 @@ const VideoButton: React.FC<Props> = (props) => {
                                         fontSize: '20px',
                                     }}
                                 >
-                                    <MessageOutlined style={{transform: 'scale(1.5)'}}/>
+                                    <MessageOutlined style={{ transform: 'scale(1.5)' }} />
                                 </Button>Create a Question
                             </div>
                             <QuizResult
                                 answers={props.answers}
                                 correct={props.correct}
                                 question={props.question}
+                                // isOpen={true}
                                 isOpen={props.replyVisible}
+                                showResults={props.showResults}
                             />
                             <div onClick={props.handleWhiteboard} className={styles.videobtn}>
-                                <Button type='primary'
-                                        style={{
-                                            borderRadius: '100%',
-                                            height: '50px'
-                                        }}><span
-                                    style={{width: '20px', display: 'flex'}}><Wand/></span></Button>
+                                <Button
+                                    type="primary"
+                                    style={{
+                                        borderRadius: '25px',
+                                        height: '50px',
+                                    }}>
+                                    <span
+                                        style={{ width: '20px', display: 'flex' }}><Wand />
+                                    </span>
+                                </Button>
                                 Whiteboard
                             </div>
                         </div>
