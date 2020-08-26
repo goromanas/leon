@@ -346,6 +346,7 @@ class HomePageComponent extends React.Component<Props, State> {
 
                     <VideoButton
                         handleWhiteboard={() => this.handleWhiteboard()}
+                        handleBonusPointsTab={()=> this.handleBonusPointsTab()}
                         role={userRoles}
                         openQuiz={this.openQuiz}
                         activeUsers={this.state.activeUsers.filter(au => au.active === true).length}
