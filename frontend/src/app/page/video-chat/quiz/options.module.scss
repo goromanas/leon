@@ -1,8 +1,9 @@
-@import '../../style/variables.scss';
+@import '~app/style/variables';
 
 .quiz-form {
   padding: 1rem 1.8rem;
 }
+
 .question-field {
   margin: 2rem 0;
   width: 100%;

@@ -9,6 +9,12 @@ import { Button, Menu } from 'antd';
 
 import { BonusPoints } from 'app/page/video-chat/bonus-points/bonus-points';
 import styles from 'app/page/video-chat/video-chat-page.module.scss';
+import { QuizResult } from '../quiz/quizResult';
+
+interface QuizAnswer {
+    studentName: string;
+    answer: number;
+}
 
 const {SubMenu} = Menu;
 
@@ -22,6 +28,10 @@ interface Props {
     allUsers: number;
     users: any;
     activeUsersState: boolean;
+    answers: QuizAnswer[];
+    correct: number;
+    question: string;
+    replyVisible: boolean;
 }
 
 const VideoButton: React.FC<Props> = (props) => {
@@ -68,11 +78,30 @@ const VideoButton: React.FC<Props> = (props) => {
             {
                 (props.role[0] === 'STUDENT') ? null :
 
-                    (props.role[0] === 'STUDENT') ? null :
-
-                        (<div>
-                                <div onClick={props.openQuiz} className={styles.videobtn}>
-                                    <Button type='primary' style={{
+                    (
+                        <div>
+                            <div onClick={props.openQuiz} className={styles.videobtn}>
+                                <Button
+                                    type="primary"
+                                    style={{
+                                        borderRadius: '100%',
+                                        height: '50px',
+                                        fontSize: '20px',
+                                    }}
+                                >
+                                    <MessageOutlined style={{ transform: 'scale(1.5)' }} />
+                                </Button>Create a Question
+                        </div>
+                            <QuizResult
+                                answers={props.answers}
+                                correct={props.correct}
+                                question={props.question}
+                                isOpen={props.replyVisible}
+                            />
+                            <div onClick={() => handleClickWhiteboard()} className={styles.videobtn}>
+                                <Button
+                                    type="primary"
+                                    style={{
                                         borderRadius: '100%',
                                         height: '50px',
                                         fontSize: '20px'

@@ -11,17 +11,18 @@ import { AsyncContent, PageContent } from 'app/components/layout';
 import { navigationService } from 'app/service/navigation-service';
 
 import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-loading-spinner';
-import { QuizResult } from 'app/page/video-chat/quizResult';
+
 import { VideoButton } from 'app/page/video-chat/video-buttons/video-button';
 import { Whiteboard } from 'app/components/whiteboard/whiteboard';
-import { AnswerQuiz } from 'app/page/video-chat/answerQuiz';
-import { QuizCreate } from 'app/page/video-chat/quizCreate';
+
 
 // import { ActiveUsers } from 'app/page/video-chat/activeUsers';
 // @ts-ignore
 import { Top } from './top/top';
 
 import styles from './video-chat-page.module.scss';
+import { AnswerQuiz } from './quiz/answerQuiz';
+import { QuizCreate } from './quiz/quizCreate';
 
 
 const {Content, Sider} = Layout;
@@ -67,6 +68,7 @@ interface State {
     type: string;
     quizMessageForStudent: QuizMessageForStudent;
     visible: boolean;
+    replyVisible: boolean;
     value: number;
     answers: QuizAnswer[];
     whiteboardVisible: boolean;
@@ -99,6 +101,12 @@ class HomePageComponent extends React.Component<Props, State> {
     public showModal = () => {
         this.setState({
             visible: true,
+        });
+    };
+
+    public showResults = () => {
+        this.setState({
+            replyVisible: true,
         });
     };
     // public handleActiveUsers = () => {
@@ -187,7 +195,7 @@ class HomePageComponent extends React.Component<Props, State> {
                     answers: newAnswers,
                 });
 
-                this.showModal();
+                // this.showModal();
             } else {
                 this.setState({activeUsers: message});
             }
@@ -222,6 +230,7 @@ class HomePageComponent extends React.Component<Props, State> {
     public openQuiz = (values: any): void => {
         this.setState({ type: 'create', quizMessageForStudent: null });
         this.showModal();
+        this.showResults();
     };
 
     public render(): React.ReactNode {
