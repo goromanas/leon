@@ -55,7 +55,6 @@
       INSERT INTO `user_role` VALUES (48, 2);
       INSERT INTO `user_role` VALUES (49, 2);
       INSERT INTO `user_role` VALUES (50, 2);
-      INSERT INTO `user_role` VALUES (51, 2);
 
       INSERT INTO `subject` VALUES (18,'JAVA','JAVA lesson');
       INSERT INTO `subject` VALUES (19,'Business analytic','Business analytic lesson');
@@ -68,56 +67,56 @@
       INSERT INTO `subject` VALUES (26,'React','React lesson');
 
 
-      INSERT INTO `user` VALUES (44, 'Justas', 'Ragauskas','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'jusrag','');
-      INSERT INTO `user` VALUES (45, 'Matas', 'Ramoska','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'matram','');
-      INSERT INTO `user` VALUES (46, 'Ann', 'Jursa','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'annjur','');
-      INSERT INTO `user` VALUES (47, 'Erika', 'Mackovskyte','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'erimac','');
-      INSERT INTO `user` VALUES (48, 'Ieva', 'Talackaite','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'ievtal','');
-      INSERT INTO `user` VALUES (49, 'Milda', 'Jocaite','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'miljoc','');
-      INSERT INTO `user` VALUES (50, 'Gintare', 'Stalygaite','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'ginsta','');
+      INSERT INTO `user` VALUES (51, 'Justas', 'Ragauskas','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'jusrag','');
+      INSERT INTO `user` VALUES (52, 'Matas', 'Ramoska','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'matram','');
+      INSERT INTO `user` VALUES (53, 'Ann', 'Jursa','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'annjur','');
+      INSERT INTO `user` VALUES (54, 'Erika', 'Mackovskyte','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'erimac','');
+      INSERT INTO `user` VALUES (55, 'Ieva', 'Talackaite','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'ievtal','');
+      INSERT INTO `user` VALUES (56, 'Milda', 'Jocaite','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'miljoc','');
+      INSERT INTO `user` VALUES (57, 'Gintare', 'Stalygaite','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'ginsta','');
 
-      INSERT INTO `lesson` VALUES(52,19,5,47,'Business analytic 13B',1,1,0);
-      INSERT INTO `lesson` VALUES(53,22,5,44,'Agile 13B',1,2,0);
-      INSERT INTO `lesson` VALUES(54,18,5,45,'JAVA 13B',1,3,0);
-      INSERT INTO `lesson` VALUES(55,20,5,46,'UX design 13B',1,4,0);
-      INSERT INTO `lesson` VALUES(56,18,5,45,'JAVA 13B',1,5,0);
-      INSERT INTO `lesson` VALUES(57,21,5,48,'Testing 13B',1,6,0);
-      INSERT INTO `lesson` VALUES(58,26,5,49,'React 13B',1,7,0);
+      INSERT INTO `lesson` VALUES(54,19,5,54,'Business analytic 13B',1,1,0);
+      INSERT INTO `lesson` VALUES(55,22,5,51,'Agile 13B',1,2,0);
+      INSERT INTO `lesson` VALUES(56,18,5,52,'JAVA 13B',1,3,0);
+      INSERT INTO `lesson` VALUES(57,20,5,53,'UX design 13B',1,4,0);
+      INSERT INTO `lesson` VALUES(58,18,5,52,'JAVA 13B',1,5,0);
+      INSERT INTO `lesson` VALUES(59,21,5,55,'Testing 13B',1,6,0);
+      INSERT INTO `lesson` VALUES(60,26,5,56,'React 13B',1,7,0);
 
-      INSERT INTO `lesson` VALUES(59,19,5,47,'Business analytic 13B',2,1,0);
-      INSERT INTO `lesson` VALUES(60,26,5,49,'React 13B',2,2,0);
-      INSERT INTO `lesson` VALUES(61,20,5,46,'UX design 13B',2,3,0);
-      INSERT INTO `lesson` VALUES(62,20,5,46,'UX design 13B',2,4,0);
-      INSERT INTO `lesson` VALUES(63,18,5,45,'JAVA 13B',2,5,0);
-      INSERT INTO `lesson` VALUES(64,18,5,45,'JAVA 13B',2,6,0);
-      INSERT INTO `lesson` VALUES(65,21,5,48,'Testing 13B',2,7,0);
+      INSERT INTO `lesson` VALUES(61,19,5,54,'Business analytic 13B',2,1,0);
+      INSERT INTO `lesson` VALUES(62,26,5,51,'React 13B',2,2,0);
+      INSERT INTO `lesson` VALUES(63,20,5,53,'UX design 13B',2,3,0);
+      INSERT INTO `lesson` VALUES(64,20,5,53,'UX design 13B',2,4,0);
+      INSERT INTO `lesson` VALUES(65,18,5,52,'JAVA 13B',2,5,0);
+      INSERT INTO `lesson` VALUES(66,18,5,52,'JAVA 13B',2,6,0);
+      INSERT INTO `lesson` VALUES(67,21,5,55,'Testing 13B',2,7,0);
 
-      INSERT INTO `lesson` VALUES(66,19,5,47,'Business analytic 13B',3,1,0);
-      INSERT INTO `lesson` VALUES(67,20,5,46,'UX design 13B',3,2,0);
-      INSERT INTO `lesson` VALUES(68,18,5,45,'JAVA 13B',3,3,0);
-      INSERT INTO `lesson` VALUES(69,18,5,45,'JAVA 13B',3,4,0);
-      INSERT INTO `lesson` VALUES(70,21,5,48,'Testing 13B',3,5,0);
-      INSERT INTO `lesson` VALUES(71,21,5,48,'Testing 13B',3,6,0);
-      INSERT INTO `lesson` VALUES(72,22,5,44,'Agile 13B',3,7,0);
-      INSERT INTO `lesson` VALUES(73,26,5,49,'React 13B',3,3,0);
+      INSERT INTO `lesson` VALUES(68,19,5,54,'Business analytic 13B',3,1,0);
+      INSERT INTO `lesson` VALUES(69,20,5,53,'UX design 13B',3,2,0);
+      INSERT INTO `lesson` VALUES(70,18,5,52,'JAVA 13B',3,3,0);
+      INSERT INTO `lesson` VALUES(71,18,5,52,'JAVA 13B',3,4,0);
+      INSERT INTO `lesson` VALUES(72,21,5,55,'Testing 13B',3,5,0);
+      INSERT INTO `lesson` VALUES(73,21,5,55,'Testing 13B',3,6,0);
+      INSERT INTO `lesson` VALUES(74,22,5,51,'Agile 13B',3,7,0);
+      INSERT INTO `lesson` VALUES(75,26,5,56,'React 13B',3,3,0);
 
-      INSERT INTO `lesson` VALUES(74,19,5,47,'Business analytic 13B',4,1,0);
-      INSERT INTO `lesson` VALUES(75,20,5,46,'UX design 13B',4,2,0);
-      INSERT INTO `lesson` VALUES(76,18,5,45,'JAVA 13B',4,3,0);
-      INSERT INTO `lesson` VALUES(77,18,5,45,'JAVA 13B',4,4,0);
-      INSERT INTO `lesson` VALUES(78,26,5,49,'React 13B',4,5,0);
-      INSERT INTO `lesson` VALUES(79,22,5,44,'Agile 13B',4,6,0);
-      INSERT INTO `lesson` VALUES(80,21,5,48,'Testing 13B',4,7,0);
-      INSERT INTO `lesson` VALUES(81,21,5,48,'Testing 13B',5,3,0);
+      INSERT INTO `lesson` VALUES(76,19,5,54,'Business analytic 13B',4,1,0);
+      INSERT INTO `lesson` VALUES(77,20,5,53,'UX design 13B',4,2,0);
+      INSERT INTO `lesson` VALUES(78,18,5,52,'JAVA 13B',4,3,0);
+      INSERT INTO `lesson` VALUES(79,18,5,52,'JAVA 13B',4,4,0);
+      INSERT INTO `lesson` VALUES(80,26,5,56,'React 13B',4,5,0);
+      INSERT INTO `lesson` VALUES(81,22,5,51,'Agile 13B',4,6,0);
+      INSERT INTO `lesson` VALUES(82,21,5,55,'Testing 13B',4,7,0);
+      INSERT INTO `lesson` VALUES(83,21,5,55,'Testing 13B',5,3,0);
 
-      INSERT INTO `lesson` VALUES(82,18,5,45,'JAVA 13B',5,1,0);
-      INSERT INTO `lesson` VALUES(83,18,5,45,'JAVA 13B',5,2,0);
-      INSERT INTO `lesson` VALUES(84,18,5,45,'JAVA 13B',5,3,0);
-      INSERT INTO `lesson` VALUES(85,26,5,49,'React 13B',5,4,0);
-      INSERT INTO `lesson` VALUES(86,21,5,48,'Testing 13B',5,5,0);
-      INSERT INTO `lesson` VALUES(87,26,5,49,'React 13B',5,6,0);
-      INSERT INTO `lesson` VALUES(88,23,5,50,'Demo preparation 13B',5,7,0);
-      INSERT INTO `lesson` VALUES(89,24,5,50,'Demo 13B',5,8,0);
+      INSERT INTO `lesson` VALUES(84,18,5,52,'JAVA 13B',5,1,0);
+      INSERT INTO `lesson` VALUES(85,18,5,52,'JAVA 13B',5,2,0);
+      INSERT INTO `lesson` VALUES(86,18,5,52,'JAVA 13B',5,3,0);
+      INSERT INTO `lesson` VALUES(87,26,5,56,'React 13B',5,4,0);
+      INSERT INTO `lesson` VALUES(88,21,5,55,'Testing 13B',5,5,0);
+      INSERT INTO `lesson` VALUES(89,26,5,56,'React 13B',5,6,0);
+      INSERT INTO `lesson` VALUES(90,23,5,57,'Demo preparation 13B',5,7,0);
+      INSERT INTO `lesson` VALUES(91,24,5,57,'Demo 13B',5,8,0);
 
 
     </sql>
