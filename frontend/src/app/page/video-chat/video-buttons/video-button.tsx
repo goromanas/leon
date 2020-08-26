@@ -95,6 +95,7 @@ const VideoButton: React.FC<Props> = (props) => {
                                 question={props.question}
                                 isOpen={props.replyVisible}
                             />
+
                             <div
                                 onClick={props.handleWhiteboard}
                                 className={styles.videobtn}>
@@ -106,6 +107,28 @@ const VideoButton: React.FC<Props> = (props) => {
                                     }}><span
                                         style={{ width: '20px', display: 'flex' }}><div style={{ transform: 'scale(1.5)' }}><Wand /></div></span></Button>
                                 <h1>Whiteboard</h1>
+
+                                </div>
+                                <Menu style={{width: '100%'}}
+                                      defaultSelectedKeys={['1']}
+                                      defaultOpenKeys={['sub1']}
+                                      mode="inline"
+                                      className={styles.bonusPointMenu}>
+
+
+                                    <SubMenu
+                                        className={styles.antMenuSubmenuTitleCustom}
+                                        style={{width: '100% !important', height: '50px'}}
+                                        key="sub4"
+                                        title={<div><Button type='primary'
+                                                            style={{borderRadius: '100%', height: '50px'}}><span
+                                            style={{width: '20px', display: 'flex'}}><Wand/></span></Button>Bonus Points
+                                        </div>}>
+                                        <Menu.Item style={{height: '500px', padding: '0!important'}}>
+                                            <BonusPoints/>
+                                        </Menu.Item>
+                                    </SubMenu>
+                                </Menu>
                             </div>
                             <Menu style={{ width: '100%' }}
                                 defaultSelectedKeys={['1']}
