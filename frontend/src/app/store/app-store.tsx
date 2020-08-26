@@ -1,12 +1,14 @@
 import * as React from 'react';
 
 import { Actions, INITIAL_SESSION, INITIAL_CURRENT_LESSON, INITIAL_SCHEDULE, Session, settingsContext } from 'app/context';
+import ReconnectingWebSocket from 'reconnecting-websocket';
 
 interface State {
     session: Session;
     lessons: Api.LessonDto[];
     currentLesson: number;
     schedule: Api.ScheduleDto[];
+    wsChat: ReconnectingWebSocket;
 }
 
 class AppStore extends React.Component<{}, State> {
@@ -16,6 +18,7 @@ class AppStore extends React.Component<{}, State> {
         lessons: null,
         currentLesson: INITIAL_CURRENT_LESSON,
         schedule: INITIAL_SCHEDULE,
+        wsChat: null,
     };
 
     public render(): React.ReactNode {
@@ -28,6 +31,7 @@ class AppStore extends React.Component<{}, State> {
             lessons,
             currentLesson,
             schedule,
+            wsChat,
         } = this.state;
 
         const actions: Actions = {
@@ -35,10 +39,11 @@ class AppStore extends React.Component<{}, State> {
             updateLessons: this.updateLessons,
             updateCurrentLesson: this.updateCurrentLesson,
             updateSchedule: this.updateSchedule,
+            updateWebsocket: this.updateWebsocket,
         };
 
         return (
-            <settingsContext.Provider value={{ session, lessons, currentLesson, actions, schedule }}>
+            <settingsContext.Provider value={{ session, lessons, currentLesson, actions, schedule, wsChat }}>
                 {children}
             </settingsContext.Provider>
         );
@@ -59,6 +64,9 @@ class AppStore extends React.Component<{}, State> {
     private readonly updateSchedule = (schedule: Api.ScheduleDto[]): void => {
         this.setState({ schedule });
     };
+    private readonly updateWebsocket = (wsChat: ReconnectingWebSocket): void => {
+        this.setState({wsChat})
+    }
 
 }
 

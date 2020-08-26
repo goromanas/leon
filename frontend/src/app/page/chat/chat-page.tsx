@@ -145,9 +145,9 @@ class ChatComponent extends React.Component<Props, State> {
         }
 
 
-      // this.props.wsChat.onopen = () => {
-      //       console.log('connected ws')
-      // }
+      this.props.wsChat.onopen = () => {
+            console.log('connected ws OOOOOOOOOOOOOO')
+      }
 
         this.ws.onmessage = (e: any) => {
             const message = JSON.parse(e.data);
