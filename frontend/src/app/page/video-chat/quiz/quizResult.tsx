@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { RouteComponentProps } from 'react-router';
-import { Layout, Radio, Progress, Badge } from 'antd';
+import { Layout, Radio, Progress, Badge, Button } from 'antd';
 import { motion } from 'framer-motion';
 
 import { variantsUsersList, variantsUser } from 'app/page/timetable/animation';
 import styles from './quizResult.module.scss';
-import { DownOutlined } from '@ant-design/icons';
+import { DownOutlined, LeftOutlined } from '@ant-design/icons';
 
 const { Content } = Layout;
 
@@ -14,6 +14,7 @@ interface Props {
     correct: number;
     question: string;
     isOpen: boolean;
+    showResults: any;
 }
 
 const QuizResult: React.FC<Props> = (props) => {
@@ -32,6 +33,13 @@ const QuizResult: React.FC<Props> = (props) => {
             <motion.div
                 variants={variantsUser}
             >
+                <div className={styles.quizResulttitle}>
+                    <Button
+                        icon={<LeftOutlined />}
+                        onClick={props.showResults}
+                    />
+                    <h3 className={styles.resulttitle}>Test Results</h3>
+                </div>
                 <div className={styles.quizResulttop}>
                     <h4>Students replied:</h4>
                     <Progress
@@ -57,27 +65,34 @@ const QuizResult: React.FC<Props> = (props) => {
                     strokeLinecap="square"
                 />
 
+
                 <div className={styles.replywrapper}>
-                    <div className={styles.badgewrapper}>
-                        <div className={styles.badge}>
-                            <Badge color="green" text="Correct:" />
-                        </div>
-                        <span>
-                            {props.answers.filter((item: any) => item.answer === props.correct).length}
-
-                            <DownOutlined />
-                        </span>
-                    </div>
-                    <div className={styles.badgewrapper}>
-                        <div className={styles.badge}>
-                            <Badge color="red" text="Wrong:" />
-                        </div>
-                        <span>
-                            {props.answers.length - props.answers.filter((item: any) => item.answer === props.correct).length}
-
-                            <DownOutlined />
-                        </span>
-                    </div>
+                    <table>
+                        <tr>
+                            <td>
+                                <div className={styles.badge}>
+                                    <Badge color="green" text="Correct:" />
+                                </div>
+                            </td>
+                            <td>
+                                <span>
+                                    {props.answers.filter((item: any) => item.answer === props.correct).length}
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div className={styles.badge}>
+                                    <Badge color="red" text="Wrong:" />
+                                </div>
+                            </td>
+                            <td>
+                                <span>
+                                    {props.answers.length - props.answers.filter((item: any) => item.answer === props.correct).length}
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
 
                 <div className={styles.questionwrapper}>

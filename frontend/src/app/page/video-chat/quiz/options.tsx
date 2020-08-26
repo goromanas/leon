@@ -72,7 +72,8 @@ const OptionList: React.FC<Props> = (props) => {
                         <Alert message="All answers must be different" type="warning" closable={true} />
 
                         : null}
-                    <Field name="question"
+                    <Field
+                        name="question"
                         as="textarea"
                         validate={validateQuestion}
                         className={styles.questionField}
@@ -128,12 +129,6 @@ const OptionList: React.FC<Props> = (props) => {
 
                                 <div className={styles.submitContainer}>
                                     <div>
-                                        {/* <Field name="timer" as="select" placeholder="Select a time">
-                                        <option value="15">15s</option>
-                                        <option value="30">30s</option>
-                                        <option value="45">45s</option>
-                                        <option value="60">1min</option>
-                                    </Field> */}
                                         <label className={styles.timerLabel}>Select the duration to answer</label>
                                         <Radio.Group name="timer" onChange={onChangeTimer} value={valueTimer} >
                                             <Radio.Button value="15">15s</Radio.Button>
