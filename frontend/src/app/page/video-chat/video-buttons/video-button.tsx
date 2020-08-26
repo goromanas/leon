@@ -31,6 +31,7 @@ interface Props {
     correct: number;
     question: string;
     replyVisible: boolean;
+    ws: any;
 }
 
 const VideoButton: React.FC<Props> = (props) => {
@@ -88,45 +89,45 @@ const VideoButton: React.FC<Props> = (props) => {
                                         fontSize: '20px',
                                     }}
                                 >
-                                    <MessageOutlined style={{ transform: 'scale(1.5)' }} />
+                                    <MessageOutlined style={{transform: 'scale(1.5)'}}/>
                                 </Button>Create a Question
-                        </div>
+                            </div>
                             <QuizResult
                                 answers={props.answers}
                                 correct={props.correct}
                                 question={props.question}
                                 isOpen={props.replyVisible}
                             />
-                                <div onClick={props.handleWhiteboard} className={styles.videobtn}><Button type='primary'
-                                                                                                          style={{
-                                                                                                              borderRadius: '100%',
-                                                                                                              height: '50px'
-                                                                                                          }}><span
-                                    style={{width: '20px', display: 'flex'}}><Wand/></span></Button>
-                                    Whiteboard
-                                </div>
-                                <Menu style={{width: '100%'}}
-                                      defaultSelectedKeys={['1']}
-                                      defaultOpenKeys={['sub1']}
-                                      mode="inline"
-                                      className={styles.bonusPointMenu}>
-
-
-                                    <SubMenu
-                                        className={styles.antMenuSubmenuTitleCustom}
-                                        style={{width: '100% !important', height: '50px'}}
-                                        key="sub4"
-                                        title={<div><Button type='primary'
-                                                            style={{borderRadius: '100%', height: '50px'}}><span
-                                            style={{width: '20px', display: 'flex'}}><Wand/></span></Button>Bonus Points
-                                        </div>}>
-                                        <Menu.Item style={{height: '500px', padding: '0!important'}}>
-                                            <BonusPoints/>
-                                        </Menu.Item>
-                                    </SubMenu>
-                                </Menu>
+                            <div onClick={props.handleWhiteboard} className={styles.videobtn}><Button type='primary'
+                                                                                                      style={{
+                                                                                                          borderRadius: '100%',
+                                                                                                          height: '50px'
+                                                                                                      }}><span
+                                style={{width: '20px', display: 'flex'}}><Wand/></span></Button>
+                                Whiteboard
                             </div>
-                        )
+                            <Menu style={{width: '100%'}}
+                                  defaultSelectedKeys={['1']}
+                                  defaultOpenKeys={['sub1']}
+                                  mode="inline"
+                                  className={styles.bonusPointMenu}>
+
+
+                                <SubMenu
+                                    className={styles.antMenuSubmenuTitleCustom}
+                                    style={{width: '100% !important', height: '50px'}}
+                                    key="sub4"
+                                    title={<div><Button type='primary'
+                                                        style={{borderRadius: '100%', height: '50px'}}><span
+                                        style={{width: '20px', display: 'flex'}}><Wand/></span></Button>Bonus Points
+                                    </div>}>
+                                    <Menu.Item style={{height: '500px', padding: '0!important'}}>
+                                        <BonusPoints ws={props.ws} users={props.users}/>
+                                    </Menu.Item>
+                                </SubMenu>
+                            </Menu>
+                        </div>
+                    )
             }
         </div>
     );
