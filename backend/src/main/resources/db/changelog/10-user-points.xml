@@ -9,7 +9,7 @@
     <addColumn tableName="user">
       <column afterColumn="username"
               name="points"
-              type="int"
+              type="double"
               defaultValue="0"
       />
     </addColumn>

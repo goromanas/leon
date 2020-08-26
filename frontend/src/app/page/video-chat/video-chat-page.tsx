@@ -71,7 +71,8 @@ interface State {
     question: string;
     activeUsers: ActiveUsers[];
     showActiveUsers: boolean;
-    replyVisible: boolean;
+    replyVisible: boolean,
+    showAcknowledgementModal: boolean,
 }
 
 type Props = OwnProps & ContextProps;
@@ -90,6 +91,7 @@ class HomePageComponent extends React.Component<Props, State> {
         correct: 1,
         question: null,
         replyVisible: false,
+        showAcknowledgementModal: false,
     };
 
     public showModal = () => {
@@ -163,6 +165,11 @@ class HomePageComponent extends React.Component<Props, State> {
     };
 
     public ws = new ReconnectingWebSocket(this.getSocketUrlQuiz());
+    public readonly acknowledgement = (message: any): void => {
+        Modal.success({
+            content: "Congratulations, your Teacher gave you " + message.points + "! \n" + "Keep on learning!",
+        });
+    };
 
     public componentDidMount() {
         this.interval = setInterval(() => this.userActivityUpdate(), 5000);
@@ -190,7 +197,7 @@ class HomePageComponent extends React.Component<Props, State> {
 
                 // this.showModal();
             } else if (message.type === 'points') {
-                console.log(message);
+                this.acknowledgement(message);
             } else {
                 this.setState({ activeUsers: message });
             }
