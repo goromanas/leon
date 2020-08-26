@@ -9,11 +9,12 @@ import ReconnectingWebSocket from 'reconnecting-websocket';
 import { connectContext, SettingsProps } from 'app/context';
 import { AsyncContent, PageContent } from 'app/components/layout';
 import { navigationService } from 'app/service/navigation-service';
-import { AnswerQuiz } from 'app/page/video-chat/answerQuiz';
+
 import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-loading-spinner';
 import { QuizResult } from 'app/page/video-chat/quizResult';
 import { VideoButton } from 'app/page/video-chat/video-buttons/video-button';
 import { Whiteboard } from 'app/components/whiteboard/whiteboard';
+import { AnswerQuiz } from 'app/page/video-chat/answerQuiz';
 import { QuizCreate } from 'app/page/video-chat/quizCreate';
 
 // import { ActiveUsers } from 'app/page/video-chat/activeUsers';
@@ -21,7 +22,7 @@ import { QuizCreate } from 'app/page/video-chat/quizCreate';
 import { Top } from './top/top';
 
 import styles from './video-chat-page.module.scss';
-import { BonusPoints } from 'app/page/video-chat/bonus-points/bonus-points';
+
 
 const {Content, Sider} = Layout;
 
@@ -69,7 +70,6 @@ interface State {
     value: number;
     answers: QuizAnswer[];
     whiteboardVisible: boolean;
-    bonusPointsTabVisible: boolean;
     participantsVisible: boolean;
     correct: number;
     question: string;
@@ -93,7 +93,6 @@ class HomePageComponent extends React.Component<Props, State> {
         participantsVisible: false,
         correct: 1,
         question: null,
-        bonusPointsTabVisible: false,
         replyVisible: false,
     };
 
@@ -115,10 +114,6 @@ class HomePageComponent extends React.Component<Props, State> {
         this.setState({ whiteboardVisible: !this.state.whiteboardVisible });
     };
 
-    public handleBonusPointsTab = (): void => {
-        console.log('bnspnts');
-        this.setState({bonusPointsTabVisible: !this.state.bonusPointsTabVisible});
-    };
     private interval: NodeJS.Timeout;
 
     public userActivityUpdate(include?: boolean) {
