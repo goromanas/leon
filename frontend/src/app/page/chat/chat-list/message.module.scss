@@ -1,6 +1,8 @@
 @import '~app/style/variables';
 
-
+.message {
+  word-wrap: break-word;
+}
 
 .containerR{
   display: flex;
