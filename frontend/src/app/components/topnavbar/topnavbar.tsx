@@ -31,7 +31,7 @@ class TopNavBarComponent extends React.Component<Props> {
 
         return (
             <Header className={styles.header} >
-                <Menu mode="horizontal" className={styles.menu} defaultSelectedKeys={['1']}>
+                <Menu mode="horizontal" className={styles.menu} defaultSelectedKeys={['3']}>
                     <Menu.Item key="1">
                         <Link to={navigationService.redirectToDefaultPage} key="2">
                             <Logo fontSize={'1.5rem'} />

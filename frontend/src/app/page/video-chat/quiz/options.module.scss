@@ -17,6 +17,9 @@
   background: #fff;
   border: 0px;
   margin: 0 0.6rem 0.6rem 0;
+  width: 400px !important;
+  border-bottom: 1px solid $grey5;
+  outline: none;
 }
 
 .timer-label {
@@ -42,6 +45,10 @@
   font-weight: 300;
   padding: 0.3rem 0.6rem;
   cursor: pointer;
+  &:disabled {
+    background-color: $grey4;
+    cursor: not-allowed;
+  }
 }
 
 .option-button {
