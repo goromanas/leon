@@ -23,6 +23,8 @@ interface ContextProps {
     teacherLessons: Api.LessonDto[];
     userRoles: string[] | null;
     wsChat: any;
+    channelsWithNewMessages: number[];
+    newMessages: Message[];
 }
 
 interface OwnProps { }
@@ -53,20 +55,6 @@ interface State {
 }
 
 class ChatComponent extends React.Component<Props, State> {
-    public getSocketUrl = (): string => {
-        const loc = window.location;
-        let newUrl: string;
-
-        if (loc.host === 'localhost:3000') {
-            newUrl = 'ws://localhost:8080/ws/chat';
-        } else {
-            newUrl = ' wss://java-menuo-su-it.northeurope.cloudapp.azure.com/ws/chat';
-        }
-        return newUrl;
-    };
-
-    public ws = new ReconnectingWebSocket(this.getSocketUrl());
-
     public readonly state: State = {
         messages: [],
         file: null,
@@ -100,6 +88,7 @@ class ChatComponent extends React.Component<Props, State> {
         const { messages } = this.state;
         const { teacherLessons, userRoles } = this.props;
         const currentChannel: number = 1;
+        console.log(this.props)
 
         chatService.getChatMessages()
             .then((data: any) => {
@@ -144,29 +133,32 @@ class ChatComponent extends React.Component<Props, State> {
             this.setState({ currentChannel: this.state.channels[0].id });
         }
 
-
-      this.props.wsChat.onopen = () => {
-            console.log('connected ws OOOOOOOOOOOOOO')
-      }
-
-        this.ws.onmessage = (e: any) => {
-            const message = JSON.parse(e.data);
-            // console.log('Chat page receives ',message.classroom);
-
-            const copyMsg = [...this.state.messages];
-            const newMsg = [...copyMsg, message];
-
-            this.setState({
-                messages: newMsg,
-            });
-        };
+        // this.props.onMessage()
+        // this.props.wsChat.onmessage = (e: any) => {
+        //     console.log(e);
+        //     console.log('onmessage')
+        //     const message = JSON.parse(e.data);
+        //
+        //     const copyMsg = [...this.state.messages];
+        //     const newMsg = [...copyMsg, message];
+        //
+        //     this.setState({
+        //         messages: newMsg,
+        //     });
+        // };
     }
+
+    // componentWillUnmount() {
+    //
+    // }
 
     public render(): React.ReactNode {
         const { messages, channels, classRooms } = this.state;
-        const { teacherLessons } = this.props;
+        const { teacherLessons, channelsWithNewMessages, newMessages } = this.props;
 
-        console.log(messages);
+        console.log(channelsWithNewMessages)
+        console.log(newMessages)
+        // console.log(messages);
         // console.log(this.state.currentClassroom);
         // console.log(this.state.currentChannel);
         return (
@@ -209,7 +201,7 @@ class ChatComponent extends React.Component<Props, State> {
     public sendMessage = (message: Message) => {
         try {
             // console.log(message)
-            this.ws.send(JSON.stringify(message));
+            this.props.wsChat.send(JSON.stringify(message));
         } catch (error) {
             console.log(error); // catch error
         }
@@ -223,7 +215,7 @@ class ChatComponent extends React.Component<Props, State> {
         const minutes = time.getMinutes().toString();
 
         if (values.message.trim() !== '') {
-            console.log(this.props.username)
+            // console.log(this.props.username)
             this.setState({
                 messages: [...messages, {
                     content: values.message,
@@ -265,11 +257,13 @@ class ChatComponent extends React.Component<Props, State> {
     };
 }
 
-const mapContextToProps = ({ session: { user }, wsChat, lessons }: SettingsProps): ContextProps => ({
+const mapContextToProps = ({ session: { user }, wsChat, lessons, channelsWithNewMessages, newMessages }: SettingsProps): ContextProps => ({
     username: user != null ? user.firstName : null,
     userRoles: user.roles,
     teacherLessons: lessons,
     wsChat: wsChat,
+    channelsWithNewMessages,
+    newMessages,
 });
 
 const ChatPage = connectContext(mapContextToProps)(ChatComponent);

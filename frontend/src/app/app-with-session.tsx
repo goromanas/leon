@@ -3,18 +3,30 @@ import ReconnectingWebSocket from 'reconnecting-websocket';
 
 import { IndexPage } from 'app/index-page';
 import { sessionService } from 'app/api/service/session-service';
-import { connectContext, Session as ContextSession, SettingsProps } from 'app/context';
+import { connectContext, Session as ContextSession, SettingsProps, Message } from 'app/context';
 import { AsyncContent } from 'app/components/layout';
 import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-loading-spinner';
 import { loggerService } from 'app/service/logger-service';
 import { lessonsService } from 'app/api/service/lessons-service';
 
-
 interface State {
     content: React.ReactNode;
     lessons: Api.LessonDto[];
     schedule: Api.ScheduleDto[];
+    channelsWithNewMessages: number[];
+    newMessages: Message[];
 }
+
+// interface Message {
+//     content: string;
+//     username: string;
+//     date: string;
+//     classname?: string;
+//     subject?: number;
+//     channel?: number;
+//     role?: string[];
+//     teacherSubjectId?: number;
+// }
 
 interface OwnProps {
 }
@@ -25,6 +37,8 @@ interface ContextProps {
     updateCurrentLesson: (currentLesson: number) => void;
     updateSchedule: (schedule: Api.ScheduleDto[]) => void;
     updateWebsocket: (wsChat: ReconnectingWebSocket) => void;
+    updateChannelArray: (channelsWithNewMessages: number[]) => void;
+    updateNewMessages: (newMessage: Message[]) => void;
 }
 
 type Props = OwnProps & ContextProps;
@@ -34,6 +48,8 @@ class AppWithSessionComponent extends React.Component<Props, State> {
         content: null,
         lessons: null,
         schedule: null,
+        channelsWithNewMessages: [],
+        newMessages: [],
     };
 
     public componentDidMount(): void {
@@ -63,6 +79,7 @@ class AppWithSessionComponent extends React.Component<Props, State> {
             });
         this.handleSocketResponse();
         this.handleChatWebSocket();
+        // this.handleChannelArrayResponse();
     }
 
     public render(): React.ReactNode {
@@ -81,12 +98,6 @@ class AppWithSessionComponent extends React.Component<Props, State> {
         updateSession(this.createSession(user));
         this.setState({ ...this.state, content: <IndexPage /> });
     };
-
-    // private readonly  handlechatwsResponse = (wsChat: ChatWebSocket): void => {
-    //     const { updateWebsocket } = this.props;
-    //
-    //     updateWebsocket(this.handleChatWebSocket(wsChat));
-    // };
 
     private readonly handleLessonsResponse = (lessons: Api.LessonDto[]): void => {
         const { updateLessons } = this.props;
@@ -141,13 +152,28 @@ class AppWithSessionComponent extends React.Component<Props, State> {
         };
 
         const wsChat = new ReconnectingWebSocket(getSocketUrl());
+        const { updateWebsocket, updateChannelArray, updateNewMessages } = this.props;
 
         wsChat.onopen = () => {
             // tslint:disable-next-line: no-console
             console.log('connected chat websocket');
         };
 
-        this.props.updateWebsocket(wsChat);
+        wsChat.onmessage = (e: any) => {
+            const message = JSON.parse(e.data);
+                // console.log('onmessage ', message)
+            const nr = message.channel;
+                // console.log(nr)
+
+            this.setState({ channelsWithNewMessages: Array.from(new Set([...this.state.channelsWithNewMessages, nr])),
+                                newMessages: [...this.state.newMessages, message]});
+            console.log(this.state.channelsWithNewMessages);
+            console.log(this.state.newMessages);
+            updateNewMessages(this.state.newMessages)
+            updateChannelArray(this.state.channelsWithNewMessages);
+        };
+
+        updateWebsocket(wsChat);
     };
 
     // get currentLessonID from lessons using curent day of week and currentLesson from websocket
@@ -168,7 +194,7 @@ class AppWithSessionComponent extends React.Component<Props, State> {
 }
 
 const mapContextToProps = ({
-    actions: { updateSession, updateLessons, updateCurrentLesson, updateSchedule, updateWebsocket },
+    actions: { updateSession, updateLessons, updateCurrentLesson, updateSchedule, updateWebsocket, updateChannelArray, updateNewMessages },
 }: SettingsProps)
     : ContextProps => ({
         updateSession,
@@ -176,6 +202,8 @@ const mapContextToProps = ({
         updateCurrentLesson,
         updateSchedule,
         updateWebsocket,
+        updateChannelArray,
+        updateNewMessages,
     });
 const AppWithSession = connectContext(mapContextToProps)(AppWithSessionComponent);
 

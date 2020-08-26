@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Actions, INITIAL_SESSION, INITIAL_CURRENT_LESSON, INITIAL_SCHEDULE, Session, settingsContext } from 'app/context';
+import { Actions, INITIAL_SESSION, INITIAL_CURRENT_LESSON, INITIAL_SCHEDULE, Session, settingsContext, Message } from 'app/context';
 import ReconnectingWebSocket from 'reconnecting-websocket';
 
 interface State {
@@ -9,6 +9,8 @@ interface State {
     currentLesson: number;
     schedule: Api.ScheduleDto[];
     wsChat: ReconnectingWebSocket;
+    channelsWithNewMessages: number[],
+    newMessages: Message[],
 }
 
 class AppStore extends React.Component<{}, State> {
@@ -19,6 +21,8 @@ class AppStore extends React.Component<{}, State> {
         currentLesson: INITIAL_CURRENT_LESSON,
         schedule: INITIAL_SCHEDULE,
         wsChat: null,
+        channelsWithNewMessages: [],
+        newMessages: []
     };
 
     public render(): React.ReactNode {
@@ -32,6 +36,8 @@ class AppStore extends React.Component<{}, State> {
             currentLesson,
             schedule,
             wsChat,
+            channelsWithNewMessages,
+            newMessages
         } = this.state;
 
         const actions: Actions = {
@@ -40,10 +46,12 @@ class AppStore extends React.Component<{}, State> {
             updateCurrentLesson: this.updateCurrentLesson,
             updateSchedule: this.updateSchedule,
             updateWebsocket: this.updateWebsocket,
+            updateChannelArray: this.updateChannelArray,
+            updateNewMessages: this.updateNewMessages,
         };
 
         return (
-            <settingsContext.Provider value={{ session, lessons, currentLesson, actions, schedule, wsChat }}>
+            <settingsContext.Provider value={{ session, lessons, currentLesson, actions, schedule, wsChat, channelsWithNewMessages, newMessages }}>
                 {children}
             </settingsContext.Provider>
         );
@@ -66,6 +74,14 @@ class AppStore extends React.Component<{}, State> {
     };
     private readonly updateWebsocket = (wsChat: ReconnectingWebSocket): void => {
         this.setState({wsChat})
+    }
+
+    private readonly updateChannelArray = (channelsWithNewMessages: number[]): void => {
+        this.setState({ channelsWithNewMessages })
+    }
+
+    private readonly updateNewMessages = (newMessages: Message[]): void => {
+        this.setState({newMessages})
     }
 
 }

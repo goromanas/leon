@@ -1,8 +1,9 @@
 import React from 'react';
-import { Menu } from 'antd';
+import { Menu, Badge } from 'antd';
 import SubMenu from 'antd/lib/menu/SubMenu';
+import { connectContext, SettingsProps } from 'app/context';
 
-interface Props {
+interface OwnProps {
     channels: Api.Subject[];
     currentChannel: number;
     onChannelChange: any;
@@ -11,10 +12,17 @@ interface Props {
     role: string
 }
 
-class Channels extends React.Component<Props> {
-    public render(): React.ReactNode {
-        const { channels, currentChannel, onChannelChange, classRooms, role } = this.props;
+interface ContextProps {
+    channelsWithNewMessages: number[]
+}
+type Props = OwnProps & ContextProps
 
+class ChannelsC extends React.Component<Props> {
+    public render(): React.ReactNode {
+        const { channels, currentChannel, onChannelChange, classRooms, role, channelsWithNewMessages } = this.props;
+        console.log(channelsWithNewMessages)
+        // console.log(classRooms)
+        // console.log(currentChannel)
         return (
       <Menu
           selectedKeys={[currentChannel.toString()]}
@@ -32,6 +40,7 @@ class Channels extends React.Component<Props> {
                   style={{ marginLeft: '20px' }}
               >
                 {channel.name}
+                  {channelsWithNewMessages.includes(channel.id) ? <Badge dot={this.props.channelsWithNewMessages.length !==0}></Badge> : null}
               </Menu.Item>
             ))}
             {this.props.classRooms &&
@@ -44,6 +53,7 @@ class Channels extends React.Component<Props> {
                 style={{ marginLeft: '20px', width: '200px' }}
               >
                 {classroom.classroomName}
+                  {channelsWithNewMessages.includes(classroom.id) ? <Badge dot={this.props.channelsWithNewMessages.length !==0}></Badge> : null}
               </Menu.Item>
             ))}
         {/*</SubMenu>*/}
@@ -51,5 +61,11 @@ class Channels extends React.Component<Props> {
         );
     }
 }
+
+const mapContextToProps = ( { channelsWithNewMessages }: SettingsProps): ContextProps => ({
+    channelsWithNewMessages
+});
+
+const Channels = connectContext(mapContextToProps)(ChannelsC)
 
 export { Channels };

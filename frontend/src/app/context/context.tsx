@@ -8,9 +8,16 @@ export interface Session {
     authenticated: boolean;
 }
 
-// export interface ChatWebSocket {
-//     wsChat: any
-// }
+export interface Message {
+    content: string;
+    username: string;
+    date: string;
+    classname?: string;
+    subject?: number;
+    channel?: number;
+    role?: string[];
+    teacherSubjectId?: number;
+}
 
 export interface Actions {
     updateSession: (session: Session) => void;
@@ -18,6 +25,8 @@ export interface Actions {
     updateCurrentLesson: (currentLesson: number) => void;
     updateSchedule: (schedule: Api.ScheduleDto[]) => void;
     updateWebsocket: (wsChat: ReconnectingWebSocket) => void;
+    updateChannelArray: (channelsWithNewMessages: number[]) => void;
+    updateNewMessages: (newMessage: Message[]) => void;
 }
 
 export interface SettingsProps {
@@ -27,6 +36,8 @@ export interface SettingsProps {
     currentLesson: number;
     schedule: Api.ScheduleDto[];
     wsChat: ReconnectingWebSocket;
+    channelsWithNewMessages: number[];
+    newMessages: Message[];
 }
 
 const INITIAL_SESSION: Session = {
@@ -47,11 +58,15 @@ const DEFAULT_SETTINGS: SettingsProps = {
         updateCurrentLesson: () => undefined,
         updateSchedule: () => undefined,
         updateWebsocket: () => undefined,
+        updateChannelArray: () => undefined,
+        updateNewMessages: () => undefined,
     },
     lessons: INITIAL_LESSONS,
     currentLesson: INITIAL_CURRENT_LESSON,
     schedule: INITIAL_SCHEDULE,
     wsChat: null,
+    channelsWithNewMessages: [],
+    newMessages: [],
 };
 
 const settingsContext: React.Context<SettingsProps> = React.createContext<SettingsProps>(DEFAULT_SETTINGS);
