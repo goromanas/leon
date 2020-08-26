@@ -27,6 +27,7 @@ export interface Actions {
     updateWebsocket: (wsChat: ReconnectingWebSocket) => void;
     updateChannelArray: (channelsWithNewMessages: number[]) => void;
     updateNewMessages: (newMessage: Message[]) => void;
+    removeChannelArray: (id: number) => void;
 }
 
 export interface SettingsProps {
@@ -60,6 +61,7 @@ const DEFAULT_SETTINGS: SettingsProps = {
         updateWebsocket: () => undefined,
         updateChannelArray: () => undefined,
         updateNewMessages: () => undefined,
+        removeChannelArray: () => undefined,
     },
     lessons: INITIAL_LESSONS,
     currentLesson: INITIAL_CURRENT_LESSON,

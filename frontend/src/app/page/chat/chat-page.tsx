@@ -25,6 +25,7 @@ interface ContextProps {
     wsChat: any;
     channelsWithNewMessages: number[];
     newMessages: Message[];
+    updateNewMessages: (newMessage: Message[]) => void;
 }
 
 interface OwnProps { }
@@ -132,25 +133,8 @@ class ChatComponent extends React.Component<Props, State> {
         if (this.state.channels.length > 0) {
             this.setState({ currentChannel: this.state.channels[0].id });
         }
-
-        // this.props.onMessage()
-        // this.props.wsChat.onmessage = (e: any) => {
-        //     console.log(e);
-        //     console.log('onmessage')
-        //     const message = JSON.parse(e.data);
-        //
-        //     const copyMsg = [...this.state.messages];
-        //     const newMsg = [...copyMsg, message];
-        //
-        //     this.setState({
-        //         messages: newMsg,
-        //     });
-        // };
     }
 
-    // componentWillUnmount() {
-    //
-    // }
 
     public render(): React.ReactNode {
         const { messages, channels, classRooms } = this.state;
@@ -158,9 +142,7 @@ class ChatComponent extends React.Component<Props, State> {
 
         console.log(channelsWithNewMessages)
         console.log(newMessages)
-        // console.log(messages);
-        // console.log(this.state.currentClassroom);
-        // console.log(this.state.currentChannel);
+
         return (
 
             <AsyncContent
@@ -215,7 +197,6 @@ class ChatComponent extends React.Component<Props, State> {
         const minutes = time.getMinutes().toString();
 
         if (values.message.trim() !== '') {
-            // console.log(this.props.username)
             this.setState({
                 messages: [...messages, {
                     content: values.message,
@@ -246,24 +227,23 @@ class ChatComponent extends React.Component<Props, State> {
         this.setState({
             currentChannel: id,
         });
-        // console.log(this.state.currentChannel);
     };
 
     private readonly onClassChange = (name: string): void => {
         this.setState({
             currentClassroom: name,
         });
-        // console.log(this.state.currentClassroom);
     };
 }
 
-const mapContextToProps = ({ session: { user }, wsChat, lessons, channelsWithNewMessages, newMessages }: SettingsProps): ContextProps => ({
+const mapContextToProps = ({ session: { user }, wsChat, lessons, channelsWithNewMessages, newMessages, actions: {updateNewMessages}}: SettingsProps): ContextProps => ({
     username: user != null ? user.firstName : null,
     userRoles: user.roles,
     teacherLessons: lessons,
     wsChat: wsChat,
     channelsWithNewMessages,
     newMessages,
+    updateNewMessages,
 });
 
 const ChatPage = connectContext(mapContextToProps)(ChatComponent);

@@ -13,16 +13,20 @@ interface OwnProps {
 }
 
 interface ContextProps {
-    channelsWithNewMessages: number[]
+    channelsWithNewMessages: number[],
+    removeChannelArray: (id: number) => void;
 }
 type Props = OwnProps & ContextProps
 
 class ChannelsC extends React.Component<Props> {
     public render(): React.ReactNode {
-        const { channels, currentChannel, onChannelChange, classRooms, role, channelsWithNewMessages } = this.props;
+        const { channels, currentChannel, onChannelChange, classRooms, role, channelsWithNewMessages, removeChannelArray } = this.props;
         console.log(channelsWithNewMessages)
         // console.log(classRooms)
         // console.log(currentChannel)
+        if (channelsWithNewMessages.includes(currentChannel)) {
+            removeChannelArray(currentChannel);
+        }
         return (
       <Menu
           selectedKeys={[currentChannel.toString()]}
@@ -62,8 +66,9 @@ class ChannelsC extends React.Component<Props> {
     }
 }
 
-const mapContextToProps = ( { channelsWithNewMessages }: SettingsProps): ContextProps => ({
-    channelsWithNewMessages
+const mapContextToProps = ( { channelsWithNewMessages, actions: {removeChannelArray} }: SettingsProps): ContextProps => ({
+    channelsWithNewMessages,
+    removeChannelArray,
 });
 
 const Channels = connectContext(mapContextToProps)(ChannelsC)

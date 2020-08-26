@@ -17,17 +17,6 @@ interface State {
     newMessages: Message[];
 }
 
-// interface Message {
-//     content: string;
-//     username: string;
-//     date: string;
-//     classname?: string;
-//     subject?: number;
-//     channel?: number;
-//     role?: string[];
-//     teacherSubjectId?: number;
-// }
-
 interface OwnProps {
 }
 
@@ -167,14 +156,15 @@ class AppWithSessionComponent extends React.Component<Props, State> {
 
             this.setState({ channelsWithNewMessages: Array.from(new Set([...this.state.channelsWithNewMessages, nr])),
                                 newMessages: [...this.state.newMessages, message]});
-            console.log(this.state.channelsWithNewMessages);
-            console.log(this.state.newMessages);
+
             updateNewMessages(this.state.newMessages)
             updateChannelArray(this.state.channelsWithNewMessages);
         };
 
         updateWebsocket(wsChat);
     };
+
+    // public readonly removeChannelArray = ()
 
     // get currentLessonID from lessons using curent day of week and currentLesson from websocket
     private readonly getCurrentLessonID = (currentLesson: number): number => {

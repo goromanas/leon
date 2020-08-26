@@ -48,6 +48,7 @@ class AppStore extends React.Component<{}, State> {
             updateWebsocket: this.updateWebsocket,
             updateChannelArray: this.updateChannelArray,
             updateNewMessages: this.updateNewMessages,
+            removeChannelArray: this.removeChannelArray,
         };
 
         return (
@@ -73,17 +74,25 @@ class AppStore extends React.Component<{}, State> {
         this.setState({ schedule });
     };
     private readonly updateWebsocket = (wsChat: ReconnectingWebSocket): void => {
-        this.setState({wsChat})
-    }
+        this.setState({wsChat});
+    };
 
     private readonly updateChannelArray = (channelsWithNewMessages: number[]): void => {
-        this.setState({ channelsWithNewMessages })
+        this.setState({ channelsWithNewMessages });
     }
 
     private readonly updateNewMessages = (newMessages: Message[]): void => {
-        this.setState({newMessages})
+        this.setState({ newMessages });
+    };
+    private readonly removeChannelArray = (id: number): void => {
+        console.log(id)
+        const newArr = this.state.channelsWithNewMessages.filter(item => item !== id);
+        console.log(newArr)
+        this.setState({ ...this.state ,channelsWithNewMessages: newArr });
     }
+    private readonly filterNewMessages = (): void => {
 
+    }
 }
 
 export { AppStore };
