@@ -1,54 +1,47 @@
-import React from 'react';
-import { Button } from 'antd';
-import { LeftOutlined, TeamOutlined } from '@ant-design/icons';
+import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+
+import { variantsUsersList, variantsUser } from 'app/page/timetable/animation';
+
+import styles from './video-chat-page.module.scss';
 
 interface Props {
     activeUsers: any;
-    handleActiveUsers: any;
+    isOpen: boolean;
 }
 
 const ActiveUsers: React.FC<Props> = (props) => (
-    <div style={{ marginTop: '20px', marginLeft: '5px' }}>
+    <motion.div
+        initial={false}
+        animate={props.isOpen ? 'open' : 'closed'}
+        variants={variantsUsersList}
+        className={styles.usersList}
+    >
         {
-            (
-                <>
-
-                    <div key={props.activeUsers}>
-                        <Button
-                            onClick={props.handleActiveUsers}
+            props.activeUsers.map((item: any, index: any) =>
+                (
+                    <motion.div
+                        key={index}
+                        className={styles.userRow}
+                        variants={variantsUser}
+                    >
+                        <img
+                            alt=""
+                            src={`/icons/avatars/${item.firstName}.svg`}
+                            onError={(e) => { e.currentTarget.src = `/icons/avatars/default.svg`; }}
                             style={{
-                                height: '50px',
-                                fontSize: '20px',
-                                borderStyle: 'none',
+                                filter: item.active ? 'none' : 'grayscale(1)',
+                                opacity: item.active ? 1 : '0.5',
                             }}
-                        >
-                            <LeftOutlined
-                            />
-                            <TeamOutlined
-                            />
-                            {props.activeUsers.filter((au: any) => au.active === true).length} students joined
-                        </Button>
-                        <div style={{ color: 'red' }}>
-{props.activeUsers.length - props.activeUsers.filter((au: any) => au.active === true).length} missing
-                        </div>
-                    </div>
-                    <ol>
-                        {
-                            props.activeUsers.map((item: any) =>
-                                (
-                                    <li key={item.index}>
-                                        <h3 style={{ color: item.active ? 'green' : 'red' }}>
-                                            {item.firstName + ' ' + item.lastName}
-                                        </h3>
-                                    </li>
-                                ),
-                            )
-                        }
-                    </ol>
-                </>
+                        />
+                        <h3 style={{ color: item.active ? '#252629' : '#A3A5A9' }}>
+                            {item.firstName + ' ' + item.lastName}
+                        </h3>
+                    </motion.div>
+                ),
             )
         }
-    </div>
+    </motion.div >
 );
 
 export { ActiveUsers };

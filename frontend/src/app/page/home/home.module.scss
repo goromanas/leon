@@ -10,10 +10,16 @@
   background: #fff;
 }
 
+.holidayCounterwrapper {
+  min-height: 520px;
+  max-height: 520px;
+}
+
 .homePage {
   padding: 0 50px;
   height: 100%;
   margin-top: 36px;
+
   Row {
     height: 100%;
   }
@@ -31,6 +37,7 @@
 
   .todoList {
     margin-left: 2rem;
+    margin-right: 1rem;
   }
 
   .home {
@@ -59,61 +66,50 @@
 }
 
 .homeModal {
-  bottom: 0em;
-  display: inline-block;
-  flex-direction: column;
-  width: 50%;
-  position: absolute;
-  bottom: 3%;
-  left: 7%;
-  width: 100%;
-  color: #fff;
+  margin-top: 2rem;
+  color: #000;
+
 
   h1 {
     text-align: center;
   }
 
-  div {
-    padding: 8px 2px;
-  }
-
   img {
     position: relative;
-    right: 1em;
+    right: 3em;
+    z-index: 25;
+    height: 100px;
   }
 
   .homeModalMotivation {
     display: flex;
-    position: absolute;
-    bottom: 40px;
+    padding: 1rem 0 0 1rem;
+    position: relative;
     z-index: 20;
-    background-color: $primary;
+    background-color: $background;
     border-radius: $conteinerRadius;
-    //color: #fff;
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.12), 0px 6px 16px rgba(0, 0, 0, 0.08), 0px 9px 28px rgba(0, 0, 0, 0.05);
+    box-shadow: $smallContainerShadow;
   }
 }
 
 .homeModalOne {
-  background-color: $primary;
+  background-color: $background;
   border-radius: $conteinerRadius;
   height: 100px;
   width: 100%;
   position: absolute;
-  bottom: 1.5em;
+  top: 77%;
   margin: auto;
   z-index: 15;
-  box-shadow: 0px 3px 6px -4px rgba(0, 0, 0, 0.12), 0px 6px 16px rgba(0, 0, 0, 0.08), 0px 9px 28px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: $containerShadow;
 }
 
 .homeModalTwo {
-  background-color: $primary;
+  background-color: $background;
   border-radius: $conteinerRadius;
   height: 100px;
   width: 100%;
-  margin: auto;
-
-  position: relative;
-  bottom: 0.5em;
-  box-shadow: 0px 3px 6px -4px rgba(0, 0, 0, 0.12), 0px 6px 16px rgba(0, 0, 0, 0.08), 0px 9px 28px 8px rgba(0, 0, 0, 0.05);
+  position: absolute;
+  top: 79%;
+  box-shadow: $containerShadow;
 }

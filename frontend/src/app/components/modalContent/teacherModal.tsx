@@ -8,15 +8,15 @@ import { lessonInformationService } from 'app/api/service/lessonInformation-serv
 
 import styles from './teacherModal.module.scss';
 
-const {Option} = Select;
+const { Option } = Select;
 
 interface Values {
     assignment: string[];
     information: string;
     topic: string;
-    lessonId: number;
-    date: string;
-    id: number;
+    lessonId?: number;
+    date?: string;
+    id?: number;
 }
 
 const TeacherModal: React.FC<{ lessonId: number, onClose: () => void, date: string, subject?: string, lessonInformation?: any }> = (props) => {
@@ -48,7 +48,7 @@ const TeacherModal: React.FC<{ lessonId: number, onClose: () => void, date: stri
                 }}
                 onSubmit={(
                     values: Api.LessonInformationDto,
-                    {setSubmitting}: FormikHelpers<Values>
+                    { setSubmitting }: FormikHelpers<Values>
                 ) => {
                     saveInformation(values);
                     setTimeout(() => {
@@ -58,18 +58,18 @@ const TeacherModal: React.FC<{ lessonId: number, onClose: () => void, date: stri
 
                 }}
             >
-                {({setFieldValue}) => (
+                {({ setFieldValue }) => (
                     <Form className={styles.teacherModal}>
                         <div className={styles.circle}>
                             <img
                                 alt="Lesson modal icon"
-                                src={'icons/science.svg'}
+                                src={`icons/subjects/${props.subject}.svg`}
                             />
                         </div>
                         <div className={styles.modalTop}>
                             <p>{props.subject}</p>
 
-                            <Field id="topic" name="topic" autoFocus placeholder="Enter topic for this lesson"/>
+                            <Field id="topic" name="topic" autoFocus placeholder="Enter topic for this lesson" />
 
                         </div>
                         <div className={styles.selectorField}>
@@ -85,7 +85,7 @@ const TeacherModal: React.FC<{ lessonId: number, onClose: () => void, date: stri
                         </div>
                         <div className={styles.textareaModal}>
                             <Field as="textarea" id="information" name="information"
-                                   placeholder="Please write all information student may need for this lesson."/>
+                                placeholder="Please write all information student may need for this lesson." />
                         </div>
                         <FormButton
                             component={SubmitButton}>{props.lessonInformation[0] ? 'Update' : 'Save'}</FormButton>

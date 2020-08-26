@@ -1,6 +1,8 @@
 import React from 'react';
-import Avatar from 'antd/lib/avatar/avatar';
 import { UserOutlined } from '@ant-design/icons';
+
+// import Avatar from 'antd/lib/avatar/avatar';
+import { Avatar } from 'app/components/avatar/avatar';
 
 import styles from './message.module.scss';
 
@@ -12,10 +14,11 @@ interface Props {
     classroom: string;
     toRight: boolean;
     role: string;
+    teachersList: string[];
 }
 
 const Message: React.FC<Props> = (
-    { text, author, date, channel, classroom, toRight, role }) => {
+    { text, author, date, channel, classroom, toRight, role, teachersList }) => {
     const monthNames = ['Jan', 'Feb', 'Mar', 'Ap', 'May', 'Jun',
         'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
     ];
@@ -24,33 +27,29 @@ const Message: React.FC<Props> = (
     if (dateDisplay.toString().length > 5) {
         const a = new Date(date);
         const minutes = a.getMinutes().toString().length === 1 ?
-            a.getMinutes().toString() + '0' : a.getMinutes().toString();
+            '0' + a.getMinutes().toString()  : a.getMinutes().toString();
 
         if (a.getDate() < today.getDate()) {
             dateDisplay = monthNames[a.getMonth()] + ' ' + a.getDate() + ', ' + a.getHours().toString() + ':' + minutes;
             // return;
-        }else{
-            dateDisplay = a.getHours().toString()+ ':' + minutes
+        } else {
+            dateDisplay = a.getHours().toString() + ':' + minutes;
         }
     }
+    console.log(author)
+    // console.log(teachersList.match(/[A-Z]/g))
     return (
-        <div className={toRight ? styles.containerR : styles.containerL}>
+        <div className={toRight ? styles.containerR : teachersList.includes(author) ? styles.containerLt : styles.containerL}>
             {!toRight && <div className={styles.avatarBox}>
-                <Avatar
-                    className={styles.avatar}
-                    size="large" icon={
-                    <UserOutlined
-                        className={styles.userIcon}
-                        style={{ fontSize: '25px' }} />}
-                    style={{ color: 'white' }}
-                />
+                <Avatar firstName={author} />
             </div>}
 
             <div>
-                {!toRight && <span className={styles.author}>{author}</span>}
-                <div className={styles.message}
-                     // style={role === 'TEACHER'? {background: '#FCE3BA !important'}: null}
-                >
+                {!toRight && <span className={styles.author}>
+                    {/*{teachersList.includes(author) ?'Teacher | '+ author :author}*/}
+                    {author}
+                </span>}
+                <div className={styles.message}>
                     <p>{text}</p>
                     <p className={styles.timestamp}>{dateDisplay}</p>
                 </div>

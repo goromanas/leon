@@ -2,14 +2,14 @@ import React from 'react';
 
 import styles from './studentModal.module.scss';
 
-const StudentModal: React.FC<{ onClose: () => void, lessonInformation?: any, classId: number, subject: string, date: string }> =
-    (props) => {
-        return (
-            <div className={styles.studentModal} style={{boxShadow: 'none'}}>
+const StudentModal: React.FC<{ onClose: () => void, lessonInformation?: any, classId?: number, subject: string, date?: string }> =
+    (props) =>
+        (
+            <div className={styles.studentModal} style={{ boxShadow: 'none' }}>
                 <div className={styles.circle}>
                     <img
                         alt="Lesson modal icon"
-                        src={'icons/science.svg'}
+                        src={`icons/subjects/${props.subject}.svg`}
                     />
                 </div>
                 <h2>{props.subject}</h2>
@@ -31,6 +31,5 @@ const StudentModal: React.FC<{ onClose: () => void, lessonInformation?: any, cla
                 </div>
             </div>
         );
-    };
 
 export { StudentModal };

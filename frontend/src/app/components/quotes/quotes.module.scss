@@ -1,0 +1,13 @@
+.quotes {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-right: 1.5rem;
+
+  &-author {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+}
