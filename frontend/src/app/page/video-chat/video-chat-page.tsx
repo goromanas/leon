@@ -5,22 +5,27 @@ import Jitsi from 'react-jitsi';
 // @ts-ignore
 import ReconnectingWebSocket from 'reconnecting-websocket';
 
+
 import { connectContext, SettingsProps } from 'app/context';
 import { AsyncContent, PageContent } from 'app/components/layout';
 import { navigationService } from 'app/service/navigation-service';
+
 import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-loading-spinner';
+
 import { VideoButton } from 'app/page/video-chat/video-buttons/video-button';
 import { Whiteboard } from 'app/components/whiteboard/whiteboard';
+
 
 // import { ActiveUsers } from 'app/page/video-chat/activeUsers';
 // @ts-ignore
 import { Top } from './top/top';
+
+import styles from './video-chat-page.module.scss';
 import { AnswerQuiz } from './quiz/answerQuiz';
 import { QuizCreate } from './quiz/quizCreate';
 
-import styles from './video-chat-page.module.scss';
 
-const { Content, Sider } = Layout;
+const {Content, Sider} = Layout;
 
 interface ContextProps {
     username: string | null;
@@ -71,7 +76,7 @@ interface State {
     question: string;
     activeUsers: ActiveUsers[];
     showActiveUsers: boolean;
-    replyVisible: boolean;
+    replyVisible: boolean,
 }
 
 type Props = OwnProps & ContextProps;
@@ -191,7 +196,7 @@ class HomePageComponent extends React.Component<Props, State> {
 
                 // this.showModal();
             } else {
-                this.setState({ activeUsers: message });
+                this.setState({activeUsers: message});
             }
         };
     }
@@ -214,11 +219,11 @@ class HomePageComponent extends React.Component<Props, State> {
             timer: values.timer,
         };
 
-        this.setState({ question: values.question });
+        this.setState({question: values.question});
 
         this.ws.send(JSON.stringify(question));
 
-        this.setState({ quizMessageForStudent: null, answers: [] });
+        this.setState({quizMessageForStudent: null, answers: []});
     };
 
     public openQuiz = (values: any): void => {
@@ -235,7 +240,7 @@ class HomePageComponent extends React.Component<Props, State> {
             userRoles,
             schedule,
             match: {
-                params: { id },
+                params: {id},
             },
         } = this.props;
 
@@ -277,10 +282,10 @@ class HomePageComponent extends React.Component<Props, State> {
                         (
                             <AsyncContent loading={!this.state.quizMessageForStudent} loader={<PageLoadingSpinner />}>
                                 <AnswerQuiz message={this.state.quizMessageForStudent}
-                                    changeValue={this.changeValue}
-                                    onSuccess={() => this.handleOk()}
-                                    onCancel={() => this.handleCancel()}
-                                    visible={this.state.visible}
+                                            changeValue={this.changeValue}
+                                            onSuccess={() => this.handleOk()}
+                                            onCancel={() => this.handleCancel()}
+                                            visible={this.state.visible}
                                 /> </AsyncContent>
                         )
                         : this.state.type === 'answer' ?
@@ -295,13 +300,13 @@ class HomePageComponent extends React.Component<Props, State> {
                             />
                     }
                 </Modal>
-                <Content style={{ margin: 'auto', width: '70%' }}>
+                <Content style={{margin: 'auto', width: '70%'}}>
                     <PageContent>
 
                         <Top lessonTitle={lessonTitle}
-                            teacher={currentLesson && currentLesson[0].teacher}
-                            startTime={startTime}
-                            endTime={endTime}
+                             teacher={currentLesson && currentLesson[0].teacher}
+                             startTime={startTime}
+                             endTime={endTime}
                         />
 
                         {videoChatName && (
@@ -332,8 +337,6 @@ class HomePageComponent extends React.Component<Props, State> {
                                 }}
                                 interfaceConfig={userRoles[0] === 'STUDENT' &&
                                 {
-                                    SHOW_WATERMARK_FOR_GUESTS: false, SHOW_JITSI_WATERMARK: false,
-                                    DEFAULT_BACKGROUND: '#f4f3f3',
                                     TOOLBAR_BUTTONS: [
                                         'microphone', 'camera', 'desktop', 'fullscreen', 'raisehand', 'hangup', 'chat',
                                         'tileview', 'download', 'videoquality', 'filmstrip', 'invite', 'feedback',
@@ -342,13 +345,13 @@ class HomePageComponent extends React.Component<Props, State> {
                                 } || {
 
                                     SHOW_WATERMARK_FOR_GUESTS: false, SHOW_JITSI_WATERMARK: false,
-                                    DEFAULT_BACKGROUND: '#f4f3f3',
                                 }
                                 }
-
                             />
                         )}
+
                     </PageContent>
+
 
                 </Content>
                 <Sider width={this.state.whiteboardVisible ? '100%' : 'auto'} className={styles.sider}>
@@ -370,6 +373,7 @@ class HomePageComponent extends React.Component<Props, State> {
 
                     {this.state.whiteboardVisible ? <Whiteboard /> : null}
                 </Sider>
+
 
             </Layout>
         );
