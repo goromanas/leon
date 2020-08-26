@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { ArrowRightOutlined } from '@ant-design/icons';
 
 import styles from './quotes.module.scss';
 import { AsyncContent } from '../layout';
-import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-loading-spinner';
 import { Spin } from 'antd';
+import { loggerService } from 'app/service/logger-service';
 
 const Quotes: React.FC = () => {
     const [quoteText, setQouteText] = useState('');
     const [quoteAuthor, setQouteAuthor] = useState('');
     const [loading, setLoading] = useState(true);
 
-    async function getQuoteText() {
+    async function getQuoteText(): Promise<void> {
         try {
             const singleQuoteText = await fetch('https://type.fit/api/quotes')
                 .then(response => response.json())
@@ -22,15 +21,14 @@ const Quotes: React.FC = () => {
             setQouteText(singleQuoteText.text);
             setQouteAuthor(singleQuoteText.author);
         } catch (e) {
-            console.log('Error while fetching quotes. Contact Rytis M.');
-        } finally {
-            console.log('Finished fetching quotes');
+            loggerService.error('Error getting quotes');
         }
     }
 
     useEffect(() => {
+        const ac = new AbortController();
         getQuoteText();
-
+        return () => ac.abort();
     }, []);
     return (
         <AsyncContent

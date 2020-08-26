@@ -1,10 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { assign } from 'lodash';
-import { Spin } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
-
-import { AsyncContent } from 'app/components/layout';
-import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-loading-spinner';
+import React from 'react';
 
 import { Item } from './item/item';
 

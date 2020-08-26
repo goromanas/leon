@@ -1,11 +1,12 @@
+@import '~app/style/style';
+@import '~app/style/variables';
+
 .teacherModal {
   width: 100%;
   height: auto;
 
   .circle {
-    border: 1px solid black;
     display: block;
-    width: 15%;
     border-radius: 50%;
     padding: 1em;
     float: left;
@@ -13,7 +14,7 @@
 
     img {
       display: block;
-      width: 100%;
+      width: 45px;
     }
 
   }
@@ -36,10 +37,15 @@
     border-radius: 4px;
   }
 
+  p {
+    margin-bottom: -2rem;
+  }
+
 
 }
 
 .textareaModal {
+
   textarea {
     display: block;
     width: 100%;
@@ -54,9 +60,13 @@
   margin-top: 1em;
 
   div {
+
     div {
+
       div {
+
         div {
+
           div {
             border-radius: 4px !important;
           }
@@ -74,8 +84,16 @@
 
 .inputukas:focus {
   outline: 0;
-
 }
 
+.field {
+  border: 1px solid $grey6;
+}
 
+.test {
+  background-color: #FFCCC7;
+}
 
+.homework {
+  background-color: #FCE3BA;
+}
