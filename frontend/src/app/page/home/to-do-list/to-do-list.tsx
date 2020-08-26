@@ -78,10 +78,15 @@ const ToDoList: React.FC<Props> = (props) => {
         const checkDay = new Date();
         const tomorrow = new Date();
         const newDate = new Date(day);
-        tomorrow.setDate(new Date().getDate() + 1);
-        checkDay.setDate(new Date().getDate() + 4);
 
-        if (newDate < checkDay && newDate > tomorrow) {
+        tomorrow.setDate(new Date().getDate() + 1);
+        checkDay.setDate(new Date().getDate() + 6);
+
+        const tomorrowCompare = new Date(tomorrow.getFullYear(), tomorrow.getMonth(), tomorrow.getDate());
+        const checkDayCompare = new Date(checkDay.getFullYear(), checkDay.getMonth(), checkDay.getDate());
+        const newDateCompare = new Date(newDate.getFullYear(), newDate.getMonth(), newDate.getDate());
+
+        if (newDateCompare < checkDayCompare && newDateCompare >= tomorrowCompare) {
             return true;
         } else {
             return false;
@@ -101,7 +106,7 @@ const ToDoList: React.FC<Props> = (props) => {
                             {lesson.lessonInformation
                                 // .sort((a, b) => a.date < b.date ? 1 : -1)
                                 .filter(item => weekFromNow(item.date))
-                                .filter(item => index < 7)
+                                .filter(item => index < 5)
                                 .map((assignment, id) => (
                                     <>
                                         {new Date(assignment.date) > currentDate
@@ -111,7 +116,7 @@ const ToDoList: React.FC<Props> = (props) => {
                                         {new Date(assignment.date) > currentDate ? (
                                             <div key={assignment.id} className={styles.itemWrapper}>
                                                 <Item
-                                                    key={id.toString() + assignment.date.toString()}
+                                                    key={id}
                                                     lessonSubject={lesson.subject}
                                                     topic={assignment.topic}
                                                     type={assignment.assignment}
