@@ -84,8 +84,9 @@ const VideoButton: React.FC<Props> = (props) => {
                                     }}
                                 >
                                     <MessageOutlined style={{ transform: 'scale(1.5)' }} />
-                                </Button>Create a Question
-                        </div>
+                                </Button>
+                                <h1> Create a Question </h1>
+                            </div>
                             <QuizResult
                                 answers={props.answers}
                                 correct={props.correct}
@@ -106,7 +107,7 @@ const VideoButton: React.FC<Props> = (props) => {
                                         <div style={{ transform: 'scale(1.5)' }}> <Wand /></div>
                                     </span>
                                 </Button>
-                                Whiteboard
+                                <h1>Whiteboard</h1>
                             </div>
                         </div>
                     )

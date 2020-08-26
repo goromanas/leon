@@ -8,20 +8,17 @@ import ReconnectingWebSocket from 'reconnecting-websocket';
 import { connectContext, SettingsProps } from 'app/context';
 import { AsyncContent, PageContent } from 'app/components/layout';
 import { navigationService } from 'app/service/navigation-service';
-
 import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-loading-spinner';
-
 import { VideoButton } from 'app/page/video-chat/video-buttons/video-button';
 import { Whiteboard } from 'app/components/whiteboard/whiteboard';
-
 
 // import { ActiveUsers } from 'app/page/video-chat/activeUsers';
 // @ts-ignore
 import { Top } from './top/top';
-
-import styles from './video-chat-page.module.scss';
 import { AnswerQuiz } from './quiz/answerQuiz';
 import { QuizCreate } from './quiz/quizCreate';
+
+import styles from './video-chat-page.module.scss';
 
 const { Content, Sider } = Layout;
 
@@ -319,7 +316,7 @@ class HomePageComponent extends React.Component<Props, State> {
                                     right: this.state.whiteboardVisible ? '20px' : null,
                                     top: this.state.whiteboardVisible ? '10%' : null,
                                 }}
-                                containerStyle={{ width: '90%', marginLeft: '5%', height: '70%' }}
+                                containerStyle={{ width: '90%', marginLeft: '5%', height: '70%', }}
                                 jwt="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250ZXh0Ijp7InVzZXIiOnsiYXZhdGFyIjoiaHR0cHM6Ly9hdmF0YXJzLmRpY2ViZWFyLmNvbS9hcGkvbWFsZS9tZW51by1zdS1pdC5zdmciLCJuYW1lIjoiTcSXbnVvIHN1IElUIn19LCJhdWQiOiJtZW51b19zdV9pdCIsImlzcyI6Im1lbnVvX3N1X2l0Iiwic3ViIjoibWVldC5qaXRzaSIsInJvb20iOiIqIn0.6CKZU_JWLhtj9eKJ-VdFGQZyRzvTZz29fn7--_dp-jw"
                                 roomName={videoChatName}
                                 domain="video-menuo-su-it.northeurope.cloudapp.azure.com:443"
@@ -335,6 +332,8 @@ class HomePageComponent extends React.Component<Props, State> {
                                 }}
                                 interfaceConfig={userRoles[0] === 'STUDENT' &&
                                 {
+                                    SHOW_WATERMARK_FOR_GUESTS: false, SHOW_JITSI_WATERMARK: false,
+                                    DEFAULT_BACKGROUND: '#f4f3f3',
                                     TOOLBAR_BUTTONS: [
                                         'microphone', 'camera', 'desktop', 'fullscreen', 'raisehand', 'hangup', 'chat',
                                         'tileview', 'download', 'videoquality', 'filmstrip', 'invite', 'feedback',
@@ -343,11 +342,12 @@ class HomePageComponent extends React.Component<Props, State> {
                                 } || {
 
                                     SHOW_WATERMARK_FOR_GUESTS: false, SHOW_JITSI_WATERMARK: false,
+                                    DEFAULT_BACKGROUND: '#f4f3f3',
                                 }
                                 }
+
                             />
                         )}
-
                     </PageContent>
 
                 </Content>
