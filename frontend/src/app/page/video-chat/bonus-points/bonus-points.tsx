@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
 import { Form, Formik, FormikHelpers } from 'formik';
 import styles from './bonus-points.module.scss';
-import { Button, Radio, Select } from 'antd';
+import { Button, Radio, Select, Alert } from 'antd';
+
+import { motion } from 'framer-motion';
+import { variantsUsersList, variantsUser } from 'app/page/timetable/animation';
 
 const {Option} = Select;
 
-interface props {
+interface Props {
     users: any;
     ws: any;
-    show: boolean
+    show: boolean;
+    onClose: any;
 }
 
-const BonusPoints: React.FC<{ users: any, ws: any, show: boolean }> = (props) => {
+const BonusPoints: React.FC<Props> = (props) => {
 
     interface Values {
         picked: string;
@@ -24,6 +28,7 @@ const BonusPoints: React.FC<{ users: any, ws: any, show: boolean }> = (props) =>
     ];
     const [points, setPoints] = useState(null);
     const [user, setStudents] = useState('');
+    const [alert,setAlert] = useState(false);
     const children: any = [];
 
     props.users.forEach((user: any) =>
@@ -38,6 +43,11 @@ const BonusPoints: React.FC<{ users: any, ws: any, show: boolean }> = (props) =>
 
     const handleWs = (): void => {
         props.ws.send(userToSend);
+        setAlert(true);
+        setTimeout(()=> {
+            props.onClose();
+        }, 1500)
+
     };
     const radioPoints = (e: any) => {
         setPoints(e.target.value);
@@ -49,6 +59,8 @@ const BonusPoints: React.FC<{ users: any, ws: any, show: boolean }> = (props) =>
     });
     return (
         <div className={styles.bonusPoints}>
+            <Alert className={!alert ? styles.noShowSuccessMessage : styles.successMessage}
+                   banner message={"Acknowledgement was sent to " + user} type="success" />
             <p style={{textAlign: 'center', fontSize: '12px'}}>Send
                 points for most active students!</p>
             <Formik
@@ -59,9 +71,7 @@ const BonusPoints: React.FC<{ users: any, ws: any, show: boolean }> = (props) =>
                     values: Values,
                     {setSubmitting}: FormikHelpers<Values>,
                 ) => {
-
                     setSubmitting(false);
-
                 }}
             >{({values}) => (
                 <Form>
@@ -74,10 +84,14 @@ const BonusPoints: React.FC<{ users: any, ws: any, show: boolean }> = (props) =>
                             buttonStyle="solid"
                         />
                     </div>
-                    <Select placeholder="Select student"  allowClear onChange={handleChange}>
+                    <Select className={styles.radioButtons}placeholder="Select student"  allowClear onChange={handleChange}>
                         {children}
                     </Select>
-                    <Button className={styles.button} onClick={handleWs} type="primary">Primary Button</Button>
+                    <div style={{display: 'flex'}}>
+                    <Button className={styles.button} onClick={handleWs} type="primary">Send</Button>
+                    <Button className={styles.button} onClick={props.onClose} type="default">Cancel</Button>
+
+                    </div>
                 </Form>
             )}
             </Formik>

@@ -69,37 +69,3 @@ body {
   }
 }
 
-
-.videobtn {
-  cursor: pointer;
-}
-
-.bonusPointMenu {
-  border: none !important;
-  cursor: pointer;
-  .ant-menu-submenu-title-custom {
-    height: 70px !important;
-
-
-    ul > li {
-      padding: 0 !important;
-      background-color: #fff !important;
-
-    }
-
-    div {
-      //margin-right: auto !important;
-      height: 70px !important;
-      padding: 0 !important;
-      margin: 0 !important;
-
-      div {
-        //width: 100% !important;
-        height: 70px !important;
-        padding: 0 !important;
-        margin: 0 !important;
-      }
-    }
-  }
-}
-

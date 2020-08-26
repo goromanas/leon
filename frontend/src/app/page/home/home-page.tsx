@@ -12,7 +12,6 @@ import { SideTimebar } from 'app/page/timetable/side-timebar';
 import { scheduleCalc } from 'app/page/timetable/schedule-calc';
 
 import { HolidayCounter } from './holiday-counter/holiday-counter';
-import { TeacherFeedback } from './teacher-feedback/teacher-feedback';
 import { ToDoList } from './to-do-list/to-do-list';
 import { Greeting } from './greeting/greeting';
 
@@ -93,11 +92,13 @@ class HomePageComponent extends React.Component<Props, State> {
                                                 sm={38}
                                                 className={styles.todoList}
                                             >
-                                                {allLessons !== undefined && allLessons !== null && allLessons.length > 0 ? (
+                                                {allLessons !== undefined && allLessons !== null
+                                                && allLessons.length > 0 ? (
                                                     <ToDoList
                                                         lessons={allLessons}
                                                         userRole={this.props.userRoles}
-                                                    />) : <PageLoadingSpinner />}
+                                                    />
+                                                    ) : <PageLoadingSpinner />}
                                             </Col>
                                             <Col
                                                 lg={16}
@@ -108,15 +109,12 @@ class HomePageComponent extends React.Component<Props, State> {
                                                 <div>
                                                     <HolidayCounter />
                                                 </div>
-
                                                 <div className={styles.homeModal}>
-
                                                     <h2>Did you know?</h2>
                                                     <div>
                                                         <div className={styles.homeModalMotivation}>
                                                             <img src={'icons/quoteLogo.svg'} alt="Quote" />
                                                             <Quotes />
-
                                                         </div>
                                                     </div>
                                                     <div className={styles.homeModalOne} />
