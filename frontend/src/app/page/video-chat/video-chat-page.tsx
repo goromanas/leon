@@ -68,7 +68,6 @@ interface State {
     type: string;
     quizMessageForStudent: QuizMessageForStudent;
     visible: boolean;
-    replyVisible: boolean;
     value: number;
     answers: QuizAnswer[];
     whiteboardVisible: boolean;

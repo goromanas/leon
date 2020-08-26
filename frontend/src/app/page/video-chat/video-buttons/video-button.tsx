@@ -22,7 +22,6 @@ interface Props {
     role: string[];
     send: any;
     handleWhiteboard: any;
-    handleBonusPointsTab: any;
     openQuiz: any;
     activeUsers: number;
     allUsers: number;
