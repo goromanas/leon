@@ -36,14 +36,14 @@ const OptionList: React.FC<Props> = (props) => {
 
     };
     const [value, setValue] = React.useState(0);
-    const [valueTimer, setValueTimer] = React.useState("15");
+    const [valueTimer, setValueTimer] = React.useState('15');
 
     const [questionCount, setQuestionCount] = useState(0);
 
     return (<div>
         <Formik
             initialValues={{ question: '', options: [], timer: '15' }}
-            onSubmit={(values, { setSubmitting,resetForm }) => {
+            onSubmit={(values, { setSubmitting, resetForm }) => {
                 setTimeout(() => {
                     values.timer = valueTimer;
                     props.updateQuiz(values, value);
@@ -52,13 +52,26 @@ const OptionList: React.FC<Props> = (props) => {
 
                 setTimeout(async () => {
                     resetForm();
-                    setValueTimer("15");
+                    setValueTimer('15');
                     setQuestionCount(0);
                     //   alert(JSON.stringify(values, null, 2));
                 }, 1000);
             }}
             render={({ values, validateField, errors }) => (
                 <Form className={styles.quizForm}>
+                    {errors.question ? <div>{errors.question}</div> : null}
+                    {questionCount < 2 ?
+                        <Alert message="Please provide at least 2 options" type="warning" closable={true} />
+
+                        : null}
+                    {value === 0 ?
+                        <Alert message="Please select the corrent answer" type="warning" closable={true} />
+
+                        : null}
+                    {checkForDuplicates(values.options) ?
+                        <Alert message="All answers must be different" type="warning" closable={true} />
+
+                        : null}
                     <Field name="question"
                         as="textarea"
                         validate={validateQuestion}
@@ -83,6 +96,7 @@ const OptionList: React.FC<Props> = (props) => {
                                                             name={`options.${index}`}
                                                             className={styles.answerField}
                                                             placeholder="Option"
+                                                            fullWidth={true}
                                                         />
                                                         <Button
                                                             onClick={() => (arrayHelpers.remove(index), setQuestionCount(questionCount - 1))}
@@ -112,19 +126,7 @@ const OptionList: React.FC<Props> = (props) => {
                                         </button>
                                     )}
 
-                                {errors.question ? <div>{errors.question}</div> : null}
-                                {questionCount < 2 ?
-                                    <Alert message="Please provide at least 2 options" type="warning" closable={true} />
 
-                                    : null}
-                                {value === 0 ?
-                                    <Alert message="Please select the corrent answer" type="warning" closable={true} />
-
-                                    : null}
-                                {checkForDuplicates(values.options) ?
-                                    <Alert message="All answers must be different" type="warning" closable={true} />
-
-                                    : null}
 
                                 <div className={styles.submitContainer}>
                                     <div>
@@ -144,7 +146,7 @@ const OptionList: React.FC<Props> = (props) => {
                                     </div>
                                     <button type="submit"
                                         className={styles.submitButton}
-                                        disabled={(errors.question || questionCount < 2 || checkForDuplicates(values.options)|| value === 0) ? true : false}
+                                        disabled={(errors.question || questionCount < 2 || checkForDuplicates(values.options) || value === 0) ? true : false}
                                         onClick={() => validateField('question')}
                                     >Send your question
                                     </button>
