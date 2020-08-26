@@ -193,8 +193,6 @@ class HomePageComponent extends React.Component<Props, State> {
 
                 // this.showModal();
             } else if (message.type === 'points') {
-                console.log(message);
-                alert(message);
             } else {
                 this.setState({activeUsers: message});
             }
@@ -225,17 +223,6 @@ class HomePageComponent extends React.Component<Props, State> {
 
         this.setState({quizMessageForStudent: null, answers: []});
     };
-
-    public sendTest() {
-        alert('test');
-        const data = {
-            type: 'points',
-            points: 5,
-            user:"famjan",
-        };
-        this.ws.send(JSON.stringify(data));
-
-    }
 
     public openQuiz = (values: any): void => {
         this.setState({type: 'create', quizMessageForStudent: null});
@@ -318,11 +305,7 @@ class HomePageComponent extends React.Component<Props, State> {
                              startTime={startTime}
                              endTime={endTime}
                         />
-                        <button
-                            onClick={() => this.sendTest()}
-                        >
-                            test Button
-                        </button>
+
 
                         {videoChatName && (
                             <Jitsi
