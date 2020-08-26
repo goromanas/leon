@@ -6,6 +6,7 @@ import lombok.Setter;
 @Setter
 public class ActiveUserDto {
         private Long id;
+        private double points;
         private String firstName;
         private String lastName;
         private String username;

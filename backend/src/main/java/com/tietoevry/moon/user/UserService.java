@@ -50,6 +50,13 @@ public class UserService {
     public UserDto findByUsername(String user) {
         return userRepository.findByUsername(user).map(UserMapper::mapUserDto).orElseThrow();
     }
+    public void updateUserPoints(String username,double points)
+    {
+        User user = userRepository.findByUsername(username).orElseThrow();
+        user.setPoints(user.getPoints()+points);
+        userRepository.save(user);
+
+    }
 
     public UserDto createUser(UserDto user) {
         return saveUser(user);

@@ -75,7 +75,7 @@ class HomePageComponent extends React.Component<Props, State> {
                                                 />
 
                                             </Col>
-                                            <Col lg={14} md={14} sm={38}>
+                                            <Col lg={12} md={38} sm={38}>
                                                 <DayLessonsList
                                                     userRole={this.props.userRoles}
                                                     currentLesson={currentLesson}
@@ -88,20 +88,20 @@ class HomePageComponent extends React.Component<Props, State> {
                                             </Col>
 
                                             <Col
-                                                lg={8}
-                                                md={4}
+                                                lg={10}
+                                                md={38}
                                                 sm={38}
                                                 className={styles.todoList}
                                             >
                                                 {allLessons !== undefined && allLessons !== null && allLessons.length > 0 ? (
-                                                <ToDoList
-                                                    lessons={allLessons}
-                                                    userRole={this.props.userRoles}
-                                                />) : <PageLoadingSpinner />}
+                                                    <ToDoList
+                                                        lessons={allLessons}
+                                                        userRole={this.props.userRoles}
+                                                    />) : <PageLoadingSpinner />}
                                             </Col>
                                             <Col
-                                                lg={12}
-                                                md={4}
+                                                lg={16}
+                                                md={38}
                                                 sm={38}
                                                 className={styles.holidayCounterwrapper}
                                             >

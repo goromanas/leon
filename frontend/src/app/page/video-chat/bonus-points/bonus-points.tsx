@@ -1,9 +1,16 @@
 import React, { useState } from 'react';
 import { Form, Formik, FormikHelpers } from 'formik';
 import styles from './bonus-points.module.scss';
-import { Radio } from 'antd';
+import { Radio, Select } from 'antd';
 
-const BonusPoints: React.FC = () => {
+const {Option} = Select;
+
+interface props {
+    users: any;
+    ws: any;
+}
+
+const BonusPoints: React.FC<{ users: any, ws:any }> = (props) => {
 
     interface Values {
         picked: string;
@@ -15,8 +22,22 @@ const BonusPoints: React.FC = () => {
         {label: 2, value: 2, disabled: false},
     ];
     const [points, setPoints] = useState(null);
+    const [user, setStudents] = useState([]);
+    const children: any = [];
+
+    props.users.forEach((user: any) =>
+        user.active === true ?
+            children.push(<Option key={user.id} value={user.username}>{user.username}</Option>)
+            : null
+    );
+
+    function handleChange(value: any): void {
+        setStudents(value);
+    }
+
+
     const radioPoints = (e: any) => {
-        console.log(e.target.value);
+        console.log(user);
         setPoints(e.target.value);
     };
     return (
@@ -29,10 +50,14 @@ const BonusPoints: React.FC = () => {
                 }}
                 onSubmit={(
                     values: Values,
-                    {setSubmitting}: FormikHelpers<Values>
+                    {setSubmitting}: FormikHelpers<Values>,
                 ) => {
                     setTimeout(() => {
-                        alert(JSON.stringify(points, null, 2));
+                        props.ws.send(JSON.stringify({
+                            type: 'points',
+                            points,
+                            user,
+                        }));
                         setSubmitting(false);
                     }, 500);
                 }}
@@ -47,13 +72,15 @@ const BonusPoints: React.FC = () => {
                             buttonStyle="solid"
                         />
                     </div>
-
+                    <Select placeholder="Select student" style={{width: 120}} allowClear onChange={handleChange}>
+                        {children}
+                    </Select>
                     <button type="submit">Submit</button>
-                </Form>)}
+                </Form>
+            )}
             </Formik>
-
-
-        </div>);
+        </div>
+    );
 };
 
 export { BonusPoints };
