@@ -1,5 +1,6 @@
 import React from 'react';
 import { UserOutlined } from '@ant-design/icons';
+import moment from 'moment';
 
 // import Avatar from 'antd/lib/avatar/avatar';
 import { Avatar } from 'app/components/avatar/avatar';
@@ -24,10 +25,10 @@ const Message: React.FC<Props> = (
     ];
     let dateDisplay = date;
     const today = new Date();
+    const minutes = moment(date).format('mm');
+
     if (dateDisplay.toString().length > 5) {
         const a = new Date(date);
-        const minutes = a.getMinutes().toString().length === 1 ?
-            '0' + a.getMinutes().toString()  : a.getMinutes().toString();
 
         if (a.getDate() < today.getDate()) {
             dateDisplay = monthNames[a.getMonth()] + ' ' + a.getDate() + ', ' + a.getHours().toString() + ':' + minutes;
@@ -36,7 +37,7 @@ const Message: React.FC<Props> = (
             dateDisplay = a.getHours().toString() + ':' + minutes;
         }
     }
-    console.log(author)
+    // console.log(author);
     // console.log(teachersList.match(/[A-Z]/g))
     return (
         <div className={toRight ? styles.containerR : teachersList.includes(author) ? styles.containerLt : styles.containerL}>
