@@ -26,6 +26,7 @@ interface ContextProps {
     channelsWithNewMessages: number[];
     newMessages: Message[];
     updateNewMessages: (newMessage: Message[]) => void;
+    filterNewMessages: (channelId: number) => void;
 }
 
 interface OwnProps { }
@@ -69,12 +70,10 @@ class ChatComponent extends React.Component<Props, State> {
     };
 
     public static MESSAGE_INITIAL_VALUES: MessageValue = { message: '' };
-    public stupidity = true;
-
 
     public componentDidUpdate(prev: Props, prevState: State) {
-        const {messages} = this.state
-        const { userRoles, newMessages } = this.props;
+        const { messages, currentChannel } = this.state;
+        const { userRoles, newMessages, filterNewMessages } = this.props;
 
         if (prev.teacherLessons !== this.props.teacherLessons && userRoles.includes('STUDENT')) {
             const { teacherLessons } = this.props;
@@ -83,10 +82,14 @@ class ChatComponent extends React.Component<Props, State> {
                 this.setState({ currentClassroom: teacherLessons[0].className });
             }
         }
+if(newMessages.length !== 0 ){
 
-        if(prev.newMessages !== this.props.newMessages){
+
+        if ( prev.newMessages !== this.props.newMessages) {
             this.setState({ ...this.state, messages: [...messages, ...newMessages] });
-        }
+            console.log('filternewmsg')
+            filterNewMessages(currentChannel);
+        }}
 
     }
 
@@ -159,6 +162,7 @@ class ChatComponent extends React.Component<Props, State> {
         const { messages, channels, classRooms } = this.state;
         const { teacherLessons, channelsWithNewMessages, newMessages } = this.props;
 
+        // console.log(newMessages)
         // if (this.props.newMessages.length !== 0) {
         //     console.log('not emty')
         //     // this.setState({ messages: [...messages, ...newMessages] })
@@ -260,7 +264,7 @@ class ChatComponent extends React.Component<Props, State> {
     };
 }
 
-const mapContextToProps = ({ session: { user }, wsChat, lessons, channelsWithNewMessages, newMessages, actions: {updateNewMessages}}: SettingsProps): ContextProps => ({
+const mapContextToProps = ({ session: { user }, wsChat, lessons, channelsWithNewMessages, newMessages, actions: {updateNewMessages, filterNewMessages}}: SettingsProps): ContextProps => ({
     username: user != null ? user.firstName : null,
     userRoles: user.roles,
     teacherLessons: lessons,
@@ -268,6 +272,7 @@ const mapContextToProps = ({ session: { user }, wsChat, lessons, channelsWithNew
     channelsWithNewMessages,
     newMessages,
     updateNewMessages,
+    filterNewMessages
 });
 
 const ChatPage = connectContext(mapContextToProps)(ChatComponent);

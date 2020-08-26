@@ -9,8 +9,8 @@ interface State {
     currentLesson: number;
     schedule: Api.ScheduleDto[];
     wsChat: ReconnectingWebSocket;
-    channelsWithNewMessages: number[],
-    newMessages: Message[],
+    channelsWithNewMessages: number[];
+    newMessages: Message[];
 }
 
 class AppStore extends React.Component<{}, State> {
@@ -22,7 +22,7 @@ class AppStore extends React.Component<{}, State> {
         schedule: INITIAL_SCHEDULE,
         wsChat: null,
         channelsWithNewMessages: [],
-        newMessages: []
+        newMessages: [],
     };
 
     public render(): React.ReactNode {
@@ -37,7 +37,7 @@ class AppStore extends React.Component<{}, State> {
             schedule,
             wsChat,
             channelsWithNewMessages,
-            newMessages
+            newMessages,
         } = this.state;
 
         const actions: Actions = {
@@ -49,6 +49,7 @@ class AppStore extends React.Component<{}, State> {
             updateChannelArray: this.updateChannelArray,
             updateNewMessages: this.updateNewMessages,
             removeChannelArray: this.removeChannelArray,
+            filterNewMessages: this.filterNewMessages,
         };
 
         return (
@@ -74,25 +75,30 @@ class AppStore extends React.Component<{}, State> {
         this.setState({ schedule });
     };
     private readonly updateWebsocket = (wsChat: ReconnectingWebSocket): void => {
-        this.setState({wsChat});
+        this.setState({ wsChat });
     };
 
     private readonly updateChannelArray = (channelsWithNewMessages: number[]): void => {
         this.setState({ channelsWithNewMessages });
-    }
+    };
 
     private readonly updateNewMessages = (newMessages: Message[]): void => {
         this.setState({ newMessages });
     };
     private readonly removeChannelArray = (id: number): void => {
-        console.log(id)
+        // console.log(id);
         const newArr = this.state.channelsWithNewMessages.filter(item => item !== id);
-        console.log(newArr)
-        this.setState({ ...this.state ,channelsWithNewMessages: newArr });
-    }
-    private readonly filterNewMessages = (): void => {
-
-    }
+        // console.log(newArr);
+        this.setState({  channelsWithNewMessages: newArr });
+    };
+    private readonly filterNewMessages = (channelId: number): void => {
+// console.log('App store clean new messages', this.state.newMessages)
+        const cleanArr = this.state.newMessages
+        while(cleanArr.length > 0) {
+            cleanArr.pop();
+        }
+        console.log(cleanArr);
+    };
 }
 
 export { AppStore };

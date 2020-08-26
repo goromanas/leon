@@ -28,6 +28,7 @@ export interface Actions {
     updateChannelArray: (channelsWithNewMessages: number[]) => void;
     updateNewMessages: (newMessage: Message[]) => void;
     removeChannelArray: (id: number) => void;
+    filterNewMessages: (channelId: number) => void;
 }
 
 export interface SettingsProps {
@@ -62,6 +63,7 @@ const DEFAULT_SETTINGS: SettingsProps = {
         updateChannelArray: () => undefined,
         updateNewMessages: () => undefined,
         removeChannelArray: () => undefined,
+        filterNewMessages: () => undefined,
     },
     lessons: INITIAL_LESSONS,
     currentLesson: INITIAL_CURRENT_LESSON,
