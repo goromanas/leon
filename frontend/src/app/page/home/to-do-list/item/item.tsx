@@ -23,8 +23,6 @@ const Item: React.FC<Props> = (props) => {
         setModalVisible(!modalVisible);
     };
 
-    console.log('klase' + classRoom);
-
     return (
         <>
             <Modal
