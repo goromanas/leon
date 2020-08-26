@@ -6,9 +6,10 @@ import { Wand } from 'app/page/video-chat/wand';
 import { ActiveUsers } from 'app/page/video-chat/activeUsers';
 
 import { Button, Menu } from 'antd';
-// import styles from './video-buttons.module.scss';
+
 import { BonusPoints } from 'app/page/video-chat/bonus-points/bonus-points';
 import styles from 'app/page/video-chat/video-chat-page.module.scss';
+
 const {SubMenu} = Menu;
 
 interface Props {
@@ -70,12 +71,13 @@ const VideoButton: React.FC<Props> = (props) => {
                     (props.role[0] === 'STUDENT') ? null :
 
                         (<div>
-                                <div onClick={props.openQuiz} className={styles.videobtn}><Button type='primary'
-                                                                                                  style={{
-                                                                                                      borderRadius: '100%',
-                                                                                                      height: '50px',
-                                                                                                      fontSize: '20px'
-                                                                                                  }}><MessageOutlined/></Button>Create
+                                <div onClick={props.openQuiz} className={styles.videobtn}>
+                                    <Button type='primary' style={{
+                                        borderRadius: '100%',
+                                        height: '50px',
+                                        fontSize: '20px'
+                                    }}><MessageOutlined
+                                        style={{transform: 'scale(1.5)'}}/></Button>Create
                                     a Question
                                 </div>
                                 <div onClick={props.handleWhiteboard} className={styles.videobtn}><Button type='primary'
@@ -109,8 +111,8 @@ const VideoButton: React.FC<Props> = (props) => {
                             </div>
                         )
             }
-                </div >
-                );
-                };
+        </div>
+    );
+};
 
-                export { VideoButton };
+export { VideoButton };

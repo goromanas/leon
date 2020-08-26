@@ -5,6 +5,7 @@ import Jitsi from 'react-jitsi';
 // @ts-ignore
 import ReconnectingWebSocket from 'reconnecting-websocket';
 
+
 import { connectContext, SettingsProps } from 'app/context';
 import { AsyncContent, PageContent } from 'app/components/layout';
 import { navigationService } from 'app/service/navigation-service';
@@ -74,6 +75,7 @@ interface State {
     question: string;
     activeUsers: ActiveUsers[];
     showActiveUsers: boolean;
+    replyVisible: boolean,
 }
 
 type Props = OwnProps & ContextProps;
@@ -92,6 +94,7 @@ class HomePageComponent extends React.Component<Props, State> {
         correct: 1,
         question: null,
         bonusPointsTabVisible: false,
+        replyVisible: false,
     };
 
     public showModal = () => {
