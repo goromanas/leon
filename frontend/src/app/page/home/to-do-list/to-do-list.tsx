@@ -123,7 +123,7 @@ const ToDoList: React.FC<Props> = (props) => {
                         <div key={lesson.id}>
                             {lesson.lessonInformation
                                 .filter(item => weekFromNow(item.date))
-                                .filter(item => index < 4)
+                                // .filter(item => index < 5)
                                 .map((assignment, id) => (
                                     <>
                                         {new Date(assignment.date) > currentDate
@@ -135,6 +135,7 @@ const ToDoList: React.FC<Props> = (props) => {
                                                 <Item
                                                     key={id}
                                                     lessonSubject={lesson.subject}
+                                                    classRoom={lesson.className}
                                                     topic={assignment.topic}
                                                     type={assignment.assignment}
                                                     information={assignment.information}
