@@ -8,58 +8,66 @@ body {
 .layout {
   background: #fff;
 }
-.sider{
+
+.sider {
   background: #FFFFFF;
   // width: 582px;
   width: auto;
   border-left: 2px solid rgba(0, 0, 0, 0.1);
   padding: 20px 40px 20px 20px;
-    button {
-      margin:10px;
-      border-radius: 20px
+
+  button {
+    margin: 10px;
+    border-radius: 20px
   }
+
   .videobtn {
     cursor: pointer;
     display: flex;
     flex-direction: row;
     align-items: center;
+
     &:hover {
       button {
         background-color: #7DB7FC !important;
         border-color: #85b6ff;
       }
     }
+
     h1 {
       margin: 0;
       margin-right: 28px;;
+
       span {
         color: $grey6;
       }
     }
   }
+
   .allButtons {
     width: auto;
   }
+
   .usersList {
     margin-bottom: 0px;
   }
+
   .userRow {
     display: flex;
     flex-direction: row;
     align-items: center;
+
     h3 {
       margin: 0;
     }
+
     img {
       height: 50px;
-    margin: 5px 10px 5px 31px;
+      margin: 5px 10px 5px 31px;
       transition: 0.3s ease-in-out;
     }
   }
 }
-
-
-
 
 
 .videobtn {
@@ -67,16 +75,18 @@ body {
 }
 
 .bonusPointMenu {
-  border: none!important;
+  border: none !important;
+  cursor: pointer;
   .ant-menu-submenu-title-custom {
     height: 70px !important;
 
 
-    ul > li{
+    ul > li {
       padding: 0 !important;
       background-color: #fff !important;
 
     }
+
     div {
       //margin-right: auto !important;
       height: 70px !important;
@@ -84,7 +94,7 @@ body {
       margin: 0 !important;
 
       div {
-        width: 100% !important;
+        //width: 100% !important;
         height: 70px !important;
         padding: 0 !important;
         margin: 0 !important;
@@ -92,3 +102,4 @@ body {
     }
   }
 }
+
