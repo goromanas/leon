@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { assign } from 'lodash';
+import { Spin } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 
 import { AsyncContent } from 'app/components/layout';
 import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-loading-spinner';
@@ -93,20 +95,35 @@ const ToDoList: React.FC<Props> = (props) => {
         }
     };
 
+    const sortList = (): Api.LessonDto[] => {
+        const currentDay = new Date().getDay();
+
+        let item: any;
+        const list: Api.LessonDto[] = [];
+
+        for (let i = currentDay; i <= 5; i++) {
+            item = lessons.filter(lesson => lesson.day === i);
+            list.push(item);
+        }
+
+        for (let i = 1; i < currentDay; i++) {
+            item = lessons.filter(lesson => lesson.day === i);
+            list.push(item);
+        }
+        return list.flat();
+
+    };
+
     return (
-        <AsyncContent
-            loading={!lessons === null && lessons.length > 0}
-            loader={<PageLoadingSpinner />}
-        >
+        <>
             <div>
-                {lessons && lessons
+                {sortList()
                     .filter(item => item.lessonInformation.length > 0)
                     .map((lesson, index) => (
                         <div key={lesson.id}>
                             {lesson.lessonInformation
-                                // .sort((a, b) => a.date < b.date ? 1 : -1)
                                 .filter(item => weekFromNow(item.date))
-                                .filter(item => index < 5)
+                                .filter(item => index < 4)
                                 .map((assignment, id) => (
                                     <>
                                         {new Date(assignment.date) > currentDate
@@ -127,10 +144,11 @@ const ToDoList: React.FC<Props> = (props) => {
                                             </div>
                                         ) : ''}
                                     </>
-                                ))}</div>
+                                ))
+                                }</div>
                     ))}
             </div>
-        </AsyncContent >
+        </>
     );
 };
 
