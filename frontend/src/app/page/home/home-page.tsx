@@ -48,7 +48,10 @@ class HomePageComponent extends React.Component<Props, State> {
         const dayLessons = allLessons && allLessons.filter(lesson => lesson.day === moment().day());
 
         return (
-            <AsyncContent loading={this.props.schedule.length === 0} loader={<PageLoadingSpinner />}>
+            <AsyncContent
+                loading={this.props.schedule.length === 0 && this.props.allLessons !== null}
+                loader={<PageLoadingSpinner />}
+            >
                 <div className={styles.homePage}>
                     <div className={styles.home}>
                         {
@@ -90,10 +93,11 @@ class HomePageComponent extends React.Component<Props, State> {
                                                 sm={38}
                                                 className={styles.todoList}
                                             >
+                                                {allLessons !== undefined && allLessons !== null && allLessons.length > 0 ? (
                                                 <ToDoList
                                                     lessons={allLessons}
                                                     userRole={this.props.userRoles}
-                                                />
+                                                />) : <PageLoadingSpinner />}
                                             </Col>
                                             <Col
                                                 lg={12}
@@ -104,7 +108,6 @@ class HomePageComponent extends React.Component<Props, State> {
                                                 <div>
                                                     <HolidayCounter />
                                                 </div>
-
 
                                                 <div className={styles.homeModal}>
 
