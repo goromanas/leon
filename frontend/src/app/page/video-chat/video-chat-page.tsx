@@ -63,7 +63,6 @@ interface State {
     type: string;
     quizMessageForStudent: QuizMessageForStudent;
     visible: boolean;
-    replyVisible: boolean;
     value: number;
     answers: QuizAnswer[];
     whiteboardVisible: boolean;
@@ -72,6 +71,7 @@ interface State {
     question: string;
     activeUsers: ActiveUsers[];
     showActiveUsers: boolean;
+    replyVisible: boolean;
 }
 
 type Props = OwnProps & ContextProps;
@@ -115,6 +115,7 @@ class HomePageComponent extends React.Component<Props, State> {
 
         this.setState({ whiteboardVisible: !this.state.whiteboardVisible });
     };
+
     private interval: NodeJS.Timeout;
 
     public userActivityUpdate(include?: boolean) {
@@ -295,7 +296,6 @@ class HomePageComponent extends React.Component<Props, State> {
                     }
                 </Modal>
                 <Content style={{ margin: 'auto', width: '70%' }}>
-
                     <PageContent>
 
                         <Top lessonTitle={lessonTitle}
@@ -316,7 +316,7 @@ class HomePageComponent extends React.Component<Props, State> {
                                     right: this.state.whiteboardVisible ? '20px' : null,
                                     top: this.state.whiteboardVisible ? '10%' : null,
                                 }}
-                                containerStyle={{ width: '90%', marginLeft: '5%', height: '70%', }}
+                                containerStyle={{ width: '90%', marginLeft: '5%', height: '70%' }}
                                 jwt="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250ZXh0Ijp7InVzZXIiOnsiYXZhdGFyIjoiaHR0cHM6Ly9hdmF0YXJzLmRpY2ViZWFyLmNvbS9hcGkvbWFsZS9tZW51by1zdS1pdC5zdmciLCJuYW1lIjoiTcSXbnVvIHN1IElUIn19LCJhdWQiOiJtZW51b19zdV9pdCIsImlzcyI6Im1lbnVvX3N1X2l0Iiwic3ViIjoibWVldC5qaXRzaSIsInJvb20iOiIqIn0.6CKZU_JWLhtj9eKJ-VdFGQZyRzvTZz29fn7--_dp-jw"
                                 roomName={videoChatName}
                                 domain="video-menuo-su-it.northeurope.cloudapp.azure.com:443"
