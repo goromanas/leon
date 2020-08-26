@@ -12,15 +12,18 @@ interface Props {
     userRole: string[] | null;
     information: string;
     date: string;
+    classRoom: string | null;
 }
 
 const Item: React.FC<Props> = (props) => {
-    const { lessonSubject, topic, type, userRole, information, date } = props;
+    const { lessonSubject, topic, type, userRole, information, date, classRoom } = props;
     const [modalVisible, setModalVisible] = useState(false);
 
     const handleOk = () => {
         setModalVisible(!modalVisible);
     };
+
+    console.log('klase' + classRoom);
 
     return (
         <>
@@ -47,7 +50,8 @@ const Item: React.FC<Props> = (props) => {
                 <div>
                     {type.includes('Homework') ? <Badge color={'orange'} /> : ''}
                     {type.includes('Test') ? <Badge color={'red'} /> : ''}
-                    <span className={styles.itemsubject}>{lessonSubject}</span>
+                    {userRole.includes('STUDENT') ? <span className={styles.itemsubject}>{lessonSubject} </span> : ''}
+                    {userRole.includes('TEACHER') ? <span className={styles.itemsubject}>{classRoom}</span> : ''}
                 </div>
 
                 <span className={styles.view}>View</span>
