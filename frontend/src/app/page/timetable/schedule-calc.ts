@@ -101,7 +101,7 @@ class ScheduleCalc {
 
     public ifDayEnded = (lessons: Api.LessonDto[], schedule: Api.ScheduleDto[], day: number): any => {
         if (schedule.length !== 0 &&
-            this.convertTimeToMinutes(schedule[this.thisDayLength(lessons, day)].endTime)
+            this.convertTimeToMinutes(schedule[this.thisDayLength(lessons, day) - 1].endTime)
             <= this.convertTimeToMinutes(moment().format('HH:mm:ss'))) {
             return true;
         }

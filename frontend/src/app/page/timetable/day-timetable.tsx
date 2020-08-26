@@ -31,7 +31,7 @@ const DayLessonsList: React.FC<Props> = ({ allLessons, userRole, day, date, curr
         }, 200);
 
     }, []);
-
+    // console.log(day);
     const { dayHeader, dayClass, dayLessonsList, activeDay, dayHeaderInHome } = styles;
     const dayTable = new Array(scheduleCalc.getLongestDay(allLessons));
 

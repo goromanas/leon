@@ -46,12 +46,13 @@ const SingleLesson: React.FC<Props> = (props) => {
         // empty lesson
         thisLesson.id === -1 && emptyLesson,
     );
+    // console.log(ifDayEnded)
     const checkUserRoleForModal = (): boolean =>
         userRole.includes('STUDENT') || userRole.includes('PARENT');
 
     const showModal = (index: number) => {
         thisLesson.id !== -1 && setModalVisible(!modalVisible);
-        console.log(thisLesson.id);
+        // console.log(thisLesson.id);
         // for testing purposes
         // console.log(thisLesson.lessonInformation[0]);
     };
