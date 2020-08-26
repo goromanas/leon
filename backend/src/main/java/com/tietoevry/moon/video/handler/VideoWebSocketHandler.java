@@ -1,15 +1,11 @@
 package com.tietoevry.moon.video.handler;
 
-import com.fasterxml.jackson.core.JsonFactoryBuilder;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.tietoevry.moon.classroom.ClassroomService;
 import com.tietoevry.moon.classroom.model.Classroom;
-import com.tietoevry.moon.lesson.LessonRepository;
 import com.tietoevry.moon.user.UserMapper;
 import com.tietoevry.moon.user.UserService;
-import com.tietoevry.moon.user.model.User;
 import com.tietoevry.moon.user.model.dto.ActiveUserDto;
 import com.tietoevry.moon.user.model.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +14,8 @@ import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-import springfox.documentation.spring.web.json.Json;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +32,7 @@ public class VideoWebSocketHandler extends TextWebSocketHandler {
     public void handleTextMessage(WebSocketSession session, TextMessage message)
         throws InterruptedException, IOException {
         Map messageContent = new Gson().fromJson(message.getPayload(), Map.class);
+        System.out.println("message received");
         String type = String.valueOf(messageContent.get("type"));
         if (type.equals("question")) {
             handleQuestion(message, session);
@@ -45,8 +40,8 @@ public class VideoWebSocketHandler extends TextWebSocketHandler {
             activeUsers(message, session);
         } else if (type.equals("answer")) {
             handleAnswer(message, session);
-        } else if (type.equals("points")){
-            handlePoints(message,session);
+        } else if (type.equals("points")) {
+            handlePoints(message, session);
         }
 
     }
@@ -126,19 +121,19 @@ public class VideoWebSocketHandler extends TextWebSocketHandler {
         Map messageContent = new Gson().fromJson(message.getPayload(), Map.class);
         double points = (double) messageContent.get("points");
         String user = String.valueOf(messageContent.get("user"));
+
         String type = String.valueOf(messageContent.get("type"));
 
         JsonObject json = new JsonObject();
-        json.addProperty("type",type);
-        json.addProperty("points",points);
-        userService.updateUserPoints(user,points);
+        json.addProperty("type", type);
+        json.addProperty("points", points);
+        userService.updateUserPoints(user, points);
         for (WebSocketSession webSocketSession : webSocketSessions) {
-            if (user.equals(webSocketSession.getPrincipal().getName()))
-            {
-                session.sendMessage(new TextMessage(new Gson().toJson(json)));
-            }
-            }
+            if (user.equals(webSocketSession.getPrincipal().getName())) {
 
+                webSocketSession.sendMessage(new TextMessage(new Gson().toJson(json)));
+            }
+        }
 
 
     }
