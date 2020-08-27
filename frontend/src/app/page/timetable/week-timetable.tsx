@@ -4,7 +4,6 @@ import moment from 'moment';
 import { motion } from 'framer-motion';
 
 import { AsyncContent } from 'app/components/layout';
-import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-loading-spinner';
 import { connectContext, SettingsProps } from 'app/context';
 import { DayLessonsList } from 'app/page/timetable/day-timetable';
 import { SideTimebar } from 'app/page/timetable/side-timebar';
@@ -12,6 +11,7 @@ import styles from 'app/page/timetable/lessons.module.scss';
 import { variantsDay, variantsWeek, variantsUl } from 'app/page/timetable/animation';
 
 import { scheduleCalc } from './schedule-calc';
+import { ComponentLoadingSpinner } from '../common/page-loading-spinner/component-loading-spinner';
 
 interface ContextProps {
     username: string | null;
@@ -96,7 +96,7 @@ const TimetablePageComponent: React.FC<Props> = (props) => {
     );
 
     return (
-        <AsyncContent loading={schedule.length === 0} loader={<PageLoadingSpinner />}>
+        <AsyncContent loading={schedule.length === 0} loader={<ComponentLoadingSpinner />}>
 
             <div className={styles.weekPage}>
                 <div className={styles.weekInfo}>
