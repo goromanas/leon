@@ -83,11 +83,12 @@ class ChatComponent extends React.Component<Props, State> {
                 this.setState({ currentClassroom: teacherLessons[0].className });
             }
         }
-if(newMessages.length !== 0 ){
-        if ( prev.newMessages !== this.props.newMessages) {
-            this.setState({ ...this.state, messages: [...messages, ...newMessages] });
-            filterNewMessages(currentChannel);
-        }}
+        if (newMessages.length !== 0) {
+            if (prev.newMessages !== this.props.newMessages) {
+                this.setState({ ...this.state, messages: [...messages, ...newMessages] });
+                filterNewMessages(currentChannel);
+            }
+        }
 
     }
 
@@ -96,7 +97,7 @@ if(newMessages.length !== 0 ){
         const { messages } = this.state;
         const { teacherLessons, userRoles, newMessages } = this.props;
         const currentChannel: number = 1;
-
+        console.log(teacherLessons);
         chatService.getChatMessages()
             .then((data: any) => {
                 this.setState({
