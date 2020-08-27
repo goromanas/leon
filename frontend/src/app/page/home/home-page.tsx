@@ -145,23 +145,26 @@ class HomePageComponent extends React.Component<Props, State> {
                                 </div>
                             )
                     }
-                    <div style={{opacity: this.state.showList ? 1 : 0.0}}
-                         className={styles.leaderboard}
+                    {userRoles.includes('TEACHER') ? null : <>
+                        <div style={{opacity: this.state.showList ? 1 : 0.0}}
+                             className={styles.leaderboard}
 
-                         onMouseEnter={() => this.setState({showList: !this.state.showList})}>
-                        <TrophyOutlined className={styles.trophyOne}/>
+                             onMouseEnter={() => this.setState({showList: !this.state.showList})}>
+                            <TrophyOutlined className={styles.trophyOne}/>
 
-                    </div>
-                    <div
-                        onMouseLeave={() => this.setState({showList: !this.state.showList})}
-                        className={this.state.showList ? styles.listItems : styles.listItemsShow}>
-                        <TrophyOutlined className={styles.trophyTwo}/>
-                        <h4>Class' Activity Leaderboard</h4>
-                        <ul className={styles.trophyList}>
-                        {trophyList}
-                        </ul>
-                    </div>
+                        </div>
+                        <div
+                            onMouseLeave={() => this.setState({showList: !this.state.showList})}
+                            className={this.state.showList ? styles.listItems : styles.listItemsShow}>
+                            <TrophyOutlined className={styles.trophyTwo}/>
+                            <h4>Class' Activity Leaderboard</h4>
+                            <ul className={styles.trophyList}>
+                                {trophyList}
+                            </ul>
+                        </div>
+                    </>}
                 </div>
+
             </AsyncContent>
         );
     }
