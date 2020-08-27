@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Layout, Radio, Progress, Badge, Button } from 'antd';
 import { motion } from 'framer-motion';
@@ -15,13 +15,28 @@ interface Props {
     question: string;
     isOpen: boolean;
     showResults: any;
+    allUsers: number;
+    testSubmitted: boolean;
+    timer: number;
 }
 
 const QuizResult: React.FC<Props> = (props) => {
 
-    const [progress, setProgress] = useState(0);
     const calculate = () =>
         props.answers.filter((item: any) => item.answer === props.correct).length / props.answers.length * 100;
+
+    const [counter, setCounter] = useState(props.timer);
+
+    useEffect(() => {
+        setCounter(props.timer);
+    }, [props.timer]);
+
+    useEffect(() => {
+        if (counter > 0) {
+            setTimeout(() => setCounter(counter - 1), 1000);
+        }
+    }, [counter]);
+
     return (
         <motion.div
             initial={false}
@@ -34,23 +49,19 @@ const QuizResult: React.FC<Props> = (props) => {
                 variants={variantsUser}
             >
                 <div className={styles.quizResulttitle}>
-                    <Button
-                        icon={<LeftOutlined />}
-                        onClick={props.showResults}
-                    />
                     <h3 className={styles.resulttitle}>Test Results</h3>
                 </div>
                 <div className={styles.quizResulttop}>
-                    <h4>Students replied:</h4>
+                    <h4 >Students replied:</h4>
                     <Progress
                         strokeColor="#5B97FC"
                         strokeWidth={20}
                         showInfo={false}
-                        percent={16 / 20 * 100}
+                        percent={props.answers.length / props.allUsers !== 0 ? props.allUsers : 1 * 100}
                         strokeLinecap="square"
                     />
-                    <p>16/20</p>
-                    <span>Time remaining: </span><span className={styles.time}>10s</span>
+                    <p className={styles.studentsReplied}>{props.answers.length}/{props.allUsers}</p>
+                    <span>Time remaining: </span><span className={styles.time}>{counter}s</span>
                 </div>
                 <h4>Student's answers</h4>
                 <Progress

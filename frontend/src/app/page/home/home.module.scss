@@ -5,6 +5,17 @@
   // margin: -2rem 0 2rem 2rem;
   margin: 2rem 2rem 1rem 2rem;
 }
+.listLoader {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  width: 100%;
+}
+
+.holidayCounterwrapper {
+  min-height: 520px;
+  max-height: 520px;
+}
 
 .homePage {
   padding: 0 50px;
@@ -97,86 +108,87 @@
   }
 }
 
-  @media only screen and (max-width: 990px) {
-    .homePage {
-      padding: 0 50px;
-      margin-top: 36px;
-      .homeContent {
-        height: 100%;
-        flex-direction: column;
-      }
+//   @media only screen and (max-width: 990px) {
+//     .homePage {
+//       padding: 0 50px;
+//       margin-top: 36px;
+//       .homeContent {
+//         height: 100%;
+//         flex-direction: column;
+//       }
 
-      // inside rounded container
-      .homeRoundedBlock {
-        padding: 3% ;
-        width: 100%;
-        border-radius: $conteinerRadius;
-        .homeSchedule {
-          width: 60%;
-          .scheduleLine {
-            width: auto;
-          }
-          .lessons {
-            width: 100%;
-          }
-        }
-        .todoList {
-          width: 40%;
-          padding-left: 2rem;
-          padding-right: 1rem;
-        }
-      }
-      /////
+//       // inside rounded container
+//       .homeRoundedBlock {
+//         padding: 3% ;
+//         width: 100%;
+//         border-radius: $conteinerRadius;
+//         .homeSchedule {
+//           width: 60%;
+//           .scheduleLine {
+//             width: auto;
+//           }
+//           .lessons {
+//             width: 100%;
+//           }
+//         }
+//         .todoList {
+//           width: 40%;
+//           padding-left: 2rem;
+//           padding-right: 1rem;
+//         }
+//       }
+//       /////
 
 
-      // side image and quote
-      .homeRightSideWrapper {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        padding: 0 10px 0 25px;
-        position: relative;
-        top: -75px;
-        // min-height: 520px;
-        // max-height: 520px;
-        .holidayCounterWrapper {
-          width: 100%;
+//       // side image and quote
+//       .homeRightSideWrapper {
+//         width: 100%;
+//         display: flex;
+//         flex-direction: column;
+//         padding: 0 10px 0 25px;
+//         position: relative;
+//         top: -75px;
+//         // min-height: 520px;
+//         // max-height: 520px;
+//         .holidayCounterWrapper {
+//           width: 100%;
 
-        }
-      }
+//         }
+//       }
 
-      // MODALS
-      .homeModal {
-        width: 100%;
-        margin-top: 8rem;
+//       // MODALS
+//       .homeModal {
+//         width: 100%;
+//         margin-top: 8rem;
 
-        h2 {
-          // text-align: center;
-          font-weight: 400;
-          color: $grey9;
+//         h2 {
+//           // text-align: center;
+//           font-weight: 400;
+//           color: $grey9;
 
-        }
+//         }
 
-        img {
-          position: relative;
-          right: 0em;
-          z-index: 25;
-          height: 48px;
-          margin-right: 14px;
-        }
+//         img {
+//           position: relative;
+//           right: 0em;
+//           z-index: 25;
+//           height: 48px;
+//           margin-right: 14px;
+//         }
 
-        .homeModalMotivation {
-          display: flex;
-          padding: 1rem;
-          position: relative;
-          z-index: 20;
-          background-color: $background;
-          border-radius: $conteinerRadius;
-          box-shadow: $smallContainerShadow;
-        }
-      }
+//         .homeModalMotivation {
+//           display: flex;
+//           padding: 1rem;
+//           position: relative;
+//           z-index: 20;
+//           background-color: $background;
+//           border-radius: $conteinerRadius;
+//           box-shadow: $smallContainerShadow;
+//         }
 
-  }
+//     }
+//   }
+// }
   // .homeModalOne {
   //   background-color: $background;
   //   border-radius: $conteinerRadius;
@@ -198,4 +210,4 @@
   //   top: 79%;
   //   box-shadow: $containerShadow;
   // }
-  }
+  // }

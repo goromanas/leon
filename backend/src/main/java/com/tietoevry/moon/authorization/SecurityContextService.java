@@ -43,7 +43,7 @@ public class SecurityContextService {
         securityContext.setAuthentication(authentication);
 
         HttpSession session = httpServletRequest.getSession(true);
-        session.setMaxInactiveInterval(120*60);
+        session.setMaxInactiveInterval(7200);
         System.out.println(session.getMaxInactiveInterval());
         session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, securityContext);
         if (rememberMe) {
