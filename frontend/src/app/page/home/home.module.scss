@@ -10,6 +10,13 @@
   background: #fff;
 }
 
+.listLoader {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  width: 100%;
+}
+
 .holidayCounterwrapper {
   min-height: 520px;
   max-height: 520px;

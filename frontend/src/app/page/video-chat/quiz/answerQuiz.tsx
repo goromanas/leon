@@ -15,7 +15,6 @@ interface Props {
 const AnswerQuiz: React.FC<Props> = (props) => {
     const onChange = (e: any) => {
         setValue(e.target.value);
-        // console.log('radio checked', e.target.value);
         props.changeValue(e.target.value);
         setValid(true);
 
@@ -34,12 +33,6 @@ const AnswerQuiz: React.FC<Props> = (props) => {
         }
     }, [counter]);
 
-    // const radioStyle = {
-    //     display: 'block',
-    //     height: '30px',
-    //     lineHeight: '50px',
-    // };
-
     return (
         <>
 
@@ -49,11 +42,11 @@ const AnswerQuiz: React.FC<Props> = (props) => {
                 {props.message.question}
             </h1>
 
-            <Radio.Group onChange={onChange} value={value} style={{width: "100%", marginTop: "2rem"}}>
+            <Radio.Group onChange={onChange} value={value} style={{ width: "100%", marginTop: "2rem" }}>
 
                 {
                     props.message.options.map((item: any) =>
-                        (<div className={styles.optionWrapper}  key={item.id}>
+                        (<div className={styles.optionWrapper} key={item.id}>
                             <Radio value={item.id}>
                                 {item.name}
                             </Radio>
@@ -62,7 +55,7 @@ const AnswerQuiz: React.FC<Props> = (props) => {
                     )}
 
             </Radio.Group>
-{/*
+            {/*
             {!valid ?
                 <h4 style={{color: 'red'}}>Please select an option</h4> :
                 null
@@ -70,12 +63,12 @@ const AnswerQuiz: React.FC<Props> = (props) => {
 
             <div className={styles.submitContainer}>
                 <div>
-                Time left: {' '}
-                <span className={styles.counter}>
-                    {counter}s
+                    Time left: {' '}
+                    <span className={styles.counter}>
+                        {counter}s
                     </span>
-                    </div>
-            <Button
+                </div>
+                <Button
                     type="primary"
                     disabled={!valid}
                     onClick={() => props.onSuccess()}>
