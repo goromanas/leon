@@ -64,7 +64,7 @@ class ChatComponent extends React.Component<Props, State> {
         lessonId: null,
         channels: [],
         classRooms: [],
-        currentChannel: 1,
+        currentChannel: 0,
         currentClassroom: '',
         teacherSubjectId: 1,
     };
@@ -83,8 +83,6 @@ class ChatComponent extends React.Component<Props, State> {
             }
         }
 if(newMessages.length !== 0 ){
-
-
         if ( prev.newMessages !== this.props.newMessages) {
             this.setState({ ...this.state, messages: [...messages, ...newMessages] });
             console.log('filternewmsg')
@@ -92,17 +90,6 @@ if(newMessages.length !== 0 ){
         }}
 
     }
-
-    // componentWillReceiveProps(nextProps: Readonly<Props>, nextContext: any) {
-    //     const {messages} = this.state
-    //     const { userRoles, newMessages } = this.props;
-    //     if (this.props.newMessages.length !== 0) {
-    //         console.log('not emty')
-    //         this.setState({ ...this.state, messages: [...messages, ...newMessages] })
-    //     }else {
-    //         console.log('emty')
-    //     }
-    // }
 
     // tslint:disable-next-line:typedef
     public componentDidMount() {
@@ -159,19 +146,9 @@ if(newMessages.length !== 0 ){
 
 
     public render(): React.ReactNode {
-        const { messages, channels, classRooms } = this.state;
+        const { messages, channels, classRooms, currentChannel } = this.state;
         const { teacherLessons, channelsWithNewMessages, newMessages } = this.props;
-
-        console.log(channelsWithNewMessages)
-        // console.log(newMessages)
-        // if (this.props.newMessages.length !== 0) {
-        //     console.log('not emty')
-        //     // this.setState({ messages: [...messages, ...newMessages] })
-        // }else {
-        //     console.log('emty')
-        // }
-
-
+console.log(currentChannel)
         return (
 
             <AsyncContent

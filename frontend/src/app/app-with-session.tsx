@@ -13,8 +13,7 @@ interface State {
     content: React.ReactNode;
     lessons: Api.LessonDto[];
     schedule: Api.ScheduleDto[];
-    channelsWithNewMessages: number[];
-    newMessages: Message[];
+
 }
 
 interface OwnProps {
@@ -26,8 +25,8 @@ interface ContextProps {
     updateCurrentLesson: (currentLesson: number) => void;
     updateSchedule: (schedule: Api.ScheduleDto[]) => void;
     updateWebsocket: (wsChat: ReconnectingWebSocket) => void;
-    updateChannelArray: (channelsWithNewMessages: number[]) => void;
-    updateNewMessages: (newMessage: Message[]) => void;
+    updateChannelArray: (channelsWithNewMessages: number) => void;
+    updateNewMessages: (newMessage: Message) => void;
 }
 
 type Props = OwnProps & ContextProps;
@@ -37,8 +36,7 @@ class AppWithSessionComponent extends React.Component<Props, State> {
         content: null,
         lessons: null,
         schedule: null,
-        channelsWithNewMessages: [],
-        newMessages: [],
+
     };
 
     public componentDidMount(): void {
@@ -150,15 +148,10 @@ class AppWithSessionComponent extends React.Component<Props, State> {
 
         wsChat.onmessage = (e: any) => {
             const message = JSON.parse(e.data);
-                // console.log('onmessage ', message)
             const nr = message.channel;
-                // console.log(nr)
 
-            this.setState({ channelsWithNewMessages: Array.from(new Set([...this.state.channelsWithNewMessages, nr])),
-                                newMessages: [...this.state.newMessages, message]});
-
-            updateNewMessages(this.state.newMessages)
-            updateChannelArray(this.state.channelsWithNewMessages);
+            updateNewMessages(message)
+            updateChannelArray(nr);
         };
 
         updateWebsocket(wsChat);

@@ -25,8 +25,8 @@ export interface Actions {
     updateCurrentLesson: (currentLesson: number) => void;
     updateSchedule: (schedule: Api.ScheduleDto[]) => void;
     updateWebsocket: (wsChat: ReconnectingWebSocket) => void;
-    updateChannelArray: (channelsWithNewMessages: number[]) => void;
-    updateNewMessages: (newMessage: Message[]) => void;
+    updateChannelArray: (channelsWithNewMessages: number) => void;
+    updateNewMessages: (newMessage: Message) => void;
     removeChannelArray: (id: number) => void;
     filterNewMessages: (channelId: number) => void;
 }

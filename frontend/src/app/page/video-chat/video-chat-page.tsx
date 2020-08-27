@@ -377,6 +377,7 @@ class HomePageComponent extends React.Component<Props, State> {
         this.userActivityUpdate();
         api.addEventListener('readyToClose', () => {
             navigationService.redirectToHomePage();
+            // navigationService.redirectToDefaultPage()
         });
     };
 }

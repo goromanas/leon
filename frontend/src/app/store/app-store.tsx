@@ -78,26 +78,30 @@ class AppStore extends React.Component<{}, State> {
         this.setState({ wsChat });
     };
 
-    private readonly updateChannelArray = (channelsWithNewMessages: number[]): void => {
-        this.setState({ channelsWithNewMessages });
+    private readonly updateChannelArray = (nr: number): void => {
+        const array = this.state.channelsWithNewMessages.includes(nr) ? [...this.state.channelsWithNewMessages] : [...this.state.channelsWithNewMessages, nr]
+        this.setState({ channelsWithNewMessages: array });
+
+        // this.setState({ channelsWithNewMessages: [...Array.from(new Set([...this.state.channelsWithNewMessages, nr]))] });
     };
 
-    private readonly updateNewMessages = (newMessages: Message[]): void => {
-        this.setState({ newMessages });
+    private readonly updateNewMessages = (newMessages: Message): void => {
+        this.setState({ newMessages: [...this.state.newMessages, newMessages] });
     };
     private readonly removeChannelArray = (id: number): void => {
-        // console.log(id);
         const newArr = this.state.channelsWithNewMessages.filter(item => item !== id);
-        // console.log(newArr);
-        this.setState({  channelsWithNewMessages: newArr });
+
+        this.setState({...this.state,  channelsWithNewMessages: [...this.state.channelsWithNewMessages.filter(item => item !== id)]});
     };
     private readonly filterNewMessages = (channelId: number): void => {
-// console.log('App store clean new messages', this.state.newMessages)
-        const cleanArr = this.state.newMessages
+        // console.log('App store clean new messages', this.state.newMessages)
+        const cleanArr = [...this.state.newMessages];
         while(cleanArr.length > 0) {
             cleanArr.pop();
         }
-        console.log(cleanArr);
+        // console.log(cleanArr);
+        this.setState({ newMessages: cleanArr });
+        console.log(this.state.newMessages);
     };
 }
 
