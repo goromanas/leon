@@ -23,6 +23,11 @@ interface ContextProps {
     lastname: string | null;
     teacherLessons: Api.LessonDto[];
     userRoles: string[] | null;
+    wsChat: any;
+    channelsWithNewMessages: number[];
+    newMessages: Message[];
+    updateNewMessages: (newMessage: Message) => void;
+    filterNewMessages: (channelId: number) => void;
 }
 
 interface OwnProps { }
@@ -53,20 +58,6 @@ interface State {
 }
 
 class ChatComponent extends React.Component<Props, State> {
-    public getSocketUrl = (): string => {
-        const loc = window.location;
-        let newUrl: string;
-
-        if (loc.host === 'localhost:3000') {
-            newUrl = 'ws://localhost:8080/ws/chat';
-        } else {
-            newUrl = ' wss://java-menuo-su-it.northeurope.cloudapp.azure.com/ws/chat';
-        }
-        return newUrl;
-    };
-
-    public ws = new ReconnectingWebSocket(this.getSocketUrl());
-
     public readonly state: State = {
         messages: [],
         file: null,
@@ -74,7 +65,7 @@ class ChatComponent extends React.Component<Props, State> {
         lessonId: null,
         channels: [],
         classRooms: [],
-        currentChannel: 1,
+        currentChannel: 0,
         currentClassroom: '',
         teacherSubjectId: 1,
     };
@@ -82,7 +73,8 @@ class ChatComponent extends React.Component<Props, State> {
     public static MESSAGE_INITIAL_VALUES: MessageValue = { message: '' };
 
     public componentDidUpdate(prev: Props, prevState: State) {
-        const { userRoles } = this.props;
+        const { messages, currentChannel } = this.state;
+        const { userRoles, newMessages, filterNewMessages } = this.props;
 
         if (prev.teacherLessons !== this.props.teacherLessons && userRoles.includes('STUDENT')) {
             const { teacherLessons } = this.props;
@@ -91,18 +83,26 @@ class ChatComponent extends React.Component<Props, State> {
                 this.setState({ currentClassroom: teacherLessons[0].className });
             }
         }
+if(newMessages.length !== 0 ){
+        if ( prev.newMessages !== this.props.newMessages) {
+            this.setState({ ...this.state, messages: [...messages, ...newMessages] });
+            console.log('filternewmsg')
+            filterNewMessages(currentChannel);
+        }}
 
     }
 
     // tslint:disable-next-line:typedef
     public componentDidMount() {
         const { messages } = this.state;
-        const { teacherLessons, userRoles } = this.props;
+        const { teacherLessons, userRoles, newMessages } = this.props;
         const currentChannel: number = 1;
+        console.log(this.props)
 
         chatService.getChatMessages()
             .then((data: any) => {
-                // console.log(data[0]);
+                console.log(data[0]);
+                console.log(newMessages)
                 this.setState({
                     messages: [...data],
                 });
@@ -141,30 +141,15 @@ class ChatComponent extends React.Component<Props, State> {
         if (this.state.channels.length > 0) {
             this.setState({ currentChannel: this.state.channels[0].id });
         }
-
-        this.ws.onmessage = e => {
-            const message = JSON.parse(e.data);
-            // console.log('Chat page receives ',message.classroom);
-
-            const copyMsg = [...this.state.messages];
-            const newMsg = [...copyMsg, message];
-
-            this.setState({
-                messages: newMsg,
-            });
-        };
     }
+
+
 
     public render(): React.ReactNode {
         const { messages, channels, classRooms } = this.state;
-        const { teacherLessons } = this.props;
-        // console.log(this.props.username)
-        // console.log(this.props.lastname)
-        // console.log(teacherLessons);
+        const { teacherLessons, channelsWithNewMessages, newMessages } = this.props;
+
         const teachersList = teacherLessons && teacherLessons.map(lesson => lesson.teacher);
-        // console.log(teachersList)
-        // console.log(this.state.currentClassroom);
-        // console.log(this.state.currentChannel);
 
         return (
 
@@ -208,7 +193,7 @@ class ChatComponent extends React.Component<Props, State> {
     public sendMessage = (message: Message) => {
         try {
             // console.log(message)
-            this.ws.send(JSON.stringify(message));
+            this.props.wsChat.send(JSON.stringify(message));
         } catch (error) {
             console.log(error); // catch error
         }
@@ -222,8 +207,7 @@ class ChatComponent extends React.Component<Props, State> {
         const minutes = time.getMinutes().toString();
 
         if (values.message.trim() !== '') {
-            // console.log(this.props.username)
-            // console.log(this.props.lastname)
+
             this.setState({
                 messages: [...messages, {
                     content: values.message,
@@ -254,22 +238,25 @@ class ChatComponent extends React.Component<Props, State> {
         this.setState({
             currentChannel: id,
         });
-        // console.log(this.state.currentChannel);
     };
 
     private readonly onClassChange = (name: string): void => {
         this.setState({
             currentClassroom: name,
         });
-        // console.log(this.state.currentClassroom);
     };
 }
 
-const mapContextToProps = ({ session: { user }, lessons }: SettingsProps): ContextProps => ({
+const mapContextToProps = ({ session: { user }, wsChat, lessons, channelsWithNewMessages, newMessages, actions: {updateNewMessages, filterNewMessages}}: SettingsProps): ContextProps => ({
     username: user != null ? user.firstName : null,
     lastname: user != null ? user.lastName : null,
     userRoles: user.roles,
     teacherLessons: lessons,
+    wsChat: wsChat,
+    channelsWithNewMessages,
+    newMessages,
+    updateNewMessages,
+    filterNewMessages
 });
 
 const ChatPage = connectContext(mapContextToProps)(ChatComponent);
