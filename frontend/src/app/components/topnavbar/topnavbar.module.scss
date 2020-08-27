@@ -87,5 +87,14 @@
 
   &:hover {
     background: $gold7;
+    color: $grey9;
+  }
+  &:active {
+    background: $gold7;
+    color: $grey9;
+  }
+  &:focus {
+    background: $gold7;
+    color: $grey9;
   }
 }
