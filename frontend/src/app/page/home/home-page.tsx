@@ -18,6 +18,7 @@ import { Greeting } from './greeting/greeting';
 import styles from './home.module.scss';
 import { userService } from 'app/api/service/user-service';
 import { ComponentLoadingSpinner } from '../common/page-loading-spinner/component-loading-spinner';
+import { ComponentSmallSpinner } from 'app/page/common/page-loading-spinner/component-small-spinner';
 
 interface ContextProps {
     username: string | null;
@@ -54,7 +55,7 @@ class HomePageComponent extends React.Component<Props, State> {
         return (
             <AsyncContent
                 loading={schedule.length === 0 && allLessons !== null && dayLessons !== null}
-                loader={<ComponentLoadingSpinner />}
+                loader={<ComponentSmallSpinner />}
             >
                 <div className={styles.homePage}>
                     <div className={styles.greeting}>
@@ -99,7 +100,7 @@ class HomePageComponent extends React.Component<Props, State> {
                                                         lessons={allLessons}
                                                         userRole={this.props.userRoles}
                                                     />
-                                                ) : <ComponentLoadingSpinner />}
+                                                ) : <ComponentSmallSpinner />}
                                         </div>
 
                                     </div>

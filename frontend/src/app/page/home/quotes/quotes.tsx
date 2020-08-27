@@ -3,6 +3,7 @@ import { Spin } from 'antd';
 
 import { AsyncContent } from 'app/components/layout';
 import { loggerService } from 'app/service/logger-service';
+import { ComponentSmallSpinner } from 'app/page/common/page-loading-spinner/component-small-spinner';
 
 import styles from './quotes.module.scss';
 
@@ -34,7 +35,7 @@ const Quotes: React.FC = () => {
     return (
         <AsyncContent
             loading={loading}
-            loader={<Spin tip="Loading..." />}
+            loader={<ComponentSmallSpinner />}
         >
             <div className={styles.quotes} >
                 <div>"{quoteText}"</div>

@@ -20,6 +20,7 @@ import { QuizCreate } from './quiz/quizCreate';
 
 import styles from './video-chat-page.module.scss';
 import { ComponentLoadingSpinner } from '../common/page-loading-spinner/component-loading-spinner';
+import { ComponentSmallSpinner } from 'app/page/common/page-loading-spinner/component-small-spinner';
 
 const { Content, Sider } = Layout;
 
@@ -327,7 +328,7 @@ class HomePageComponent extends React.Component<Props, State> {
                             </AsyncContent>
                         )
                         : this.state.type === 'answer' ?
-                            <AsyncContent loading={!this.state.answers} loader={<ComponentLoadingSpinner />}>
+                            <AsyncContent loading={!this.state.answers} loader={<ComponentSmallSpinner />}>
                                 {/* <QuizResult answers={this.state.answers}
                                     correct={this.state.correct}
                                     question={this.state.question}
