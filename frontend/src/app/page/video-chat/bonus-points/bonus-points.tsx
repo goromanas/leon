@@ -58,7 +58,7 @@ const BonusPoints: React.FC<Props> = (props) => {
     return (
         <div className={styles.bonusPoints}>
             <Alert className={!alert ? styles.noShowSuccessMessage : styles.successMessage}
-                banner message={"Acknowledgement was sent to " + user} type="success" />
+                   banner message={"Acknowledgement was sent to " + user} type="success" />
             <p style={{ textAlign: 'center', fontSize: '12px' }}>Send
                 points for most active students!</p>
             <Formik

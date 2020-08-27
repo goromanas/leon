@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
-import { MessageOutlined, TeamOutlined, DownOutlined, LeftOutlined } from '@ant-design/icons';
+import { LeftOutlined, MessageOutlined, RadiusBottomrightOutlined, TeamOutlined } from '@ant-design/icons';
 
 import { Wand } from 'app/page/video-chat/wand';
 import { ActiveUsers } from 'app/page/video-chat/activeUsers';
 
-import { Button, notification, Menu } from 'antd';
+import { Button, notification } from 'antd';
 import styles from 'app/page/video-chat/video-chat-page.module.scss';
 import { QuizResult } from '../quiz/quizResult';
 import { BonusPoints } from 'app/page/video-chat/bonus-points/bonus-points';
@@ -42,16 +42,29 @@ const VideoButton: React.FC<Props> = (props) => {
 
     const handleBonusPoints = (): void => {
         setBonusPoints(!showBonusPoints);
+        console.log(showBonusPoints);
     };
     const [showUsers, setShowUsers] = useState(false);
+    const [notifications, setNotification] = useState(true);
     const handleActiveUsers = (): void => {
         setShowUsers(!showUsers);
     };
-    // const handleClickWhiteboard = () => {
-    //     showUsers && setShowUsers(false);
-    //     props.handleWhiteboard();
-    // };
+
+    if (props.onAcknowledgement && notifications && props.acknowledgementData.points) {
+        const placement = 'bottomRight';
+        notification.success({
+            message: `Congrats!`,
+            description: `Teacher has sent you
+                        +${props.acknowledgementData.points} for your participation!`,
+            placement,
+            style: {borderRadius: '31px'},
+            duration: 15,
+        });
+        setNotification(false);
+    }
+
     return (
+
         <div className={styles.allButtons}>
             <div key={props.activeUsers} className={styles.videobtn} onClick={() => handleActiveUsers()}>
                 <Button
@@ -63,67 +76,23 @@ const VideoButton: React.FC<Props> = (props) => {
                         boxShadow: showUsers ? '6px 6px 17px -3px rgba(0,0,0,0.26)' : '',
                         backgroundColor: showUsers ? '#5A8AEA' : '#5B97FC',
                     }}>
-                    <TeamOutlined style={{ transform: 'scale(1.5)' }} />
+                    <TeamOutlined style={{transform: 'scale(1.5)'}}/>
                 </Button>
                 <h1> Participants <span>({props.activeUsers}/{props.allUsers})</span></h1>
             </div>
-            <ActiveUsers activeUsers={props.users} isOpen={showUsers} />
-        const handleBonusPoints = (): void => {
-            setBonusPoints(!showBonusPoints);
-            console.log(showBonusPoints);
-        };
-        const [showUsers, setShowUsers] = useState(false);
-        const [notifications, setNotification] = useState(true);
-        const handleActiveUsers = (): void => {
-            setShowUsers(!showUsers);
-        };
-        // const handleClickWhiteboard = () => {
-        //     showUsers && setShowUsers(false);
-        //     props.handleWhiteboard();
-        // };
+            <ActiveUsers activeUsers={props.users} isOpen={showUsers}/>
+            {props.onAcknowledgement ?
+                <RadiusBottomrightOutlined/>
 
-        if (props.onAcknowledgement && notifications && props.acknowledgementData.points) {
-            const placement = 'bottomRight';
-            notification.success({
-                message: `Congrats!`,
-                description: `Teacher has sent you
-                        +${props.acknowledgementData.points} for your participation!`,
-                placement,
-                style: {borderRadius: '31px'},
-                duration: 15,
-            });
-            setNotification(false);
-        }
+                : null}
+            {
+                (props.role[0] === 'STUDENT') ? null :
 
-        return (
-            <div className={styles.allButtons}>
-                <div key={props.activeUsers} className={styles.videobtn} onClick={() => handleActiveUsers()}>
-                    <Button
-                        type="primary"
-                        style={{
-                            borderRadius: '100%',
-                            height: '50px',
-                            fontSize: '20px',
-                            boxShadow: showUsers ? '6px 6px 17px -3px rgba(0,0,0,0.26)' : '',
-                            backgroundColor: showUsers ? '#5A8AEA' : '#5B97FC',
-                        }}>
-                        <TeamOutlined style={{transform: 'scale(1.5)'}}/>
-                    </Button>
-                    <h1> Participants <span>({props.activeUsers}/{props.allUsers})</span></h1>
-                </div>
-                <ActiveUsers activeUsers={props.users} isOpen={showUsers}/>
-                {props.onAcknowledgement ?
-                    <RadiusBottomrightOutlined />
-
-                    : null}
-                {
-                    (props.role[0] === 'STUDENT') ? null :
-
-                        (
+                    (
 
                         <div>
                             <div
-                                style={{ cursor: 'pointer' }}
+                                style={{cursor: 'pointer'}}
                                 onClick={() => handleBonusPoints()}>
                                 <Button
                                     type="primary"
@@ -134,28 +103,11 @@ const VideoButton: React.FC<Props> = (props) => {
                                         boxShadow: showUsers ? '6px 6px 17px -3px rgba(0,0,0,0.26)' : '',
                                         backgroundColor: showUsers ? '#5A8AEA' : '#5B97FC',
                                     }}>
-                                    <TeamOutlined style={{ transform: 'scale(1.5)' }} />
+                                    <TeamOutlined style={{transform: 'scale(1.5)'}}/>
                                 </Button>
                                 Send Bonus Points
-                            </div>
-                            <div>
-                                <div
-                                    style={{cursor: 'pointer'}}
-                                    onClick={() => handleBonusPoints()}>
-                                    <Button
-                                        type="primary"
-                                        style={{
-                                            borderRadius: '100%',
-                                            height: '50px',
-                                            fontSize: '20px',
-                                            boxShadow: showUsers ? '6px 6px 17px -3px rgba(0,0,0,0.26)' : '',
-                                            backgroundColor: showUsers ? '#5A8AEA' : '#5B97FC',
-                                        }}>
-                                        <TeamOutlined style={{transform: 'scale(1.5)'}}/>
-                                    </Button>
-                                    Send Bonus Points
 
-                                </div>
+                            </div>
 
                             {showBonusPoints ? null : (
                                 <BonusPoints
@@ -165,31 +117,17 @@ const VideoButton: React.FC<Props> = (props) => {
                                     show={showBonusPoints}
                                 />
                             )}
-                            <div className={styles.videobtn}>
+                            <div onClick={props.openQuiz} className={styles.videobtn}>
                                 <Button
                                     type="primary"
-                                    onClick={props.openQuiz}
                                     style={{
                                         borderRadius: '100%',
                                         height: '50px',
                                         fontSize: '20px',
-                                        boxShadow: props.replyVisible ? '6px 6px 17px -3px rgba(0,0,0,0.26)' : '',
-                                        backgroundColor: showUsers ? '#5A8AEA' : '#5B97FC',
-                                    }
-                                    }
+                                    }}
                                 >
-                                    <MessageOutlined style={{ transform: 'scale(1.5)' }} />
+                                    <MessageOutlined style={{transform: 'scale(1.5)'}}/>
                                 </Button>Create a Question
-
-                                {props.testSubmitted === true ? (
-                                    <Button
-                                        shape="circle"
-                                        icon={<DownOutlined />}
-                                        className={props.replyVisible === true ? styles.openbutton : styles.closebutton}
-                                        onClick={props.showResults}
-                                    />
-                                ) : ''}
-
                             </div>
                             <QuizResult
                                 answers={props.answers}
@@ -215,10 +153,8 @@ const VideoButton: React.FC<Props> = (props) => {
                                 Whiteboard
                                 {props.whiteboardVisible === true ? (<Button
                                     shape="circle"
-                                    icon={<LeftOutlined />}
-                                    onClick={props.handleWhiteboard}
-                                />) : ''}
-
+                                    icon={<LeftOutlined/>}
+                                    onClick={props.handleWhiteboard}/>) : ''}
                             </div>
                         </div>
                     )
@@ -228,3 +164,6 @@ const VideoButton: React.FC<Props> = (props) => {
 };
 
 export { VideoButton };
+
+
+

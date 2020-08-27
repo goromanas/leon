@@ -1,6 +1,6 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
-import { Layout, Modal, notification, Space, Button } from 'antd';
+import { Layout, Modal, notification } from 'antd';
 import Jitsi from 'react-jitsi';
 // @ts-ignore
 import ReconnectingWebSocket from 'reconnecting-websocket';
@@ -75,6 +75,7 @@ interface State {
     showAcknowledgementModal: boolean,
     acknowledgement: any;
     timer: number;
+    testSubmitted: boolean;
 }
 
 type Props = OwnProps & ContextProps;
@@ -304,11 +305,11 @@ class HomePageComponent extends React.Component<Props, State> {
                     onCancel={this.handleCancel}
                     footer={false}
                     width="600px"
-                    style={{ borderRadius: '20px' }}
+                    style={{borderRadius: '20px'}}
                 >
                     {this.state.type === 'question' ?
                         (
-                            <AsyncContent loading={!this.state.quizMessageForStudent} loader={<PageLoadingSpinner />}>
+                            <AsyncContent loading={!this.state.quizMessageForStudent} loader={<PageLoadingSpinner/>}>
                                 <AnswerQuiz
                                     message={this.state.quizMessageForStudent}
                                     changeValue={this.changeValue}
@@ -319,7 +320,7 @@ class HomePageComponent extends React.Component<Props, State> {
                             </AsyncContent>
                         )
                         : this.state.type === 'answer' ?
-                            <AsyncContent loading={!this.state.answers} loader={<PageLoadingSpinner />}>
+                            <AsyncContent loading={!this.state.answers} loader={<PageLoadingSpinner/>}>
                                 {/* <QuizResult answers={this.state.answers}
                                     correct={this.state.correct}
                                     question={this.state.question}
