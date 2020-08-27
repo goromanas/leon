@@ -1,10 +1,13 @@
 package com.tietoevry.moon.lesson;
 
 
+import com.tietoevry.moon.authorization.SecurityContextService;
+import com.tietoevry.moon.authorization.model.MoonUserDetails;
 import com.tietoevry.moon.lesson.model.Lesson;
 import com.tietoevry.moon.lesson.model.LessonDto.LessonDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,28 +17,25 @@ public class LessonController {
 
     @Autowired
     LessonService lessonService;
+    @Autowired
+    SecurityContextService securityContextService;
 
     @RequestMapping(path = "/allLessons", method = RequestMethod.GET)
     public List<Lesson> getAllLessons() {
         return lessonService.getAllLessons();
     }
 
-    @PreAuthorize("hasRole('ROLE_TEACHER')")
-    @RequestMapping(path = "/teacherLessons", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ROLE_TEACHER') or hasRole('ROLE_STUDENT')")
+    @RequestMapping(path = "/roleLessons", method = RequestMethod.GET)
     public List<LessonDto> getTeacherLessons() {
-        return lessonService.getTeacherLessons();
+        MoonUserDetails userDetails = securityContextService.getCurrentUser();
+        if((userDetails.getRoles().get(0).equals("TEACHER"))) {
+            return lessonService.getTeacherLessons();
+        }else if((userDetails.getRoles().get(0).equals("STUDENT"))){
+            return lessonService.getStudentLessons();
+        }
+        return null;
     }
 
-//    @PreAuthorize("hasRole('ROLE_TEACHER')")
-//    @RequestMapping(path = "/lessonState/", method = RequestMethod.POST)
-//    public void startLesson(@RequestBody LessonDto lessonDto) {
-//        lessonService.changeLessonState(lessonDto);
-//    }
-
-    @PreAuthorize("hasRole('ROLE_STUDENT')")
-    @RequestMapping(path = "/studentLessons", method = RequestMethod.GET)
-    public List<LessonDto> getStudentLessons() {
-        return lessonService.getStudentLessons();
-    }
 
 }

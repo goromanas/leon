@@ -1,6 +1,14 @@
 import * as React from 'react';
 
-import { Actions, INITIAL_SESSION, INITIAL_CURRENT_LESSON, INITIAL_SCHEDULE, Session, settingsContext, Message } from 'app/context';
+import {
+    Actions,
+    INITIAL_SESSION,
+    INITIAL_CURRENT_LESSON,
+    INITIAL_SCHEDULE,
+    Session,
+    settingsContext,
+    Message
+} from 'app/context';
 import ReconnectingWebSocket from 'reconnecting-websocket';
 
 interface State {
@@ -64,22 +72,22 @@ class AppStore extends React.Component<{}, State> {
     }
 
     private readonly updateSession = (session: Session): void => {
-        this.setState({ session });
+        this.setState({session});
     };
 
     private readonly updateLessons = (lessons: Api.LessonDto[]): void => {
-        this.setState({ lessons });
+        this.setState({lessons});
     };
 
     private readonly updateCurrentLesson = (currentLesson: number): void => {
-        this.setState({ currentLesson });
+        this.setState({currentLesson});
     };
 
     private readonly updateSchedule = (schedule: Api.ScheduleDto[]): void => {
-        this.setState({ schedule });
+        this.setState({schedule});
     };
     private readonly updateWebsocket = (wsChat: ReconnectingWebSocket): void => {
-        this.setState({ wsChat });
+        this.setState({wsChat});
     };
 
     private readonly updateChannelArray = (nr?: number, classname?: string): void => {
@@ -91,7 +99,7 @@ class AppStore extends React.Component<{}, State> {
     };
 
     private readonly updateNewMessages = (newMessages: Message): void => {
-        this.setState({ newMessages: [...this.state.newMessages, newMessages] });
+        this.setState({newMessages: [...this.state.newMessages, newMessages]});
     };
     private readonly removeChannelArray = (id: number, classname?: string): void => {
         const newArr = this.state.channelsWithNewMessages.filter(item => item !== id);
@@ -109,7 +117,7 @@ class AppStore extends React.Component<{}, State> {
             cleanArr.pop();
         }
         // console.log(cleanArr);
-        this.setState({ newMessages: cleanArr });
+        this.setState({newMessages: cleanArr});
         console.log(this.state.newMessages);
     };
 }
