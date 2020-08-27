@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Layout, message } from 'antd';
 import { FormikHelpers } from 'formik';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import ReconnectingWebSocket from 'reconnecting-websocket';
 
 import { PageContent } from 'app/components/layout';
 import { connectContext, SettingsProps } from 'app/context';
@@ -14,18 +15,18 @@ import { ChatList } from './chat-list/chat-list';
 import { Channels } from './channels';
 
 import styles from './chat-page.module.scss';
-import ReconnectingWebSocket from 'reconnecting-websocket';
 
 const { Content, Sider } = Layout;
 
 interface ContextProps {
     username: string | null;
+    lastname: string | null;
     teacherLessons: Api.LessonDto[];
     userRoles: string[] | null;
     wsChat: any;
     channelsWithNewMessages: number[];
     newMessages: Message[];
-    updateNewMessages: (newMessage: Message[]) => void;
+    updateNewMessages: (newMessage: Message) => void;
     filterNewMessages: (channelId: number) => void;
 }
 
@@ -118,7 +119,6 @@ if(newMessages.length !== 0 ){
                 })
                 .catch(() => console.log('Error getting subjects'));
 
-
         }
 
         if (this.state.channels.length < 1 && userRoles.includes('TEACHER')) {
@@ -146,9 +146,11 @@ if(newMessages.length !== 0 ){
 
 
     public render(): React.ReactNode {
-        const { messages, channels, classRooms, currentChannel } = this.state;
+        const { messages, channels, classRooms } = this.state;
         const { teacherLessons, channelsWithNewMessages, newMessages } = this.props;
-console.log(currentChannel)
+
+        const teachersList = teacherLessons && teacherLessons.map(lesson => lesson.teacher);
+
         return (
 
             <AsyncContent
@@ -173,6 +175,8 @@ console.log(currentChannel)
                                 messages={messages}
                                 currentChannel={this.state.currentChannel}
                                 currentClassroom={this.state.currentClassroom}
+                                teachersList={teachersList}
+                                username={this.props.username + ' ' + this.props.lastname}
                             />
                             <ChatForm
                                 initialValues={ChatComponent.MESSAGE_INITIAL_VALUES}
@@ -203,10 +207,11 @@ console.log(currentChannel)
         const minutes = time.getMinutes().toString();
 
         if (values.message.trim() !== '') {
+
             this.setState({
                 messages: [...messages, {
                     content: values.message,
-                    username: this.props.username,
+                    username: this.props.username + ' ' + this.props.lastname,
                     date: hours + ':' + minutes,
                     channel: currentChannel,
                     classname: currentClassroom,
@@ -216,7 +221,7 @@ console.log(currentChannel)
             });
             this.sendMessage({
                 content: values.message,
-                username: this.props.username,
+                username: this.props.username + ' ' + this.props.lastname,
                 date: hours + ':' + minutes,
                 classname: currentClassroom,
                 channel: currentChannel,
@@ -229,7 +234,7 @@ console.log(currentChannel)
     };
 
     private readonly onChannelChange = (id: number): void => {
-        console.log(this.state.currentChannel, new Date())
+        console.log(this.state.currentChannel, new Date());
         this.setState({
             currentChannel: id,
         });
@@ -244,6 +249,7 @@ console.log(currentChannel)
 
 const mapContextToProps = ({ session: { user }, wsChat, lessons, channelsWithNewMessages, newMessages, actions: {updateNewMessages, filterNewMessages}}: SettingsProps): ContextProps => ({
     username: user != null ? user.firstName : null,
+    lastname: user != null ? user.lastName : null,
     userRoles: user.roles,
     teacherLessons: lessons,
     wsChat: wsChat,

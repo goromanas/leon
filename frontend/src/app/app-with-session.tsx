@@ -117,7 +117,7 @@ class AppWithSessionComponent extends React.Component<Props, State> {
                 updateCurrentLesson(this.getCurrentLessonID(0));
             } else {
                 updateCurrentLesson(this.getCurrentLessonID(currentLesson));
-                // updateCurrentLesson(this.getCurrentLessonID(4));
+               // updateCurrentLesson(this.getCurrentLessonID(4));
             }
         };
         ws.onclose = () => {

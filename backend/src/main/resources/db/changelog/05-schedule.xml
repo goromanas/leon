@@ -20,7 +20,6 @@
       INSERT INTO `user` VALUES (17, 'Sala', 'Baker','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'salbak','');
       INSERT INTO `user` VALUES (18, 'Rosamund', 'Pike','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'rospik','');
       INSERT INTO `user` VALUES (19, 'Ann', 'Jursa','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'annjur','');
-      INSERT INTO `user` VALUES (20, 'Erika', 'Mackovskyte','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'erimac','');
       INSERT INTO `user` VALUES (21, 'James', 'Rhodes','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'jamrho','');
 
       INSERT INTO `user` VALUES (22, 'Helena', 'Carter','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'helcar','');
@@ -62,7 +61,6 @@
       INSERT INTO `user_role` VALUES (17, 2);
       INSERT INTO `user_role` VALUES (18, 2);
       INSERT INTO `user_role` VALUES (19, 2);
-      INSERT INTO `user_role` VALUES (20, 2);
       INSERT INTO `user_role` VALUES (21, 2);
       INSERT INTO `user_role` VALUES (22, 2);
       INSERT INTO `user_role` VALUES (23, 2);
@@ -115,14 +113,16 @@
       INSERT INTO `lesson` VALUES(34,1,4,23,'Lithuanian 6A',3,5,0);
       INSERT INTO `lesson` VALUES(35,2,4,28,'Mathematics 6A',3,6,0);
       INSERT INTO `lesson` VALUES(36,14,4,15,'Biology 6A',3,7,0);
+      INSERT INTO `lesson` VALUES(52,8,4,25,'History 6A',3,8,0);
 
       INSERT INTO `lesson` VALUES(37,1,4,23,'Lithuanian 6A',4,1,0);
-      INSERT INTO `lesson` VALUES(38,7,4,7,'Physical Education 6A',4,2,0);
+      INSERT INTO `lesson` VALUES(38,7,4,24,'Physical Education 6A',4,2,0);
       INSERT INTO `lesson` VALUES(39,12,4,12,'Foreign Languages 6A',4,3,0);
       INSERT INTO `lesson` VALUES(40,15,4,16,'Chemistry 6A',4,4,0);
       INSERT INTO `lesson` VALUES(41,9,4,26,'Arts 6A',4,5,0);
       INSERT INTO `lesson` VALUES(42,1,4,23,'Lithuanian',4,6,0);
       INSERT INTO `lesson` VALUES(43,14,4,15,'Biology 6A',4,7,0);
+      INSERT INTO `lesson` VALUES(53,2,4,28,'Mathematics 6A',4,8,0);
 
       INSERT INTO `lesson` VALUES(44,14,4,15,'Biology 6A',5,1,0);
       INSERT INTO `lesson` VALUES(45,3,4,11,'Geography 6A',5,2,0);

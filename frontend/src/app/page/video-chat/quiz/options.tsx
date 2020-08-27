@@ -36,28 +36,49 @@ const OptionList: React.FC<Props> = (props) => {
 
     };
     const [value, setValue] = React.useState(0);
-    const [valueTimer, setValueTimer] = React.useState("15");
+    const [valueTimer, setValueTimer] = React.useState('15');
 
-    const [questionCount, setquestionCount] = useState(0);
+    const [questionCount, setQuestionCount] = useState(0);
 
-    return ( <div>
+    return (<div>
         <Formik
             initialValues={{ question: '', options: [], timer: '15' }}
-            onSubmit={(values, { setSubmitting }) => {
+            onSubmit={(values, { setSubmitting, resetForm }) => {
                 setTimeout(() => {
-                    values.timer=valueTimer;
+                    values.timer = valueTimer;
                     props.updateQuiz(values, value);
                     //   alert(JSON.stringify(values, null, 2));
                 }, 400);
+
+                setTimeout(async () => {
+                    resetForm();
+                    setValueTimer('15');
+                    setQuestionCount(0);
+                    //   alert(JSON.stringify(values, null, 2));
+                }, 1000);
             }}
             render={({ values, validateField, errors }) => (
                 <Form className={styles.quizForm}>
-                    <Field name="question"
-                           as="textarea"
-                           validate={validateQuestion}
-                           className={styles.questionField}
-                           placeholder="Write your Question"
-                           autoComplete="off"
+                    {errors.question ? <div>{errors.question}</div> : null}
+                    {questionCount < 2 ?
+                        <Alert message="Please provide at least 2 options" type="warning" closable={true} />
+
+                        : null}
+                    {value === 0 ?
+                        <Alert message="Please select the corrent answer" type="warning" closable={true} />
+
+                        : null}
+                    {checkForDuplicates(values.options) ?
+                        <Alert message="All answers must be different" type="warning" closable={true} />
+
+                        : null}
+                    <Field
+                        name="question"
+                        as="textarea"
+                        validate={validateQuestion}
+                        className={styles.questionField}
+                        placeholder="Write your Question"
+                        autoComplete="off"
                     />
                     <FieldArray
                         name="options"
@@ -76,17 +97,18 @@ const OptionList: React.FC<Props> = (props) => {
                                                             name={`options.${index}`}
                                                             className={styles.answerField}
                                                             placeholder="Option"
+                                                            fullWidth={true}
                                                         />
                                                         <Button
-                                                            onClick={() => (arrayHelpers.remove(index), setquestionCount(questionCount - 1))}
+                                                            onClick={() => (arrayHelpers.remove(index), setQuestionCount(questionCount - 1))}
                                                             className={styles.changeOption}
                                                             shape="circle"
                                                         >
                                                             -
                                                         </Button>
                                                         <Button
-                                                            disabled={questionCount==5?true:false}
-                                                            onClick={() => (arrayHelpers.insert(index + 1, ''), setquestionCount(questionCount + 1))}
+                                                            disabled={questionCount == 5 ? true : false}
+                                                            onClick={() => (arrayHelpers.insert(index + 1, ''), setQuestionCount(questionCount + 1))}
                                                             className={styles.changeOption}
                                                             shape="circle"
                                                         >
@@ -97,48 +119,30 @@ const OptionList: React.FC<Props> = (props) => {
 
                                             ))}
                                     </Radio.Group>) : (
-                                    <button type="button"
-                                            onClick={() => (arrayHelpers.push(''), setquestionCount(questionCount + 1))}
+                                        <button type="button"
+                                            onClick={() => (arrayHelpers.push(''), setQuestionCount(questionCount + 1))}
                                             className={styles.optionButton}
-                                    >
-                                        Add an option
-                                    </button>
-                                )}
-
-                                {errors.question ? <div>{errors.question}</div> : null}
-                                {questionCount < 2 ?
-                                <Alert message="Please provide at least 2 options" type="warning" closable={true} />
-
-                               : null}
-                                {value === 0 ?
-                                <Alert message="Please select the corrent answer" type="warning" closable={true} />
-
-                                 : null}
-                                {checkForDuplicates(values.options) ?
-                                <Alert message="All answers must be different" type="warning" closable={true} />
-
-                                 : null}
+                                        >
+                                            Add an option
+                                        </button>
+                                    )}
 
                                 <div className={styles.submitContainer}>
-                                <div>
-                                    {/* <Field name="timer" as="select" placeholder="Select a time">
-                                        <option value="15">15s</option>
-                                        <option value="30">30s</option>
-                                        <option value="45">45s</option>
-                                        <option value="60">1min</option>
-                                    </Field> */}
-                                    <label className={styles.timerLabel}>Select the duration to answer</label>
-                                    <Radio.Group name="timer" onChange={onChangeTimer} value={valueTimer} >
-                                        <Radio.Button value="15">15s</Radio.Button>
-                                        <Radio.Button value="30">30s</Radio.Button>
-                                        <Radio.Button value="40">45s</Radio.Button>
-                                        <Radio.Button value="60">1min</Radio.Button>
-                                    </Radio.Group>
-                                </div>
-                                    <button type="submit"
-                                            className={styles.submitButton}
-                                            disabled={(errors.question || questionCount < 2 || checkForDuplicates(values.options))? true : false}
-                                            onClick={() => validateField('question')}
+                                    <div>
+                                        <label className={styles.timerLabel}>Select the duration to answer</label>
+                                        <Radio.Group name="timer" onChange={onChangeTimer} value={valueTimer} >
+                                            <Radio.Button value="15">15s</Radio.Button>
+                                            <Radio.Button value="30">30s</Radio.Button>
+                                            <Radio.Button value="40">45s</Radio.Button>
+                                            <Radio.Button value="60">1min</Radio.Button>
+                                        </Radio.Group>
+                                    </div>
+                                    <button
+                                        type="submit"
+                                        className={styles.submitButton}
+                                        disabled={(errors.question || questionCount < 2 || checkForDuplicates(values.options) || value === 0) ? true : false}
+                                        // disabled={true}
+                                        onClick={() => validateField('question')}
                                     >Send your question
                                     </button>
                                 </div>

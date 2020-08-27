@@ -1,5 +1,7 @@
 import React from 'react';
-import { Avatar, Button, Layout, Menu, Badge } from 'antd';
+
+import { Avatar as A, Button, Layout, Menu, Badge } from 'antd';
+
 import { VideoCameraOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
@@ -7,6 +9,7 @@ import { navigationService } from 'app/service/navigation-service';
 import { connectContext, SettingsProps } from 'app/context';
 import { Clock } from 'app/components/clock/clock';
 import { Logo } from 'app/components/logo/logo';
+import { Avatar } from 'app/components/avatar/avatar';
 
 import styles from './topnavbar.module.scss';
 
@@ -32,7 +35,7 @@ class TopNavBarComponent extends React.Component<Props> {
         // console.log(channelsWithNewMessages)
         return (
             <Header className={styles.header} >
-                <Menu mode="horizontal" className={styles.menu} defaultSelectedKeys={['1']}>
+                <Menu mode="horizontal" className={styles.menu} defaultSelectedKeys={['3']}>
                     <Menu.Item key="1">
                         <Link to={navigationService.redirectToDefaultPage} key="2">
                             <Logo fontSize={'1.5rem'} />
@@ -71,10 +74,9 @@ class TopNavBarComponent extends React.Component<Props> {
                         />
                         <div className={currentLesson === 0 ? styles.cameraStatusDisabled : styles.cameraStatus} />
                     </Link>
-                    <div className={styles.itemWrapper}>
+                    <div className={styles.itemWrapperButton}>
                         <Link to={navigationService.redirectToVideoChat(currentLesson)} key="13">
-                            <Button disabled={currentLesson === 0 ? true : false} shape="round" type="primary" key="14" className={styles.joinButton}>
-                                Join a Class
+                            <Button disabled={currentLesson === 0 ? true : false} shape="round" type="primary" key="14" className={styles.joinButton}>                                Join a Class
                             </Button>
                         </Link>
                     </div>
@@ -87,12 +89,13 @@ class TopNavBarComponent extends React.Component<Props> {
                     </div>
 
                     <div className={styles.itemWrapper}>
-                        <Avatar className={styles.avatar} size="large" icon={<UserOutlined className={styles.userIcon} style={{ fontSize: '25px' }} />} style={{ color: 'grey' }} />
+                        {/* <Avatar className={styles.avatar} size="large" icon={<UserOutlined className={styles.userIcon} style={{ fontSize: '25px' }} />} style={{ color: 'grey' }} /> */}
+
+                        <Avatar firstName={firstName} />
                     </div>
                     <div className={styles.itemWrapper}>
                         <LogoutOutlined data-tip="Log Out" onClick={this.handleClickLogout} style={{ fontSize: '1rem' }} />
                     </div>
-
 
                 </div>
             </Header>

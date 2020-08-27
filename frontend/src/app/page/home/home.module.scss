@@ -10,6 +10,11 @@
   background: #fff;
 }
 
+.holidayCounterwrapper {
+  min-height: 520px;
+  max-height: 520px;
+}
+
 .homePage {
   padding: 0 50px;
   height: 100%;
@@ -31,7 +36,8 @@
   }
 
   .todoList {
-    margin-left: 2rem;
+    padding-left: 2rem;
+    padding-right: 1rem;
   }
 
   .home {
@@ -92,7 +98,7 @@
   height: 100px;
   width: 100%;
   position: absolute;
-  bottom: -1%;
+  top: 77%;
   margin: auto;
   z-index: 15;
   box-shadow: $containerShadow;
@@ -104,6 +110,6 @@
   height: 100px;
   width: 100%;
   position: absolute;
-  bottom: -3%;
+  top: 79%;
   box-shadow: $containerShadow;
 }

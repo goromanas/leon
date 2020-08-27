@@ -1,12 +1,11 @@
 package com.tietoevry.moon.video.handler;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.tietoevry.moon.classroom.ClassroomService;
 import com.tietoevry.moon.classroom.model.Classroom;
-import com.tietoevry.moon.lesson.LessonRepository;
 import com.tietoevry.moon.user.UserMapper;
 import com.tietoevry.moon.user.UserService;
-import com.tietoevry.moon.user.model.User;
 import com.tietoevry.moon.user.model.dto.ActiveUserDto;
 import com.tietoevry.moon.user.model.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,16 +31,17 @@ public class VideoWebSocketHandler extends TextWebSocketHandler {
 
     public void handleTextMessage(WebSocketSession session, TextMessage message)
         throws InterruptedException, IOException {
-        System.out.println(message.getPayload().toString());
         Map messageContent = new Gson().fromJson(message.getPayload(), Map.class);
+        System.out.println("message received");
         String type = String.valueOf(messageContent.get("type"));
-        System.out.println(type);
         if (type.equals("question")) {
             handleQuestion(message, session);
         } else if (type.equals("activeUsers")) {
             activeUsers(message, session);
-        } else {
+        } else if (type.equals("answer")) {
             handleAnswer(message, session);
+        } else if (type.equals("points")) {
+            handlePoints(message, session);
         }
 
     }
@@ -51,7 +51,6 @@ public class VideoWebSocketHandler extends TextWebSocketHandler {
         String name = String.valueOf(messageContent.get("teacherUsername"));
         UserDto teacher = userService.findByUsername(name);
         for (WebSocketSession webSocketSession : webSocketSessions) {
-            System.out.println(webSocketSession.getPrincipal().getName());
             if (webSocketSession.getPrincipal().getName().equals(name)) {//  if (webSocketSession != session) {
                 // System.out.println(teacher.getUsername());
                 webSocketSession.sendMessage(message);
@@ -74,7 +73,6 @@ public class VideoWebSocketHandler extends TextWebSocketHandler {
                 .anyMatch(student -> student
                     .getUsername()
                     .contains(webSocketSession.getPrincipal().getName()))) {
-                System.out.println(webSocketSession.getPrincipal().getName());
                 webSocketSession.sendMessage(message);
                 //}
             }
@@ -103,11 +101,8 @@ public class VideoWebSocketHandler extends TextWebSocketHandler {
         List<UserDto> checkUsers = classroom.getUser().stream().map(UserMapper::mapUserDto).collect(Collectors.toList());
         if (include.equals("true")) {
             checkUsers = checkUsers.stream().filter(cu -> cu.getUsername() != session.getPrincipal().getName()).collect(Collectors.toList());
-            System.out.println("Yesss");
         }
-            checkUsers.add(userService.findByUsername(teacherUsername));
-
-        System.out.println(teacherUsername);
+        checkUsers.add(userService.findByUsername(teacherUsername));
         for (WebSocketSession webSocketSession : webSocketSessions) {
             if (checkUsers
                 .stream()
@@ -115,10 +110,32 @@ public class VideoWebSocketHandler extends TextWebSocketHandler {
                     .getUsername()
                     .contains(webSocketSession.getPrincipal().getName()))) {
                 session.sendMessage(new TextMessage(new Gson().toJson(studentsOfAClass).toString()));
-                System.out.println(webSocketSession.getPrincipal().getName());
             }
 
         }
+    }
+
+
+    private void handlePoints(TextMessage message, WebSocketSession session) throws IOException {
+
+        Map messageContent = new Gson().fromJson(message.getPayload(), Map.class);
+        double points = (double) messageContent.get("points");
+        String user = String.valueOf(messageContent.get("user"));
+
+        String type = String.valueOf(messageContent.get("type"));
+
+        JsonObject json = new JsonObject();
+        json.addProperty("type", type);
+        json.addProperty("points", points);
+        userService.updateUserPoints(user, points);
+        for (WebSocketSession webSocketSession : webSocketSessions) {
+            if (user.equals(webSocketSession.getPrincipal().getName())) {
+
+                webSocketSession.sendMessage(new TextMessage(new Gson().toJson(json)));
+            }
+        }
+
+
     }
 
 

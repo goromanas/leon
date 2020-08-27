@@ -30,15 +30,18 @@ public class SessionService {
         }
 
         return new Session(
-            new SessionUser(userDetails.getUsername(),userDetails.getRoles(),userService.getUsersByUsername(userDetails.getUsername())));
+            new SessionUser(userDetails.getUsername(),userDetails.getRoles(),
+                userService.getUsersByUsername(userDetails.getUsername()).getFirstName(),
+                userService.getUsersByUsername(userDetails.getUsername()).getLastName()));
     }
 
     public Session createSession(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, String username, String password, Boolean rememberMe) {
         MoonUserDetails userDetails = securityContextService.createSession(httpServletRequest,httpServletResponse, username, password,rememberMe);
 
         return new Session(
-            new SessionUser(userDetails.getUsername(),userDetails.getRoles(),userService.getUsersByUsername(userDetails.getUsername()
-        )));
+            new SessionUser(userDetails.getUsername(),userDetails.getRoles(),
+                userService.getUsersByUsername(userDetails.getUsername()).getFirstName(),
+                userService.getUsersByUsername(userDetails.getUsername()).getLastName()));
     }
 
     public void deleteSession(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse) {

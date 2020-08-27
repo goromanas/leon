@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { variantsUsersList, variantsUser } from 'app/page/timetable/animation';
 
 import styles from './video-chat-page.module.scss';
+import sortBy from 'lodash/sortBy';
 
 interface Props {
     activeUsers: any;
@@ -18,7 +19,8 @@ const ActiveUsers: React.FC<Props> = (props) => (
         className={styles.usersList}
     >
         {
-            props.activeUsers.map((item: any, index: any) =>
+
+            sortBy(props.activeUsers,'firstName').map((item: any, index: any) =>
                 (
                     <motion.div
                         key={index}
@@ -26,8 +28,9 @@ const ActiveUsers: React.FC<Props> = (props) => (
                         variants={variantsUser}
                     >
                         <img
-                            alt="avatar"
-                            src={`/icons/avatars/test.svg`}
+                            alt=""
+                            src={`/icons/avatars/${item.firstName}.svg`}
+                            onError={(e) => { e.currentTarget.src = `/icons/avatars/default.svg`; }}
                             style={{
                                 filter: item.active ? 'none' : 'grayscale(1)',
                                 opacity: item.active ? 1 : '0.5',

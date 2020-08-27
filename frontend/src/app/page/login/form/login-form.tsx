@@ -25,34 +25,34 @@ const LoginForm: React.FC<Props> = (props: Props) => {
 
     return (
         <div className={styles.loginFormwrapper}>
-    <Formik initialValues={initialValues} onSubmit={onSubmit} validate={validate}>
-      {() => (
-        <Form>
-          <label>Username</label>
-          <Field
-            component={InputField}
-            name="username"
-            placeholder="Name123"
-          />
-          <label>Password</label>
-          <Field
-            component={PasswordInputField}
-            name="password"
-            placeholder="*********"
-          />
-          <div className={styles.loginFormrememberme}>
-            <Field type="checkbox" name="checkbox" />
-            <label className={styles.loginFormlabel}>Remember me</label>
-          </div>
-          <FormButton
-            component={SubmitButton}
-          >
-              Sign In
+            <Formik initialValues={initialValues} onSubmit={onSubmit} validate={validate}>
+                {() => (
+                    <Form>
+                        <label>Username</label>
+                        <Field
+                            component={InputField}
+                            name="username"
+                            placeholder="Username"
+                        />
+                        <label>Password</label>
+                        <Field
+                            component={PasswordInputField}
+                            name="password"
+                            placeholder="*********"
+                        />
+                        <div className={styles.loginFormrememberme}>
+                            <Field type="checkbox" name="checkbox" />
+                            <label className={styles.loginFormlabel}>Remember me</label>
+                        </div>
+                        <FormButton
+                            component={SubmitButton}
+                        >
+                            Sign In
           </FormButton>
-        </Form>
-      )}
-    </Formik>
-    </div>
+                    </Form>
+                )}
+            </Formik>
+        </div>
     );
 };
 

@@ -59,8 +59,10 @@ class ScheduleCalc {
 
     public getDayStart = (schedule: Api.ScheduleDto[]) => {
         if (schedule.length !== 0) {
+            // console.log(schedule);
             return this.convertTimeToMinutes(schedule[0].startTime);
         }
+
         return 0;
     };
 
@@ -96,12 +98,12 @@ class ScheduleCalc {
         if (filtered.length > 0 && lastLesson.time !== undefined) {
             return lastLesson.time;
         }
-        return 0;
+        return 1;
     };
 
     public ifDayEnded = (lessons: Api.LessonDto[], schedule: Api.ScheduleDto[], day: number): any => {
         if (schedule.length !== 0 &&
-            this.convertTimeToMinutes(schedule[this.thisDayLength(lessons, day)].endTime)
+            this.convertTimeToMinutes(schedule[this.thisDayLength(lessons, day) - 1].endTime)
             <= this.convertTimeToMinutes(moment().format('HH:mm:ss'))) {
             return true;
         }

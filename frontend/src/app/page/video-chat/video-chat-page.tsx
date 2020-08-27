@@ -8,16 +8,15 @@ import ReconnectingWebSocket from 'reconnecting-websocket';
 import { connectContext, SettingsProps } from 'app/context';
 import { AsyncContent, PageContent } from 'app/components/layout';
 import { navigationService } from 'app/service/navigation-service';
-import { AnswerQuiz } from 'app/page/video-chat/answerQuiz';
 import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-loading-spinner';
-import { QuizResult } from 'app/page/video-chat/quizResult';
 import { VideoButton } from 'app/page/video-chat/video-buttons/video-button';
 import { Whiteboard } from 'app/components/whiteboard/whiteboard';
-import { QuizCreate } from 'app/page/video-chat/quizCreate';
 
 // import { ActiveUsers } from 'app/page/video-chat/activeUsers';
 // @ts-ignore
 import { Top } from './top/top';
+import { AnswerQuiz } from './quiz/answerQuiz';
+import { QuizCreate } from './quiz/quizCreate';
 
 import styles from './video-chat-page.module.scss';
 
@@ -72,6 +71,8 @@ interface State {
     question: string;
     activeUsers: ActiveUsers[];
     showActiveUsers: boolean;
+    replyVisible: boolean,
+    showAcknowledgementModal: boolean,
 }
 
 type Props = OwnProps & ContextProps;
@@ -89,11 +90,22 @@ class HomePageComponent extends React.Component<Props, State> {
         participantsVisible: false,
         correct: 1,
         question: null,
+        replyVisible: false,
+        showAcknowledgementModal: false,
     };
 
     public showModal = () => {
         this.setState({
             visible: true,
+        });
+    };
+
+    public showResults = (): void => {
+        let currentStatus: boolean = this.state.replyVisible;
+
+        currentStatus = !currentStatus;
+        this.setState({
+            replyVisible: currentStatus,
         });
     };
     // public handleActiveUsers = () => {
@@ -105,9 +117,9 @@ class HomePageComponent extends React.Component<Props, State> {
     };
 
     public handleWhiteboard = (): void => {
-
         this.setState({ whiteboardVisible: !this.state.whiteboardVisible });
     };
+
     private interval: NodeJS.Timeout;
 
     public userActivityUpdate(include?: boolean) {
@@ -146,6 +158,7 @@ class HomePageComponent extends React.Component<Props, State> {
         this.setState({ correct: value });
         this.sendMessage(values);
         this.handleCancel();
+        this.showResults();
     };
 
     public readonly getSocketUrlQuiz = (): string => {
@@ -156,6 +169,11 @@ class HomePageComponent extends React.Component<Props, State> {
     };
 
     public ws = new ReconnectingWebSocket(this.getSocketUrlQuiz());
+    public readonly acknowledgement = (message: any): void => {
+        Modal.success({
+            content: "Congratulations, your Teacher gave you " + message.points + "! \n" + "Keep on learning!",
+        });
+    };
 
     public componentDidMount() {
         this.interval = setInterval(() => this.userActivityUpdate(), 5000);
@@ -181,7 +199,9 @@ class HomePageComponent extends React.Component<Props, State> {
                     answers: newAnswers,
                 });
 
-                this.showModal();
+                // this.showModal();
+            } else if (message.type === 'points') {
+                this.acknowledgement(message);
             } else {
                 this.setState({ activeUsers: message });
             }
@@ -254,7 +274,6 @@ class HomePageComponent extends React.Component<Props, State> {
         return (
 
             <Layout className={styles.layout} key={'video-chat' + id}>
-
                 <Modal
                     // title="Basic Modal"
                     visible={this.state.visible}
@@ -276,18 +295,17 @@ class HomePageComponent extends React.Component<Props, State> {
                         )
                         : this.state.type === 'answer' ?
                             <AsyncContent loading={!this.state.answers} loader={<PageLoadingSpinner />}>
-                                <QuizResult answers={this.state.answers}
+                                {/* <QuizResult answers={this.state.answers}
                                     correct={this.state.correct}
                                     question={this.state.question}
-                                />
+                                /> */}
 
                             </AsyncContent> :
                             <QuizCreate updateQuiz={this.updateQuiz}
                             />
                     }
                 </Modal>
-                <Content style={{ margin: 'auto', width: '70%' }}>
-
+                <Content style={{ margin: '0 auto', width: '70%' }}>
                     <PageContent>
 
                         <Top lessonTitle={lessonTitle}
@@ -329,10 +347,7 @@ class HomePageComponent extends React.Component<Props, State> {
                                         'tileview', 'download', 'videoquality', 'filmstrip', 'invite', 'feedback',
                                         'stats', 'shortcuts',
                                     ],
-                                } || {
-
-                                    SHOW_WATERMARK_FOR_GUESTS: false, SHOW_JITSI_WATERMARK: false,
-                                }
+                                } || { SHOW_WATERMARK_FOR_GUESTS: false, SHOW_JITSI_WATERMARK: false }
                                 }
                             />
                         )}
@@ -351,7 +366,14 @@ class HomePageComponent extends React.Component<Props, State> {
                         users={this.state.activeUsers}
                         allUsers={this.state.activeUsers.length}
                         send={this.sendMessage}
+                        answers={this.state.answers}
+                        correct={this.state.correct}
+                        question={this.state.question}
+                        replyVisible={this.state.replyVisible}
+                        showResults={this.showResults}
+                        ws={this.ws}
                     />
+
                     {this.state.whiteboardVisible ? <Whiteboard /> : null}
                 </Sider>
 
@@ -374,6 +396,7 @@ class HomePageComponent extends React.Component<Props, State> {
         //     mode: 'file',
         //     shouldShare: true,
         // });
+        api.executeCommand('avatarUrl', 'https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraightStrand&accessoriesType=Round&hairColor=Brown&facialHairType=Blank&clotheType=ShirtCrewNeck&clotheColor=Gray01&eyeType=Default&eyebrowType=RaisedExcitedNatural&mouthType=Smile&skinColor=Pale');
         this.userActivityUpdate();
         api.addEventListener('readyToClose', () => {
             navigationService.redirectToHomePage();

@@ -63,13 +63,20 @@ const TeacherModal: React.FC<{ lessonId: number, onClose: () => void, date: stri
                         <div className={styles.circle}>
                             <img
                                 alt="Lesson modal icon"
-                                src={'icons/science.svg'}
+                                src={`icons/subjects/${props.subject}.svg`}
                             />
                         </div>
                         <div className={styles.modalTop}>
                             <p>{props.subject}</p>
 
-                            <Field id="topic" name="topic" autoFocus placeholder="Enter topic for this lesson" />
+                            <Field
+                                id="topic"
+                                name="topic"
+                                as="textarea"
+                                autoFocus={true}
+                                placeholder="Enter topic for this lesson"
+                                className={styles.field}
+                            />
 
                         </div>
                         <div className={styles.selectorField}>
@@ -79,8 +86,8 @@ const TeacherModal: React.FC<{ lessonId: number, onClose: () => void, date: stri
                                 placeholder="Please select an assignment"
                                 mode="multiple"
                                 onChange={(option: string) => setFieldValue('assignment', option)}>
-                                <Option value="Test">Test</Option>
-                                <Option value="Homework">Homework</Option>
+                                <Option value="Test" >Test</Option>
+                                <Option value="Homework" >Homework</Option>
                             </Field>
                         </div>
                         <div className={styles.textareaModal}>

@@ -27,11 +27,13 @@ interface OwnProps {
     messages: Message[];
     currentChannel: number;
     currentClassroom: string;
+    teachersList: string[];
+    username: string;
 }
 type Props = ContextProps & OwnProps;
 
 const ChatListComponent: React.FC<Props> = (
-    { messages, currentChannel, currentClassroom, firstName, userRoles }) =>
+    { messages, currentChannel, currentClassroom, firstName, userRoles, teachersList, username }) =>
 
 
     (
@@ -57,8 +59,9 @@ const ChatListComponent: React.FC<Props> = (
                                         date={msg.date}
                                         channel={msg.channel}
                                         classroom={msg.classname}
-                                        toRight={msg.username === firstName}
+                                        toRight={msg.username === username}
                                         role={userRoles[0]}
+                                        teachersList={teachersList}
                                     />
                                 </CSSTransition>
                             ))
