@@ -4,78 +4,88 @@
 .holiday-counter {
 
   &board {
-    height: 300px;
+    // height: 300px;
     width: 100%;
     // position: relative;
   }
 
   &wrapper {
     position: relative;
+    font-family: 'Amatic SC', 'Poppins';
+    color: $primary;
   }
-
-  &titleWrapper {
-    color: #fff;
+  &TimeWrapper {
+    margin: 0;
+    font-weight: 400;
+  }
+  &TextWrapper {
     position: absolute;
-    font-size: $xxl;
-    top: 22%;
-    left: 50%;
+    font-size: 3em;
+    top: 30%;
+    left: 42%;
     transform: translateX(-50%);
-    font-family: 'Cabin Sketch', cursive;
-    max-width: 100px;
-    line-height: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    line-height: 3rem;
     text-align: center;
+    font-weight: 400;
+    opacity: 0.9;
+    span {
+      color: #fff;
+      font-weight: 700;
+    }
+
   }
 
-  &number {
-    color: #fff;
-    position: absolute;
-    font-size: $xl;
-    top: 20%;
-    left: 40%;
-    transform: translateX(-50%);
-    font-family: 'Cabin Sketch', cursive;
-  }
 
-  &day {
-    color: #fff;
-    position: absolute;
-    font-size: $xl;
-    top: 53%;
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: 'Cabin Sketch', cursive;
+  &title {
+    font-size: inherit;
   }
+  // &number {
+  //   // color: #fff;
+  //   position: absolute;
+  //   font-size: $xl;
+  //   top: 20%;
+  //   left: 40%;
+  //   transform: translateX(-50%);
+  //   // font-family: 'Cabin Sketch', cursive;
+  // }
 
-  &semicolon {
-    color: #fff;
-    position: absolute;
-    font-size: $xl;
-    top: 42%;
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: 'Cabin Sketch', cursive;
-  }
+  // &day {
+  //   color: #fff;
+  //   // position: absolute;
+  //   // font-size: $xl;
+  //   // top: 53%;
+  //   // left: 50%;
+  //   // transform: translateX(-50%);
+  //   // font-family: 'Cabin Sketch', cursive;
+  // }
 
-  &hours {
-    color: #fff;
-    position: absolute;
-    font-size: $xl;
-    top: 42%;
-    left: 57%;
-    transform: translateX(-50%);
-    font-family: 'Cabin Sketch', cursive;
-  }
+  // &semicolon {
+  //   color: #fff;
+  //   // position: absolute;
+  //   // font-size: $xl;
+  //   // top: 42%;
+  //   // left: 50%;
+  //   // transform: translateX(-50%);
+  //   // font-family: 'Cabin Sketch', cursive;
+  // }
 
-  &days {
-    color: #fff;
-    position: absolute;
-    font-size: $xl;
-    top: 42%;
-    left: 43%;
-    transform: translateX(-50%);
-    font-family: 'Cabin Sketch', cursive;
-  }
+  // &hours {
+  //   color: #fff;
+  //   // position: absolute;
+  //   // font-size: $xl;
+  //   // top: 42%;
+  //   // left: 57%;
+  //   // transform: translateX(-50%);
+  //   // font-family: 'Cabin Sketch', cursive;
+  // }
+
+  // &days {
+  //   color: #fff;
+  //   // position: absolute;
+  //   // font-size: $xl;
+  //   // top: 42%;
+  //   // left: 43%;
+  //   // transform: translateX(-50%);
+  //   // font-family: 'Cabin Sketch', cursive;
+  // }
 }

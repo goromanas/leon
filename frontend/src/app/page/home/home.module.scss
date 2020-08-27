@@ -1,18 +1,9 @@
 @import '~app/style/style';
 
-.welcomeHeader {
-  font-size: 24px;
-  color: #000000;
-  margin-bottom: 70px;
-}
 
-.layout {
-  background: #fff;
-}
-
-.holidayCounterwrapper {
-  min-height: 520px;
-  max-height: 520px;
+.greeting {
+  // margin: -2rem 0 2rem 2rem;
+  margin: 2rem 2rem 1rem 2rem;
 }
 
 .homePage {
@@ -20,96 +11,191 @@
   height: 100%;
   margin-top: 36px;
 
-  Row {
-    height: 100%;
-  }
-
-  .greeting {
-    margin: -2rem 0 2rem 2rem;
-  }
-
-  .scheduleWrapper {
-    background: $background;
-    box-shadow: $containerShadow;
-    border-radius: $conteinerRadius $conteinerRadius 0 0;
-    // height: calc(100vh - 129px);
-  }
-
-  .todoList {
-    padding-left: 2rem;
-    padding-right: 1rem;
-  }
-
-  .home {
-    background: $background;
-    box-shadow: $containerShadow;
-    border-radius: $conteinerRadius $conteinerRadius 0 0;
-    height: 100%;
-    padding: 4%;
-
-  }
-
-  .homeSide {
-    align-items: center;
+  .homeContent {
     display: flex;
-    justify-content: flex-start;
+    flex-direction: row;
+    height: 100%;
+  }
+
+  // inside rounded container
+  .homeRoundedBlock {
+    background: $background;
+    box-shadow: $containerShadow;
+    border-radius: $conteinerRadius $conteinerRadius 0 0;
+    height: 100%;
+    padding: 3% ;
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+    .homeSchedule {
+      display: flex;
+      flex-direction: row;
+      width: 60%;
+      .scheduleLine {
+        width: auto;
+      }
+      .lessons {
+        width: 100%;
+      }
+    }
+    .todoList {
+      width: 40%;
+      padding-left: 2rem;
+      padding-right: 1rem;
+    }
+  }
+  /////
+
+
+  // side image and quote
+  .homeRightSideWrapper {
+    width: 40%;
+    display: flex;
     flex-direction: column;
+    padding: 0 10px 0 25px;
     position: relative;
+    top: -75px;
+    // min-height: 520px;
+    // max-height: 520px;
+    .holidayCounterWrapper {
+      width: 100%;
+
+    }
+  }
+
+  // MODALS
+  .homeModal {
     width: 100%;
-  }
+    margin-top: 2rem;
+    color: #000;
+    padding: 0 7%;
+    margin-bottom: 5%;
+    h2 {
+      // text-align: center;
+      font-weight: 400;
+      color: $grey9;
 
-  .homeImage {
-    display: block;
-    height: 100%;
-    width: 100%;
-  }
-}
+    }
 
-.homeModal {
-  margin-top: 2rem;
-  color: #000;
+    img {
+      position: relative;
+      right: 0em;
+      z-index: 25;
+      height: 48px;
+      margin-right: 14px;
+    }
 
-
-  h1 {
-    text-align: center;
-  }
-
-  img {
-    position: relative;
-    right: 3em;
-    z-index: 25;
-    height: 100px;
-  }
-
-  .homeModalMotivation {
-    display: flex;
-    padding: 1rem 0 0 1rem;
-    position: relative;
-    z-index: 20;
-    background-color: $background;
-    border-radius: $conteinerRadius;
-    box-shadow: $smallContainerShadow;
+    .homeModalMotivation {
+      display: flex;
+      padding: 1rem;
+      position: relative;
+      z-index: 20;
+      background-color: $background;
+      border-radius: $conteinerRadius;
+      box-shadow: $smallContainerShadow;
+    }
   }
 }
 
-.homeModalOne {
-  background-color: $background;
-  border-radius: $conteinerRadius;
-  height: 100px;
-  width: 100%;
-  position: absolute;
-  top: 77%;
-  margin: auto;
-  z-index: 15;
-  box-shadow: $containerShadow;
-}
+  @media only screen and (max-width: 990px) {
+    .homePage {
+      padding: 0 50px;
+      margin-top: 36px;
+      .homeContent {
+        height: 100%;
+        flex-direction: column;
+      }
 
-.homeModalTwo {
-  background-color: $background;
-  border-radius: $conteinerRadius;
-  height: 100px;
-  width: 100%;
-  position: absolute;
-  top: 79%;
-  box-shadow: $containerShadow;
-}
+      // inside rounded container
+      .homeRoundedBlock {
+        padding: 3% ;
+        width: 100%;
+        border-radius: $conteinerRadius;
+        .homeSchedule {
+          width: 60%;
+          .scheduleLine {
+            width: auto;
+          }
+          .lessons {
+            width: 100%;
+          }
+        }
+        .todoList {
+          width: 40%;
+          padding-left: 2rem;
+          padding-right: 1rem;
+        }
+      }
+      /////
+
+
+      // side image and quote
+      .homeRightSideWrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 0 10px 0 25px;
+        position: relative;
+        top: -75px;
+        // min-height: 520px;
+        // max-height: 520px;
+        .holidayCounterWrapper {
+          width: 100%;
+
+        }
+      }
+
+      // MODALS
+      .homeModal {
+        width: 100%;
+        margin-top: 8rem;
+
+        h2 {
+          // text-align: center;
+          font-weight: 400;
+          color: $grey9;
+
+        }
+
+        img {
+          position: relative;
+          right: 0em;
+          z-index: 25;
+          height: 48px;
+          margin-right: 14px;
+        }
+
+        .homeModalMotivation {
+          display: flex;
+          padding: 1rem;
+          position: relative;
+          z-index: 20;
+          background-color: $background;
+          border-radius: $conteinerRadius;
+          box-shadow: $smallContainerShadow;
+        }
+      }
+
+  }
+  // .homeModalOne {
+  //   background-color: $background;
+  //   border-radius: $conteinerRadius;
+  //   height: 100px;
+  //   width: 100%;
+  //   position: absolute;
+  //   top: 77%;
+  //   margin: auto;
+  //   z-index: 15;
+  //   box-shadow: $containerShadow;
+  // }
+
+  // .homeModalTwo {
+  //   background-color: $background;
+  //   border-radius: $conteinerRadius;
+  //   height: 100px;
+  //   width: 100%;
+  //   position: absolute;
+  //   top: 79%;
+  //   box-shadow: $containerShadow;
+  // }
+  }

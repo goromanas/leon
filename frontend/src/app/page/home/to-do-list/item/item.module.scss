@@ -8,7 +8,7 @@
     flex-direction: row;
     justify-content: space-between;
     margin-bottom: 1rem;
-    cursor: pointer;
+    // cursor: pointer;
   }
 
   &title:hover>.view {
@@ -16,9 +16,9 @@
     transition: all 0.3s ease-out;
   }
 
-  &title>* {
-    cursor: pointer;
-  }
+  // &title>* {
+  //   cursor: pointer;
+  // }
 
   &subject {
     color: $grey6;
@@ -32,7 +32,7 @@
 .modal {
   overflow: no-content;
   background-color: #ffffff;
-
+  // cursor: pointer;
   div {
     box-shadow: none !important;
   }

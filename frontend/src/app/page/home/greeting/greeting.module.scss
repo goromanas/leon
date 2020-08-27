@@ -2,9 +2,7 @@
 @import '~app/style/variables';
 
 .greeting {
-  font-size: $xxl;
+  font-size: $xl;
+  color: $grey9;
 
-  &Name {
-    color: $primary;
-  }
 }
