@@ -24,8 +24,6 @@ type Props = FormikConfig<MessageValue> & OwnProps;
 const ChatForm: React.FC<Props> = (props: Props) => {
     const { initialValues, onSubmit,  } = props;
 
-
-// console.log(initialValues)
 //     const isDisabled = initialValues.message === ''? true: false
     return (
         <div className={styles.container}>

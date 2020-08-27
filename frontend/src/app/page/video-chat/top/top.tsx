@@ -32,10 +32,11 @@ const Top: React.FC<Props> = ({ lessonTitle, teacher, startTime, endTime }) => {
     let timeLeft = getTimeLeft(endTime);
 
     useEffect(() => {
-        setInterval(() => {
+       const check = setInterval(() => {
             timeLeft = getTimeLeft(endTime);
-            console.log('check time left');
+            // console.log('check time left');
             }, 1000);
+        return () => clearInterval(check);
     }, []);
 
     return (

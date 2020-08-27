@@ -111,14 +111,11 @@ class AppStore extends React.Component<{}, State> {
         });
     };
     private readonly filterNewMessages = (channelId: number): void => {
-        // console.log('App store clean new messages', this.state.newMessages)
         const cleanArr = [...this.state.newMessages];
         while (cleanArr.length > 0) {
             cleanArr.pop();
         }
-        // console.log(cleanArr);
-        this.setState({newMessages: cleanArr});
-        console.log(this.state.newMessages);
+        this.setState({ newMessages: cleanArr });
     };
 }
 
