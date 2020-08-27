@@ -1,5 +1,7 @@
 import React from 'react';
-import { Button, Layout, Menu } from 'antd';
+
+import { Avatar as A, Button, Layout, Menu, Badge } from 'antd';
+
 import { VideoCameraOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
@@ -21,6 +23,7 @@ interface ContextProps {
     userRoles: string[] | null;
     currentLesson: number;
     firstName: string | null;
+    channelsWithNewMessages: number[];
 }
 
 type Props = OwnProps & ContextProps;
@@ -28,8 +31,8 @@ type Props = OwnProps & ContextProps;
 class TopNavBarComponent extends React.Component<Props> {
 
     public render(): React.ReactNode {
+        const { currentLesson, userRoles, teacherLessons, firstName, channelsWithNewMessages } = this.props;
 
-        const { currentLesson, userRoles, teacherLessons, firstName } = this.props;
 
         return (
             <Header className={styles.header} >
@@ -47,6 +50,9 @@ class TopNavBarComponent extends React.Component<Props> {
                     </Menu.Item>
                     <Menu.Item key="7">
                         <Link to={navigationService.redirectToChatRoom} key="8">Chat Room</Link>
+                        <Badge dot={this.props.channelsWithNewMessages.length !==0}>
+                            {/*<a href="#" className="head-example" />*/}
+                        </Badge>
                     </Menu.Item>
 
                 </Menu>
@@ -78,7 +84,6 @@ class TopNavBarComponent extends React.Component<Props> {
 
                     <div className={styles.itemWrapper}>
                         <div>
-
                             {teacherLessons && userRoles.includes('STUDENT') ? teacherLessons[0].className : ''}
                             {teacherLessons && userRoles.includes('TEACHER') ? firstName : ''}
                         </div>
@@ -123,12 +128,13 @@ class TopNavBarComponent extends React.Component<Props> {
     };
 }
 
-const mapContextToProps = ({ session: { user }, lessons, currentLesson }: SettingsProps): ContextProps => ({
+const mapContextToProps = ({ session: { user }, lessons, currentLesson, channelsWithNewMessages }: SettingsProps): ContextProps => ({
     teacherLessons: lessons,
     username: user != null ? user.username : null,
     firstName: user.firstName,
     userRoles: user.roles,
     currentLesson,
+    channelsWithNewMessages
 });
 
 const TopNavBar = connectContext(mapContextToProps)(TopNavBarComponent);

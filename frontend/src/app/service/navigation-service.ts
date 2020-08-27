@@ -41,6 +41,7 @@ class NavigationService {
 
     public readonly redirectToHomePage = (): void => {
         window.location.href = NavigationService.HOME_PATH;
+        // return NavigationService.HOME_PATH
     };
 
   public readonly redirectToLogoutPage = (): void => {

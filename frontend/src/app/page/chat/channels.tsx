@@ -1,19 +1,38 @@
 import React from 'react';
-import { Menu } from 'antd';
+import { Menu, Badge } from 'antd';
 import SubMenu from 'antd/lib/menu/SubMenu';
+import { connectContext, SettingsProps } from 'app/context';
 
-interface Props {
+interface OwnProps {
     channels: Api.Subject[];
     currentChannel: number;
+    currentClassroom: string;
     onChannelChange: any;
     onClassChange: any;
     classRooms: Api.ClassroomDto[];
     role: string
 }
 
-class Channels extends React.Component<Props> {
+interface ContextProps {
+    channelsWithNewMessages: number[],
+    channelsWithNewMessagesT: string[],
+    removeChannelArray: (id: number) => void;
+}
+type Props = OwnProps & ContextProps
+
+class ChannelsC extends React.Component<Props> {
+    // private activeChannel = this.props.role === 'STUDENT' ?
+    //     this.props.currentChannel.toString() : this.props.currentClassroom
+
+    componentDidUpdate() {
+        const { currentChannel, channelsWithNewMessages, removeChannelArray } = this.props;
+        if (channelsWithNewMessages.includes(currentChannel)) {
+            removeChannelArray(currentChannel);
+        }
+    }
+
     public render(): React.ReactNode {
-        const { channels, currentChannel, onChannelChange, classRooms, role } = this.props;
+        const { channels, currentChannel, onChannelChange, classRooms, role, channelsWithNewMessages,channelsWithNewMessagesT, removeChannelArray } = this.props;
 
         return (
       <Menu
@@ -32,6 +51,7 @@ class Channels extends React.Component<Props> {
                   style={{ marginLeft: '20px' }}
               >
                 {channel.name}
+                  {channelsWithNewMessages.includes(channel.id) ? <Badge dot={this.props.channelsWithNewMessages.length !==0}></Badge> : null}
               </Menu.Item>
             ))}
             {this.props.classRooms &&
@@ -44,6 +64,7 @@ class Channels extends React.Component<Props> {
                 style={{ marginLeft: '20px', width: '200px' }}
               >
                 {classroom.classroomName}
+                  {channelsWithNewMessagesT.includes(classroom.classroomName) ? <Badge dot={this.props.channelsWithNewMessages.length !==0}></Badge> : null}
               </Menu.Item>
             ))}
         {/*</SubMenu>*/}
@@ -51,5 +72,13 @@ class Channels extends React.Component<Props> {
         );
     }
 }
+
+const mapContextToProps = ( { channelsWithNewMessages, channelsWithNewMessagesT, actions: {removeChannelArray} }: SettingsProps): ContextProps => ({
+    channelsWithNewMessages,
+    channelsWithNewMessagesT,
+    removeChannelArray,
+});
+
+const Channels = connectContext(mapContextToProps)(ChannelsC)
 
 export { Channels };

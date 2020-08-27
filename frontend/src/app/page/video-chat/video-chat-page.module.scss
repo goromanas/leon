@@ -9,6 +9,19 @@ body {
   background: #fff;
 }
 
+.openbutton {
+  transform: rotate(180deg);
+  transition: all 0.5s ease-out;
+}
+
+.openbutton:hover {
+  background: #fff;
+}
+
+.closebutton:hover {
+  background: #fff;
+}
+
 .sider {
   background: #FFFFFF;
   // width: 582px;
@@ -28,15 +41,16 @@ body {
     align-items: center;
 
     &:hover {
-      button {
-        background-color: #7DB7FC !important;
-        border-color: #85b6ff;
-      }
+      // button {
+      //   background-color: #7DB7FC !important;
+      //   border-color: #85b6ff;
+      // }
     }
 
     h1 {
       margin: 0;
-      margin-right: 28px;;
+      margin-right: 28px;
+      ;
 
       span {
         color: $grey6;

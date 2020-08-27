@@ -595,6 +595,39 @@
         "deprecated": false
       }
     },
+    "/roleLessons": {
+      "get": {
+        "tags": [
+          "lesson-controller"
+        ],
+        "summary": "getTeacherLessons",
+        "operationId": "getTeacherLessonsUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/LessonDto"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
     "/schedule": {
       "get": {
         "tags": [
@@ -728,39 +761,6 @@
         "deprecated": false
       }
     },
-    "/studentLessons": {
-      "get": {
-        "tags": [
-          "lesson-controller"
-        ],
-        "summary": "getStudentLessons",
-        "operationId": "getStudentLessonsUsingGET",
-        "produces": [
-          "*/*"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/LessonDto"
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        },
-        "deprecated": false
-      }
-    },
     "/subjectByTeacher": {
       "get": {
         "tags": [
@@ -808,39 +808,6 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/SubjectDto"
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/teacherLessons": {
-      "get": {
-        "tags": [
-          "lesson-controller"
-        ],
-        "summary": "getTeacherLessons",
-        "operationId": "getTeacherLessonsUsingGET",
-        "produces": [
-          "*/*"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/LessonDto"
               }
             }
           },

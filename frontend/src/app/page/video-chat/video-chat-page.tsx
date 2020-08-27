@@ -1,6 +1,6 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
-import { Layout, Modal } from 'antd';
+import { Layout, Modal, notification, Space, Button } from 'antd';
 import Jitsi from 'react-jitsi';
 // @ts-ignore
 import ReconnectingWebSocket from 'reconnecting-websocket';
@@ -74,6 +74,7 @@ interface State {
     replyVisible: boolean,
     showAcknowledgementModal: boolean,
     acknowledgement: any;
+    timer: number;
 }
 
 type Props = OwnProps & ContextProps;
@@ -94,6 +95,15 @@ class HomePageComponent extends React.Component<Props, State> {
         replyVisible: false,
         showAcknowledgementModal: false,
         acknowledgement: '',
+        testSubmitted: false,
+        timer: 0,
+    };
+
+    public openNotificationWithIcon = (message: string, description: string) => {
+        notification.success({
+            message,
+            description,
+        });
     };
 
     public showModal = () => {
@@ -156,11 +166,19 @@ class HomePageComponent extends React.Component<Props, State> {
             visible: false,
         });
     };
+
     public updateQuiz = (values: any, value: any) => {
         this.setState({correct: value});
         this.sendMessage(values);
         this.handleCancel();
         this.showResults();
+        this.openNotificationWithIcon(
+            'Quiz successfully sent',
+            'Your created question was sent to all active students.',
+        );
+        this.setState({
+            testSubmitted: true,
+        });
     };
 
     public readonly getSocketUrlQuiz = (): string => {
@@ -216,6 +234,9 @@ class HomePageComponent extends React.Component<Props, State> {
     }
 
     public sendMessage = (values: any): void => {
+        this.setState({
+            timer: values.timer,
+        });
         const question = {
             type: 'question',
             classroom: this.props.teacherLessons[0].className,
@@ -283,20 +304,22 @@ class HomePageComponent extends React.Component<Props, State> {
                     onCancel={this.handleCancel}
                     footer={false}
                     width="600px"
-                    style={{borderRadius: '20px'}}
+                    style={{ borderRadius: '20px' }}
                 >
                     {this.state.type === 'question' ?
                         (
-                            <AsyncContent loading={!this.state.quizMessageForStudent} loader={<PageLoadingSpinner/>}>
-                                <AnswerQuiz message={this.state.quizMessageForStudent}
-                                            changeValue={this.changeValue}
-                                            onSuccess={() => this.handleOk()}
-                                            onCancel={() => this.handleCancel()}
-                                            visible={this.state.visible}
-                                /> </AsyncContent>
+                            <AsyncContent loading={!this.state.quizMessageForStudent} loader={<PageLoadingSpinner />}>
+                                <AnswerQuiz
+                                    message={this.state.quizMessageForStudent}
+                                    changeValue={this.changeValue}
+                                    onSuccess={() => this.handleOk()}
+                                    onCancel={() => this.handleCancel()}
+                                    visible={this.state.visible}
+                                />
+                            </AsyncContent>
                         )
                         : this.state.type === 'answer' ?
-                            <AsyncContent loading={!this.state.answers} loader={<PageLoadingSpinner/>}>
+                            <AsyncContent loading={!this.state.answers} loader={<PageLoadingSpinner />}>
                                 {/* <QuizResult answers={this.state.answers}
                                     correct={this.state.correct}
                                     question={this.state.question}
@@ -310,10 +333,11 @@ class HomePageComponent extends React.Component<Props, State> {
                 <Content style={{margin: '0 auto', width: '70%'}}>
                     <PageContent>
 
-                        <Top lessonTitle={lessonTitle}
-                             teacher={currentLesson && currentLesson[0].teacher}
-                             startTime={startTime}
-                             endTime={endTime}
+                        <Top
+                            lessonTitle={lessonTitle}
+                            teacher={currentLesson && currentLesson[0].teacher}
+                            startTime={startTime}
+                            endTime={endTime}
                         />
 
                         {videoChatName && (
@@ -374,6 +398,9 @@ class HomePageComponent extends React.Component<Props, State> {
                         replyVisible={this.state.replyVisible}
                         showResults={this.showResults}
                         ws={this.ws}
+                        testSubmitted={this.state.testSubmitted}
+                        timer={this.state.timer}
+                        whiteboardVisible={this.state.whiteboardVisible}
                         onAcknowledgement={this.state.showAcknowledgementModal}
                         acknowledgementData={this.state.acknowledgement}
                     />
@@ -381,7 +408,6 @@ class HomePageComponent extends React.Component<Props, State> {
                     {this.state.whiteboardVisible ? <Whiteboard/> : null}
 
                 </Sider>
-
             </Layout>
         );
     }
@@ -405,6 +431,7 @@ class HomePageComponent extends React.Component<Props, State> {
         this.userActivityUpdate();
         api.addEventListener('readyToClose', () => {
             navigationService.redirectToHomePage();
+            // navigationService.redirectToDefaultPage()
         });
     };
 }

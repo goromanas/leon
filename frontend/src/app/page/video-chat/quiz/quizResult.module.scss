@@ -3,16 +3,23 @@
 .quiz-result {
   margin: 2rem 0;
   padding: 0 1rem;
+  max-width: 250px;
 
   &title {
     display: flex;
     align-items: center;
     flex-direction: row;
+    margin-bottom: 3rem;
   }
 
   .resulttitle {
     padding: 0;
     margin: 0;
+  }
+
+  .studentsReplied {
+    padding-top: 1rem;
+    margin-left: 1rem;
   }
 
   &closed {
