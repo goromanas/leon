@@ -310,7 +310,7 @@ class HomePageComponent extends React.Component<Props, State> {
                     {this.state.type === 'question' ?
                         (
                             <AsyncContent
-                                loading={!this.state.quizMessageForStudent}
+                                loading={!this.state.quizMessageForStudent && !this.state.jitsiLoaded}
                                 loader={<ComponentLoadingSpinner />}
                             >
                                 <AnswerQuiz
@@ -344,7 +344,14 @@ class HomePageComponent extends React.Component<Props, State> {
                             endTime={endTime}
                         />
 
+                        {this.state.jitsiLoaded === false ? (
+                            <div className={styles.loadingWrapper}>
+                                <ComponentLoadingSpinner />
+                            </div>
+                        ) : ''}
+
                         {videoChatName && (
+
                             <Jitsi
                                 frameStyle={
 
