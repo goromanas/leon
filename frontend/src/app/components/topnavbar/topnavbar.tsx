@@ -33,7 +33,6 @@ class TopNavBarComponent extends React.Component<Props> {
     public render(): React.ReactNode {
         const { currentLesson, userRoles, teacherLessons, firstName, channelsWithNewMessages } = this.props;
 
-
         return (
             <Header className={styles.header} >
                 <Menu mode="horizontal" className={styles.menu} defaultSelectedKeys={['3']}>
@@ -50,7 +49,7 @@ class TopNavBarComponent extends React.Component<Props> {
                     </Menu.Item>
                     <Menu.Item key="7">
                         <Link to={navigationService.redirectToChatRoom} key="8">Chat Room</Link>
-                        <Badge dot={this.props.channelsWithNewMessages.length !==0}>
+                        <Badge dot={this.props.channelsWithNewMessages.length !== 0}>
                             {/*<a href="#" className="head-example" />*/}
                         </Badge>
                     </Menu.Item>
@@ -77,7 +76,8 @@ class TopNavBarComponent extends React.Component<Props> {
                     </Link>
                     <div className={styles.itemWrapperButton}>
                         <Link to={navigationService.redirectToVideoChat(currentLesson)} key="13">
-                            <Button disabled={currentLesson === 0 ? true : false} shape="round" type="primary" key="14" className={styles.joinButton}>                                Join a Class
+                            <Button disabled={currentLesson === 0 ? true : false} shape="round" key="14" className={styles.joinButton}>
+                                Join a Class
                             </Button>
                         </Link>
                     </div>
@@ -134,7 +134,7 @@ const mapContextToProps = ({ session: { user }, lessons, currentLesson, channels
     firstName: user.firstName,
     userRoles: user.roles,
     currentLesson,
-    channelsWithNewMessages
+    channelsWithNewMessages,
 });
 
 const TopNavBar = connectContext(mapContextToProps)(TopNavBarComponent);

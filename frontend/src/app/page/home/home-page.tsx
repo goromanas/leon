@@ -50,7 +50,7 @@ class HomePageComponent extends React.Component<Props, State> {
 
         const dayLessons = allLessons && allLessons.filter(lesson => lesson.day === moment().day());
 
-        allLessons && userService.getUsersByClass(allLessons[0].className).then(response => console.log(response));
+        // allLessons && userService.getUsersByClass(allLessons[0].className).then(response => console.log(response));
         return (
             <AsyncContent
                 loading={schedule.length === 0 && allLessons !== null && dayLessons !== null}
