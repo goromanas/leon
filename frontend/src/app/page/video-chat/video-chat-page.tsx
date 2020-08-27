@@ -314,7 +314,7 @@ class HomePageComponent extends React.Component<Props, State> {
                     {this.state.type === 'question' ?
                         (
                             <AsyncContent
-                                loading={!this.state.quizMessageForStudent && !this.state.jitsiLoaded}
+                                loading={!this.state.quizMessageForStudent}
                                 loader={<ComponentLoadingSpinner />}
                             >
                                 <AnswerQuiz
