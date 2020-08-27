@@ -225,7 +225,7 @@ if(newMessages.length !== 0 ){
         //         role: userRoles,
         //         teacherSubjectId: this.state.teacherSubjectId,
         //     });
-        // }
+        }
         resetForm();
         this.setState({ file: null });
     };
