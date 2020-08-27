@@ -51,7 +51,7 @@ class HomePageComponent extends React.Component<Props, State> {
 
         return (
             <AsyncContent
-                loading={this.props.schedule.length === 0 && this.props.allLessons !== null}
+                loading={schedule.length === 0 && allLessons !== null}
                 loader={<PageLoadingSpinner />}
             >
                 <div className={styles.homePage}>
