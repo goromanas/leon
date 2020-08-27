@@ -1,5 +1,6 @@
 package com.tietoevry.moon.user;
 
+import com.tietoevry.moon.classroom.ClassroomService;
 import com.tietoevry.moon.session.SessionService;
 import com.tietoevry.moon.user.model.Role;
 import com.tietoevry.moon.user.model.User;

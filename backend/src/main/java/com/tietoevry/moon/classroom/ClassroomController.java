@@ -2,6 +2,7 @@ package com.tietoevry.moon.classroom;
 
 import com.tietoevry.moon.authorization.SecurityContextService;
 import com.tietoevry.moon.classroom.model.dto.ClassroomDto;
+import com.tietoevry.moon.user.model.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -28,6 +29,11 @@ public class ClassroomController {
         return classroomService.getClassroom(id)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Classroom not found by id " + id));
     }
+    @RequestMapping(path = "/usersClass/{className}", method = RequestMethod.GET)
+    public List<UserDto> getUsersByClass(@PathVariable String className) {
+        return classroomService.getUsersByClassroom(className);
+    }
+
 
 //    @RequestMapping(path = "/classroom", method = RequestMethod.POST)
 //    public ClassroomDto createClassroom(@RequestBody ClassroomDto classroom) {

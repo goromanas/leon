@@ -3,8 +3,6 @@ import { Form, Formik, FormikHelpers } from 'formik';
 import styles from './bonus-points.module.scss';
 import { Button, Radio, Select, Alert } from 'antd';
 
-import { motion } from 'framer-motion';
-import { variantsUsersList, variantsUser } from 'app/page/timetable/animation';
 
 const { Option } = Select;
 
@@ -60,7 +58,7 @@ const BonusPoints: React.FC<Props> = (props) => {
     return (
         <div className={styles.bonusPoints}>
             <Alert className={!alert ? styles.noShowSuccessMessage : styles.successMessage}
-                banner message={"Acknowledgement was sent to " + user} type="success" />
+                   banner message={"Acknowledgement was sent to " + user} type="success" />
             <p style={{ textAlign: 'center', fontSize: '12px' }}>Send
                 points for most active students!</p>
             <Formik

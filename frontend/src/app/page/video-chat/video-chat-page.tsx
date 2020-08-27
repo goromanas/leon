@@ -8,6 +8,7 @@ import ReconnectingWebSocket from 'reconnecting-websocket';
 import { connectContext, SettingsProps } from 'app/context';
 import { AsyncContent, PageContent } from 'app/components/layout';
 import { navigationService } from 'app/service/navigation-service';
+import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-loading-spinner';
 import { VideoButton } from 'app/page/video-chat/video-buttons/video-button';
 import { Whiteboard } from 'app/components/whiteboard/whiteboard';
 
@@ -20,7 +21,7 @@ import { QuizCreate } from './quiz/quizCreate';
 import styles from './video-chat-page.module.scss';
 import { ComponentLoadingSpinner } from '../common/page-loading-spinner/component-loading-spinner';
 
-const { Content, Sider } = Layout;
+const {Content, Sider} = Layout;
 
 interface ContextProps {
     username: string | null;
@@ -73,6 +74,7 @@ interface State {
     showActiveUsers: boolean;
     replyVisible: boolean;
     showAcknowledgementModal: boolean;
+    acknowledgement: any;
     testSubmitted: boolean;
     timer: number;
     jitsiLoaded: boolean;
@@ -95,6 +97,7 @@ class HomePageComponent extends React.Component<Props, State> {
         question: null,
         replyVisible: false,
         showAcknowledgementModal: false,
+        acknowledgement: '',
         testSubmitted: false,
         timer: 0,
         jitsiLoaded: false,
@@ -191,9 +194,9 @@ class HomePageComponent extends React.Component<Props, State> {
 
     public ws = new ReconnectingWebSocket(this.getSocketUrlQuiz());
     public readonly acknowledgement = (message: any): void => {
-        Modal.success({
-            content: 'Congratulations, your Teacher gave you ' + message.points + '! \n' + 'Keep on learning!',
-        });
+        this.setState({showAcknowledgementModal: !this.state.showAcknowledgementModal});
+        this.setState({acknowledgement: message});
+
     };
 
     public componentDidMount() {
@@ -351,7 +354,6 @@ class HomePageComponent extends React.Component<Props, State> {
                         ) : ''}
 
                         {videoChatName && (
-
                             <Jitsi
                                 frameStyle={
 
@@ -414,6 +416,8 @@ class HomePageComponent extends React.Component<Props, State> {
                         testSubmitted={this.state.testSubmitted}
                         timer={this.state.timer}
                         whiteboardVisible={this.state.whiteboardVisible}
+                        onAcknowledgement={this.state.showAcknowledgementModal}
+                        acknowledgementData={this.state.acknowledgement}
                     />
 
                     {this.state.whiteboardVisible ? <Whiteboard /> : null}
@@ -448,7 +452,6 @@ class HomePageComponent extends React.Component<Props, State> {
             navigationService.redirectToHomePage();
             // navigationService.redirectToDefaultPage()
         });
-
     };
 }
 

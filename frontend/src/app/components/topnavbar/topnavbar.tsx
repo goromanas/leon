@@ -29,8 +29,10 @@ interface ContextProps {
 type Props = OwnProps & ContextProps;
 
 class TopNavBarComponent extends React.Component<Props> {
+
     public render(): React.ReactNode {
         const { currentLesson, userRoles, teacherLessons, firstName, channelsWithNewMessages } = this.props;
+
 
         return (
             <Header className={styles.header} >
