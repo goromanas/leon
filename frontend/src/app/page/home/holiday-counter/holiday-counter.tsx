@@ -15,16 +15,24 @@ const HolidayCounter: React.FC = () =>
             <img
                 alt="Teacher board"
                 src={'images/teacher-board.svg'}
+                // src={'images/teacher.png'}
                 className={styles.holidayCounterboard}
             />
-            <div className={styles.holidayCountertitleWrapper}>
-                <span >Left till Christmas!</span>
+            <div className={styles.holidayCounterTextWrapper}>
+                <div className={styles.holidayCounterTimeWrapper}>
+                    {/* <span className={styles.holidayCounterdays}>{days}</span>
+                <span className={styles.holidayCountersemicolon}>:</span>
+                <span className={styles.holidayCounterhours}>{hours}</span>
+                <span className={styles.holidayCounterday}>Days   Hours</span> */}
+                    <span>{days}</span> days <span>{hours}</span> hours
             </div>
-            <span className={styles.holidayCounterdays}>{days}</span>
-            <span className={styles.holidayCountersemicolon}>:</span>
-            <span className={styles.holidayCounterhours}>{hours}</span>
-            <span className={styles.holidayCounterday}>Days   Hours</span>
-        </div>
+                <div className={styles.holidayCountertitle}>
+                    Left till <span>Christmas!</span>
+                </div>
+
+            </div >
+        </div >
+
     );
 
 export { HolidayCounter };

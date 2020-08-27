@@ -14,7 +14,7 @@ const Greeting: React.FC<Props> = (
             <span
                 className={styles.greeting}
             >
-                Have a good day, <span className={styles.greetingName}>{firstname}</span>
+                Have a good day, {firstname}
             </span>
         </>
     );

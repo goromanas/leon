@@ -130,7 +130,8 @@
 .activeDay {
   .dayHeader {
     span:nth-child(1) {
-      font-weight: $bold;
+      // font-weight: $bold;
+      font-size: $sm;
     }
   }
 }
