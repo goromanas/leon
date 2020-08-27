@@ -3,15 +3,17 @@ import { Layout, Spin } from 'antd';
 
 import { PageContent } from 'app/components/layout/page-content/page-content';
 
+import { Spinner } from './spinner/spinner';
+
 import styles from './page-loading-spinner.module.scss';
 
 const { Content } = Layout;
 
 const PageLoadingSpinner: React.FC = () => (
-    <Layout>
+    <Layout className={styles.container}>
         <Content>
-            <PageContent className={styles.container}>
-                <Spin tip="Loading..." />
+            <PageContent >
+                <Spinner theme={'login'} />
             </PageContent>
         </Content>
     </Layout>

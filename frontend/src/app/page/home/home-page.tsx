@@ -7,7 +7,6 @@ import { Quotes } from 'app/page/home/quotes/quotes';
 import { navigationService } from 'app/service/navigation-service';
 import { connectContext, SettingsProps } from 'app/context';
 import { AsyncContent } from 'app/components/layout';
-import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-loading-spinner';
 import { DayLessonsList } from 'app/page/timetable/day-timetable';
 import { SideTimebar } from 'app/page/timetable/side-timebar';
 import { scheduleCalc } from 'app/page/timetable/schedule-calc';
@@ -17,6 +16,7 @@ import { ToDoList } from './to-do-list/to-do-list';
 import { Greeting } from './greeting/greeting';
 
 import styles from './home.module.scss';
+import { ComponentLoadingSpinner } from '../common/page-loading-spinner/component-loading-spinner';
 
 interface ContextProps {
     username: string | null;

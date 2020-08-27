@@ -8,7 +8,6 @@ import ReconnectingWebSocket from 'reconnecting-websocket';
 import { connectContext, SettingsProps } from 'app/context';
 import { AsyncContent, PageContent } from 'app/components/layout';
 import { navigationService } from 'app/service/navigation-service';
-import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-loading-spinner';
 import { VideoButton } from 'app/page/video-chat/video-buttons/video-button';
 import { Whiteboard } from 'app/components/whiteboard/whiteboard';
 
@@ -19,6 +18,7 @@ import { AnswerQuiz } from './quiz/answerQuiz';
 import { QuizCreate } from './quiz/quizCreate';
 
 import styles from './video-chat-page.module.scss';
+import { ComponentLoadingSpinner } from '../common/page-loading-spinner/component-loading-spinner';
 
 const { Content, Sider } = Layout;
 
@@ -75,6 +75,7 @@ interface State {
     showAcknowledgementModal: boolean;
     testSubmitted: boolean;
     timer: number;
+    jitsiLoaded: boolean;
 }
 
 type Props = OwnProps & ContextProps;
@@ -96,6 +97,7 @@ class HomePageComponent extends React.Component<Props, State> {
         showAcknowledgementModal: false,
         testSubmitted: false,
         timer: 0,
+        jitsiLoaded: false,
     };
 
     public openNotificationWithIcon = (message: string, description: string) => {
@@ -307,7 +309,10 @@ class HomePageComponent extends React.Component<Props, State> {
                 >
                     {this.state.type === 'question' ?
                         (
-                            <AsyncContent loading={!this.state.quizMessageForStudent} loader={<PageLoadingSpinner />}>
+                            <AsyncContent
+                                loading={!this.state.quizMessageForStudent && !this.state.jitsiLoaded}
+                                loader={<ComponentLoadingSpinner />}
+                            >
                                 <AnswerQuiz
                                     message={this.state.quizMessageForStudent}
                                     changeValue={this.changeValue}
@@ -318,7 +323,7 @@ class HomePageComponent extends React.Component<Props, State> {
                             </AsyncContent>
                         )
                         : this.state.type === 'answer' ?
-                            <AsyncContent loading={!this.state.answers} loader={<PageLoadingSpinner />}>
+                            <AsyncContent loading={!this.state.answers} loader={<ComponentLoadingSpinner />}>
                                 {/* <QuizResult answers={this.state.answers}
                                     correct={this.state.correct}
                                     question={this.state.question}
@@ -339,18 +344,27 @@ class HomePageComponent extends React.Component<Props, State> {
                             endTime={endTime}
                         />
 
-                        {videoChatName && (
-                            <Jitsi
+                        {this.state.jitsiLoaded === false ? (
+                            <div className={styles.loadingWrapper}>
+                                <ComponentLoadingSpinner />
+                            </div>
+                        ) : ''}
 
-                                frameStyle={{
-                                    display: 'block',
-                                    height: this.state.whiteboardVisible ? '180px' : '100%',
-                                    width: this.state.whiteboardVisible ? '450px' : '100%',
-                                    zIndex: this.state.whiteboardVisible ? 2000 : 1,
-                                    position: this.state.whiteboardVisible ? 'absolute' : 'inherit',
-                                    right: this.state.whiteboardVisible ? '20px' : null,
-                                    top: this.state.whiteboardVisible ? '10%' : null,
-                                }}
+                        {videoChatName && (
+
+                            <Jitsi
+                                frameStyle={
+
+                                    {
+
+                                        display: (this.state.jitsiLoaded ? 'block' : 'none'),
+                                        height: this.state.whiteboardVisible ? '180px' : '100%',
+                                        width: this.state.whiteboardVisible ? '450px' : '100%',
+                                        zIndex: this.state.whiteboardVisible ? 2000 : 1,
+                                        position: this.state.whiteboardVisible ? 'absolute' : 'inherit',
+                                        right: this.state.whiteboardVisible ? '20px' : null,
+                                        top: this.state.whiteboardVisible ? '10%' : null,
+                                    }}
                                 containerStyle={{ width: '90%', marginLeft: '5%', height: '70%' }}
                                 jwt="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250ZXh0Ijp7InVzZXIiOnsiYXZhdGFyIjoiaHR0cHM6Ly9hdmF0YXJzLmRpY2ViZWFyLmNvbS9hcGkvbWFsZS9tZW51by1zdS1pdC5zdmciLCJuYW1lIjoiTcSXbnVvIHN1IElUIn19LCJhdWQiOiJtZW51b19zdV9pdCIsImlzcyI6Im1lbnVvX3N1X2l0Iiwic3ViIjoibWVldC5qaXRzaSIsInJvb20iOiIqIn0.6CKZU_JWLhtj9eKJ-VdFGQZyRzvTZz29fn7--_dp-jw"
                                 roomName={videoChatName}
@@ -419,6 +433,11 @@ class HomePageComponent extends React.Component<Props, State> {
         navigationService.redirectToDefaultPage();
     };
     public jitsiActions = (api: any) => {
+        const iframe = api.getIFrame();
+
+        iframe.onload = () => {
+            this.setState({ jitsiLoaded: true });
+        };
         // api.executeCommand('startRecording', {
         //     mode: 'file',
         //     shouldShare: true,
@@ -429,6 +448,7 @@ class HomePageComponent extends React.Component<Props, State> {
             navigationService.redirectToHomePage();
             // navigationService.redirectToDefaultPage()
         });
+
     };
 }
 
