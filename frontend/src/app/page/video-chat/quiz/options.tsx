@@ -65,7 +65,7 @@ const OptionList: React.FC<Props> = (props) => {
 
                         : null}
                     {value === 0 ?
-                        <Alert message="Please select the corrent answer" type="warning" closable={true} />
+                        <Alert message="Please select the correct answer" type="warning" closable={true} />
 
                         : null}
                     {checkForDuplicates(values.options) ?

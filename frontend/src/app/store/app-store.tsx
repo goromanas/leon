@@ -1,6 +1,14 @@
 import * as React from 'react';
 
-import { Actions, INITIAL_SESSION, INITIAL_CURRENT_LESSON, INITIAL_SCHEDULE, Session, settingsContext, Message } from 'app/context';
+import {
+    Actions,
+    INITIAL_SESSION,
+    INITIAL_CURRENT_LESSON,
+    INITIAL_SCHEDULE,
+    Session,
+    settingsContext,
+    Message
+} from 'app/context';
 import ReconnectingWebSocket from 'reconnecting-websocket';
 
 interface State {
@@ -53,49 +61,61 @@ class AppStore extends React.Component<{}, State> {
         };
 
         return (
-            <settingsContext.Provider value={{ session, lessons, currentLesson, actions, schedule, wsChat, channelsWithNewMessages, newMessages }}>
+            <settingsContext.Provider value={{
+                session,
+                lessons,
+                currentLesson,
+                actions,
+                schedule,
+                wsChat,
+                channelsWithNewMessages,
+                newMessages
+            }}>
                 {children}
             </settingsContext.Provider>
         );
     }
 
     private readonly updateSession = (session: Session): void => {
-        this.setState({ session });
+        this.setState({session});
     };
 
     private readonly updateLessons = (lessons: Api.LessonDto[]): void => {
-        this.setState({ lessons });
+        this.setState({lessons});
     };
 
     private readonly updateCurrentLesson = (currentLesson: number): void => {
-        this.setState({ currentLesson });
+        this.setState({currentLesson});
     };
 
     private readonly updateSchedule = (schedule: Api.ScheduleDto[]): void => {
-        this.setState({ schedule });
+        this.setState({schedule});
     };
     private readonly updateWebsocket = (wsChat: ReconnectingWebSocket): void => {
-        this.setState({ wsChat });
+        this.setState({wsChat});
     };
 
     private readonly updateChannelArray = (nr: number): void => {
-        const array = this.state.channelsWithNewMessages.includes(nr) ? [...this.state.channelsWithNewMessages] : [...this.state.channelsWithNewMessages, nr]
-        this.setState({ channelsWithNewMessages: array });
+        const array = this.state.channelsWithNewMessages.includes(nr) ? [...this.state.channelsWithNewMessages] : [...this.state.channelsWithNewMessages, nr];
+        this.setState({channelsWithNewMessages: array});
 
         // this.setState({ channelsWithNewMessages: [...Array.from(new Set([...this.state.channelsWithNewMessages, nr]))] });
     };
 
     private readonly updateNewMessages = (newMessages: Message): void => {
-        this.setState({ newMessages: [...this.state.newMessages, newMessages] });
+        this.setState({newMessages: [...this.state.newMessages, newMessages]});
     };
     private readonly removeChannelArray = (id: number): void => {
         const newArr = this.state.channelsWithNewMessages.filter(item => item !== id);
 
-        this.setState({...this.state,  channelsWithNewMessages: [...this.state.channelsWithNewMessages.filter(item => item !== id)]});
+        this.setState({
+            ...this.state,
+            channelsWithNewMessages: [...this.state.channelsWithNewMessages.filter(item => item !== id)]
+        });
     };
     private readonly filterNewMessages = (channelId: number): void => {
         const cleanArr = [...this.state.newMessages];
-        while(cleanArr.length > 0) {
+        while (cleanArr.length > 0) {
             cleanArr.pop();
         }
         this.setState({ newMessages: cleanArr });

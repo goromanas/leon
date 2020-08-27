@@ -2,8 +2,7 @@ import { CancelSource, RestService } from 'app/api/common';
 
 class LessonsService {
 
-    private static readonly TEACHER_LESSON_PATH: string = '/teacherLessons';
-    private static readonly STUDENT_LESSON_PATH: string = '/studentLessons';
+    private static readonly ROLE_LESSON_PATH: string = '/roleLessons';
     private static readonly SCHEDULE_PATH: string = '/schedule';
 
     private readonly restService: RestService;
@@ -12,11 +11,8 @@ class LessonsService {
         this.restService = cancelSource.service;
     }
 
-    public readonly getTeacherLessons = (): Promise<Api.LessonDto[]> =>
-        this.restService.get<Api.LessonDto[]>(`${LessonsService.TEACHER_LESSON_PATH}`);
-
-    public readonly getStudentLessons = (): Promise<Api.LessonDto[]> =>
-        this.restService.get<Api.LessonDto[]>(`${LessonsService.STUDENT_LESSON_PATH}`);
+    public readonly getRoleLessons = (): Promise<Api.LessonDto[]> =>
+        this.restService.get<Api.LessonDto[]>(`${LessonsService.ROLE_LESSON_PATH}`);
 
     public readonly getSchedule = (): Promise<Api.ScheduleDto[]> =>
         this.restService.get<Api.ScheduleDto[]>(`${LessonsService.SCHEDULE_PATH}`);
