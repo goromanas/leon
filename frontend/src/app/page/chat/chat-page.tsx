@@ -83,6 +83,11 @@ class ChatComponent extends React.Component<Props, State> {
                 this.setState({ currentClassroom: teacherLessons[0].className });
             }
         }
+
+        // if (prev.teacherLessons !== this.props.teacherLessons) {
+        //     this.setState({ currentClassroom: teacherLessons[0].className });
+        // }
+
 if(newMessages.length !== 0 ){
         if ( prev.newMessages !== this.props.newMessages) {
             this.setState({ ...this.state, messages: [...messages, ...newMessages] });
@@ -111,10 +116,9 @@ if(newMessages.length !== 0 ){
                 .then(channels => {
                     this.setState({ channels });
                     this.setState({ currentChannel: channels[0].id });
-                    this.setState({ currentClassroom: teacherLessons[0].className });
+                    // this.setState({ currentClassroom: teacherLessons[0].className });
                 })
                 .catch(() => console.log('Error getting subjects'));
-
         }
 
         if (this.state.channels.length < 1 && userRoles.includes('TEACHER')) {
