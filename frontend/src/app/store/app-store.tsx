@@ -51,6 +51,10 @@ class AppStore extends React.Component<{}, State> {
     private readonly updateLessons = (lessons: Api.LessonDto[]): void => {
         this.setState({ lessons });
     };
+    public readonly updateLesson = (lessons: Api.LessonDto[]): void => {
+        this.setState({ lessons });
+    };
+
 
     private readonly updateCurrentLesson = (currentLesson: number): void => {
         this.setState({ currentLesson });
