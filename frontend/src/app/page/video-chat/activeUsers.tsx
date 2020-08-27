@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 
 import { variantsUsersList, variantsUser } from 'app/page/timetable/animation';
@@ -8,6 +8,7 @@ import styles from './video-chat-page.module.scss';
 interface Props {
     activeUsers: any;
     isOpen: boolean;
+    // allUsers: number;
 }
 
 const ActiveUsers: React.FC<Props> = (props) => (

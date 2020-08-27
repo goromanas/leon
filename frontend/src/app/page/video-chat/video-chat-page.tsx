@@ -1,6 +1,6 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
-import { Layout, Modal } from 'antd';
+import { Layout, Modal, notification } from 'antd';
 import Jitsi from 'react-jitsi';
 // @ts-ignore
 import ReconnectingWebSocket from 'reconnecting-websocket';
@@ -71,11 +71,15 @@ interface State {
     question: string;
     activeUsers: ActiveUsers[];
     showActiveUsers: boolean;
-    replyVisible: boolean,
-    showAcknowledgementModal: boolean,
+    replyVisible: boolean;
+    showAcknowledgementModal: boolean;
+    testSubmitted: boolean;
+    timer: number;
 }
 
 type Props = OwnProps & ContextProps;
+
+
 
 class HomePageComponent extends React.Component<Props, State> {
     public readonly state: State = {
@@ -92,7 +96,10 @@ class HomePageComponent extends React.Component<Props, State> {
         question: null,
         replyVisible: false,
         showAcknowledgementModal: false,
+        testSubmitted: false,
+        timer: 0,
     };
+
 
     public showModal = () => {
         this.setState({
@@ -154,11 +161,15 @@ class HomePageComponent extends React.Component<Props, State> {
             visible: false,
         });
     };
+
     public updateQuiz = (values: any, value: any) => {
         this.setState({ correct: value });
         this.sendMessage(values);
         this.handleCancel();
         this.showResults();
+        this.setState({
+            testSubmitted: true,
+        });
     };
 
     public readonly getSocketUrlQuiz = (): string => {
@@ -214,6 +225,9 @@ class HomePageComponent extends React.Component<Props, State> {
     }
 
     public sendMessage = (values: any): void => {
+        this.setState({
+            timer: values.timer,
+        })
         const question = {
             type: 'question',
             classroom: this.props.teacherLessons[0].className,
@@ -372,6 +386,9 @@ class HomePageComponent extends React.Component<Props, State> {
                         replyVisible={this.state.replyVisible}
                         showResults={this.showResults}
                         ws={this.ws}
+                        testSubmitted={this.state.testSubmitted}
+                        timer={this.state.timer}
+                        whiteboardVisible={this.state.whiteboardVisible}
                     />
 
                     {this.state.whiteboardVisible ? <Whiteboard /> : null}

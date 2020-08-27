@@ -22,6 +22,14 @@
   outline: none;
 }
 
+.answer-field:focus {
+  border-bottom: 2px solid $primary;
+}
+
+.answer-field::placeholder {
+  color: $grey4;
+}
+
 .timer-label {
   color: $grey5;
   display: block;
@@ -45,6 +53,7 @@
   font-weight: 300;
   padding: 0.3rem 0.6rem;
   cursor: pointer;
+
   &:disabled {
     background-color: $grey4;
     cursor: not-allowed;
