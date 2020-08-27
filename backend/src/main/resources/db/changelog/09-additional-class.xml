@@ -43,7 +43,7 @@
 
       INSERT INTO `user` VALUES (44, 'Justas', 'Ragauskas','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'jusrag','');
       INSERT INTO `user` VALUES (45, 'Matas', 'Ramoska','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'matram','');
-      INSERT INTO `user` VALUES (46, 'Ann', 'Jursa','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'annjur','');
+      INSERT INTO `user` VALUES (46, 'Ana', 'Jursa','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'anajur','');
       INSERT INTO `user` VALUES (47, 'Erika', 'Mackovskyte','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'erimac','');
       INSERT INTO `user` VALUES (48, 'Ieva', 'Talackaite','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'ievtal','');
       INSERT INTO `user` VALUES (49, 'Milda', 'Jocaite','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'miljoc','');

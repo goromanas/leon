@@ -116,7 +116,7 @@
       INSERT INTO `lesson` VALUES(52,8,4,25,'History 6A',3,8,0);
 
       INSERT INTO `lesson` VALUES(37,1,4,23,'Lithuanian 6A',4,1,0);
-      INSERT INTO `lesson` VALUES(38,7,4,7,'Physical Education 6A',4,2,0);
+      INSERT INTO `lesson` VALUES(38,7,4,24,'Physical Education 6A',4,2,0);
       INSERT INTO `lesson` VALUES(39,12,4,12,'Foreign Languages 6A',4,3,0);
       INSERT INTO `lesson` VALUES(40,15,4,16,'Chemistry 6A',4,4,0);
       INSERT INTO `lesson` VALUES(41,9,4,26,'Arts 6A',4,5,0);
