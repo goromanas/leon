@@ -395,11 +395,26 @@
 
 .toVideoButton {
   margin: 0 16px;
+  // background: $secondary;
+  // border: none;
+  color: $grey9;
+  // &:hover{
+  //   background: $gold7;
+  // }
   background: $secondary;
   border: none;
-  color: $grey9;
-  &:hover{
+
+  &:hover {
     background: $gold7;
+    color: $grey9;
+  }
+  &:active {
+    background: $gold7;
+    color: $grey9;
+  }
+  &:focus {
+    background: $gold7;
+    color: $grey9;
   }
 }
 
