@@ -3,8 +3,6 @@ import { Form, Formik, FormikHelpers } from 'formik';
 import styles from './bonus-points.module.scss';
 import { Button, Radio, Select, Alert } from 'antd';
 
-import { motion } from 'framer-motion';
-import { variantsUsersList, variantsUser } from 'app/page/timetable/animation';
 
 const {Option} = Select;
 
