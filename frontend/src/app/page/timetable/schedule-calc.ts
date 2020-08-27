@@ -59,8 +59,10 @@ class ScheduleCalc {
 
     public getDayStart = (schedule: Api.ScheduleDto[]) => {
         if (schedule.length !== 0) {
+            // console.log(schedule);
             return this.convertTimeToMinutes(schedule[0].startTime);
         }
+
         return 0;
     };
 

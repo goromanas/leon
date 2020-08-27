@@ -48,7 +48,7 @@ class HomePageComponent extends React.Component<Props, State> {
 
         return (
             <AsyncContent
-                loading={this.props.schedule.length === 0 && this.props.allLessons !== null}
+                loading={schedule.length === 0 && allLessons !== null}
                 loader={<PageLoadingSpinner />}
             >
                 <div className={styles.homePage}>
@@ -93,11 +93,11 @@ class HomePageComponent extends React.Component<Props, State> {
                                                 className={styles.todoList}
                                             >
                                                 {allLessons !== undefined && allLessons !== null
-                                                && allLessons.length > 0 ? (
-                                                    <ToDoList
-                                                        lessons={allLessons}
-                                                        userRole={this.props.userRoles}
-                                                    />
+                                                    && allLessons.length > 0 ? (
+                                                        <ToDoList
+                                                            lessons={allLessons}
+                                                            userRole={this.props.userRoles}
+                                                        />
                                                     ) : <PageLoadingSpinner />}
                                             </Col>
                                             <Col
