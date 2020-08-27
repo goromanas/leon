@@ -27,7 +27,7 @@ export interface Actions {
     updateWebsocket: (wsChat: ReconnectingWebSocket) => void;
     updateChannelArray: (channelsWithNewMessages: number) => void;
     updateNewMessages: (newMessage: Message) => void;
-    removeChannelArray: (id: number) => void;
+    removeChannelArray: (id?: number, classname?: string) => void;
     filterNewMessages: (channelId: number) => void;
 }
 
@@ -39,6 +39,7 @@ export interface SettingsProps {
     schedule: Api.ScheduleDto[];
     wsChat: ReconnectingWebSocket;
     channelsWithNewMessages: number[];
+    channelsWithNewMessagesT: string[];
     newMessages: Message[];
 }
 
@@ -70,6 +71,7 @@ const DEFAULT_SETTINGS: SettingsProps = {
     schedule: INITIAL_SCHEDULE,
     wsChat: null,
     channelsWithNewMessages: [],
+    channelsWithNewMessagesT: [],
     newMessages: [],
 };
 

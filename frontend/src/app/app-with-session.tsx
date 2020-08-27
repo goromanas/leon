@@ -25,7 +25,7 @@ interface ContextProps {
     updateCurrentLesson: (currentLesson: number) => void;
     updateSchedule: (schedule: Api.ScheduleDto[]) => void;
     updateWebsocket: (wsChat: ReconnectingWebSocket) => void;
-    updateChannelArray: (channelsWithNewMessages: number) => void;
+    updateChannelArray: (channelsWithNewMessages: number, channelname: string) => void;
     updateNewMessages: (newMessage: Message) => void;
 }
 
@@ -143,9 +143,12 @@ class AppWithSessionComponent extends React.Component<Props, State> {
         wsChat.onmessage = (e: any) => {
             const message = JSON.parse(e.data);
             const nr = message.channel;
+            const channelname = message.classname
+            console.log(message)
+            console.log(message && message.classname)
 
             updateNewMessages(message)
-            updateChannelArray(nr);
+            updateChannelArray(nr, channelname);
         };
 
         updateWebsocket(wsChat);
