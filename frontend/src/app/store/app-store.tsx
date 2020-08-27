@@ -10,6 +10,7 @@ interface State {
     schedule: Api.ScheduleDto[];
     wsChat: ReconnectingWebSocket;
     channelsWithNewMessages: number[];
+    channelsWithNewMessagesT: string[];
     newMessages: Message[];
 }
 
@@ -22,6 +23,7 @@ class AppStore extends React.Component<{}, State> {
         schedule: INITIAL_SCHEDULE,
         wsChat: null,
         channelsWithNewMessages: [],
+        channelsWithNewMessagesT: [],
         newMessages: [],
     };
 
@@ -37,6 +39,7 @@ class AppStore extends React.Component<{}, State> {
             schedule,
             wsChat,
             channelsWithNewMessages,
+            channelsWithNewMessagesT,
             newMessages,
         } = this.state;
 
@@ -53,7 +56,8 @@ class AppStore extends React.Component<{}, State> {
         };
 
         return (
-            <settingsContext.Provider value={{ session, lessons, currentLesson, actions, schedule, wsChat, channelsWithNewMessages, newMessages }}>
+            <settingsContext.Provider
+                value={{ session, lessons, currentLesson, actions, schedule, wsChat, channelsWithNewMessages, channelsWithNewMessagesT, newMessages }}>
                 {children}
             </settingsContext.Provider>
         );
@@ -78,11 +82,12 @@ class AppStore extends React.Component<{}, State> {
         this.setState({ wsChat });
     };
 
-    private readonly updateChannelArray = (nr: number): void => {
-        const array = this.state.channelsWithNewMessages.includes(nr) ? [...this.state.channelsWithNewMessages] : [...this.state.channelsWithNewMessages, nr]
-        this.setState({ channelsWithNewMessages: array });
-
-        // this.setState({ channelsWithNewMessages: [...Array.from(new Set([...this.state.channelsWithNewMessages, nr]))] });
+    private readonly updateChannelArray = (nr?: number, classname?: string): void => {
+        const array = this.state.channelsWithNewMessages.includes(nr) ?
+            [...this.state.channelsWithNewMessages] : [...this.state.channelsWithNewMessages, nr]
+        const arrayT = this.state.channelsWithNewMessagesT.includes(classname) ?
+            [...this.state.channelsWithNewMessagesT] : [...this.state.channelsWithNewMessagesT, classname]
+        this.setState({ channelsWithNewMessages: array, channelsWithNewMessagesT: arrayT });
     };
 
     private readonly updateNewMessages = (newMessages: Message): void => {
@@ -91,7 +96,8 @@ class AppStore extends React.Component<{}, State> {
     private readonly removeChannelArray = (id: number): void => {
         const newArr = this.state.channelsWithNewMessages.filter(item => item !== id);
 
-        this.setState({...this.state,  channelsWithNewMessages: [...this.state.channelsWithNewMessages.filter(item => item !== id)]});
+        this.setState({...this.state,  channelsWithNewMessages:
+                [...this.state.channelsWithNewMessages.filter(item => item !== id)]});
     };
     private readonly filterNewMessages = (channelId: number): void => {
         // console.log('App store clean new messages', this.state.newMessages)
