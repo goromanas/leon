@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { Spin } from 'antd';
+
+import { AsyncContent } from 'app/components/layout';
+import { loggerService } from 'app/service/logger-service';
 
 import styles from './quotes.module.scss';
-import { AsyncContent } from '../layout';
-import { Spin } from 'antd';
-import { loggerService } from 'app/service/logger-service';
 
 const Quotes: React.FC = () => {
     const [quoteText, setQouteText] = useState('');
@@ -16,7 +17,7 @@ const Quotes: React.FC = () => {
                 .then(response => response.json())
                 .then(data => {
                     setLoading(false);
-                    return data[Math.floor(Math.random() * data.length - 1)]
+                    return data[Math.floor(Math.random() * data.length - 1)];
                 });
             setQouteText(singleQuoteText.text);
             setQouteAuthor(singleQuoteText.author);

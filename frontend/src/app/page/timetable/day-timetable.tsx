@@ -31,7 +31,7 @@ const DayLessonsList: React.FC<Props> = ({ allLessons, userRole, day, date, curr
         }, 200);
 
     }, []);
-    // console.log(day);
+
     const { dayHeader, dayClass, dayLessonsList, activeDay, dayHeaderInHome } = styles;
     const dayTable = new Array(scheduleCalc.getLongestDay(allLessons));
 
@@ -80,7 +80,7 @@ const DayLessonsList: React.FC<Props> = ({ allLessons, userRole, day, date, curr
             {homepage ?
                 (
                     <div className={dayHeaderInHome}>
-                        <h1 className={dayHeader}>Today's lessons ({dayLessons.length})</h1>
+                        <h1 className={dayHeader}>Today&nbsp;<span>({dayLessons.length})</span></h1>
                         <Link to={navigationService.redirectToCalendarPage}>
                             View All Week
                         </Link>

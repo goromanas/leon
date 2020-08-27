@@ -83,13 +83,11 @@ class ChatComponent extends React.Component<Props, State> {
                 this.setState({ currentClassroom: teacherLessons[0].className });
             }
         }
-        if (newMessages.length !== 0) {
-            if (prev.newMessages !== this.props.newMessages) {
-                this.setState({ ...this.state, messages: [...messages, ...newMessages] });
-                console.log('filternewmsg')
-                filterNewMessages(currentChannel);
-            }
-        }
+if(newMessages.length !== 0 ){
+        if ( prev.newMessages !== this.props.newMessages) {
+            this.setState({ ...this.state, messages: [...messages, ...newMessages] });
+            filterNewMessages(currentChannel);
+        }}
 
     }
 
@@ -98,12 +96,9 @@ class ChatComponent extends React.Component<Props, State> {
         const { messages } = this.state;
         const { teacherLessons, userRoles, newMessages } = this.props;
         const currentChannel: number = 1;
-        console.log(this.props)
 
         chatService.getChatMessages()
             .then((data: any) => {
-                console.log(data[0]);
-                console.log(newMessages)
                 this.setState({
                     messages: [...data],
                 });
@@ -165,6 +160,7 @@ class ChatComponent extends React.Component<Props, State> {
                             channels={channels}
                             classRooms={classRooms}
                             currentChannel={this.state.currentChannel}
+                            currentClassroom={this.state.currentClassroom}
                             onChannelChange={this.onChannelChange}
                             onClassChange={this.onClassChange}
                             role={this.props.userRoles[0]}
@@ -235,7 +231,6 @@ class ChatComponent extends React.Component<Props, State> {
     };
 
     private readonly onChannelChange = (id: number): void => {
-        console.log(this.state.currentChannel, new Date());
         this.setState({
             currentChannel: id,
         });

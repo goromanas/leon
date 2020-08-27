@@ -24,7 +24,7 @@ const Item: React.FC<Props> = (props) => {
     };
 
     return (
-        <>
+        <div onClick={handleOk}>
             <Modal
                 className={styles.modal}
                 style={{ borderRadius: '30px', overflow: 'hidden' }}
@@ -44,7 +44,7 @@ const Item: React.FC<Props> = (props) => {
                     date={date}
                 />
             </Modal>
-            <div className={styles.itemtitle} onClick={handleOk}>
+            <div className={styles.itemtitle} >
                 <div>
                     {type.includes('Homework') ? <Badge color={'orange'} /> : ''}
                     {type.includes('Test') ? <Badge color={'red'} /> : ''}
@@ -52,14 +52,14 @@ const Item: React.FC<Props> = (props) => {
                     {userRole.includes('TEACHER') ? <span className={styles.itemsubject}>{classRoom}</span> : ''}
                 </div>
 
-                <span className={styles.view}>View</span>
+                {/* <span className={styles.view}>View</span> */}
             </div>
             <div>
                 <span className={styles.itemtopic}>
                     {topic}
                 </span>
             </div>
-        </>
+        </div>
     );
 
 };
