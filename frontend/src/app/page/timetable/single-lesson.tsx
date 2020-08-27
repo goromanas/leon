@@ -16,6 +16,8 @@ import { scheduleCalc } from './schedule-calc';
 import styles from './lessons.module.scss';
 import { lessonInformationService } from 'app/api/service/lessonInformation-service';
 import { connectContext, SettingsProps } from 'app/context';
+import { lessonsService } from 'app/api/service/lessons-service';
+import { loggerService } from 'app/service/logger-service';
 
 interface OwnProps {
     currentLesson: number;
@@ -44,10 +46,11 @@ type Props = ContextProps & OwnProps;
 
 const { lesson, activeLesson, endedLesson, lessonBarContent, lessonBar, lessonBarWithBreak, activeInSchedules, emptyLesson, lessonIcon, lessonLive, activeBorder } = styles;
 
-const SingleLesson: React.FC<Props> = (props) => {
+const SingleLessonComponent: React.FC<Props> = (props) => {
     const [update,setUpdate] = useState(0);
     const { currentLesson, thisLesson, handleOpenClassroom, schedule, userRole, date, homepage, ifDayEnded } = props;
     const [modalVisible, setModalVisible] = useState(false);
+
 
 
     let lessonInformationData:any=null;
@@ -76,23 +79,18 @@ const SingleLesson: React.FC<Props> = (props) => {
         // for testing purposes
         // console.log(thisLesson.lessonInformation[0]);
     };
-
-    const getLessonInformation= () => {
-        let tempInformation = thisLesson.lessonInformation.filter((lesson: Api.LessonInformationDto) => lesson.date === date)
-        if (tempInformation.length>0){
-            console.log(tempInformation);
-          //   lessonInformationData = lessonInformationService.getSingleLessonInformation(tempInformation[0].id);
-        }
-    }
-
     const checkLessonInformation = (): void => {
         // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         checkUserRoleForModal() ? showModal(thisLesson.id) : null;
     };
-
     const handleOk = () => {
         setModalVisible(!modalVisible);
-        props.updateLessons();
+        lessonsService
+            .getRoleLessons()
+            .then(props.updateLessons)
+            .catch(error => {
+                loggerService.error('Error occurred when getting session information', error);
+            });
     };
 
     let iconName = thisLesson.subject;
@@ -105,7 +103,6 @@ const SingleLesson: React.FC<Props> = (props) => {
         .filter((_lesson: Api.LessonInformationDto) => _lesson.date === date)[0];
     return (
         <>
-            {getLessonInformation()}
             <Modal
                 style={{ borderRadius: '30px', overflow: 'hidden' }}
                 className={styles.modal}
@@ -249,6 +246,6 @@ const mapContextToProps = ({ session: { user }, lessons, currentLesson, schedule
     updateLessons,
 });
 
-const SingleLessonPage = connectContext(mapContextToProps)(SingleLesson);
+const SingleLesson = connectContext(mapContextToProps)(SingleLessonComponent);
 
 export { SingleLesson };
