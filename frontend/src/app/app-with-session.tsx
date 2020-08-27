@@ -47,13 +47,7 @@ class AppWithSessionComponent extends React.Component<Props, State> {
                 loggerService.error('Error occurred when getting session information', error);
             });
         lessonsService
-            .getTeacherLessons()
-            .then(this.handleLessonsResponse)
-            .catch(error => {
-                loggerService.error('Error occurred when getting session information', error);
-            });
-        lessonsService
-            .getStudentLessons()
+            .getRoleLessons()
             .then(this.handleLessonsResponse)
             .catch(error => {
                 loggerService.error('Error occurred when getting session information', error);

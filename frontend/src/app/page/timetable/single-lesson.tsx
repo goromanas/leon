@@ -14,8 +14,12 @@ import { variantsDay } from 'app/page/timetable/animation';
 import { scheduleCalc } from './schedule-calc';
 
 import styles from './lessons.module.scss';
+import { lessonInformationService } from 'app/api/service/lessonInformation-service';
+import { connectContext, SettingsProps } from 'app/context';
+import { lessonsService } from 'app/api/service/lessons-service';
+import { loggerService } from 'app/service/logger-service';
 
-interface Props {
+interface OwnProps {
     currentLesson: number;
     thisLesson: any;
     handleOpenClassroom: any;
@@ -26,12 +30,25 @@ interface Props {
     ifDayEnded: boolean;
 }
 
-const { lesson, activeLesson, endedLesson, lessonBarContent, lessonBar, lessonBarWithBreak, activeInSchedules, emptyLesson, lessonIcon, lessonLive, activeBorder } = styles;
+interface ContextProps {
+    username: string | null;
+    userRoles: string[] | null;
+    allLessons: Api.LessonDto[];
+    currentLesson: number;
+    schedule: Api.ScheduleDto[];
+    updateLessons: (lessons: Api.LessonDto[]) => void,
+}
 
-const SingleLesson: React.FC<Props> = (props) => {
-    const { currentLesson, thisLesson, handleOpenClassroom, schedule, userRole, date, homepage, ifDayEnded } = props;
+type Props = ContextProps & OwnProps;
+
+const {lesson, activeLesson, endedLesson, lessonBarContent, lessonBar, lessonBarWithBreak, activeInSchedules, emptyLesson, lessonIcon, lessonLive, activeBorder} = styles;
+
+const SingleLessonComponent: React.FC<Props> = (props) => {
+    const [update, setUpdate] = useState(0);
+    const {currentLesson, thisLesson, handleOpenClassroom, schedule, userRole, date, homepage, ifDayEnded} = props;
     const [modalVisible, setModalVisible] = useState(false);
 
+    let lessonInformationData: any = null;
     // define classNames
     const lessonClass = classNames(
         lesson,
@@ -52,18 +69,23 @@ const SingleLesson: React.FC<Props> = (props) => {
 
     const showModal = (index: number) => {
         thisLesson.id !== -1 && setModalVisible(!modalVisible);
+        setUpdate(update);
         // console.log(thisLesson.id);
         // for testing purposes
         // console.log(thisLesson.lessonInformation[0]);
     };
-
     const checkLessonInformation = (): void => {
         // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         checkUserRoleForModal() ? showModal(thisLesson.id) : null;
     };
-
     const handleOk = () => {
         setModalVisible(!modalVisible);
+        lessonsService
+            .getRoleLessons()
+            .then(props.updateLessons)
+            .catch(error => {
+                loggerService.error('Error occurred when getting session information', error);
+            });
     };
 
     let iconName = thisLesson.subject;
@@ -77,7 +99,7 @@ const SingleLesson: React.FC<Props> = (props) => {
     return (
         <>
             <Modal
-                style={{ borderRadius: '30px', overflow: 'hidden' }}
+                style={{borderRadius: '30px', overflow: 'hidden'}}
                 className={styles.modal}
                 visible={modalVisible}
                 footer={null}
@@ -127,11 +149,11 @@ const SingleLesson: React.FC<Props> = (props) => {
                                     height: scheduleCalc.getLessonLength(schedule),
                                     cursor: !thisLesson.lessonInformation[0] ? 'default' : 'cursor,',
                                 }}
-                            > <img
-                                    className={lessonIcon}
-                                    alt=""
-                                    src={`icons/subjects/${iconName}.svg`}
-                                />
+                            ><img
+                                className={lessonIcon}
+                                alt=""
+                                src={`icons/subjects/${iconName}.svg`}
+                            />
                                 {checkUserRoleForModal() ? <h1>{thisLesson.subject}</h1> :
                                     <h1>{thisLesson.className + ' ' + thisLesson.subject}</h1>}
                                 <div className={styles.assignments}>
@@ -143,15 +165,15 @@ const SingleLesson: React.FC<Props> = (props) => {
                                         />
                                     }
                                     {currentLessonInfo?.assignment?.includes('Test') &&
-                                        <img
-                                            alt=""
-                                            src={`icons/assignment.svg`}
-                                        />
+                                    <img
+                                        alt=""
+                                        src={`icons/assignment.svg`}
+                                    />
                                     }
                                 </div>
                                 {checkUserRoleForModal() ? null
                                     : <div className={styles.editModal}>
-                                        <i className="fas  fa-lg fa-plus-circle" />
+                                        <i className="fas  fa-lg fa-plus-circle"/>
                                     </div>}
                                 {thisLesson.id === currentLesson && moment().format('W') === moment(date).format('W') ?
                                     (<Link to={navigationService.redirectToVideoChat(currentLesson)}>
@@ -169,12 +191,12 @@ const SingleLesson: React.FC<Props> = (props) => {
                                                         className={styles.toVideoButton}
                                                     >
                                                         Join a Class
-                                                </Button>
+                                                    </Button>
                                                 </>
                                             )
 
                                             : (
-                                                <div style={{ display: 'flex' }}>
+                                                <div style={{display: 'flex'}}>
                                                     <img
                                                         className={lessonLive}
                                                         alt="Lesson modal icon"
@@ -187,19 +209,19 @@ const SingleLesson: React.FC<Props> = (props) => {
                                     : null}
                             </div>
                         </div>
-                        {thisLesson.id === -1 && <ReactTooltip />}
+                        {thisLesson.id === -1 && <ReactTooltip/>}
                         <span
                             data-tip="Break"
-                            style={{ height: scheduleCalc.getBreakTime(schedule, thisLesson.time) }}
+                            style={{height: scheduleCalc.getBreakTime(schedule, thisLesson.time)}}
                             className={styles.breakSpan}
                         > {
-                                scheduleCalc.getBreakTime(schedule, thisLesson.time) > 20 ?
-                                    (
-                                        <span className={styles.longBreak}>Long break</span>
-                                    ) : null
-                            }
+                            scheduleCalc.getBreakTime(schedule, thisLesson.time) > 20 ?
+                                (
+                                    <span className={styles.longBreak}>Long break</span>
+                                ) : null
+                        }
                         </span>
-                        <ReactTooltip />
+                        <ReactTooltip/>
                     </div>
                 </div>
             </motion.div>
@@ -208,5 +230,17 @@ const SingleLesson: React.FC<Props> = (props) => {
     );
 
 };
+
+const mapContextToProps = ({session: {user}, lessons, currentLesson, schedule, actions: {updateLessons}}: SettingsProps): ContextProps => ({
+
+    username: user != null ? user.username : null,
+    userRoles: user.roles,
+    allLessons: lessons,
+    currentLesson,
+    schedule,
+    updateLessons,
+});
+
+const SingleLesson = connectContext(mapContextToProps)(SingleLessonComponent);
 
 export { SingleLesson };
