@@ -97,12 +97,9 @@ if(newMessages.length !== 0 ){
         const { messages } = this.state;
         const { teacherLessons, userRoles, newMessages } = this.props;
         const currentChannel: number = 1;
-        console.log(this.props)
 
         chatService.getChatMessages()
             .then((data: any) => {
-                console.log(data[0]);
-                console.log(newMessages)
                 this.setState({
                     messages: [...data],
                 });
@@ -164,6 +161,7 @@ if(newMessages.length !== 0 ){
                             channels={channels}
                             classRooms={classRooms}
                             currentChannel={this.state.currentChannel}
+                            currentClassroom={this.state.currentClassroom}
                             onChannelChange={this.onChannelChange}
                             onClassChange={this.onClassChange}
                             role={this.props.userRoles[0]}

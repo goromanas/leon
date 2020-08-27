@@ -6,6 +6,7 @@ import { connectContext, SettingsProps } from 'app/context';
 interface OwnProps {
     channels: Api.Subject[];
     currentChannel: number;
+    currentClassroom: string;
     onChannelChange: any;
     onClassChange: any;
     classRooms: Api.ClassroomDto[];
@@ -20,10 +21,11 @@ interface ContextProps {
 type Props = OwnProps & ContextProps
 
 class ChannelsC extends React.Component<Props> {
+    // private activeChannel = this.props.role === 'STUDENT' ?
+    //     this.props.currentChannel.toString() : this.props.currentClassroom
 
-    componentDidUpdate(){
-        const { channels, currentChannel, onChannelChange, classRooms, role, channelsWithNewMessages,channelsWithNewMessagesT, removeChannelArray } = this.props;
-
+    componentDidUpdate() {
+        const { currentChannel, channelsWithNewMessages, removeChannelArray } = this.props;
         if (channelsWithNewMessages.includes(currentChannel)) {
             removeChannelArray(currentChannel);
         }
@@ -31,7 +33,7 @@ class ChannelsC extends React.Component<Props> {
 
     public render(): React.ReactNode {
         const { channels, currentChannel, onChannelChange, classRooms, role, channelsWithNewMessages,channelsWithNewMessagesT, removeChannelArray } = this.props;
-console.log(this.props.channelsWithNewMessagesT)
+
         return (
       <Menu
           selectedKeys={[currentChannel.toString()]}
