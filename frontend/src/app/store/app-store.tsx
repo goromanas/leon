@@ -93,16 +93,19 @@ class AppStore extends React.Component<{}, State> {
     private readonly updateNewMessages = (newMessages: Message): void => {
         this.setState({ newMessages: [...this.state.newMessages, newMessages] });
     };
-    private readonly removeChannelArray = (id: number): void => {
+    private readonly removeChannelArray = (id: number, classname?: string): void => {
         const newArr = this.state.channelsWithNewMessages.filter(item => item !== id);
+        const newArrT = this.state.channelsWithNewMessagesT.filter(item => item !== classname);
 
-        this.setState({...this.state,  channelsWithNewMessages:
-                [...this.state.channelsWithNewMessages.filter(item => item !== id)]});
+        this.setState({...this.state,
+            channelsWithNewMessages: [...this.state.channelsWithNewMessages.filter(item => item !== id)],
+            channelsWithNewMessagesT: [...this.state.channelsWithNewMessagesT.filter(item => item !== classname)],
+        });
     };
     private readonly filterNewMessages = (channelId: number): void => {
         // console.log('App store clean new messages', this.state.newMessages)
         const cleanArr = [...this.state.newMessages];
-        while(cleanArr.length > 0) {
+        while (cleanArr.length > 0) {
             cleanArr.pop();
         }
         // console.log(cleanArr);
