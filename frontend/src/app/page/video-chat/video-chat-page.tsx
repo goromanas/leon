@@ -102,6 +102,7 @@ class HomePageComponent extends React.Component<Props, State> {
         notification.success({
             message,
             description,
+            placement: 'bottomRight',
         });
     };
 
