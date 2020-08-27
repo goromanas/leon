@@ -13,7 +13,6 @@ interface State {
     content: React.ReactNode;
     lessons: Api.LessonDto[];
     schedule: Api.ScheduleDto[];
-
 }
 
 interface OwnProps {
@@ -36,10 +35,10 @@ class AppWithSessionComponent extends React.Component<Props, State> {
         content: null,
         lessons: null,
         schedule: null,
-
     };
 
     public componentDidMount(): void {
+
         sessionService
             .getSession()
             .then(this.handleResponse)
@@ -67,7 +66,7 @@ class AppWithSessionComponent extends React.Component<Props, State> {
         const { content, lessons } = this.state;
 
         return (
-            <AsyncContent loading={!content} loader={<PageLoadingSpinner />}>
+            <AsyncContent loading={(!content)} loader={<PageLoadingSpinner />}>
                 {content}
             </AsyncContent>
         );
@@ -143,11 +142,12 @@ class AppWithSessionComponent extends React.Component<Props, State> {
         wsChat.onmessage = (e: any) => {
             const message = JSON.parse(e.data);
             const nr = message.channel;
-            const channelname = message.classname
-            console.log(message)
-            console.log(message && message.classname)
+            const channelname = message.classname;
 
-            updateNewMessages(message)
+            console.log(message);
+            console.log(message && message.classname);
+
+            updateNewMessages(message);
             updateChannelArray(nr, channelname);
         };
 

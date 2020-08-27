@@ -18,6 +18,7 @@ import { Greeting } from './greeting/greeting';
 import styles from './home.module.scss';
 import { userService } from 'app/api/service/user-service';
 import { ComponentLoadingSpinner } from '../common/page-loading-spinner/component-loading-spinner';
+import { ComponentSmallSpinner } from 'app/page/common/page-loading-spinner/component-small-spinner';
 
 interface ContextProps {
     username: string | null;
@@ -58,13 +59,13 @@ class HomePageComponent extends React.Component<Props, State> {
             firstName,
         } = this.props;
 
-        const loadingIcon = <LoadingOutlined style={{fontSize: 24}} spin={true}/>;
+        const loadingIcon = <LoadingOutlined style={{ fontSize: 24 }} spin={true} />;
 
         const dayLessons = allLessons && allLessons.filter(lesson => lesson.day === moment().day());
 
         this.state.isCurrentClass && allLessons && userService.getUsersByClass(allLessons[0].className)
-            .then(res => this.setState({currentClass: res}))
-            .then(data => this.setState({isCurrentClass: false}));
+            .then(res => this.setState({ currentClass: res }))
+            .then(data => this.setState({ isCurrentClass: false }));
 
         const sortedTrophyList = this.state.currentClass.sort((a, b) => (a.points > b.points) ? -1 : 1);
 
@@ -79,11 +80,11 @@ class HomePageComponent extends React.Component<Props, State> {
         return (
             <AsyncContent
                 loading={schedule.length === 0 && allLessons !== null && dayLessons !== null}
-                loader={<ComponentLoadingSpinner/>}
+                loader={<ComponentSmallSpinner />}
             >
                 <div className={styles.homePage}>
                     <div className={styles.greeting}>
-                        <Greeting firstname={firstName}/>
+                        <Greeting firstname={firstName} />
                     </div>
 
                     {
@@ -92,57 +93,57 @@ class HomePageComponent extends React.Component<Props, State> {
                                 To user list
                             </Button>
                         ) : (
-                            <div className={styles.homeContent}>
-                                <div className={styles.homeRoundedBlock}>
-                                    <div className={styles.homeSchedule}>
-                                        <div className={styles.scheduleLine}>
-                                            <SideTimebar
-                                                schedule={schedule}
-                                                homepage={true}
-                                                itemsInList={scheduleCalc.thisDayLength(
-                                                    allLessons, parseInt(moment().format('d'), 10),
-                                                )}
-                                            />
-                                        </div>
-                                        <div className={styles.lessons}>
-                                            <DayLessonsList
-                                                userRole={this.props.userRoles}
-                                                currentLesson={currentLesson}
-                                                allLessons={dayLessons || []}
-                                                date={moment().format('YYYY-MM-DD')}
-                                                day={parseInt(moment().format('d'), 10)}
-                                                schedule={schedule}
-                                                homepage={true}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className={styles.todoList}>
-                                        {allLessons !== undefined && allLessons !== null
-                                        && allLessons.length > 0 ? (
-                                            <ToDoList
-                                                lessons={allLessons}
-                                                userRole={this.props.userRoles}
-                                            />
-                                        ) : <ComponentLoadingSpinner/>}
-                                    </div>
-                                </div>
-                                <div className={styles.homeRightSideWrapper}>
-                                    <div className={styles.homeModal}>
-                                        <h2>Did you know?</h2>
-                                        <div>
-                                            <div className={styles.homeModalMotivation}>
-                                                {/* <img src={'icons/quoteLogo.svg'} alt="Quote" /> */}
-                                                <img src={'icons/quotes.svg'} alt="Quote"/>
-                                                <Quotes/>
+                                <div className={styles.homeContent}>
+                                    <div className={styles.homeRoundedBlock}>
+                                        <div className={styles.homeSchedule}>
+                                            <div className={styles.scheduleLine}>
+                                                <SideTimebar
+                                                    schedule={schedule}
+                                                    homepage={true}
+                                                    itemsInList={scheduleCalc.thisDayLength(
+                                                        allLessons, parseInt(moment().format('d'), 10),
+                                                    )}
+                                                />
+                                            </div>
+                                            <div className={styles.lessons}>
+                                                <DayLessonsList
+                                                    userRole={this.props.userRoles}
+                                                    currentLesson={currentLesson}
+                                                    allLessons={dayLessons || []}
+                                                    date={moment().format('YYYY-MM-DD')}
+                                                    day={parseInt(moment().format('d'), 10)}
+                                                    schedule={schedule}
+                                                    homepage={true}
+                                                />
                                             </div>
                                         </div>
+                                        <div className={styles.todoList}>
+                                            {allLessons !== undefined && allLessons !== null
+                                                && allLessons.length > 0 ? (
+                                                    <ToDoList
+                                                        lessons={allLessons}
+                                                        userRole={this.props.userRoles}
+                                                    />
+                                                ) : <ComponentSmallSpinner />}
+                                        </div>
                                     </div>
-                                    <div className={styles.holidayCounterWrapper}>
-                                        <HolidayCounter/>
+                                    <div className={styles.homeRightSideWrapper}>
+                                        <div className={styles.homeModal}>
+                                            <h2>Did you know?</h2>
+                                            <div>
+                                                <div className={styles.homeModalMotivation}>
+                                                    {/* <img src={'icons/quoteLogo.svg'} alt="Quote" /> */}
+                                                    <img src={'icons/quotes.svg'} alt="Quote" />
+                                                    <Quotes />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className={styles.holidayCounterWrapper}>
+                                            <HolidayCounter />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        )
+                            )
                     }
                     <div style={{opacity: this.state.showList ? 1 : 0.0}}
                          className={styles.leaderboard}
@@ -170,7 +171,7 @@ class HomePageComponent extends React.Component<Props, State> {
     };
 }
 
-const mapContextToProps = ({session: {user}, lessons, currentLesson, schedule}: SettingsProps): ContextProps => ({
+const mapContextToProps = ({ session: { user }, lessons, currentLesson, schedule }: SettingsProps): ContextProps => ({
     username: user != null ? user.username : null,
     firstName: user != null ? user.firstName : null,
     userRoles: user.roles,

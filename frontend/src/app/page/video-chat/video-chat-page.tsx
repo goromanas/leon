@@ -20,8 +20,9 @@ import { QuizCreate } from './quiz/quizCreate';
 
 import styles from './video-chat-page.module.scss';
 import { ComponentLoadingSpinner } from '../common/page-loading-spinner/component-loading-spinner';
+import { ComponentSmallSpinner } from 'app/page/common/page-loading-spinner/component-small-spinner';
 
-const {Content, Sider} = Layout;
+const { Content, Sider } = Layout;
 
 interface ContextProps {
     username: string | null;
@@ -107,6 +108,7 @@ class HomePageComponent extends React.Component<Props, State> {
         notification.success({
             message,
             description,
+            placement: 'bottomRight',
         });
     };
 
@@ -194,8 +196,8 @@ class HomePageComponent extends React.Component<Props, State> {
 
     public ws = new ReconnectingWebSocket(this.getSocketUrlQuiz());
     public readonly acknowledgement = (message: any): void => {
-        this.setState({showAcknowledgementModal: !this.state.showAcknowledgementModal});
-        this.setState({acknowledgement: message});
+        this.setState({ showAcknowledgementModal: !this.state.showAcknowledgementModal });
+        this.setState({ acknowledgement: message });
 
     };
 
@@ -313,7 +315,7 @@ class HomePageComponent extends React.Component<Props, State> {
                     {this.state.type === 'question' ?
                         (
                             <AsyncContent
-                                loading={!this.state.quizMessageForStudent && !this.state.jitsiLoaded}
+                                loading={!this.state.quizMessageForStudent}
                                 loader={<ComponentLoadingSpinner />}
                             >
                                 <AnswerQuiz
@@ -326,7 +328,7 @@ class HomePageComponent extends React.Component<Props, State> {
                             </AsyncContent>
                         )
                         : this.state.type === 'answer' ?
-                            <AsyncContent loading={!this.state.answers} loader={<ComponentLoadingSpinner />}>
+                            <AsyncContent loading={!this.state.answers} loader={<ComponentSmallSpinner />}>
                                 {/* <QuizResult answers={this.state.answers}
                                     correct={this.state.correct}
                                     question={this.state.question}

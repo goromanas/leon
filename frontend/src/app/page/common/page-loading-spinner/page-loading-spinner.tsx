@@ -3,7 +3,7 @@ import { Layout, Spin } from 'antd';
 
 import { PageContent } from 'app/components/layout/page-content/page-content';
 
-import { Spinner } from './spinner/spinner';
+import { Spinner } from './spinner/spinner2';
 
 import styles from './page-loading-spinner.module.scss';
 

@@ -11,7 +11,8 @@ import styles from 'app/page/timetable/lessons.module.scss';
 import { variantsDay, variantsWeek, variantsUl } from 'app/page/timetable/animation';
 
 import { scheduleCalc } from './schedule-calc';
-import { ComponentLoadingSpinner } from '../common/page-loading-spinner/component-loading-spinner';
+// import { ComponentLoadingSpinner } from '../common/page-loading-spinner/component-loading-spinner';
+import { ComponentSmallSpinner } from 'app/page/common/page-loading-spinner/component-small-spinner';
 
 interface ContextProps {
     username: string | null;
@@ -96,7 +97,7 @@ const TimetablePageComponent: React.FC<Props> = (props) => {
     );
 
     return (
-        <AsyncContent loading={schedule.length === 0} loader={<ComponentLoadingSpinner />}>
+        <AsyncContent loading={schedule.length === 0} loader={<ComponentSmallSpinner />}>
 
             <div className={styles.weekPage}>
                 <div className={styles.weekInfo}>

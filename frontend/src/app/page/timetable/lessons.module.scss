@@ -124,14 +124,17 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-
+  .dayHeaderNumber {
+    font-weight: $normal;
+    font-size: $sm;
+  }
 }
 
 .activeDay {
   .dayHeader {
     span:nth-child(1) {
-      // font-weight: $bold;
-      font-size: $sm;
+      font-weight: $bold;
+      font-size: $md;
     }
   }
 }
@@ -392,11 +395,26 @@
 
 .toVideoButton {
   margin: 0 16px;
+  // background: $secondary;
+  // border: none;
+  color: $grey9;
+  // &:hover{
+  //   background: $gold7;
+  // }
   background: $secondary;
   border: none;
-  color: $grey9;
-  &:hover{
+
+  &:hover {
     background: $gold7;
+    color: $grey9;
+  }
+  &:active {
+    background: $gold7;
+    color: $grey9;
+  }
+  &:focus {
+    background: $gold7;
+    color: $grey9;
   }
 }
 
