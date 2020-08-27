@@ -78,7 +78,7 @@ const VideoButton: React.FC<Props> = (props) => {
                     }}>
                     <TeamOutlined style={{ transform: 'scale(1.5)' }} />
                 </Button>
-                Students <span>({props.activeUsers}/{props.allUsers})</span>
+                <span className={styles.buttonTitle}>Students <span>({props.activeUsers}/{props.allUsers})</span></span>
             </div>
             <ActiveUsers activeUsers={props.users} isOpen={showUsers} />
             {props.onAcknowledgement ?
@@ -105,18 +105,18 @@ const VideoButton: React.FC<Props> = (props) => {
                                     }}>
                                     <GiftOutlined style={{ transform: 'scale(1.5)' }} />
                                 </Button>
-                                Send Bonus Points
+                                <span className={styles.buttonTitle}>Send Bonus Points</span>
 
                             </div>
 
-                            {showBonusPoints ? null : (
-                                <BonusPoints
-                                    onClose={handleBonusPoints}
-                                    users={props.users}
-                                    ws={props.ws}
-                                    show={showBonusPoints}
-                                />
-                            )}
+                            {/* {showBonusPoints ? null : ( */}
+                            <BonusPoints
+                                onClose={handleBonusPoints}
+                                users={props.users}
+                                ws={props.ws}
+                                show={showBonusPoints}
+                            />
+                            {/* )} */}
                             <div className={styles.videobtn}>
                                 <Button
                                     type="primary"
@@ -128,7 +128,7 @@ const VideoButton: React.FC<Props> = (props) => {
                                     }}
                                 >
                                     <MessageOutlined style={{ transform: 'scale(1.5)' }} />
-                                </Button><span onClick={props.openQuiz}>Create a Question</span>
+                                </Button><span onClick={props.openQuiz} className={styles.buttonTitle}>Create a Question</span>
                                 {props.testSubmitted === true ? (
                                     <Button
                                         shape="circle"
@@ -149,12 +149,7 @@ const VideoButton: React.FC<Props> = (props) => {
                                 timer={props.timer}
                             />
                             <div onClick={props.handleWhiteboard} className={styles.videobtn}>
-                                {/* <Button
-                                    type="primary"
-                                    style={{
-                                        borderRadius: '25px',
-                                        height: '50px',
-                                    }}> */}
+
                                 <Button
                                     type="primary"
                                     style={{
@@ -165,7 +160,7 @@ const VideoButton: React.FC<Props> = (props) => {
                                     }}>
                                     <FormOutlined style={{ transform: 'scale(1.5)' }} />
                                 </Button>
-                                Whiteboard
+                                <span className={styles.buttonTitle}>Whiteboard</span>
                                 {props.whiteboardVisible === true ? (<Button
                                     shape="circle"
                                     icon={<LeftOutlined />}

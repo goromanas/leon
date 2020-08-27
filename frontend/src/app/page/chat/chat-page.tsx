@@ -15,6 +15,7 @@ import { Channels } from './channels';
 
 import styles from './chat-page.module.scss';
 import { ComponentLoadingSpinner } from '../common/page-loading-spinner/component-loading-spinner';
+import { ComponentSmallSpinner } from 'app/page/common/page-loading-spinner/component-small-spinner';
 
 const { Content, Sider } = Layout;
 
@@ -83,11 +84,12 @@ class ChatComponent extends React.Component<Props, State> {
                 this.setState({ currentClassroom: teacherLessons[0].className });
             }
         }
-if(newMessages.length !== 0 ){
-        if ( prev.newMessages !== this.props.newMessages) {
-            this.setState({ ...this.state, messages: [...messages, ...newMessages] });
-            filterNewMessages(currentChannel);
-        }}
+        if (newMessages.length !== 0) {
+            if (prev.newMessages !== this.props.newMessages) {
+                this.setState({ ...this.state, messages: [...messages, ...newMessages] });
+                filterNewMessages(currentChannel);
+            }
+        }
 
     }
 
@@ -97,6 +99,7 @@ if(newMessages.length !== 0 ){
         const { teacherLessons, userRoles, newMessages } = this.props;
         const currentChannel: number = 1;
 
+        console.log(teacherLessons);
         chatService.getChatMessages()
             .then((data: any) => {
                 this.setState({
@@ -139,8 +142,6 @@ if(newMessages.length !== 0 ){
         }
     }
 
-
-
     public render(): React.ReactNode {
         const { messages, channels, classRooms } = this.state;
         const { teacherLessons, channelsWithNewMessages, newMessages } = this.props;
@@ -151,7 +152,7 @@ if(newMessages.length !== 0 ){
 
             <AsyncContent
                 loading={!teacherLessons && !this.state.channels}
-                loader={<ComponentLoadingSpinner />}
+                loader={<ComponentSmallSpinner />}
             >
 
                 <Layout >
@@ -205,26 +206,26 @@ if(newMessages.length !== 0 ){
 
         if (values.message.trim() !== '') {
 
-        //     this.setState({
-        //         messages: [...messages, {
-        //             content: values.message,
-        //             username: this.props.username + ' ' + this.props.lastname,
-        //             date: hours + ':' + minutes,
-        //             channel: currentChannel,
-        //             classname: currentClassroom,
-        //             role: userRoles,
-        //             teacherSubjectId: this.state.teacherSubjectId,
-        //         }],
-        //     });
-        //     this.sendMessage({
-        //         content: values.message,
-        //         username: this.props.username + ' ' + this.props.lastname,
-        //         date: hours + ':' + minutes,
-        //         classname: currentClassroom,
-        //         channel: currentChannel,
-        //         role: userRoles,
-        //         teacherSubjectId: this.state.teacherSubjectId,
-        //     });
+            //     this.setState({
+            //         messages: [...messages, {
+            //             content: values.message,
+            //             username: this.props.username + ' ' + this.props.lastname,
+            //             date: hours + ':' + minutes,
+            //             channel: currentChannel,
+            //             classname: currentClassroom,
+            //             role: userRoles,
+            //             teacherSubjectId: this.state.teacherSubjectId,
+            //         }],
+            //     });
+            //     this.sendMessage({
+            //         content: values.message,
+            //         username: this.props.username + ' ' + this.props.lastname,
+            //         date: hours + ':' + minutes,
+            //         classname: currentClassroom,
+            //         channel: currentChannel,
+            //         role: userRoles,
+            //         teacherSubjectId: this.state.teacherSubjectId,
+            //     });
         }
         resetForm();
         this.setState({ file: null });
@@ -248,11 +249,11 @@ const mapContextToProps = ({ session: { user }, wsChat, lessons, channelsWithNew
     lastname: user != null ? user.lastName : null,
     userRoles: user.roles,
     teacherLessons: lessons,
-    wsChat: wsChat,
+    wsChat,
     channelsWithNewMessages,
     newMessages,
     updateNewMessages,
-    filterNewMessages
+    filterNewMessages,
 });
 
 const ChatPage = connectContext(mapContextToProps)(ChatComponent);
