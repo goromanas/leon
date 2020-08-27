@@ -86,7 +86,6 @@ class ChatComponent extends React.Component<Props, State> {
 if(newMessages.length !== 0 ){
         if ( prev.newMessages !== this.props.newMessages) {
             this.setState({ ...this.state, messages: [...messages, ...newMessages] });
-            console.log('filternewmsg')
             filterNewMessages(currentChannel);
         }}
 
@@ -97,12 +96,9 @@ if(newMessages.length !== 0 ){
         const { messages } = this.state;
         const { teacherLessons, userRoles, newMessages } = this.props;
         const currentChannel: number = 1;
-        console.log(this.props)
 
         chatService.getChatMessages()
             .then((data: any) => {
-                console.log(data[0]);
-                console.log(newMessages)
                 this.setState({
                     messages: [...data],
                 });
@@ -234,7 +230,6 @@ if(newMessages.length !== 0 ){
     };
 
     private readonly onChannelChange = (id: number): void => {
-        console.log(this.state.currentChannel, new Date());
         this.setState({
             currentChannel: id,
         });

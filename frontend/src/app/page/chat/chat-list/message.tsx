@@ -37,8 +37,7 @@ const Message: React.FC<Props> = (
             dateDisplay = a.getHours().toString() + ':' + minutes;
         }
     }
-    // console.log(author);
-    // console.log(teachersList.match(/[A-Z]/g))
+
     return (
         <div className={toRight ? styles.containerR : teachersList.includes(author) ? styles.containerLt : styles.containerL}>
             {!toRight && <div className={styles.avatarBox}>

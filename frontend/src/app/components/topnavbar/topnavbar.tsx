@@ -32,7 +32,6 @@ class TopNavBarComponent extends React.Component<Props> {
     public render(): React.ReactNode {
         const { currentLesson, userRoles, teacherLessons, firstName, channelsWithNewMessages } = this.props;
 
-        // console.log(channelsWithNewMessages)
         return (
             <Header className={styles.header} >
                 <Menu mode="horizontal" className={styles.menu} defaultSelectedKeys={['3']}>
