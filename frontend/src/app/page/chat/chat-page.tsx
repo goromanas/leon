@@ -8,13 +8,13 @@ import { PageContent } from 'app/components/layout';
 import { connectContext, SettingsProps } from 'app/context';
 import { chatService } from 'app/api/service/chat-service';
 import { AsyncContent } from 'app/components/layout';
-import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-loading-spinner';
 
 import { ChatForm, MessageValue } from './form/chat-form';
 import { ChatList } from './chat-list/chat-list';
 import { Channels } from './channels';
 
 import styles from './chat-page.module.scss';
+import { ComponentLoadingSpinner } from '../common/page-loading-spinner/component-loading-spinner';
 
 const { Content, Sider } = Layout;
 
@@ -151,7 +151,7 @@ if(newMessages.length !== 0 ){
 
             <AsyncContent
                 loading={!teacherLessons && !this.state.channels}
-                loader={<PageLoadingSpinner />}
+                loader={<ComponentLoadingSpinner />}
             >
 
                 <Layout >
@@ -243,7 +243,7 @@ if(newMessages.length !== 0 ){
     };
 }
 
-const mapContextToProps = ({ session: { user }, wsChat, lessons, channelsWithNewMessages, newMessages, actions: {updateNewMessages, filterNewMessages}}: SettingsProps): ContextProps => ({
+const mapContextToProps = ({ session: { user }, wsChat, lessons, channelsWithNewMessages, newMessages, actions: { updateNewMessages, filterNewMessages } }: SettingsProps): ContextProps => ({
     username: user != null ? user.firstName : null,
     lastname: user != null ? user.lastName : null,
     userRoles: user.roles,

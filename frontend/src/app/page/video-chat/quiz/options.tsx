@@ -137,14 +137,14 @@ const OptionList: React.FC<Props> = (props) => {
                                             <Radio.Button value="60">1min</Radio.Button>
                                         </Radio.Group>
                                     </div>
-                                    <button
-                                        type="submit"
+                                    <Button
+                                        htmlType="submit"
                                         className={styles.submitButton}
                                         disabled={(errors.question || questionCount < 2 || checkForDuplicates(values.options) || value === 0) ? true : false}
                                         // disabled={true}
                                         onClick={() => validateField('question')}
                                     >Send your question
-                                    </button>
+                                    </Button>
                                 </div>
                             </div>
                         )}

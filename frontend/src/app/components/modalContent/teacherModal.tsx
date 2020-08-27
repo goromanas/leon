@@ -39,6 +39,7 @@ const TeacherModal: React.FC<{ lessonId: number, onClose: () => void, date: stri
         notification.success({
             message,
             description,
+            placement: 'bottomRight',
         });
     };
 
@@ -92,6 +93,7 @@ const TeacherModal: React.FC<{ lessonId: number, onClose: () => void, date: stri
                         <div className={styles.selectorField}>
                             <Field
                                 component={SelectField}
+                                required={true}
                                 name="assignment"
                                 placeholder="Please select an assignment"
                                 mode="multiple"

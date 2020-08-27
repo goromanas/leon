@@ -142,3 +142,16 @@ body {
 
 }
 
+
+.loadingWrapper {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $background;
+  top: 50%;
+  left: 40%;
+  height: 500px;
+  transform: translateY(-50%) translateX(-50%);
+  z-index: 20;
+}

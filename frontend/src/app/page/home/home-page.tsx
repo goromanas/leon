@@ -1,23 +1,23 @@
 import React from 'react';
 import { Button, Col, Row, Spin } from 'antd';
 import moment from 'moment';
-import { Quotes } from 'app/components/quotes/quotes';
 import { LoadingOutlined } from '@ant-design/icons';
 
-
+import { Quotes } from 'app/page/home/quotes/quotes';
 import { navigationService } from 'app/service/navigation-service';
 import { connectContext, SettingsProps } from 'app/context';
 import { AsyncContent } from 'app/components/layout';
-import { PageLoadingSpinner } from 'app/page/common/page-loading-spinner/page-loading-spinner';
 import { DayLessonsList } from 'app/page/timetable/day-timetable';
 import { SideTimebar } from 'app/page/timetable/side-timebar';
 import { scheduleCalc } from 'app/page/timetable/schedule-calc';
+
 import { HolidayCounter } from './holiday-counter/holiday-counter';
 import { ToDoList } from './to-do-list/to-do-list';
 import { Greeting } from './greeting/greeting';
 
 import styles from './home.module.scss';
 import { userService } from 'app/api/service/user-service';
+import { ComponentLoadingSpinner } from '../common/page-loading-spinner/component-loading-spinner';
 
 interface ContextProps {
     username: string | null;
@@ -46,13 +46,16 @@ class HomePageComponent extends React.Component<Props, State> {
             firstName,
         } = this.props;
 
+        const loadingIcon = <LoadingOutlined style={{ fontSize: 24 }} spin={true} />;
+
         const dayLessons = allLessons && allLessons.filter(lesson => lesson.day === moment().day());
 
         allLessons && userService.getUsersByClass(allLessons[0].className).then(response => console.log(response));
         return (
             <AsyncContent
-                loading={schedule.length === 0 && allLessons !== null}
-                loader={<PageLoadingSpinner/>}>
+                loading={schedule.length === 0 && allLessons !== null && dayLessons !== null}
+                loader={<ComponentLoadingSpinner />}
+            >
                 <div className={styles.homePage}>
                     <div className={styles.greeting}>
                         <Greeting firstname={firstName} />
@@ -96,7 +99,7 @@ class HomePageComponent extends React.Component<Props, State> {
                                                         lessons={allLessons}
                                                         userRole={this.props.userRoles}
                                                     />
-                                                ) : <PageLoadingSpinner />}
+                                                ) : <ComponentLoadingSpinner />}
                                         </div>
 
                                     </div>
@@ -125,7 +128,7 @@ class HomePageComponent extends React.Component<Props, State> {
                     }
 
                 </div>
-            </AsyncContent>
+            </AsyncContent >
         );
     }
 
@@ -134,7 +137,7 @@ class HomePageComponent extends React.Component<Props, State> {
     };
 }
 
-const mapContextToProps = ({session: {user}, lessons, currentLesson, schedule}: SettingsProps): ContextProps => ({
+const mapContextToProps = ({ session: { user }, lessons, currentLesson, schedule }: SettingsProps): ContextProps => ({
     username: user != null ? user.username : null,
     firstName: user != null ? user.firstName : null,
     userRoles: user.roles,
