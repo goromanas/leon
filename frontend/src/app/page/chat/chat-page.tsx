@@ -111,7 +111,7 @@ if(newMessages.length !== 0 ){
                 .then(channels => {
                     this.setState({ channels });
                     this.setState({ currentChannel: channels[0].id });
-                    this.setState({ currentClassroom: teacherLessons[0].className });
+                    // this.setState({ currentClassroom: teacherLessons[0].className });
                 })
                 .catch(() => console.log('Error getting subjects'));
 
