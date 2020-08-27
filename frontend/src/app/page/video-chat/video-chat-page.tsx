@@ -404,7 +404,6 @@ class HomePageComponent extends React.Component<Props, State> {
 
                     {this.state.whiteboardVisible ? <Whiteboard /> : null}
                 </Sider>
-
             </Layout>
         );
     }
