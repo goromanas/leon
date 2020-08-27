@@ -1054,6 +1054,48 @@
         },
         "deprecated": false
       }
+    },
+    "/usersClass/{className}": {
+      "get": {
+        "tags": [
+          "classroom-controller"
+        ],
+        "summary": "getUsersByClass",
+        "operationId": "getUsersByClassUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "className",
+            "in": "path",
+            "description": "className",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/UserDto"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
     }
   },
   "definitions": {
@@ -1414,6 +1456,10 @@
         "password": {
           "type": "string"
         },
+        "points": {
+          "type": "number",
+          "format": "double"
+        },
         "role": {
           "type": "array",
           "items": {
@@ -1441,6 +1487,10 @@
         },
         "lastName": {
           "type": "string"
+        },
+        "points": {
+          "type": "number",
+          "format": "double"
         },
         "role": {
           "type": "array",

@@ -2,7 +2,10 @@ import { CancelSource, RestService } from 'app/api/common';
 
 class UserService {
 
+
     private static readonly USER_PATH: string = '/user';
+    private static readonly CLASSROOM_PATH: string = '/usersClass';
+
 
     private readonly restService: RestService;
 
@@ -21,6 +24,9 @@ class UserService {
 
     public readonly updateUser = (user: Api.UserDto): Promise<Api.UserDto> =>
         this.restService.put<Api.UserDto>(UserService.USER_PATH, user);
+
+    public readonly getUsersByClass = (className: string): Promise<Api.UserDto[]> =>
+        this.restService.get<Api.UserDto[]>(`${UserService.CLASSROOM_PATH}/${className}`);
 
 }
 

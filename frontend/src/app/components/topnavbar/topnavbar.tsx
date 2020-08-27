@@ -26,7 +26,9 @@ interface ContextProps {
 type Props = OwnProps & ContextProps;
 
 class TopNavBarComponent extends React.Component<Props> {
+
     public render(): React.ReactNode {
+
         const { currentLesson, userRoles, teacherLessons, firstName } = this.props;
 
         return (
@@ -76,6 +78,7 @@ class TopNavBarComponent extends React.Component<Props> {
 
                     <div className={styles.itemWrapper}>
                         <div>
+
                             {teacherLessons && userRoles.includes('STUDENT') ? teacherLessons[0].className : ''}
                             {teacherLessons && userRoles.includes('TEACHER') ? firstName : ''}
                         </div>

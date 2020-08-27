@@ -53,11 +53,13 @@ const VideoButton: React.FC<Props> = (props) => {
 
         if (props.onAcknowledgement && notifications && props.acknowledgementData.points) {
             const placement = 'bottomRight';
-            notification.info({
+            notification.success({
                 message: `Congrats!`,
                 description: `Teacher has sent you
-                        +${props.acknowledgementData.points}`,
+                        +${props.acknowledgementData.points} for your participation!`,
                 placement,
+                style: {borderRadius: '31px'},
+                duration: 15,
             });
             setNotification(false);
         }
@@ -80,7 +82,7 @@ const VideoButton: React.FC<Props> = (props) => {
                 </div>
                 <ActiveUsers activeUsers={props.users} isOpen={showUsers}/>
                 {props.onAcknowledgement ?
-                    <RadiusBottomrightOutlined/>
+                    <RadiusBottomrightOutlined />
 
                     : null}
                 {
