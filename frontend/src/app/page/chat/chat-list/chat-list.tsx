@@ -20,6 +20,7 @@ interface ContextProps {
     teacherLessons: Api.LessonDto[];
     firstName: string | null;
     userRoles: string[] | null;
+
 }
 
 interface OwnProps {
@@ -74,6 +75,7 @@ const mapContextToProps = ({ session: { user }, lessons }: SettingsProps): Conte
     teacherLessons: lessons,
     firstName: user != null ? user.firstName : null,
     userRoles: user.roles,
+
 });
 
 const ChatList = connectContext(mapContextToProps)(ChatListComponent);

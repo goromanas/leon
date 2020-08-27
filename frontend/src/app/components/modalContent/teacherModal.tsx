@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select } from 'antd';
+import { Select, notification } from 'antd';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 
 import { SelectField } from 'app/components/inputs';
@@ -35,6 +35,13 @@ const TeacherModal: React.FC<{ lessonId: number, onClose: () => void, date: stri
         updateLessonInformation(lessonInformation);
     };
 
+    const openNotificationWithIcon = (message: string, description: string) => {
+        notification.success({
+            message,
+            description,
+        });
+    };
+
     return (
         <div>
             <Formik
@@ -53,6 +60,7 @@ const TeacherModal: React.FC<{ lessonId: number, onClose: () => void, date: stri
                     saveInformation(values);
                     setTimeout(() => {
                         setSubmitting(false);
+                        openNotificationWithIcon('Lesson information saved', `Information about ${values.topic} was saved successfully.`);
                         props.onClose();
                     }, 500);
 
@@ -67,7 +75,9 @@ const TeacherModal: React.FC<{ lessonId: number, onClose: () => void, date: stri
                             />
                         </div>
                         <div className={styles.modalTop}>
-                            <p>{props.subject}</p>
+                            <div>
+                                <p>{props.subject}</p>
+                            </div>
 
                             <Field
                                 id="topic"

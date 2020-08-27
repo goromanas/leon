@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { MessageOutlined, TeamOutlined } from '@ant-design/icons';
+import { MessageOutlined, TeamOutlined, DownOutlined, LeftOutlined } from '@ant-design/icons';
 
 import { Wand } from 'app/page/video-chat/wand';
 import { ActiveUsers } from 'app/page/video-chat/activeUsers';
@@ -32,6 +32,9 @@ interface Props {
     replyVisible: boolean;
     ws: any;
     showResults: any;
+    testSubmitted: boolean;
+    timer: number;
+    whiteboardVisible: boolean;
 }
 
 const VideoButton: React.FC<Props> = (props) => {
@@ -39,7 +42,6 @@ const VideoButton: React.FC<Props> = (props) => {
 
     const handleBonusPoints = (): void => {
         setBonusPoints(!showBonusPoints);
-        console.log(showBonusPoints);
     };
     const [showUsers, setShowUsers] = useState(false);
     const handleActiveUsers = (): void => {
@@ -88,7 +90,6 @@ const VideoButton: React.FC<Props> = (props) => {
                                     <TeamOutlined style={{ transform: 'scale(1.5)' }} />
                                 </Button>
                                 Send Bonus Points
-
                             </div>
 
                             {showBonusPoints ? null : (
@@ -99,25 +100,41 @@ const VideoButton: React.FC<Props> = (props) => {
                                     show={showBonusPoints}
                                 />
                             )}
-                            <div onClick={props.openQuiz} className={styles.videobtn}>
+                            <div className={styles.videobtn}>
                                 <Button
                                     type="primary"
+                                    onClick={props.openQuiz}
                                     style={{
                                         borderRadius: '100%',
                                         height: '50px',
                                         fontSize: '20px',
-                                    }}
+                                        boxShadow: props.replyVisible ? '6px 6px 17px -3px rgba(0,0,0,0.26)' : '',
+                                        backgroundColor: showUsers ? '#5A8AEA' : '#5B97FC',
+                                    }
+                                    }
                                 >
                                     <MessageOutlined style={{ transform: 'scale(1.5)' }} />
                                 </Button>Create a Question
+
+                                {props.testSubmitted === true ? (
+                                    <Button
+                                        shape="circle"
+                                        icon={<DownOutlined />}
+                                        className={props.replyVisible === true ? styles.openbutton : styles.closebutton}
+                                        onClick={props.showResults}
+                                    />
+                                ) : ''}
+
                             </div>
                             <QuizResult
                                 answers={props.answers}
                                 correct={props.correct}
                                 question={props.question}
-                                // isOpen={true}
                                 isOpen={props.replyVisible}
                                 showResults={props.showResults}
+                                allUsers={props.activeUsers}
+                                testSubmitted={props.testSubmitted}
+                                timer={props.timer}
                             />
                             <div onClick={props.handleWhiteboard} className={styles.videobtn}>
                                 <Button
@@ -131,6 +148,12 @@ const VideoButton: React.FC<Props> = (props) => {
                                     </span>
                                 </Button>
                                 Whiteboard
+                                {props.whiteboardVisible === true ? (<Button
+                                    shape="circle"
+                                    icon={<LeftOutlined />}
+                                    onClick={props.handleWhiteboard}
+                                />) : ''}
+
                             </div>
                         </div>
                     )

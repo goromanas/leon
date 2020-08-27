@@ -50,12 +50,12 @@ const OptionList: React.FC<Props> = (props) => {
                     //   alert(JSON.stringify(values, null, 2));
                 }, 400);
 
-                setTimeout(async () => {
-                    resetForm();
-                    setValueTimer('15');
-                    setQuestionCount(0);
-                    //   alert(JSON.stringify(values, null, 2));
-                }, 1000);
+                // setTimeout(async () => {
+                //     resetForm();
+                //     setValueTimer('15');
+                //     setQuestionCount(0);
+                //     //   alert(JSON.stringify(values, null, 2));
+                // }, 1000);
             }}
             render={({ values, validateField, errors }) => (
                 <Form className={styles.quizForm}>
@@ -65,7 +65,7 @@ const OptionList: React.FC<Props> = (props) => {
 
                         : null}
                     {value === 0 ?
-                        <Alert message="Please select the corrent answer" type="warning" closable={true} />
+                        <Alert message="Please select the correct answer" type="warning" closable={true} />
 
                         : null}
                     {checkForDuplicates(values.options) ?
@@ -133,7 +133,7 @@ const OptionList: React.FC<Props> = (props) => {
                                         <Radio.Group name="timer" onChange={onChangeTimer} value={valueTimer} >
                                             <Radio.Button value="15">15s</Radio.Button>
                                             <Radio.Button value="30">30s</Radio.Button>
-                                            <Radio.Button value="40">45s</Radio.Button>
+                                            <Radio.Button value="45">45s</Radio.Button>
                                             <Radio.Button value="60">1min</Radio.Button>
                                         </Radio.Group>
                                     </div>

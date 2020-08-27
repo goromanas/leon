@@ -1,6 +1,7 @@
 import React from 'react';
-import { Button, Col, Row } from 'antd';
+import { Button, Col, Row, Spin } from 'antd';
 import moment from 'moment';
+import { LoadingOutlined } from '@ant-design/icons';
 
 import { Quotes } from 'app/components/quotes/quotes';
 import { navigationService } from 'app/service/navigation-service';
@@ -44,11 +45,13 @@ class HomePageComponent extends React.Component<Props, State> {
             firstName,
         } = this.props;
 
+        const loadingIcon = <LoadingOutlined style={{ fontSize: 24 }} spin={true} />;
+
         const dayLessons = allLessons && allLessons.filter(lesson => lesson.day === moment().day());
 
         return (
             <AsyncContent
-                loading={this.props.schedule.length === 0 && this.props.allLessons !== null}
+                loading={schedule.length === 0 && allLessons !== null}
                 loader={<PageLoadingSpinner />}
             >
                 <div className={styles.homePage}>
@@ -93,12 +96,17 @@ class HomePageComponent extends React.Component<Props, State> {
                                                 className={styles.todoList}
                                             >
                                                 {allLessons !== undefined && allLessons !== null
-                                                && allLessons.length > 0 ? (
-                                                    <ToDoList
-                                                        lessons={allLessons}
-                                                        userRole={this.props.userRoles}
-                                                    />
-                                                    ) : <PageLoadingSpinner />}
+                                                    && allLessons.length > 0 ? (
+                                                        <ToDoList
+                                                            lessons={allLessons}
+                                                            userRole={this.props.userRoles}
+                                                        />
+                                                    ) : (
+                                                        <div className={styles.listLoader}>
+                                                            <Spin indicator={loadingIcon} />
+                                                        </div>
+                                                    )
+                                                }
                                             </Col>
                                             <Col
                                                 lg={16}
