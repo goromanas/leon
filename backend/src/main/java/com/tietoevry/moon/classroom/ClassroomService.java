@@ -6,7 +6,9 @@ import com.tietoevry.moon.classroom.ClassroomMapper;
 import com.tietoevry.moon.lesson.LessonRepository;
 import com.tietoevry.moon.lesson.LessonService;
 import com.tietoevry.moon.lesson.model.Lesson;
+import com.tietoevry.moon.user.UserMapper;
 import com.tietoevry.moon.user.model.User;
+import com.tietoevry.moon.user.model.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,11 @@ public class ClassroomService {
     public List<ClassroomDto> getClassrooms() {
         return classroomRepository.findAll().stream().map(ClassroomMapper::mapClassroomDto).collect(Collectors.toList());
     }
+
+    public List<UserDto> getUsersByClassroom(String classRoom){
+        return findClassroomByName(classRoom).getUser().stream().map(UserMapper::mapUserDto).collect(Collectors.toList());
+    }
+
 
     public Optional<ClassroomDto> getClassroom(Long id) {
         return classroomRepository.findById(id).map(ClassroomMapper::mapClassroomDto);
