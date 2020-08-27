@@ -26,10 +26,13 @@ const TimeLine: React.FC<Props> = (props) => {
     useEffect(() => {
         const time = moment().format('HH:mm');
         // setTop(scheduleCalc.convertTimeToMinutes(moment().format('HH:mm')) - scheduleCalc.getDayStart(schedule));
-        if (scheduleCalc.convertTimeToMinutes(time) > 0 && schedule.length !== 0) {
+        if (scheduleCalc.convertTimeToMinutes(time) > 0) {
             setTop(
-                scheduleCalc.convertTimeToMinutes(time) - scheduleCalc.getDayStart(schedule),
+                // scheduleCalc.convertTimeToMinutes(time) - scheduleCalc.getDayStart(schedule),
+                scheduleCalc.convertTimeToMinutes(time) - 480,
             );
+        } else {
+            setTop(-1000);
         }
         setTimeout(() => {
             setLong(true);
@@ -42,15 +45,14 @@ const TimeLine: React.FC<Props> = (props) => {
     );
     useEffect(() => {
         const interval = setInterval(() => {
-            // moment() = moment();
+
             const time = moment().format('HH:mm');
-            if (scheduleCalc.convertTimeToMinutes(time) > 0 && schedule.length !== 0) {
+            const minutes = scheduleCalc.convertTimeToMinutes(time);
+            if (minutes > 0) {
                 setTop(
-                    scheduleCalc.convertTimeToMinutes(time) - scheduleCalc.getDayStart(schedule),
+                    minutes - 480,
                 );
-            }
-            // opacity === '0' && setOpacity('1');
-            // console.log(scheduleCalc.convertTimeToMinutes(time));
+            } else { setTop(-1000); }
         }, 1000);
 
         return () => {

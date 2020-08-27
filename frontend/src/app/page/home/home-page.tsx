@@ -1,7 +1,10 @@
 import React from 'react';
-import { Button, Col, Row } from 'antd';
+import { Button, Col, Row, Spin } from 'antd';
 import moment from 'moment';
 import { Quotes } from 'app/components/quotes/quotes';
+import { LoadingOutlined } from '@ant-design/icons';
+
+
 import { navigationService } from 'app/service/navigation-service';
 import { connectContext, SettingsProps } from 'app/context';
 import { AsyncContent } from 'app/components/layout';
@@ -49,84 +52,77 @@ class HomePageComponent extends React.Component<Props, State> {
         return (
             <AsyncContent
                 loading={schedule.length === 0 && allLessons !== null}
-                loader={<PageLoadingSpinner/>}
-            >
+                loader={<PageLoadingSpinner/>}>
                 <div className={styles.homePage}>
-                    <div className={styles.home}>
-                        {
-                            userRoles.includes('ADMIN') ? (
-                                <Button type="primary" onClick={this.handleClickToUserList}>
-                                    To user list
-                                </Button>
-                            ) : (
-                                <>
-                                    <div className={styles.greeting}>
-                                        <Greeting firstname={firstName}/>
-                                    </div>
-                                    <Row>
-                                        <Col lg={2} md={2} sm={2}>
-                                            <SideTimebar
-                                                schedule={schedule}
-                                                homepage={true}
-                                                itemsInList={scheduleCalc.thisDayLength(
-                                                    allLessons, parseInt(moment().format('d'), 10),
-                                                )}
-                                            />
+                    <div className={styles.greeting}>
+                        <Greeting firstname={firstName} />
+                    </div>
 
-                                        </Col>
-                                        <Col lg={12} md={38} sm={38}>
-                                            <DayLessonsList
-                                                userRole={this.props.userRoles}
-                                                currentLesson={currentLesson}
-                                                allLessons={dayLessons || []}
-                                                date={moment().format('YYYY-MM-DD')}
-                                                day={parseInt(moment().format('d'), 10)}
-                                                schedule={schedule}
-                                                homepage={true}
-                                            />
-                                        </Col>
-
-                                        <Col
-                                            lg={10}
-                                            md={38}
-                                            sm={38}
-                                            className={styles.todoList}
-                                        >
-                                            {allLessons !== undefined && allLessons !== null
-                                            && allLessons.length > 0 ? (
-                                                <ToDoList
-                                                    lessons={allLessons}
-                                                    userRole={this.props.userRoles}
+                    {
+                        userRoles.includes('ADMIN') ? (
+                            <Button type="primary" onClick={this.handleClickToUserList}>
+                                To user list
+                            </Button>
+                        ) : (
+                                <div className={styles.homeContent}>
+                                    <div className={styles.homeRoundedBlock}>
+                                        <div className={styles.homeSchedule}>
+                                            <div className={styles.scheduleLine}>
+                                                <SideTimebar
+                                                    schedule={schedule}
+                                                    homepage={true}
+                                                    itemsInList={scheduleCalc.thisDayLength(
+                                                        allLessons, parseInt(moment().format('d'), 10),
+                                                    )}
                                                 />
-                                            ) : <PageLoadingSpinner/>}
-                                        </Col>
-                                        <Col
-                                            lg={16}
-                                            md={38}
-                                            sm={38}
-                                            className={styles.holidayCounterwrapper}
-                                        >
+
+                                            </div>
+                                            <div className={styles.lessons}>
+                                                <DayLessonsList
+                                                    userRole={this.props.userRoles}
+                                                    currentLesson={currentLesson}
+                                                    allLessons={dayLessons || []}
+                                                    date={moment().format('YYYY-MM-DD')}
+                                                    day={parseInt(moment().format('d'), 10)}
+                                                    schedule={schedule}
+                                                    homepage={true}
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className={styles.todoList}>
+                                            {allLessons !== undefined && allLessons !== null
+                                                && allLessons.length > 0 ? (
+                                                    <ToDoList
+                                                        lessons={allLessons}
+                                                        userRole={this.props.userRoles}
+                                                    />
+                                                ) : <PageLoadingSpinner />}
+                                        </div>
+
+                                    </div>
+
+                                    <div className={styles.homeRightSideWrapper} >
+
+                                        <div className={styles.homeModal}>
+                                            <h2>Did you know?</h2>
                                             <div>
-                                                <HolidayCounter/>
-                                            </div>
-                                            <div className={styles.homeModal}>
-                                                <h2>Did you know?</h2>
-                                                <div>
-                                                    <div className={styles.homeModalMotivation}>
-                                                        <img src={'icons/quoteLogo.svg'} alt="Quote"/>
-                                                        <Quotes/>
-                                                    </div>
+                                                <div className={styles.homeModalMotivation}>
+                                                    {/* <img src={'icons/quoteLogo.svg'} alt="Quote" /> */}
+                                                    <img src={'icons/quotes.svg'} alt="Quote" />
+                                                    <Quotes />
                                                 </div>
-                                                <div className={styles.homeModalOne}/>
-                                                <div className={styles.homeModalTwo}/>
                                             </div>
-                                        </Col>
-                                    </Row>
-                                </>
+                                            {/* <div className={styles.homeModalOne} />
+                                            <div className={styles.homeModalTwo} /> */}
+                                        </div>
+                                        <div className={styles.holidayCounterWrapper}>
+                                            <HolidayCounter />
+                                        </div>
+                                    </div>
+                                </div>
                             )
 
-                        }
-                    </div>
+                    }
 
                 </div>
             </AsyncContent>
