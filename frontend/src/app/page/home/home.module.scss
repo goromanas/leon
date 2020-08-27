@@ -152,22 +152,20 @@
   z-index: 3999;
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
-  display:none;
-  }
+  display: none;
+}
 
 
-  .trophyList {
-    display: block;
-    opacity: 1;
-  }
 
 
-.trophyTwo{
+
+.trophyTwo {
   position: absolute;
 
   float: right;
   top: 11px;
   right: 11px;
+
   svg {
     z-index: 333;
     color: #FBA536;
@@ -177,25 +175,73 @@
     height: 30px;
 
   }
+
+  -webkit-transition: all .3s ease-in-out;
+  -moz-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out;
 }
 
 .trophyList {
-  transition: all 1s;
-  display: none;
   list-style: none;
-  opacity: 0;
 }
 
 .listItems {
-
-  height: 400px;
-  width: 200px;
+  display: none;
+  height: 40px;
+  width: 20px;
   position: absolute;
   top: 15%;
   right: 10px;
   background-color: #5B97FC;
-  border-radius: 30px;
+
+
+}
+
+.listItemsShow {
+  opacity:0.95;
+  display: block;
+  height: 400px;
+  width: 250px;
+  position: absolute;
+  top: 15%;
+  right: 10px;
+  background-color: #5B97FC;
+  border-radius: 25px;
   z-index: 25;
+  -webkit-transition: all .8s ease-in-out;
+  -moz-transition: all .8s ease-in-out;
+  transition: all .8s ease-in-out;
+  display:flex;
+  flex-direction: column;
+  h4{
+    display:inline-block;
+    margin: 3em auto 0 auto;
+
+  }
+  ul{
+    display: block;
+    float:left;
+    li{
+      margin: 0.8em 0;
+    }
+    li:first-child{
+      color: #FBA536;
+      font-size: $lg;
+    }
+    li:nth-child(2){
+      color: #FBA536;
+      font-size: $md;
+    }
+    li:nth-child(3){
+      color: #FBA536;
+      font-size: $sm;
+    }
+    li:nth-child(n+4){
+      color: $grey9;
+      font-size: $xs;
+    }
+  }
+
 }
 
 
