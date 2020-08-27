@@ -36,24 +36,19 @@ interface ContextProps {
     allLessons: Api.LessonDto[];
     currentLesson: number;
     schedule: Api.ScheduleDto[];
-    updateLessons:(lessons: Api.LessonDto[]) => void,
+    updateLessons: (lessons: Api.LessonDto[]) => void,
 }
-
 
 type Props = ContextProps & OwnProps;
 
-
-
-const { lesson, activeLesson, endedLesson, lessonBarContent, lessonBar, lessonBarWithBreak, activeInSchedules, emptyLesson, lessonIcon, lessonLive, activeBorder } = styles;
+const {lesson, activeLesson, endedLesson, lessonBarContent, lessonBar, lessonBarWithBreak, activeInSchedules, emptyLesson, lessonIcon, lessonLive, activeBorder} = styles;
 
 const SingleLessonComponent: React.FC<Props> = (props) => {
-    const [update,setUpdate] = useState(0);
-    const { currentLesson, thisLesson, handleOpenClassroom, schedule, userRole, date, homepage, ifDayEnded } = props;
+    const [update, setUpdate] = useState(0);
+    const {currentLesson, thisLesson, handleOpenClassroom, schedule, userRole, date, homepage, ifDayEnded} = props;
     const [modalVisible, setModalVisible] = useState(false);
 
-
-
-    let lessonInformationData:any=null;
+    let lessonInformationData: any = null;
     // define classNames
     const lessonClass = classNames(
         lesson,
@@ -104,7 +99,7 @@ const SingleLessonComponent: React.FC<Props> = (props) => {
     return (
         <>
             <Modal
-                style={{ borderRadius: '30px', overflow: 'hidden' }}
+                style={{borderRadius: '30px', overflow: 'hidden'}}
                 className={styles.modal}
                 visible={modalVisible}
                 footer={null}
@@ -154,11 +149,11 @@ const SingleLessonComponent: React.FC<Props> = (props) => {
                                     height: scheduleCalc.getLessonLength(schedule),
                                     cursor: !thisLesson.lessonInformation[0] ? 'default' : 'cursor,',
                                 }}
-                            > <img
-                                    className={lessonIcon}
-                                    alt=""
-                                    src={`icons/subjects/${iconName}.svg`}
-                                />
+                            ><img
+                                className={lessonIcon}
+                                alt=""
+                                src={`icons/subjects/${iconName}.svg`}
+                            />
                                 {checkUserRoleForModal() ? <h1>{thisLesson.subject}</h1> :
                                     <h1>{thisLesson.className + ' ' + thisLesson.subject}</h1>}
                                 <div className={styles.assignments}>
@@ -170,15 +165,15 @@ const SingleLessonComponent: React.FC<Props> = (props) => {
                                         />
                                     }
                                     {currentLessonInfo?.assignment?.includes('Test') &&
-                                        <img
-                                            alt=""
-                                            src={`icons/assignment.svg`}
-                                        />
+                                    <img
+                                        alt=""
+                                        src={`icons/assignment.svg`}
+                                    />
                                     }
                                 </div>
                                 {checkUserRoleForModal() ? null
                                     : <div className={styles.editModal}>
-                                        <i className="fas  fa-lg fa-plus-circle" />
+                                        <i className="fas  fa-lg fa-plus-circle"/>
                                     </div>}
                                 {thisLesson.id === currentLesson && moment().format('W') === moment(date).format('W') ?
                                     (<Link to={navigationService.redirectToVideoChat(currentLesson)}>
@@ -196,12 +191,12 @@ const SingleLessonComponent: React.FC<Props> = (props) => {
                                                         className={styles.toVideoButton}
                                                     >
                                                         Join a Class
-                                                </Button>
+                                                    </Button>
                                                 </>
                                             )
 
                                             : (
-                                                <div style={{ display: 'flex' }}>
+                                                <div style={{display: 'flex'}}>
                                                     <img
                                                         className={lessonLive}
                                                         alt="Lesson modal icon"
@@ -214,19 +209,19 @@ const SingleLessonComponent: React.FC<Props> = (props) => {
                                     : null}
                             </div>
                         </div>
-                        {thisLesson.id === -1 && <ReactTooltip />}
+                        {thisLesson.id === -1 && <ReactTooltip/>}
                         <span
                             data-tip="Break"
-                            style={{ height: scheduleCalc.getBreakTime(schedule, thisLesson.time) }}
+                            style={{height: scheduleCalc.getBreakTime(schedule, thisLesson.time)}}
                             className={styles.breakSpan}
                         > {
-                                scheduleCalc.getBreakTime(schedule, thisLesson.time) > 20 ?
-                                    (
-                                        <span className={styles.longBreak}>Long break</span>
-                                    ) : null
-                            }
+                            scheduleCalc.getBreakTime(schedule, thisLesson.time) > 20 ?
+                                (
+                                    <span className={styles.longBreak}>Long break</span>
+                                ) : null
+                        }
                         </span>
-                        <ReactTooltip />
+                        <ReactTooltip/>
                     </div>
                 </div>
             </motion.div>
@@ -236,7 +231,7 @@ const SingleLessonComponent: React.FC<Props> = (props) => {
 
 };
 
-const mapContextToProps = ({ session: { user }, lessons, currentLesson, schedule,actions:{updateLessons} }: SettingsProps): ContextProps => ({
+const mapContextToProps = ({session: {user}, lessons, currentLesson, schedule, actions: {updateLessons}}: SettingsProps): ContextProps => ({
 
     username: user != null ? user.username : null,
     userRoles: user.roles,
