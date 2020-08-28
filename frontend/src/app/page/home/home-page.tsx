@@ -71,7 +71,7 @@ class HomePageComponent extends React.Component<Props, State> {
 
         const trophyList = sortedTrophyList.map((item: any, id) => (
 
-            <li>{id+1} {item.firstName} has {item.points} points!</li>
+            <li>{id+1}. {item.firstName} has {item.points} points!</li>
 
         ));
 
@@ -157,7 +157,7 @@ class HomePageComponent extends React.Component<Props, State> {
                             onMouseLeave={() => this.setState({showList: !this.state.showList})}
                             className={this.state.showList ? styles.listItems : styles.listItemsShow}>
                             <TrophyOutlined className={styles.trophyTwo}/>
-                            <h4>Class' Activity Leaderboard</h4>
+                            <h4>Class' Activity Leaderboard:</h4>
                             <ul className={styles.trophyList}>
                                 {trophyList}
                             </ul>
