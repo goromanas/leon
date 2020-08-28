@@ -224,7 +224,7 @@ if(newMessages.length !== 0 ){
                 channel: currentChannel,
                 role: userRoles,
                 teacherSubjectId: this.state.teacherSubjectId,
-            });
+            })
         }
         resetForm();
         this.setState({ file: null });
