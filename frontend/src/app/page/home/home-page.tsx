@@ -1,7 +1,7 @@
 import React from 'react';
-import { Button, Col, Row, Spin } from 'antd';
+import { Button } from 'antd';
 import moment from 'moment';
-import { LoadingOutlined } from '@ant-design/icons';
+import { LoadingOutlined, TrophyOutlined } from '@ant-design/icons';
 
 import { Quotes } from 'app/page/home/quotes/quotes';
 import { navigationService } from 'app/service/navigation-service';
@@ -18,6 +18,7 @@ import { Greeting } from './greeting/greeting';
 import styles from './home.module.scss';
 import { userService } from 'app/api/service/user-service';
 import { ComponentLoadingSpinner } from '../common/page-loading-spinner/component-loading-spinner';
+import { ComponentSmallSpinner } from 'app/page/common/page-loading-spinner/component-small-spinner';
 
 interface ContextProps {
     username: string | null;
@@ -33,9 +34,21 @@ type Props = ContextProps;
 interface State {
     move: number;
     dayOfWeek: number;
+    currentClass?: Api.UserDto[];
+    isCurrentClass: boolean;
+    showList: boolean;
+    squareBorder: boolean;
 }
 
 class HomePageComponent extends React.Component<Props, State> {
+    public state: State = {
+        move: null,
+        dayOfWeek: null,
+        currentClass: [],
+        isCurrentClass: true,
+        showList: true,
+        squareBorder: true,
+    };
 
     public render(): React.ReactNode {
         const {
@@ -50,11 +63,24 @@ class HomePageComponent extends React.Component<Props, State> {
 
         const dayLessons = allLessons && allLessons.filter(lesson => lesson.day === moment().day());
 
-        allLessons && userService.getUsersByClass(allLessons[0].className).then(response => console.log(response));
+        this.state.isCurrentClass && allLessons && userService.getUsersByClass(allLessons[0].className)
+            .then(res => this.setState({ currentClass: res }))
+            .then(data => this.setState({ isCurrentClass: false }));
+
+        const sortedTrophyList = this.state.currentClass.sort((a, b) => (a.points > b.points) ? -1 : 1);
+
+        const trophyList = sortedTrophyList.map((item: any, id) => (
+
+            <li>{id+1}. {item.firstName} has {item.points} points!</li>
+
+        ));
+
+        // console.log(this.state.currentClass);
+
         return (
             <AsyncContent
                 loading={schedule.length === 0 && allLessons !== null && dayLessons !== null}
-                loader={<ComponentLoadingSpinner />}
+                loader={<ComponentSmallSpinner />}
             >
                 <div className={styles.homePage}>
                     <div className={styles.greeting}>
@@ -78,7 +104,6 @@ class HomePageComponent extends React.Component<Props, State> {
                                                         allLessons, parseInt(moment().format('d'), 10),
                                                     )}
                                                 />
-
                                             </div>
                                             <div className={styles.lessons}>
                                                 <DayLessonsList
@@ -99,13 +124,10 @@ class HomePageComponent extends React.Component<Props, State> {
                                                         lessons={allLessons}
                                                         userRole={this.props.userRoles}
                                                     />
-                                                ) : <ComponentLoadingSpinner />}
+                                                ) : <ComponentSmallSpinner />}
                                         </div>
-
                                     </div>
-
-                                    <div className={styles.homeRightSideWrapper} >
-
+                                    <div className={styles.homeRightSideWrapper}>
                                         <div className={styles.homeModal}>
                                             <h2>Did you know?</h2>
                                             <div>
@@ -115,8 +137,6 @@ class HomePageComponent extends React.Component<Props, State> {
                                                     <Quotes />
                                                 </div>
                                             </div>
-                                            {/* <div className={styles.homeModalOne} />
-                                            <div className={styles.homeModalTwo} /> */}
                                         </div>
                                         <div className={styles.holidayCounterWrapper}>
                                             <HolidayCounter />
@@ -124,11 +144,28 @@ class HomePageComponent extends React.Component<Props, State> {
                                     </div>
                                 </div>
                             )
-
                     }
+                    {userRoles.includes('TEACHER') ? null : <>
+                        <div style={{opacity: this.state.showList ? 1 : 0.0}}
+                             className={styles.leaderboard}
 
+                             onMouseEnter={() => this.setState({showList: !this.state.showList})}>
+                            <TrophyOutlined className={styles.trophyOne}/>
+
+                        </div>
+                        <div
+                            onMouseLeave={() => this.setState({showList: !this.state.showList})}
+                            className={this.state.showList ? styles.listItems : styles.listItemsShow}>
+                            <TrophyOutlined className={styles.trophyTwo}/>
+                            <h4>Class' Activity Leaderboard:</h4>
+                            <ul className={styles.trophyList}>
+                                {trophyList}
+                            </ul>
+                        </div>
+                    </>}
                 </div>
-            </AsyncContent >
+
+            </AsyncContent>
         );
     }
 

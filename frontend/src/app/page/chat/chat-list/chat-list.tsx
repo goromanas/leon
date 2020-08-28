@@ -61,7 +61,7 @@ const ChatListComponent: React.FC<Props> = (
                                         classroom={msg.classname}
                                         toRight={msg.username === username}
                                         role={userRoles[0]}
-                                        teachersList={teachersList}
+                                        teachersList={teachersList || []}
                                     />
                                 </CSSTransition>
                             ))
