@@ -56,7 +56,7 @@ const VideoButton: React.FC<Props> = (props) => {
         setShowUsers(!showUsers);
     };
     // console.log(props.acknowledgementData);
-    if (props.onAcknowledgement && notifications && props.acknowledgementData.points {
+    if (props.onAcknowledgement && notifications && props.acknowledgementData.points) {
         const placement = 'bottomRight';
         notification.success({
             message: `Congrats!`,
