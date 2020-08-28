@@ -48,15 +48,15 @@ const VideoButton: React.FC<Props> = (props) => {
 
     const handleBonusPoints = (): void => {
         setBonusPoints(!showBonusPoints);
-        console.log(showBonusPoints);
+        // console.log(showBonusPoints);
     };
     const [showUsers, setShowUsers] = useState(false);
     const [notifications, setNotification] = useState(true);
     const handleActiveUsers = (): void => {
         setShowUsers(!showUsers);
     };
-    console.log(props.acknowledgementData);
-    if (props.onAcknowledgement && notifications && props.acknowledgementData.points !== 0) {
+    // console.log(props.acknowledgementData);
+    if (props.onAcknowledgement && notifications && props.acknowledgementData.points) {
         const placement = 'bottomRight';
         notification.success({
             message: `Congrats!`,
