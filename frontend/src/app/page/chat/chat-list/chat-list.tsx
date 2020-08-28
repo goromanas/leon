@@ -1,5 +1,5 @@
 import React from 'react';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+// import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import { connectContext, SettingsProps } from 'app/context';
 
@@ -40,10 +40,7 @@ const ChatListComponent: React.FC<Props> = (
         < div className={styles.container}>
 
             < ul>
-                < TransitionGroup
-                    className="chat-messages"
-                    appear={true}
-                >
+
 
                     {
                         messages
@@ -51,7 +48,7 @@ const ChatListComponent: React.FC<Props> = (
                                 && message.classname === currentClassroom
                             )
                             .map((msg, i) => (
-                                <CSSTransition key={i} timeout={300} classNames="fade" appear={true}>
+
                                     <Message
                                         key={i}
                                         text={msg.content}
@@ -63,10 +60,10 @@ const ChatListComponent: React.FC<Props> = (
                                         role={userRoles[0]}
                                         teachersList={teachersList || []}
                                     />
-                                </CSSTransition>
+
                             ))
                     }
-                </TransitionGroup>
+
             </ul>
         </div>
     );
