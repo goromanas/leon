@@ -201,7 +201,7 @@
   opacity:0.95;
   display: block;
   height: 400px;
-  width: 250px;
+  width: 260px;
   position: absolute;
   top: 15%;
   right: 10px;
@@ -221,19 +221,21 @@
   ul{
     display: block;
     float:left;
+    margin-left: -10px;
     li{
       margin: 0.8em 0;
     }
     li:first-child{
-      color: #FBA536;
+      color: $gold6;
       font-size: $lg;
+      font-weight: $semiBold;
     }
     li:nth-child(2){
-      color: #FBA536;
+      color: $gold7;
       font-size: $md;
     }
     li:nth-child(3){
-      color: #FBA536;
+      color: $gold8;
       font-size: $sm;
     }
     li:nth-child(n+4){
