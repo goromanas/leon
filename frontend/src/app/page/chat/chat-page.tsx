@@ -84,12 +84,13 @@ class ChatComponent extends React.Component<Props, State> {
                 this.setState({ currentClassroom: teacherLessons[0].className });
             }
         }
-        if (newMessages.length !== 0) {
-            if (prev.newMessages !== this.props.newMessages) {
-                this.setState({ ...this.state, messages: [...messages, ...newMessages] });
-                filterNewMessages(currentChannel);
-            }
-        }
+
+if(newMessages.length !== 0 ){
+        if ( prev.newMessages !== this.props.newMessages) {
+            this.setState({ ...this.state, messages: [...messages, ...newMessages] });
+            filterNewMessages(currentChannel);
+        }}
+
 
     }
 
@@ -117,7 +118,6 @@ class ChatComponent extends React.Component<Props, State> {
                     this.setState({ currentClassroom: teacherLessons[0].className });
                 })
                 .catch(() => console.log('Error getting subjects'));
-
         }
 
         if (this.state.channels.length < 1 && userRoles.includes('TEACHER')) {
@@ -206,26 +206,26 @@ class ChatComponent extends React.Component<Props, State> {
 
         if (values.message.trim() !== '') {
 
-            this.setState({
-                messages: [...messages, {
+                this.setState({
+                    messages: [...messages, {
+                        content: values.message,
+                        username: this.props.username + ' ' + this.props.lastname,
+                        date: hours + ':' + minutes,
+                        channel: currentChannel,
+                        classname: currentClassroom,
+                        role: userRoles,
+                        teacherSubjectId: this.state.teacherSubjectId,
+                    }],
+                });
+                this.sendMessage({
                     content: values.message,
                     username: this.props.username + ' ' + this.props.lastname,
                     date: hours + ':' + minutes,
-                    channel: currentChannel,
                     classname: currentClassroom,
+                    channel: currentChannel,
                     role: userRoles,
                     teacherSubjectId: this.state.teacherSubjectId,
-                }],
-            });
-            this.sendMessage({
-                content: values.message,
-                username: this.props.username + ' ' + this.props.lastname,
-                date: hours + ':' + minutes,
-                classname: currentClassroom,
-                channel: currentChannel,
-                role: userRoles,
-                teacherSubjectId: this.state.teacherSubjectId,
-            })
+                });
         }
         resetForm();
         this.setState({ file: null });
