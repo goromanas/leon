@@ -1,6 +1,16 @@
+@import '~app/style/style';
 
 .bonusPoints {
   cursor: initial !important;
+  // background: $background;
+  // box-shadow: $containerShadow;
+  // border-radius: $conteinerRadius;
+  p {
+    text-align: center;
+    font-size: 17px;
+    font-weight: 500;
+    padding: 28px 0px 1px 0px;
+  }
 
   form {
     display: block;
@@ -13,9 +23,11 @@
       label {
 
         padding-bottom: 1em;
-        margin-bottom: 1.5em;
+        // margin-bottom: 1.5em;
+        border-radius: 5px !important;
         width: 30%;
-
+            font-size: 18px ;
+            font-weight: 500 ;
         text-align: center;
       }
     }
@@ -25,7 +37,7 @@
       display: block;
       width: 100px;
       border-radius: 4px;
-      margin: 1.5em auto;
+      margin: 1.5em auto 2.5em;
 
 
       span {
@@ -42,14 +54,16 @@
   display: block;
   width: 90% !important;
   margin: auto;
-
+  margin-bottom: 18px;
+  div {
+    border-radius: 5px !important;
+  }
 }
 
 .successMessage {
   width: 250px !important;
   text-align: center;
-  position: absolute;
-
+  // position: absolute;
 }
 
 .noShowSuccessMessage {

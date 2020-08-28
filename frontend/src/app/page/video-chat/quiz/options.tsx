@@ -15,7 +15,7 @@ interface Props {
 function validateQuestion(value: any) {
     let error;
 
-    if (value == '') {
+    if (value.trim() == '') {
         error = 'You must write a question!';
     }
     return error;
@@ -50,12 +50,12 @@ const OptionList: React.FC<Props> = (props) => {
                     //   alert(JSON.stringify(values, null, 2));
                 }, 400);
 
-                // setTimeout(async () => {
-                //     resetForm();
-                //     setValueTimer('15');
-                //     setQuestionCount(0);
-                //     //   alert(JSON.stringify(values, null, 2));
-                // }, 1000);
+                setTimeout(async () => {
+                    resetForm();
+                    setValueTimer('15');
+                    setQuestionCount(0);
+                    //   alert(JSON.stringify(values, null, 2));
+                }, 1000);
             }}
             render={({ values, validateField, errors }) => (
                 <Form className={styles.quizForm}>
