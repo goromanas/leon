@@ -59,6 +59,7 @@ const VideoButton: React.FC<Props> = (props) => {
             placement,
             style: { borderRadius: '31px' },
             duration: 15,
+            icon:  <img style={{width: '50px', marginTop: '15px', marginLeft: '-15px'}} src={'/icons/side-menu/superhero.png'}/>,
         });
         setNotification(false);
     }
@@ -66,6 +67,7 @@ const VideoButton: React.FC<Props> = (props) => {
     return (
 
         <div className={styles.allButtons}>
+
             <div key={props.activeUsers} className={styles.videobtn} onClick={() => handleActiveUsers()}>
                 <Button
                     type="primary"

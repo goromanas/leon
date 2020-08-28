@@ -71,7 +71,7 @@ class HomePageComponent extends React.Component<Props, State> {
 
         const trophyList = sortedTrophyList.map((item: any, id) => (
 
-            <li>{item.firstName} has {item.points} points!</li>
+            <li>{id+1} {item.firstName} has {item.points} points!</li>
 
         ));
 
