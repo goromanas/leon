@@ -13,7 +13,7 @@
       <column  name="CHANNEL"  type="int"/>
       <column  name="classname"  type="varchar(255)"/>
       <column  name="USERNAME"  type="varchar(255)"/>
-      <column  name="CONTENT"  type="varchar(255)"/>
+      <column  name="CONTENT"  type="varchar(1000)"/>
       <column  name="DATE"  type="datetime"/>
     </createTable>
 
