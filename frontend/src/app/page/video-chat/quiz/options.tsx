@@ -15,7 +15,7 @@ interface Props {
 function validateQuestion(value: any) {
     let error;
 
-    if (value == '') {
+    if (value.trim() == '') {
         error = 'You must write a question!';
     }
     return error;
