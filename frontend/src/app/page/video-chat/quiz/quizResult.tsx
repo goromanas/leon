@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Layout, Radio, Progress, Badge, Button } from 'antd';
 import { motion } from 'framer-motion';
+import { DownOutlined, LeftOutlined } from '@ant-design/icons';
 
 import { variantsUsersList, variantsUser } from 'app/page/timetable/animation';
+
 import styles from './quizResult.module.scss';
-import { DownOutlined, LeftOutlined } from '@ant-design/icons';
 
 const { Content } = Layout;
 
@@ -57,7 +58,7 @@ const QuizResult: React.FC<Props> = (props) => {
                         strokeColor="#5B97FC"
                         strokeWidth={20}
                         showInfo={false}
-                        percent={props.answers.length / props.allUsers !== 0 ? props.allUsers : 1 * 100}
+                        percent={props.answers.length / ((props.allUsers !== 0) ? props.allUsers : 1) * 100}
                         strokeLinecap="square"
                     />
                     <p className={styles.studentsReplied}>{props.answers.length}/{props.allUsers}</p>
@@ -75,7 +76,6 @@ const QuizResult: React.FC<Props> = (props) => {
                     showInfo={false}
                     strokeLinecap="square"
                 />
-
 
                 <div className={styles.replywrapper}>
                     <table>
