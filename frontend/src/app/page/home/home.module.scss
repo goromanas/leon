@@ -117,27 +117,27 @@
 
 
 .leaderboard {
-  height: 52px;
-  width: 52px;
-  background-color: #5B97FC;
+  height: 45px;
+  width: 45px;
+  background-color: #fff;
   border-radius: 50%;
   position: absolute;
-  top: 15%;
+  top: 8%;
   right: 10px;
   display: flex;
   justify-content: space-around;
   align-items: center;
   transition: width 0.6s;
-
+  box-shadow: $lessonShadow;
   .trophyOne {
 
     svg {
       z-index: 333;
-      color: #FBA536;
+      color: $gold6;
       top: 10px;
       right: 10px;
-      width: 30px;
-      height: 30px;
+      width: 25px;
+      height: 25px;
 
     }
   }
@@ -153,6 +153,7 @@
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
   display: none;
+
 }
 
 
@@ -168,8 +169,8 @@
     color: #FBA536;
     top: 10px;
     right: 10px;
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
 
   }
 
@@ -187,19 +188,19 @@
   height: 40px;
   width: 20px;
   position: absolute;
-  top: 15%;
+  top: 8%;
   right: 10px;
-  background-color: #5B97FC;
-
+  background-color: #fff;
+  box-shadow: $containerShadow;
 
 }
 
 .listItemsShow {
   display: block;
   //height: 400px;
-  width: 260px;
+  width: 280px;
   position: absolute;
-  top: 15%;
+  top: 8%;
   right: 10px;
   background-color: #fff;
   border-radius: 25px;
@@ -239,7 +240,7 @@
     }
 
     li:nth-child(3) {
-      color: $gold8;
+      color: $gold7;
       font-size: $sm;
     }
 
