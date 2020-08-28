@@ -38,10 +38,16 @@ const Message: React.FC<Props> = (
         }
     }
 
+    let iconName = author;
+    if (author && author.includes(' ')) {
+        const arr = author.split(' ');
+        iconName = arr[0];
+    }
+
     return (
         <div className={toRight ? styles.containerR : teachersList.includes(author) ? styles.containerLt : styles.containerL}>
             {!toRight && <div className={styles.avatarBox}>
-                <Avatar firstName={author} />
+                <Avatar firstName={iconName} />
             </div>}
 
             <div>
