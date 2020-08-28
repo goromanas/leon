@@ -106,9 +106,9 @@
       INSERT INTO `lesson` VALUES(86,18,5,45,'JAVA 13B',5,3,0);
       INSERT INTO `lesson` VALUES(87,26,5,49,'React 13B',5,4,0);
       INSERT INTO `lesson` VALUES(88,21,5,48,'Testing 13B',5,5,0);
-      INSERT INTO `lesson` VALUES(89,26,5,49,'React 13B',5,6,0);
-      INSERT INTO `lesson` VALUES(90,23,5,50,'Demo preparation 13B',5,7,0);
-      INSERT INTO `lesson` VALUES(91,24,5,50,'Demo 13B',5,8,0);
+      INSERT INTO `lesson` VALUES(90,24,5,50,'Demo 13B',5,6,0);
+      INSERT INTO `lesson` VALUES(91,24,5,50,'Demo 13B',5,7,0);
+      INSERT INTO `lesson` VALUES(89,24,5,50,'Demo 13B',5,8,0);
 
 
     </sql>
