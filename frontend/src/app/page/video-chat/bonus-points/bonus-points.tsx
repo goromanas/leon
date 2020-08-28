@@ -34,12 +34,12 @@ const BonusPoints: React.FC<Props> = (props) => {
 
     props.users.forEach((user: any) =>
         user.active === true ?
-            children.push(<Option key={user.id} value={user.username}>{user.username}</Option>)
+            children.push(<Option key={user.id} value={user.username} name={user.firstName}>{user.firstName} {user.lastName}</Option>)
             : null,
     );
 
-    function handleChange(value: any): void {
-        setStudents(value);
+    function handleChange(option: any): void {
+        setStudents(option);
     }
 
     const handleWs = (): void => {
@@ -61,11 +61,12 @@ const BonusPoints: React.FC<Props> = (props) => {
         points,
         user,
     });
+    console.log(!alert);
     return (
 
         <div >
             <Alert className={!alert ? styles.noShowSuccessMessage : styles.successMessage}
-                banner={true} message={'Acknowledgement was sent to ' + user} type="success" />
+                banner={true} message={'Success!'} type="success" />
 
             <motion.div
                 className={styles.bonusPoints}
@@ -116,7 +117,7 @@ const BonusPoints: React.FC<Props> = (props) => {
 
                         <motion.div variants={variantsUser} key={4} style={{ display: 'flex' }}>
 
-                            <Button className={styles.button} onClick={handleWs} type="primary">Send</Button>
+                            <Button disabled={points == null}className={styles.button} onClick={handleWs} type="primary">Send</Button>
                             <Button className={styles.button} onClick={props.onClose} type="default">Cancel</Button>
 
                         </motion.div>

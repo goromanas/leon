@@ -156,9 +156,6 @@
 }
 
 
-
-
-
 .trophyTwo {
   position: absolute;
 
@@ -198,47 +195,55 @@
 }
 
 .listItemsShow {
-  opacity:0.95;
   display: block;
-  height: 400px;
+  //height: 400px;
   width: 260px;
   position: absolute;
   top: 15%;
   right: 10px;
-  background-color: #5B97FC;
+  background-color: #fff;
   border-radius: 25px;
-  z-index: 25;
+  z-index: 235;
   -webkit-transition: all .8s ease-in-out;
   -moz-transition: all .8s ease-in-out;
   transition: all .8s ease-in-out;
-  display:flex;
+  display: flex;
   flex-direction: column;
-  h4{
-    display:inline-block;
-    margin: 3em auto 0 auto;
+
+  box-shadow: $containerShadow;
+
+  h4 {
+    display: inline-block;
+    margin: 4em auto 0 auto;
 
   }
-  ul{
+
+  ul {
     display: block;
-    float:left;
+    float: left;
     margin-left: -10px;
-    li{
+
+    li {
       margin: 0.8em 0;
     }
-    li:first-child{
+
+    li:first-child {
       color: $gold6;
       font-size: $lg;
       font-weight: $semiBold;
     }
-    li:nth-child(2){
+
+    li:nth-child(2) {
       color: $gold7;
       font-size: $md;
     }
-    li:nth-child(3){
+
+    li:nth-child(3) {
       color: $gold8;
       font-size: $sm;
     }
-    li:nth-child(n+4){
+
+    li:nth-child(n+4) {
       color: $grey9;
       font-size: $xs;
     }
