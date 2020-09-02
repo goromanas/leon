@@ -10,14 +10,14 @@
 
       INSERT INTO `classroom` VALUES (5, '13B');
 
-      INSERT INTO `user` VALUES (36, 'Egle', 'Gustaite','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'eglgus','');
-      INSERT INTO `user` VALUES (37, 'Imante', 'Sarlauskaite','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'imasar','');
-      INSERT INTO `user` VALUES (38, 'Julius', 'Talacka','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'jultal','');
-      INSERT INTO `user` VALUES (39, 'Romanas', 'Golovko','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'romgol','');
-      INSERT INTO `user` VALUES (40, 'Lukas', 'Katilius','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'lukkat','');
-      INSERT INTO `user` VALUES (41, 'Zymantas', 'Katinas','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'zymkat','');
-      INSERT INTO `user` VALUES (42, 'Rytis', 'Mitkus','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'rytmit','');
-      INSERT INTO `user` VALUES (43, 'Olga', 'Voitechovskaja','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'olgvoi','');
+      INSERT INTO `user` VALUES (36, 'Egle', 'G','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'eglgus','');
+      INSERT INTO `user` VALUES (37, 'Imante', 'S','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'imasar','');
+      INSERT INTO `user` VALUES (38, 'Julius', 'T','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'jultal','');
+      INSERT INTO `user` VALUES (39, 'Romanas', 'G','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'romgol','');
+      INSERT INTO `user` VALUES (40, 'Lukas', 'K','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'lukkat','');
+      INSERT INTO `user` VALUES (41, 'Zymantas', 'K','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'zymkat','');
+      INSERT INTO `user` VALUES (42, 'Rytis', 'M','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'rytmit','');
+      INSERT INTO `user` VALUES (43, 'Olga', 'V','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'olgvoi','');
 
 
       INSERT INTO `classroom_user` VALUES (5, 36);
@@ -41,13 +41,13 @@
       INSERT INTO `user_role` VALUES (42, 1);
       INSERT INTO `user_role` VALUES (43, 1);
 
-      INSERT INTO `user` VALUES (44, 'Justas', 'Ragauskas','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'jusrag','');
-      INSERT INTO `user` VALUES (45, 'Matas', 'Ramoska','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'matram','');
-      INSERT INTO `user` VALUES (46, 'Ana', 'Jursa','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'anajur','');
-      INSERT INTO `user` VALUES (47, 'Erika', 'Mackovskyte','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'erimac','');
-      INSERT INTO `user` VALUES (48, 'Ieva', 'Talackaite','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'ievtal','');
-      INSERT INTO `user` VALUES (49, 'Milda', 'Jocaite','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'miljoc','');
-      INSERT INTO `user` VALUES (50, 'Gintare', 'Stalygaite','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'ginsta','');
+      INSERT INTO `user` VALUES (44, 'Justas', 'R','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'jusrag','');
+      INSERT INTO `user` VALUES (45, 'Matas', 'R','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'matram','');
+      INSERT INTO `user` VALUES (46, 'Ana', 'J','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'anajur','');
+      INSERT INTO `user` VALUES (47, 'Erika', 'M','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'erimac','');
+      INSERT INTO `user` VALUES (48, 'Ieva', 'T','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'ievtal','');
+      INSERT INTO `user` VALUES (49, 'Milda', 'J','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'miljoc','');
+      INSERT INTO `user` VALUES (50, 'Gintare', 'S','$2a$10$n/mj3823gVUA5wszZfxdGu2jXPjn5giAW9CXi9k1rW3eKKEnz2fKW', 'ginsta','');
 
       INSERT INTO `user_role` VALUES (44, 2);
       INSERT INTO `user_role` VALUES (45, 2);
